@@ -4,3 +4,5 @@
 * [Silvia Borzová] (https://github.com/sborzova) (433320)
 * [Tomáš Gordian] (https://github.com/tomasgordian) (433669)
 * [Marek Scholtz] (https://github.com/marekscholtz) (433335)
+
+## Description
