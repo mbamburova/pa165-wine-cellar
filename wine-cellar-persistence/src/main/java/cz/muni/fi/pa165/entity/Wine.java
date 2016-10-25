@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165.entity;
 
-import cz.muni.fi.pa165.enums.PredicateEquivalent;
-
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -29,9 +27,7 @@ public class Wine {
     @Temporal(TemporalType.TIMESTAMP)
     private Date vintage;
     private String predicate;
-
-    @Enumerated
-    private PredicateEquivalent predicateEquivalent;
+    private String predicateEquivalent;
     private String description;
     private String notes;
     private Double alcoholVolume;
