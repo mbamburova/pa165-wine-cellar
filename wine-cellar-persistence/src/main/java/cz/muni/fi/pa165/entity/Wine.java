@@ -17,6 +17,7 @@ public class Wine {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "WINE_ID")
     private Long id;
 
     @NotNull
