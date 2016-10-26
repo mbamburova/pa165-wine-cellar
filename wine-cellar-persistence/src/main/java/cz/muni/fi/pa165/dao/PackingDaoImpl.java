@@ -13,7 +13,7 @@ import java.util.List;
  * @author Michaela Bamburová on 25.10.2016.
  */
 @Repository
-public class PackingDAOImpl implements PackingDAO {
+public class PackingDaoImpl implements PackingDao {
 
     @PersistenceContext
     private EntityManager em;
