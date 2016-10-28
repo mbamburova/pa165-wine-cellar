@@ -2,6 +2,7 @@ package cz.muni.fi.pa165;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
@@ -22,7 +23,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-public class PersistenceSampleApplicationContext {
+@ComponentScan(basePackages = "cz.muni.fi.pa165.dao")
+public class PersistenceApplicationContext {
 
     @Bean
     public JpaTransactionManager transactionManager(){

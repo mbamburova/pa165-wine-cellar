@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,6 +30,11 @@ public class PackingDaoImpl implements PackingDao {
     }
 
     @Override
+    public void updatePacking(Packing p) {
+        em.merge(p);
+    }
+
+    @Override
     public Packing findById(Long id) {
         return em.find(Packing.class, id);
     }
@@ -37,8 +43,8 @@ public class PackingDaoImpl implements PackingDao {
     public Packing findByVolume(BigDecimal volume) {
         try {
             return em
-                .createQuery("select p from Packing p where volume = :volume",
-                    Packing.class).setParameter(":volume", volume)
+                .createQuery("SELECT p FROM Packing p WHERE p.volume = :volume",
+                    Packing.class).setParameter("volume", volume)
                 .getSingleResult();
         } catch (NoResultException nrf) {
             return null;
@@ -47,6 +53,6 @@ public class PackingDaoImpl implements PackingDao {
 
     @Override
     public List<Packing> findAll() {
-        return em.createQuery("select p from Packing p", Packing.class).getResultList();
+        return Collections.unmodifiableList(em.createQuery("SELECT p FROM Packing p", Packing.class).getResultList());
     }
 }
