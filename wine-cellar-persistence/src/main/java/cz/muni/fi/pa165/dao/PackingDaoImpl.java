@@ -41,6 +41,8 @@ public class PackingDaoImpl implements PackingDao {
 
     @Override
     public Packing findByVolume(BigDecimal volume) {
+        if (volume == null)
+            throw new IllegalArgumentException("Cannot search for null volume");
         try {
             return em
                 .createQuery("SELECT p FROM Packing p WHERE p.volume = :volume",
