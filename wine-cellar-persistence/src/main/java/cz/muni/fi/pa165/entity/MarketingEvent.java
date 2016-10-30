@@ -1,10 +1,8 @@
 package cz.muni.fi.pa165.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by Tomas on 10/30/2016.
@@ -19,7 +17,15 @@ public class MarketingEvent {
     @NotNull
     private String description;
 
+    @OneToMany(mappedBy = "MARKETING_EVENT")
     private List<Price> prices;
+
+    public MarketingEvent(Long id) {
+        this.id = id;
+    }
+
+    public MarketingEvent() {
+    }
 
     public Long getId() {
         return id;
@@ -50,10 +56,9 @@ public class MarketingEvent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MarketingEvent that = (MarketingEvent) o;
+        MarketingEvent marketingEvent = (MarketingEvent) o;
 
-        return id.equals(that.id);
-
+        return getId() != null && getId().equals(marketingEvent.getId());
     }
 
     @Override
@@ -61,3 +66,4 @@ public class MarketingEvent {
         return id.hashCode();
     }
 }
+

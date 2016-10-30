@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.entity.Price;
  */
 public interface PriceDao {
 
-    void createPacking(Price p);
-    void deletePacking(Price p);
+    void createPrice(Price price);
+    void deletePrice(Price price);
+    void updatePrice(Price price);
+    void get(Long id);
 }

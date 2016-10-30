@@ -75,8 +75,7 @@ public class WineList {
 
         WineList wineList = (WineList) o;
 
-        return id.equals(wineList.id);
-
+        return getId() != null && getId().equals(wineList.getId());
     }
 
     @Override
