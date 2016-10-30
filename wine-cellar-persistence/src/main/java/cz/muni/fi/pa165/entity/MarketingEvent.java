@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * Created by Tomas on 10/30/2016.
+ * @author Tomas Gordian on 10/30/2016.
  */
 public class MarketingEvent {
 
@@ -29,10 +29,6 @@ public class MarketingEvent {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {

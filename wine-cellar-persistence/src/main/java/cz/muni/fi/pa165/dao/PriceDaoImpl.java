@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created by Tomas on 10/30/2016.
+ * @author Tomas Gordian on 10/30/2016.
  */
 public class PriceDaoImpl implements PriceDao {
 

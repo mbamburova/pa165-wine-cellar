@@ -3,11 +3,12 @@ package cz.muni.fi.pa165.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Tomas on 10/30/2016.
+ * @author Tomas Gordian on 10/30/2016.
  */
 public class WineList {
 
@@ -40,10 +41,6 @@ public class WineList {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -61,7 +58,7 @@ public class WineList {
     }
 
     public List<Wine> getWines() {
-        return wines;
+        return Collections.unmodifiableList(wines);
     }
 
     public void setWines(List<Wine> wines) {
