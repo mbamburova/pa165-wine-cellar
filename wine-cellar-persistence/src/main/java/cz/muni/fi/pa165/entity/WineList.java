@@ -29,6 +29,13 @@ public class WineList {
             inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
     private List<Wine> wines = new ArrayList<>();
 
+    public WineList(Long id) {
+        this.id = id;
+    }
+
+    public WineList() {
+    }
+
     public Long getId() {
         return id;
     }
