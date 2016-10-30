@@ -13,10 +13,6 @@ public class MarketingEventDto {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -29,11 +25,8 @@ public class MarketingEventDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         MarketingEventDto that = (MarketingEventDto) o;
-
-        return id.equals(that.id);
-
+        return !(this.getId() == null || that.getId() == null) && id.equals(that.id);
     }
 
     @Override
