@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
+
  /*   @Autowired
     private PriceDao priceDao;
 
