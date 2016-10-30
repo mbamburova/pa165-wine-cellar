@@ -25,9 +25,14 @@ public class Price {
     @Enumerated
     private Currency currency;
 
-    public Price(BigDecimal price, Currency currency) {
-        this.price = price;
-        this.currency = currency;
+    @OneToOne
+    private MarketingEvent marketingEvent;
+
+    public Price() {
+    }
+
+    public Price(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
@@ -48,6 +53,14 @@ public class Price {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public MarketingEvent getMarketingEvent() {
+        return marketingEvent;
+    }
+
+    public void setMarketingEvent(MarketingEvent marketingEvent) {
+        this.marketingEvent = marketingEvent;
     }
 
     @Override

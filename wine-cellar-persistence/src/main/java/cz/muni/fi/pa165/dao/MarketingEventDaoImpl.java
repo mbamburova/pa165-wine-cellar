@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dao;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 
 /**
  * @author MarekScholtz
@@ -36,6 +37,7 @@ public class MarketingEventDaoImpl implements MarketingEventDao {
 
     @Override
     public List<MarketingEvent> getAll() {
-        return entityManager.createQuery("SELECT me FROM MarketingEvent me", MarketingEvent.class).getResultList();
+        return Collections.unmodifiableList(
+                entityManager.createQuery("SELECT me FROM MarketingEvent me", MarketingEvent.class).getResultList());
     }
 }
