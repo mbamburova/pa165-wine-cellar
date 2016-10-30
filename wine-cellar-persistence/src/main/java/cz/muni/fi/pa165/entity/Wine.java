@@ -173,5 +173,4 @@ public class Wine {
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
     }
-
 }
