@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,11 +18,8 @@ public class MarketingEvent {
     @NotNull
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "MARKETING_EVENT_PRICE",
-            joinColumns = { @JoinColumn(name = "MARKETING_EVENT_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "PRICE_ID") })
-    private List<Price> prices;
+    @OneToMany(mappedBy = "MARKETING_EVENT")
+    private List<Price> prices = new ArrayList<>();
 
     public MarketingEvent(Long id) {
         this.id = id;

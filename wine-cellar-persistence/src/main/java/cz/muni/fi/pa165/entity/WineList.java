@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class WineList {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private DateTime date;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "WINELIST_WINE",
@@ -52,11 +54,11 @@ public class WineList {
         this.name = name;
     }
 
-    public Date getDate() {
+    public DateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
 
