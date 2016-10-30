@@ -23,6 +23,10 @@ public class WineList {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "WINELIST_WINE",
+            joinColumns = { @JoinColumn(name = "WINELIST_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
     private List<Wine> wines = new ArrayList<>();
 
     public Long getId() {
