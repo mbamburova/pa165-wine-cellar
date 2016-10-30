@@ -30,6 +30,9 @@ public class WineList {
             inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
     private List<Wine> wines = new ArrayList<>();
 
+    @ManyToOne
+    private MarketingEvent marketingEvent;
+
     public WineList(Long id) {
         this.id = id;
     }
@@ -63,6 +66,14 @@ public class WineList {
 
     public void setWines(List<Wine> wines) {
         this.wines = wines;
+    }
+
+    public MarketingEvent getMarketingEvent() {
+        return marketingEvent;
+    }
+
+    public void setMarketingEvent(MarketingEvent marketingEvent) {
+        this.marketingEvent = marketingEvent;
     }
 
     @Override

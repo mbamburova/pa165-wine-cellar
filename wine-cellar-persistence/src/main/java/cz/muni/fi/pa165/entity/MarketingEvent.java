@@ -17,7 +17,10 @@ public class MarketingEvent {
     @NotNull
     private String description;
 
-    @OneToMany(mappedBy = "MARKETING_EVENT")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "MARKETING_EVENT_PRICE",
+            joinColumns = { @JoinColumn(name = "MARKETING_EVENT_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "PRICE_ID") })
     private List<Price> prices;
 
     public MarketingEvent(Long id) {
