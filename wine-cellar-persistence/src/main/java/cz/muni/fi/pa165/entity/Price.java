@@ -1,9 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -20,17 +18,20 @@ public class Price {
     private Long id;
 
     @NotNull
+    @DecimalMin("0.0")
     private BigDecimal price;
 
     @NotNull
+    @Enumerated
     private Currency currency;
+
+    public Price(BigDecimal price, Currency currency) {
+        this.price = price;
+        this.currency = currency;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public BigDecimal getPrice() {
@@ -53,11 +54,8 @@ public class Price {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Price price = (Price) o;
-
-        return id.equals(price.id);
-
+        return !(this.getId() == null || price.getId() == null) && id.equals(price.id);
     }
 
     @Override

@@ -11,5 +11,4 @@ public interface WineListDao {
     void update(WineList wineList);
     void delete(WineList wineList);
     List<WineList> getAll();
-    
 }

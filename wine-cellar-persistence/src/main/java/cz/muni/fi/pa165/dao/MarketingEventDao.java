@@ -11,5 +11,4 @@ public interface MarketingEventDao {
     void update(MarketingEvent marketingEvent);
     void delete(MarketingEvent marketingEvent);
     List<MarketingEvent> getAll();
-
 }

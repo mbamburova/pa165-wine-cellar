@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
