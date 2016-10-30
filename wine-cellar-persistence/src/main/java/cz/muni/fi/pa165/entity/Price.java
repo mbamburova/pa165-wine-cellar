@@ -25,7 +25,7 @@ public class Price {
     @Enumerated
     private Currency currency;
 
-    @OneToOne
+    @ManyToOne
     private MarketingEvent marketingEvent;
 
     public Price() {
