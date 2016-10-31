@@ -12,11 +12,48 @@ import java.util.List;
 
 public interface WineDao {
 
+    /**
+     * creates new wine in database
+     * @param wine
+     */
     void createWine(Wine wine);
+
+    /**
+     * update given wine in database
+     * @param wine
+     */
     void updateWine(Wine wine);
+
+    /**
+     * delete given wine from database
+     * @param wine
+     */
     void deleteWine(Wine wine);
+
+    /**
+     *  get wine by given id
+     * @param id
+     * @return wine
+     */
     Wine getWineById(Long id);
+
+    /**
+     *  get all wines from database
+     * @return list of wines
+     */
     List<Wine> getAllWines();
+
+    /**
+     *  get wines by given  names
+     * @param name
+     * @return list of wines
+     */
     List<Wine> findByName(String name);
+
+    /**
+     *  get wines by given predicate
+     * @param predicate
+     * @return list of wines
+     */
     List<Wine> findByPredicate(String predicate);
 }
