@@ -19,9 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author MarekScholtz
  * @version 2016.10.30
  */
-@ContextConfiguration(classes = PersistenceApplicationContext.class)
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class WineDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -72,38 +72,55 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
             .grapeSugarContent(new BigDecimal(0));
     }
 
-
     @Test
     public void create() {
         Wine veltlinskeZelene = veltlinskeZelene().build();
         Wine muskatMoravsky = muskatMoravsky().build();
         wineDao.createWine(veltlinskeZelene);
         wineDao.createWine(muskatMoravsky);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToComparingFieldByField(veltlinskeZelene);
-        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToComparingFieldByField(muskatMoravsky);
+        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualTo(veltlinskeZelene);
+        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualTo(muskatMoravsky);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNullName() {
         Wine svatovavrinecke = svatovavrinecke().name(null).build();
         wineDao.createWine(svatovavrinecke);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNullVintage() {
         Wine svatovavrinecke = svatovavrinecke().vintage(null).build();
         wineDao.createWine(svatovavrinecke);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
-    public void createWithFutureVintage() {
-        Wine svatovavrinecke = svatovavrinecke().vintage(Year.now().plusYears(1)).build();
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNullBatch() {
+        Wine svatovavrinecke = svatovavrinecke().batch(null).build();
         wineDao.createWine(svatovavrinecke);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
-    public void createWithNullBatch() {
-        Wine svatovavrinecke = svatovavrinecke().batch(null).build();
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNegativeAlcoholVolume() {
+        Wine svatovavrinecke = svatovavrinecke().alcoholVolume(new BigDecimal(-0.1)).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNegativeResidualSugar() {
+        Wine svatovavrinecke = svatovavrinecke().residualSugar(new BigDecimal(-0.1)).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNegativeAcidity() {
+        Wine svatovavrinecke = svatovavrinecke().acidity(new BigDecimal(-0.1)).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNegativeGrapeSugarContent() {
+        Wine svatovavrinecke = svatovavrinecke().grapeSugarContent(new BigDecimal(-0.1)).build();
         wineDao.createWine(svatovavrinecke);
     }
 
@@ -117,42 +134,66 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         muskatMoravsky.setVintage(Year.of(2015));
         wineDao.updateWine(veltlinskeZelene);
         wineDao.updateWine(muskatMoravsky);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToComparingFieldByField(veltlinskeZelene);
-        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToComparingFieldByField(muskatMoravsky);
+        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualTo(veltlinskeZelene);
+        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualTo(muskatMoravsky);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void updateWithNullName() {
-        Wine svatovavrinecke = muskatMoravsky().build();
+        Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
         svatovavrinecke = svatovavrinecke().name(null).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void updateWithNullVintage() {
-        Wine svatovavrinecke = muskatMoravsky().build();
+        Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
         svatovavrinecke = svatovavrinecke().vintage(null).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
-    public void updateWithFutureVintage() {
-        Wine svatovavrinecke = muskatMoravsky().build();
-        wineDao.createWine(svatovavrinecke);
-        svatovavrinecke = svatovavrinecke().vintage(Year.now().plusYears(1)).build();
-        wineDao.updateWine(svatovavrinecke);
-    }
-
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void updateWithNullBatch() {
-        Wine svatovavrinecke = muskatMoravsky().build();
+        Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
         svatovavrinecke = svatovavrinecke().batch(null).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void updateWithNegativeAlcoholVolume() {
+        Wine svatovavrinecke = svatovavrinecke().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().alcoholVolume(new BigDecimal(-0.1)).build();
+        wineDao.updateWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void updateWithNegativeResidualSugar() {
+        Wine svatovavrinecke = svatovavrinecke().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().residualSugar(new BigDecimal(-0.1)).build();
+        wineDao.updateWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void updateWithNegativeAcidity() {
+        Wine svatovavrinecke = svatovavrinecke().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().acidity(new BigDecimal(-0.1)).build();
+        wineDao.updateWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void updateWithNegativeGrapeSugarContent() {
+        Wine svatovavrinecke = svatovavrinecke().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().grapeSugarContent(new BigDecimal(-0.1)).build();
+        wineDao.updateWine(svatovavrinecke);
+    }
+    
     @Test
     public void delete() {
         Wine veltlinskeZelene = veltlinskeZelene().build();
@@ -176,20 +217,9 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByName("Veltlínske");
+        List<Wine> found = wineDao.findByName("Veltlínske zelené");
         Assert.assertEquals(found.size(), 1);
         Assert.assertEquals(found.get(0).getName(), "Veltlínske zelené");
-    }
-
-    @Test
-    public void findByVintage() {
-        wineDao.createWine(veltlinskeZelene().build());
-        wineDao.createWine(muskatMoravsky().build());
-        wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByVintage(Year.of(2015));
-        Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getVintage(), Year.of(2015));
-        Assert.assertEquals(found.get(1).getVintage(), Year.of(2015));
     }
 
     @Test
@@ -197,7 +227,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByPredicate("kabinetní");
+        List<Wine> found = wineDao.findByPredicate("kabinetní víno");
         Assert.assertEquals(found.size(), 2);
         Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
         Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");

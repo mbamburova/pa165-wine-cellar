@@ -22,7 +22,6 @@ public class Price {
     private BigDecimal price;
 
     @NotNull
-    //@Enumerated
     private Currency currency;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -67,9 +66,11 @@ public class Price {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Price price = (Price) o;
-        return getId() != null && getId().equals(price.getId());
+        if (!(o instanceof MarketingEvent)) return false;
+
+        MarketingEvent marketingEvent = (MarketingEvent) o;
+
+        return getId() != null && getId().equals(marketingEvent.getId());
     }
 
     @Override
