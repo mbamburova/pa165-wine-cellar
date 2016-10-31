@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
@@ -21,7 +22,7 @@ import static org.testng.Assert.*;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class MarketingEventDaoTest {
+public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private MarketingEventDao marketingEventDao;
@@ -30,7 +31,7 @@ public class MarketingEventDaoTest {
     private MarketingEvent marketingEvent2;
 
     @BeforeMethod
-    public void createWineLists() {
+    public void createMarketingEvents() {
         marketingEvent1 = new MarketingEvent();
         marketingEvent2 = new MarketingEvent();
 
@@ -47,11 +48,11 @@ public class MarketingEventDaoTest {
         Assert.assertEquals(marketingEvent, marketingEvent1);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createMarketingEventWithNullDescription(){
         MarketingEvent marketingEvent = new MarketingEvent();
         marketingEvent.setDescription(null);
-        marketingEventDao.create(marketingEvent1);
+        marketingEventDao.create(marketingEvent);
     }
 
     @Test

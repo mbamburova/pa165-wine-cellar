@@ -108,11 +108,15 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
 
         marketingEvent = new MarketingEvent();
         marketingEvent.setDescription("Marketing event");
+        marketingEventDao.create(marketingEvent);
 
-        wineList1.setDate(new LocalDateTime(2016,11,1,0,0));
+
+        wineList1.setDate(new LocalDateTime(2016,11,10,0,0));
         wineList1.setName("Wine List 1");
+        wineList1.setMarketingEvent(marketingEvent);
         wineList2.setDate(new LocalDateTime(2016,12,1,0,0));
         wineList2.setName("wine List 2");
+        wineList2.setMarketingEvent(null);
 
         List<Wine> wines1 = new ArrayList<>();
         wines1.add(muskatMoravsky);
@@ -132,16 +136,18 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(wineListDao.get(wineList1.getId()), wineList1);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
-    public void createWithNullName(){
-        wineList1.setName(null);
-        wineListDao.create(wineList1);
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNullDate(){
+        WineList wineList = new WineList();
+        wineList.setDate(null);
+        wineListDao.create(wineList);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
-    public void createWithNullDate(){
-        wineList1.setDate(null);
-        wineListDao.create(wineList1);
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNullName(){
+        WineList wineList = new WineList();
+        wineList.setName(null);
+        wineListDao.create(wineList);
     }
 
     @Test

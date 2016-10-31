@@ -59,18 +59,6 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public List<Wine> findByVintage(Year year) {
-        try {
-            return em
-                    .createQuery("SELECT w FROM Wine w WHERE w.year = :year",
-                            Wine.class).setParameter("year", year)
-                    .getResultList();
-        } catch (NoResultException nrf) {
-            return new ArrayList<>();
-        }
-    }
-
-    @Override
     public List<Wine> findByPredicate(String predicate) {
         try {
             return em
