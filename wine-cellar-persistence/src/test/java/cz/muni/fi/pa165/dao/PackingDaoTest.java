@@ -3,13 +3,14 @@ package cz.muni.fi.pa165.dao;
 import cz.muni.fi.pa165.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
@@ -23,65 +24,80 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class PackingDaoTest {
+public class PackingDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private PackingDao packingDao;
+
+    @Autowired
+    private PriceDao priceDao;
+
     private Packing packing1;
     private Price price;
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
 
         packing1 = new Packing();
-        packing1.setValidFrom(new DateTime(2015-02-04));
-        packing1.setValidTo(new DateTime(2016-02-04));
-        packing1.setVolume(new BigDecimal(1));
+        packing1.setValidFrom(new LocalDateTime(2015,2,1,0,0));
+        packing1.setValidTo(new LocalDateTime(2016,2,1,0,0));
+        packing1.setVolume(new BigDecimal("1"));
 
         price = new Price();
         price.setCurrency(Currency.getInstance("EUR"));
+        price.setPrice(new BigDecimal("100"));
+        priceDao.createPrice(price);
 
         packing1.addPrice(price);
+
+        packingDao.createPacking(packing1);
     }
 
     @Test
-    public void create() {
-        packingDao.createPacking(packing1);
-        assertThat(packingDao.findById(packing1.getId())).isEqualToComparingFieldByField(packing1);
+    public void testCreate() {
+        Packing packing = packingDao.findById(packing1.getId());
+        assertThat(packing).isEqualTo(packing1);
     }
 
     @Test
     public void update() {
-        packingDao.createPacking(packing1);
-        packing1.setVolume(new BigDecimal(0.5));
-        packingDao.updatePacking(packing1);
-        assertThat(packingDao.findById(packing1.getId())).isEqualToComparingFieldByField(packing1);
+        Packing packing = packingDao.findById(packing1.getId());
+        packing.setVolume(new BigDecimal("2"));
+        packingDao.updatePacking(packing);
+
+        assertThat(packingDao.findById(packing.getId())).isEqualTo(packing);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
-    public void updateWithNullName() {
-        packingDao.createPacking(packing1);
-        packing1.setVolume(null);
-        packingDao.updatePacking(packing1);
+    @Test(expectedExceptions =  java.lang.AssertionError.class)
+    public void updateWithNullVolume() {
+        Packing packing = packingDao.findById(packing1.getId());
+        packing.setVolume(null);
+        packingDao.updatePacking(packing);
+
+        assertThat(packingDao.findById(packing.getId())).isEqualToComparingFieldByField(packing);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = java.lang.AssertionError.class)
     public void updateWithNullValidTo() {
-        packingDao.createPacking(packing1);
-        packing1.setValidTo(null);
-        packingDao.updatePacking(packing1);
+        Packing packing = packingDao.findById(packing1.getId());
+        packing.setValidTo(null);
+        packingDao.updatePacking(packing);
+
+        assertThat(packingDao.findById(packing.getId())).isEqualToComparingFieldByField(packing);
     }
 
-    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    @Test(expectedExceptions = java.lang.AssertionError.class)
     public void updateWithNullValidFrom() {
-        packingDao.createPacking(packing1);
-        packing1.setValidFrom(null);
-        packingDao.updatePacking(packing1);
+        Packing packing = packingDao.findById(packing1.getId());
+        packing.setValidFrom(null);
+        packingDao.updatePacking(packing);
+
+        assertThat(packingDao.findById(packing.getId())).isEqualToComparingFieldByField(packing);
+
     }
 
     @Test
     public void delete() {
-        packingDao.createPacking(packing1);
         assertThat(packingDao.findById(packing1.getId())).isNotNull();
         packingDao.deletePacking(packing1);
         assertThat(packingDao.findById(packing1.getId())).isNull();
