@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
-import cz.muni.fi.pa165.PersistenceSampleApplicationContext;
+import cz.muni.fi.pa165.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author MarekScholtz
  * @version 2016.10.30
  */
-//@ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
+//@ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class WineDaoTest {
@@ -82,13 +82,74 @@ public class WineDaoTest {
         assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToComparingFieldByField(muskatMoravsky);
     }
 
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void createWithNullName() {
+        Wine svatovavrinecke = svatovavrinecke().name(null).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void createWithNullVintage() {
+        Wine svatovavrinecke = svatovavrinecke().vintage(null).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void createWithFutureVintage() {
+        Wine svatovavrinecke = svatovavrinecke().vintage(Year.now().plusYears(1)).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void createWithNullBatch() {
+        Wine svatovavrinecke = svatovavrinecke().batch(null).build();
+        wineDao.createWine(svatovavrinecke);
+    }
+
     @Test
     public void update() {
-        Wine svatovavrinecke = svatovavrinecke().build();
+        Wine veltlinskeZelene = veltlinskeZelene().build();
+        Wine muskatMoravsky = muskatMoravsky().build();
+        wineDao.createWine(veltlinskeZelene);
+        wineDao.createWine(muskatMoravsky);
+        veltlinskeZelene.setVintage(Year.of(2016));
+        muskatMoravsky.setVintage(Year.of(2015));
+        wineDao.updateWine(veltlinskeZelene);
+        wineDao.updateWine(muskatMoravsky);
+        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToComparingFieldByField(veltlinskeZelene);
+        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToComparingFieldByField(muskatMoravsky);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void updateWithNullName() {
+        Wine svatovavrinecke = muskatMoravsky().build();
         wineDao.createWine(svatovavrinecke);
-        svatovavrinecke.setVintage(Year.of(2016));
+        svatovavrinecke = svatovavrinecke().name(null).build();
         wineDao.updateWine(svatovavrinecke);
-        assertThat(wineDao.getWineById(svatovavrinecke.getId())).isEqualToComparingFieldByField(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void updateWithNullVintage() {
+        Wine svatovavrinecke = muskatMoravsky().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().vintage(null).build();
+        wineDao.updateWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void updateWithFutureVintage() {
+        Wine svatovavrinecke = muskatMoravsky().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().vintage(Year.now().plusYears(1)).build();
+        wineDao.updateWine(svatovavrinecke);
+    }
+
+    @Test(expectedExceptions = javax.persistence.PersistenceException.class)
+    public void updateWithNullBatch() {
+        Wine svatovavrinecke = muskatMoravsky().build();
+        wineDao.createWine(svatovavrinecke);
+        svatovavrinecke = svatovavrinecke().batch(null).build();
+        wineDao.updateWine(svatovavrinecke);
     }
 
     @Test
@@ -102,6 +163,9 @@ public class WineDaoTest {
 
     @Test
     public void findAll() {
+        wineDao.createWine(veltlinskeZelene().build());
+        wineDao.createWine(muskatMoravsky().build());
+        wineDao.createWine(svatovavrinecke().build());
         List<Wine> found = wineDao.getAllWines();
         Assert.assertEquals(found.size(), 3);
     }
@@ -137,5 +201,4 @@ public class WineDaoTest {
         Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
         Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
     }
-
 }
