@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.entity;
 
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,10 +25,10 @@ public class Packing {
     private BigDecimal volume;
 
     @NotNull
-    @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+    //@Temporal(TemporalType.TIMESTAMP)
     private DateTime validFrom;
 
-    @Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
+    //@Temporal(TemporalType.TIMESTAMP)
     private DateTime validTo;
 
     @NotNull

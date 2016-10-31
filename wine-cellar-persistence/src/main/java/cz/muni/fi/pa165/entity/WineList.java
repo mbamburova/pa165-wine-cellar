@@ -23,6 +23,7 @@ public class WineList {
     private String name;
 
     @NotNull
+    //@Temporal(TemporalType.TIMESTAMP)
     private DateTime date;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -77,10 +78,6 @@ public class WineList {
         this.marketingEvent = marketingEvent;
     }
 
-    public void addWine(Wine wine) {
-        wines.add(wine);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +90,6 @@ public class WineList {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return getId() != null ? getId().hashCode() : 0;
     }
 }
