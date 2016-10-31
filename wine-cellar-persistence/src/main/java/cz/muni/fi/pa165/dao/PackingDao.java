@@ -12,7 +12,8 @@ public interface PackingDao {
 
     void createPacking(Packing p);
     void deletePacking(Packing p);
+    void updatePacking(Packing p);
     Packing findById(Long id);
-    Packing findByVolume(BigDecimal volume);
+    List<Packing> findPackingsByVolume(BigDecimal volume);
     List<Packing> findAll();
 }
