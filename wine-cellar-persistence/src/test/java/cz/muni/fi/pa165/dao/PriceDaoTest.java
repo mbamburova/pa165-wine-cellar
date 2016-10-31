@@ -13,8 +13,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.List;
 /**
  * @author Michaela Bamburová on 25.10.2016.
  */
-@ContextConfiguration(classes= PersistenceApplicationContext.class)
+//@ContextConfiguration(classes= PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class PriceDaoTest extends AbstractTestNGSpringContextTests {
@@ -70,8 +68,13 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPriceTest() {
+    public void testFindAll() {
+        List<Price> prices = priceDao.findAll();
+        Assert.assertEquals(prices.size(), 3);
+    }
 
+    @Test
+    public void testFindPrice() {
         Price price = priceDao.get(price1.getId());
         Assert.assertEquals(price.getCurrency(), Currency.getInstance("CZK") );
         Assert.assertEquals(price.getMarketingEvent(), marketingEvent1);
@@ -79,18 +82,25 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void deletePriceTest() {
+    public void testDeletePrice() {
         Assert.assertNotEquals(priceDao.get(price2.getId()));
         priceDao.deletePrice(price2);
         Assert.assertNull(priceDao.get(price2.getId()));
     }
 
     @Test
-    public void updatePriceTest() {
+    public void testUpdatePrice() {
         Price price = priceDao.get(price3.getId());
         price.setCurrency(Currency.getInstance("CZK"));
 
         priceDao.updatePrice(price3);
+
+    }
+
+    @Test
+    public void testPricesByMarketingEvent() {
+        List<Prices> prices = priceDao.findPricesByMarketingEvent();
+
 
     }
 
