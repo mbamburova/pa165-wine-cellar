@@ -13,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
@@ -67,7 +68,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         priceDao.createPrice(price3);
     }
 
-    /*
+
     @Test
     public void testFindAll() {
         List<Price> prices = priceDao.findAll();
@@ -93,19 +94,26 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testUpdatePrice() {
         Price price = priceDao.get(price3.getId());
+        Price price4 = priceDao.get(price2.getId());
+
         price.setCurrency(Currency.getInstance("CZK"));
+        priceDao.updatePrice(price);
 
-        priceDao.updatePrice(price3);
+        Assert.assertEquals(priceDao.get(price.getId()), price);
 
+        assertThat(priceDao.get(price.getId()))
     }
 
     @Test
     public void testPricesByMarketingEvent() {
-        List<Prices> prices = priceDao.findPricesByMarketingEvent();
+        List<Price> prices = priceDao.getByMarketingEvent(marketingEvent1);
+        Assert.assertEquals(prices.size(), 2);
+    }
 
-
-    }*/
-
-
+    @Test
+    public void testPricesByCurrency() {
+        List<Price> prices = priceDao.getByCurrency(Currency.getInstance("CZK"));
+        Assert.assertEquals(prices.size(), 2);
+    }
 
 }
