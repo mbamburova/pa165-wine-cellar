@@ -71,7 +71,6 @@ public class WineDaoTest {
             .grapeSugarContent(new BigDecimal(0));
     }
 
-
     @Test
     public void create() {
         Wine veltlinskeZelene = veltlinskeZelene().build();
