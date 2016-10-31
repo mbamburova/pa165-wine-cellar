@@ -22,11 +22,11 @@ public class Price {
     private BigDecimal price;
 
     @NotNull
-    @Enumerated
+    //@Enumerated
     private Currency currency;
 
-    @ManyToOne
-    @JoinColumn(name = "MARKETING_EVENT_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name="MARKETING_EVENT_ID")
     private MarketingEvent marketingEvent;
 
     public Price() {
@@ -74,6 +74,6 @@ public class Price {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

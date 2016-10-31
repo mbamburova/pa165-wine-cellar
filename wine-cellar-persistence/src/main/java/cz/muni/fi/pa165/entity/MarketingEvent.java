@@ -65,7 +65,7 @@ public class MarketingEvent {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return getId() != null ? getId().hashCode() : 0;
     }
 }
 
