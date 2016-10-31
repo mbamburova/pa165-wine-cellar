@@ -52,7 +52,7 @@ public class MarketingEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof MarketingEvent)) return false;
 
         MarketingEvent marketingEvent = (MarketingEvent) o;
 
