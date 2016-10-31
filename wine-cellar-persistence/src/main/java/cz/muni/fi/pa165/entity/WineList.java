@@ -23,7 +23,6 @@ public class WineList {
     private String name;
 
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     private DateTime date;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -76,6 +75,10 @@ public class WineList {
 
     public void setMarketingEvent(MarketingEvent marketingEvent) {
         this.marketingEvent = marketingEvent;
+    }
+
+    public void addWine(Wine wine) {
+        wines.add(wine);
     }
 
     @Override
