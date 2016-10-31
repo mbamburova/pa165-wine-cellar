@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.dao;
 
+import cz.muni.fi.pa165.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.testng.Assert;
@@ -16,8 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author MarekScholtz
  * @version 2016.10.30
  */
-@TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class WineDaoTest {
 
     @Autowired
