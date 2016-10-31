@@ -1,10 +1,8 @@
 package cz.muni.fi.pa165.dao;
 
-import cz.muni.fi.pa165.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Price;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
@@ -12,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -59,6 +57,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
         price3.setCurrency(Currency.getInstance("EUR"));
         price3.setPrice(new BigDecimal("4"));
+        price2.setMarketingEvent(marketingEvent2);
 
         marketingEventDao.create(marketingEvent1);
         marketingEventDao.create(marketingEvent2);
@@ -72,23 +71,23 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindAll() {
         List<Price> prices = priceDao.findAll();
-        Assert.assertEquals(prices.size(), 3);
+        assertThat(prices.size()).isEqualToComparingFieldByField(3);
     }
 
     @Test
     public void testFindPrice() {
         Price price = priceDao.get(price1.getId());
-        Assert.assertEquals(price.getCurrency(), Currency.getInstance("CZK") );
-        Assert.assertEquals(price.getMarketingEvent(), marketingEvent1);
-        Assert.assertEquals(price.getPrice(), BigDecimal.valueOf(140L));
 
+        assertThat(price.getCurrency()).isEqualToComparingFieldByField(Currency.getInstance("CZK"));
+        assertThat(price.getMarketingEvent()).isEqualToComparingFieldByField(marketingEvent1);
+        assertThat(price.getPrice()).isEqualToComparingFieldByField(140L);
     }
 
     @Test
     public void testDeletePrice() {
         Assert.assertNotEquals(priceDao.get(price2.getId()));
         priceDao.deletePrice(price2);
-        Assert.assertNull(priceDao.get(price2.getId()));
+        assertThat(priceDao.get(price2.getId())).isNull;
     }
 
     @Test
@@ -99,21 +98,28 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         price.setCurrency(Currency.getInstance("CZK"));
         priceDao.updatePrice(price);
 
-        Assert.assertEquals(priceDao.get(price.getId()), price);
-
-        assertThat(priceDao.get(price.getId()))
+        assertThat(priceDao.get(price.getId())).isEqualToComparingFieldByField(price);
     }
 
     @Test
-    public void testPricesByMarketingEvent() {
+    public void testPricesByMarketingEvent1() {
         List<Price> prices = priceDao.getByMarketingEvent(marketingEvent1);
-        Assert.assertEquals(prices.size(), 2);
+
+        assertThat(prices.size()).isEqualToComparingFieldByField(2);
+    }
+
+    @Test
+    public void testPricesByMarketingEvent2() {
+        List<Price> prices = priceDao.getByMarketingEvent(marketingEvent2);
+
+        assertThat(prices.size()).isEqualToComparingFieldByField(1);
     }
 
     @Test
     public void testPricesByCurrency() {
         List<Price> prices = priceDao.getByCurrency(Currency.getInstance("CZK"));
-        Assert.assertEquals(prices.size(), 2);
+
+        assertThat(prices.size()).isEqualToComparingFieldByField(2);
     }
 
 }

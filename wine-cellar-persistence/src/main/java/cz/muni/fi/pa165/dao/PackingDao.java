@@ -10,10 +10,41 @@ import java.util.List;
  */
 public interface PackingDao {
 
+    /**
+     * Creates new packing.
+     * @param p
+     */
     void createPacking(Packing p);
+
+    /**
+     * Deletes given packing.
+     * @param p
+     */
     void deletePacking(Packing p);
+
+    /**
+     * Updates given packing.
+     * @param p
+     */
     void updatePacking(Packing p);
+
+    /**
+     * Finds packing by given id.
+     * @param id
+     * @return
+     */
     Packing findById(Long id);
+
+    /**
+     * Finds packings by given volume.
+     * @param volume
+     * @return
+     */
     List<Packing> findPackingsByVolume(BigDecimal volume);
+
+    /**
+     * Finds all packings.
+     * @return
+     */
     List<Packing> findAll();
 }
