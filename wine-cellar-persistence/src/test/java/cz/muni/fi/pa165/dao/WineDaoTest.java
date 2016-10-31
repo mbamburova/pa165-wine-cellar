@@ -1,11 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.PersistenceApplicationContext;
-import cz.muni.fi.pa165.entity.Packing;
-import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
-import org.hibernate.metamodel.ValidationException;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -13,11 +9,9 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.testng.Assert;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.math.BigDecimal;
 import java.time.Year;
-import java.util.Currency;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -226,17 +220,6 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         List<Wine> found = wineDao.findByName("Veltlínske zelené");
         Assert.assertEquals(found.size(), 1);
         Assert.assertEquals(found.get(0).getName(), "Veltlínske zelené");
-    }
-
-    @Test
-    public void findByVintage() {
-        wineDao.createWine(veltlinskeZelene().build());
-        wineDao.createWine(muskatMoravsky().build());
-        wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByVintage(Year.of(2015));
-        Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getVintage(), Year.of(2015));
-        Assert.assertEquals(found.get(1).getVintage(), Year.of(2015));
     }
 
     @Test
