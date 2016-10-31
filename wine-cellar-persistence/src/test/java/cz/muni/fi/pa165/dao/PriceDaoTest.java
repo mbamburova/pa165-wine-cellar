@@ -70,9 +70,15 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void testCreatePrice() {
+        Price price = priceDao.get(price1.getId());
+        assertThat(price).isEqualToComparingFieldByField(price1);
+    }
+
+    @Test
     public void testFindAll() {
         List<Price> prices = priceDao.getAll();
-        assertThat(prices.size()).isEqualToComparingFieldByField(3);
+        assertThat(prices.size()).isEqualTo(3);
     }
 
     @Test
@@ -106,7 +112,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     public void testPricesByMarketingEvent1() {
         List<Price> prices = priceDao.getByMarketingEvent(marketingEvent1);
 
-        assertThat(prices.size()).isEqualToComparingFieldByField(2);
+        assertThat(prices.size()).isEqualTo(2);
     }
 
     @Test
@@ -120,13 +126,13 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     public void testPricesByCurrency() {
         List<Price> prices = priceDao.getByCurrency(Currency.getInstance("CZK"));
 
-        assertThat(prices.size()).isEqualToComparingFieldByField(2);
+        assertThat(prices.size()).isEqualTo(2);
     }
 
     @Test
     public void testPricesByPrice() {
         List<Price> prices = priceDao.getByPrice(new BigDecimal("100"));
 
-        assertThat(prices.size()).isEqualToComparingFieldByField(1);
+        assertThat(prices.size()).isEqualTo(1);
     }
 }

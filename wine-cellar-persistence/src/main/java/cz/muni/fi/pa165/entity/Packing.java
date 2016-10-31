@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.entity;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,11 +25,9 @@ public class Packing {
     private BigDecimal volume;
 
     @NotNull
-    //@Temporal(TemporalType.TIMESTAMP)
-    private DateTime validFrom;
+    private LocalDateTime validFrom;
 
-    //@Temporal(TemporalType.TIMESTAMP)
-    private DateTime validTo;
+    private LocalDateTime validTo;
 
     @NotNull
     @OneToMany
@@ -55,19 +53,19 @@ public class Packing {
         this.volume = volume;
     }
 
-    public DateTime getValidFrom() {
+    public LocalDateTime getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(DateTime validFrom) {
+    public void setValidFrom(LocalDateTime validFrom) {
         this.validFrom = validFrom;
     }
 
-    public DateTime getValidTo() {
+    public LocalDateTime getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(DateTime validTo) {
+    public void setValidTo(LocalDateTime validTo) {
         this.validTo = validTo;
     }
 

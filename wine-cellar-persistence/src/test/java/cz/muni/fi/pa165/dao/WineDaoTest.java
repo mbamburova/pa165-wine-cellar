@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.testng.Assert;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author MarekScholtz
  * @version 2016.10.30
  */
-//@ContextConfiguration(classes = PersistenceApplicationContext.class)
+@ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class WineDaoTest {
+public class WineDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private WineDao wineDao;

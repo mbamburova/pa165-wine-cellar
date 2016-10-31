@@ -10,9 +10,11 @@ import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
@@ -28,7 +30,7 @@ import static org.testng.Assert.*;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class WineListDaoTest {
+public class WineListDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     public WineListDao wineListDao;
@@ -107,9 +109,9 @@ public class WineListDaoTest {
         marketingEvent = new MarketingEvent();
         marketingEvent.setDescription("Marketing event");
 
-        wineList1.setDate(new DateTime(2016,11,1,0,0));
+        wineList1.setDate(new LocalDateTime(2016,11,1,0,0));
         wineList1.setName("Wine List 1");
-        wineList2.setDate(new DateTime(2016,12,1,0,0));
+        wineList2.setDate(new LocalDateTime(2016,12,1,0,0));
         wineList2.setName("wine List 2");
 
         List<Wine> wines1 = new ArrayList<>();
@@ -146,7 +148,7 @@ public class WineListDaoTest {
     public void updateWineList(){
         WineList wineList = wineListDao.get(wineList1.getId());
         wineList.setName("Wine List Update");
-        wineList.setDate(new DateTime(2017,12,12,0,0));
+        wineList.setDate(new LocalDateTime(2017,12,12,0,0));
         wineListDao.update(wineList);
         Assert.assertEquals(wineListDao.get(wineList.getId()), wineList);
     }
