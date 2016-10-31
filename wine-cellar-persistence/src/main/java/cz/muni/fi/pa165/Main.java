@@ -16,7 +16,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(PersistenceApplicationContext.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class);
         emf = Persistence.createEntityManagerFactory("default");
+
+        emf.close();
     }
 }

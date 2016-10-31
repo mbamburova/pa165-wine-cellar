@@ -13,6 +13,7 @@
             <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />
+
         </properties>
     </persistence-unit>
 
