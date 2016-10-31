@@ -23,7 +23,6 @@ public class WineList {
     private String name;
 
     @NotNull
-    //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.ALL)
