@@ -29,7 +29,7 @@ public class PackingDaoTest {
     private PackingDao packingDao;
     private Packing packing1;
     private Price price;
-    
+
     @BeforeClass
     public void setup() {
 
@@ -86,8 +86,4 @@ public class PackingDaoTest {
         packingDao.deletePacking(packing1);
         assertThat(packingDao.findById(packing1.getId())).isNull();
     }
-
-
-
-
 }
