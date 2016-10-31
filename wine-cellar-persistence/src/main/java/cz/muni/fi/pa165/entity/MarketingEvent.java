@@ -8,11 +8,12 @@ import java.util.List;
 /**
  * @author Tomas Gordian on 10/30/2016.
  */
+@Entity
 public class MarketingEvent {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "WINE_ID")
+    @Column(name = "MARKETING_EVENT_ID")
     private Long id;
 
     @NotNull
