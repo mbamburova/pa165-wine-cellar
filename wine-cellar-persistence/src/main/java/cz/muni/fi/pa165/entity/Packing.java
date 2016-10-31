@@ -1,9 +1,13 @@
 package cz.muni.fi.pa165.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Currency;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -11,20 +15,15 @@ import javax.validation.constraints.NotNull;
  *         25/10/2016
  */
 @Entity
-public class Packing {
+public class Packing{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private double volume;
-
-    @NotNull
-    private BigDecimal price;
-
-    @NotNull
-    private Currency currency;
+    @DecimalMin("0.0")
+    private BigDecimal volume;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,4 +31,67 @@ public class Packing {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date validTo;
+
+    @NotNull
+    @OneToMany
+    private List<Price> prices = new ArrayList<>();
+
+    public Packing() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getVolume() {
+        return volume;
+    }
+
+    public void setVolume(BigDecimal volume) {
+        this.volume = volume;
+    }
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public Date getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
+
+    public List<Price> getPrices() {
+        return Collections.unmodifiableList(prices);
+    }
+
+    public void addPrice(Price price) {
+        prices.add(price);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Packing)) return false;
+
+        Packing packing = (Packing) o;
+
+        return getId().equals(packing.getId());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
 }
