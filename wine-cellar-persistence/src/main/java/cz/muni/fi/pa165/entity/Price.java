@@ -69,7 +69,7 @@ public class Price {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Price price = (Price) o;
-        return !(this.getId() == null || price.getId() == null) && id.equals(price.id);
+        return getId() != null && getId().equals(price.getId());
     }
 
     @Override

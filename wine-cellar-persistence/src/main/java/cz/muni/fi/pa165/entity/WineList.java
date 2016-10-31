@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.entity;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,7 @@ public class WineList {
 
     @NotNull
     //@Temporal(TemporalType.TIMESTAMP)
-    private DateTime date;
+    private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "WINELIST_WINE",
@@ -54,11 +54,11 @@ public class WineList {
         this.name = name;
     }
 
-    public DateTime getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
