@@ -1,9 +1,11 @@
 package cz.muni.fi.pa165.dao;
 
+import cz.muni.fi.pa165.entity.MarketingEvent;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author MarekScholtz

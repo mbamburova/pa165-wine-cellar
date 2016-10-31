@@ -26,6 +26,7 @@ public class Price {
     private Currency currency;
 
     @ManyToOne
+    @JoinColumn(name = "MARKETING_EVENT_ID")
     private MarketingEvent marketingEvent;
 
     public Price() {

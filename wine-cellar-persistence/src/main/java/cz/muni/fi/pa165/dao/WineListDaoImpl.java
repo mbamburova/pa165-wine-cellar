@@ -1,9 +1,12 @@
 package cz.muni.fi.pa165.dao;
 
+import cz.muni.fi.pa165.entity.WineList;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author MarekScholtz
@@ -39,5 +42,11 @@ public class WineListDaoImpl implements WineListDao {
     public List<WineList> getAll() {
         return Collections.unmodifiableList(
                 entityManager.createQuery("SELECT wl FROM WineList wl", WineList.class).getResultList());
+    }
+
+    @Override
+    public List<WineList> findByDate(DateTime date) {
+        return Collections.unmodifiableList(
+                entityManager.createQuery("SELECT wl FROM WineList wl WHERE date = :date", WineList.class).setParameter("date", date).getResultList());
     }
 }
