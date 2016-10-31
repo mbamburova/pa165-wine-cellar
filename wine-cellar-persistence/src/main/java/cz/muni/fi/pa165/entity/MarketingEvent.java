@@ -8,11 +8,12 @@ import java.util.List;
 /**
  * @author Tomas Gordian on 10/30/2016.
  */
+@Entity
 public class MarketingEvent {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "WINE_ID")
+    @Column(name = "MARKETING_EVENT_ID")
     private Long id;
 
     @NotNull
@@ -51,7 +52,7 @@ public class MarketingEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof MarketingEvent)) return false;
 
         MarketingEvent marketingEvent = (MarketingEvent) o;
 

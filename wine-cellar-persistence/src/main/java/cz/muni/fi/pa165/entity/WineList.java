@@ -6,17 +6,17 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
  * @author Tomas Gordian on 10/30/2016.
  */
+@Entity
 public class WineList {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "WINE_ID")
+    @Column(name = "WINELIST_ID")
     private Long id;
 
     @NotNull
