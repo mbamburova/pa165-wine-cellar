@@ -1,10 +1,9 @@
 package cz.muni.fi.pa165.entity;
 
-import java.io.Serializable;
+import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull;
  *         25/10/2016
  */
 @Entity
-public class Packing{
+public class Packing {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -27,13 +26,14 @@ public class Packing{
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date validFrom;
+    private DateTime validFrom;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date validTo;
+    private DateTime validTo;
 
     @NotNull
     @OneToMany
+    @JoinColumn(name = "PRICE_ID")
     private List<Price> prices = new ArrayList<>();
 
     public Packing() {
@@ -55,19 +55,19 @@ public class Packing{
         this.volume = volume;
     }
 
-    public Date getValidFrom() {
+    public DateTime getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(Date validFrom) {
+    public void setValidFrom(DateTime validFrom) {
         this.validFrom = validFrom;
     }
 
-    public Date getValidTo() {
+    public DateTime getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(Date validTo) {
+    public void setValidTo(DateTime validTo) {
         this.validTo = validTo;
     }
 
@@ -86,7 +86,7 @@ public class Packing{
 
         Packing packing = (Packing) o;
 
-        return getId().equals(packing.getId());
+        return getId() != null && getId().equals(packing.getId());
 
     }
 
