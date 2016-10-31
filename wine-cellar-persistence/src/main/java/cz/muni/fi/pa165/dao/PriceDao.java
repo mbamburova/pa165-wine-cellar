@@ -12,12 +12,55 @@ import java.util.List;
  */
 public interface PriceDao {
 
+    /**
+     * Creates new price.
+     * @param price
+     */
     void createPrice(Price price);
+
+    /**
+     * Deletes given price.
+     * @param price
+     */
     void deletePrice(Price price);
+
+    /**
+     * Updates given price.
+     * @param price
+     */
     void updatePrice(Price price);
+
+    /**
+     *  get price by given id
+     * @param id
+     * @return price
+     */
     Price get(Long id);
+
+    /**
+     *  get all prices
+     * @return list of prices
+     */
     List<Price> getAll();
+
+    /**
+     *  get prices by given price
+     * @param price
+     * @return list of prices
+     */
     List<Price> getByPrice(BigDecimal price);
+
+    /**
+     *  get prices by given currency
+     * @param currency
+     * @return list of prices
+     */
     List<Price> getByCurrency(Currency currency);
+
+    /**
+     *  get prices by given marketingEvent
+     * @param marketingEvent
+     * @return list of prices
+     */
     List<Price> getByMarketingEvent(MarketingEvent marketingEvent);
 }
