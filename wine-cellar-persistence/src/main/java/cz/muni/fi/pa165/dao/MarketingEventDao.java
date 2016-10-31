@@ -1,5 +1,9 @@
 package cz.muni.fi.pa165.dao;
 
+import cz.muni.fi.pa165.entity.MarketingEvent;
+
+import java.util.List;
+
 /**
  * @author MarekScholtz
  * @version 2016.10.29
