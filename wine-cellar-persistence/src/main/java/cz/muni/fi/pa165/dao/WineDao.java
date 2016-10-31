@@ -2,11 +2,14 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Wine;
 
+import java.time.Year;
 import java.util.List;
 
 /**
- * @author Michaela Bamburová on 25.10.2016.
+ * @author Silvia Borzová
+ *         31/10/2016
  */
+
 public interface WineDao {
 
     void createWine(Wine wine);
@@ -14,4 +17,7 @@ public interface WineDao {
     void deleteWine(Wine wine);
     Wine getWineById(Long id);
     List<Wine> getAllWines();
+    List<Wine> findByName(String name);
+    List<Wine> findByVintage(Year year);
+    List<Wine> findByPredicate(String predicate);
 }

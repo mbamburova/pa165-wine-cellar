@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.dao;
 
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.stereotype.Repository;
@@ -39,7 +42,43 @@ public class WineDaoImpl implements WineDao {
 
     @Override
     public List<Wine> getAllWines() {
-        return em.createQuery("select w from Wine w", Wine.class)
+        return em.createQuery("SELECT w FROM Wine w", Wine.class)
                 .getResultList();
+    }
+
+    @Override
+    public List<Wine> findByName(String name) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.name = :name",
+                            Wine.class).setParameter("name", name)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findByVintage(Year year) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.year = :year",
+                            Wine.class).setParameter("year", year)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findByPredicate(String predicate) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.predicate = :predicate",
+                            Wine.class).setParameter("predicate", predicate)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
     }
 }
