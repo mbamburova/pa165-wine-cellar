@@ -9,9 +9,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author Michaela Bamburová on 25.10.2016.
  */
-//@ContextConfiguration(classes= PersistenceApplicationContext.class)
+@ContextConfiguration(classes= PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class PriceDaoTest extends AbstractTestNGSpringContextTests {
@@ -58,6 +58,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
         price3.setCurrency(Currency.getInstance("EUR"));
         price3.setPrice(new BigDecimal("4"));
+        price3.setMarketingEvent(marketingEvent2);
 
         marketingEventDao.create(marketingEvent1);
         marketingEventDao.create(marketingEvent2);
@@ -66,28 +67,28 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         priceDao.createPrice(price2);
         priceDao.createPrice(price3);
     }
-
-    /*
+/*
     @Test
     public void testFindAll() {
-        List<Price> prices = priceDao.findAll();
-        Assert.assertEquals(prices.size(), 3);
+        List<Price> prices = priceDao.getAll();
+        assertThat(prices.size()).isEqualToComparingFieldByField(3);
     }
 
     @Test
-    public void testFindPrice() {
+    public void testFindById() {
         Price price = priceDao.get(price1.getId());
-        Assert.assertEquals(price.getCurrency(), Currency.getInstance("CZK") );
-        Assert.assertEquals(price.getMarketingEvent(), marketingEvent1);
-        Assert.assertEquals(price.getPrice(), BigDecimal.valueOf(140L));
 
+        assertThat(price.getCurrency()).isEqualToComparingFieldByField(Currency.getInstance("CZK"));
+        assertThat(price.getMarketingEvent()).isEqualToComparingFieldByField(marketingEvent1);
+        assertThat(price.getPrice()).isEqualToComparingFieldByField(140L);
     }
 
     @Test
     public void testDeletePrice() {
-        Assert.assertNotEquals(priceDao.get(price2.getId()));
+        assertThat(priceDao.get(price2.getId())).isNotNull;
         priceDao.deletePrice(price2);
-        Assert.assertNull(priceDao.get(price2.getId()));
+
+        assertThat(priceDao.get(price2.getId())).isNull;
     }
 
     @Test
@@ -95,17 +96,36 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         Price price = priceDao.get(price3.getId());
         price.setCurrency(Currency.getInstance("CZK"));
 
-        priceDao.updatePrice(price3);
+        priceDao.updatePrice(price);
 
+        assertThat(priceDao.get(price.getId())).isEqualToComparingFieldByField(price);
     }
 
     @Test
-    public void testPricesByMarketingEvent() {
-        List<Prices> prices = priceDao.findPricesByMarketingEvent();
+    public void testPricesByMarketingEvent1() {
+        List<Price> prices = priceDao.getByMarketingEvent(marketingEvent1);
 
+        assertThat(prices.size()).isEqualToComparingFieldByField(2);
+    }
 
+    @Test
+    public void testPricesByMarketingEvent2() {
+        List<Price> prices = priceDao.getByMarketingEvent(marketingEvent2);
+
+        assertThat(prices.size()).isEqualToComparingFieldByField(1);
+    }
+
+    @Test
+    public void testPricesByCurrency() {
+        List<Price> prices = priceDao.getByCurrency(Currency.getInstance("CZK"));
+
+        assertThat(prices.size()).isEqualToComparingFieldByField(2);
+    }
+
+    @Test
+    public void testPricesByPrice() {
+        List<Price> prices = priceDao.getByPrice(new BigDecimal(100L));
+
+        assertThat(prices.size()).isEqualToComparingFieldByField(2);
     }*/
-
-
-
 }
