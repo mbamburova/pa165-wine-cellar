@@ -22,7 +22,6 @@ public class Price {
     private BigDecimal price;
 
     @NotNull
-    //@Enumerated
     private Currency currency;
 
     @ManyToOne(fetch = FetchType.LAZY)
