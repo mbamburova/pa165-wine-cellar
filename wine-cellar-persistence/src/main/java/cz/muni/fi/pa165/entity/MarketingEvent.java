@@ -19,7 +19,7 @@ public class MarketingEvent {
     @NotNull
     private String description;
 
-    @OneToMany(mappedBy = "MARKETING_EVENT")
+    @OneToMany(mappedBy = "marketingEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Price> prices = new ArrayList<>();
 
     public MarketingEvent(Long id) {
@@ -47,6 +47,10 @@ public class MarketingEvent {
 
     public void setPrices(List<Price> prices) {
         this.prices = prices;
+    }
+
+    public void addPrices(Price price) {
+        prices.add(price);
     }
 
     @Override
