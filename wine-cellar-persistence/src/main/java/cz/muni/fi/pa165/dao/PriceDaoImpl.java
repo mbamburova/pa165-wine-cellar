@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Price;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Tomas Gordian on 10/30/2016.
  */
+@Repository
 public class PriceDaoImpl implements PriceDao {
 
     @PersistenceContext
