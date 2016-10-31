@@ -67,6 +67,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         priceDao.createPrice(price3);
     }
 
+    /*
     @Test
     public void testFindAll() {
         List<Price> prices = priceDao.findAll();
@@ -79,6 +80,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(price.getCurrency(), Currency.getInstance("CZK") );
         Assert.assertEquals(price.getMarketingEvent(), marketingEvent1);
         Assert.assertEquals(price.getPrice(), BigDecimal.valueOf(140L));
+
     }
 
     @Test
@@ -102,7 +104,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         List<Prices> prices = priceDao.findPricesByMarketingEvent();
 
 
-    }
+    }*/
 
 
 
