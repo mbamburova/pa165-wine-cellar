@@ -18,6 +18,5 @@ public interface WineDao {
     Wine getWineById(Long id);
     List<Wine> getAllWines();
     List<Wine> findByName(String name);
-    List<Wine> findByVintage(Year year);
     List<Wine> findByPredicate(String predicate);
 }

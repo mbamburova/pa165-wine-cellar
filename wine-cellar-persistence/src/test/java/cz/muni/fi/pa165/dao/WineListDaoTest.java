@@ -10,6 +10,7 @@ import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -110,10 +111,10 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
         marketingEventDao.create(marketingEvent);
 
 
-        wineList1.setDate(new DateTime(2016,11,10,0,0));
+        wineList1.setDate(new LocalDateTime(2016,11,10,0,0));
         wineList1.setName("Wine List 1");
         wineList1.setMarketingEvent(marketingEvent);
-        wineList2.setDate(new DateTime(2016,12,1,0,0));
+        wineList2.setDate(new LocalDateTime(2016,12,1,0,0));
         wineList2.setName("wine List 2");
         wineList2.setMarketingEvent(null);
 
@@ -135,24 +136,25 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(wineListDao.get(wineList1.getId()), wineList1);
     }
 
-    @Test
-    //@Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void createWithNullName(){
-        wineList1.setName(null);
-        wineListDao.create(wineList1);
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void createWithNullDate(){
+        WineList wineList = new WineList();
+        wineList.setDate(null);
+        wineListDao.create(wineList);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void createWithNullDate(){
-        wineList1.setDate(null);
-        wineListDao.create(wineList1);
+    public void createWithNullName(){
+        WineList wineList = new WineList();
+        wineList.setName(null);
+        wineListDao.create(wineList);
     }
 
     @Test
     public void updateWineList(){
         WineList wineList = wineListDao.get(wineList1.getId());
         wineList.setName("Wine List Update");
-        wineList.setDate(new DateTime(2017,12,12,0,0));
+        wineList.setDate(new LocalDateTime(2017,12,12,0,0));
         wineListDao.update(wineList);
         Assert.assertEquals(wineListDao.get(wineList.getId()), wineList);
     }
