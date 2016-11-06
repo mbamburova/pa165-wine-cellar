@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.entity.Wine;
+import cz.muni.fi.pa165.service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ public class WineFacadeImpl implements WineFacade {
     private WineService wineService;
 
     @Override
-    public void create(WineDto wineDto) {
+    public Long create(WineDto wineDto) {
         Wine wine = new Wine();
         wine.setName(wineDto.getName());
         wine.setVintage(wineDto.getVintage);
@@ -29,11 +30,15 @@ public class WineFacadeImpl implements WineFacade {
         wine.setResidualSugar(wineDto.getResidualSugar);
         wine.setAcidity(wineDto.getAcidity);
         wine.setGrapeSugarContent(wineDto.getGrapeSugarContent);
+        wineService.create(wine);
+        return wine.getId();
     }
 
     @Override
     public WineDto get(Long id) {
-        return null;
+        if (wineService.get(id) != null) {
+            return
+        }
     }
 
     @Override

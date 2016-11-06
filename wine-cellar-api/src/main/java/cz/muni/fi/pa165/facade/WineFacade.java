@@ -9,7 +9,7 @@ import java.time.Year;
  */
 public interface WineFacade {
 
-    void create(WineDto wineDto);
+    Long create(WineDto wineDto);
 
     WineDto get(Long id);
     List<WineDto> getAll();
