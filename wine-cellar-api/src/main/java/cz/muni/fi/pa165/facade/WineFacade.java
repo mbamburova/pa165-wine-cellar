@@ -9,8 +9,11 @@ import java.time.Year;
  */
 public interface WineFacade {
 
-    void create(WineDto wine);
-    void delete(Long wineId);
+    void create(WineDto wineDto);
+
+    WineDto get(Long id);
+    List<WineDto> getAll();
+
     void update(Long wineId);
     void updateName(Long wineId, String name);
     void updateVintage(Long wineId, Year vintage);
@@ -24,8 +27,8 @@ public interface WineFacade {
     void updateAcidity(Long wineId, BigDecimal acidity);
     void updateGrapeSugarContent(Long wineId, BigDecimal grapeSugarContent);
 
-    List<WineDto> findAll();
-    WineDto get(Long id);
+    void delete(Long wineId);
+
     List<WineDto> findByName(String name);
     List<WineDto> findByVintage(Year vintage);
     WineDto findByBatch(String batch);
