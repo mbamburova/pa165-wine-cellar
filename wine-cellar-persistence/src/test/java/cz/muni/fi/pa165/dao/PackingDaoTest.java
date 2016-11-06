@@ -102,4 +102,6 @@ public class PackingDaoTest extends AbstractTestNGSpringContextTests {
         packingDao.deletePacking(packing1);
         assertThat(packingDao.findById(packing1.getId())).isNull();
     }
+
+
 }
