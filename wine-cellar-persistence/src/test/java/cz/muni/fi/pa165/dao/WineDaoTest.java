@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.PersistenceApplicationContext;
+import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -78,8 +79,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Wine muskatMoravsky = muskatMoravsky().build();
         wineDao.createWine(veltlinskeZelene);
         wineDao.createWine(muskatMoravsky);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualTo(veltlinskeZelene);
-        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualTo(muskatMoravsky);
+        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
+        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
@@ -134,8 +135,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         muskatMoravsky.setVintage(Year.of(2015));
         wineDao.updateWine(veltlinskeZelene);
         wineDao.updateWine(muskatMoravsky);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualTo(veltlinskeZelene);
-        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualTo(muskatMoravsky);
+        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
+        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
