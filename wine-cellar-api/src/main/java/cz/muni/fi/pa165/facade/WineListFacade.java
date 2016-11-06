@@ -13,3 +13,4 @@ public interface WineListFacade {
     List<WineListDto> getWineListsByName();
     List<WineListDto> getWineListsByDate();
 }
+uzguzgu
