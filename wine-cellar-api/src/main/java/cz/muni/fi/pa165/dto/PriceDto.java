@@ -11,6 +11,7 @@ public class PriceDto {
     private Long id;
     private BigDecimal price;
     private Currency currency;
+    private MarketingEventDto marketingEvent;
 
     public Long getId() {
         return id;
@@ -34,6 +35,14 @@ public class PriceDto {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public MarketingEventDto getMarketingEvent() {
+        return marketingEvent;
+    }
+
+    public void setMarketingEvent(MarketingEventDto marketingEvent) {
+        this.marketingEvent = marketingEvent;
     }
 
     @Override
