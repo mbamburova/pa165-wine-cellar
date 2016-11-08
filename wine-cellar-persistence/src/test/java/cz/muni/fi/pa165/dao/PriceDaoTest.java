@@ -135,4 +135,35 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
         assertThat(prices.size()).isEqualTo(1);
     }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void testCreatePriceWithNullCurrency(){
+        Price priceWithNullCurrency = new Price();
+        priceWithNullCurrency.setPrice(new BigDecimal("155"));
+        priceWithNullCurrency.setCurrency(null);
+        priceDao.createPrice(priceWithNullCurrency);
+    }
+
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void testCreatePriceWithNullPrice() {
+        Price priceWithNullPrice = new Price();
+        priceWithNullPrice.setPrice(null);
+        priceWithNullPrice.setCurrency(Currency.getInstance("EUR"));
+        priceDao.createPrice(priceWithNullPrice);
+    }
+    //!!!
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void testUpdatePriceWithNegativePrice() {
+        Price price = priceDao.get(price1.getId());
+        price.setPrice(new BigDecimal("-0.1"));
+        priceDao.updatePrice(price);
+    }
+
+    //!!!
+    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
+    public void testUpdatePriceWithNullCurrency() {
+        Price price = priceDao.get(price1.getId());
+        price.setCurrency(null);
+        priceDao.updatePrice(price);
+    }
 }
