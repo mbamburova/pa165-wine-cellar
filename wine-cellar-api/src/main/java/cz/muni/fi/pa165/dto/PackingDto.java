@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 /**
  * @author Michaela Bamburová on 25.10.2016.
  */
-public class PackingDTO {
+public class PackingDto {
 
     private Long id;
     private BigDecimal volume;
@@ -48,9 +48,9 @@ public class PackingDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PackingDTO)) return false;
+        if (!(o instanceof PackingDto)) return false;
 
-        PackingDTO that = (PackingDTO) o;
+        PackingDto that = (PackingDto) o;
 
         return getId() != null && getId().equals(that.getId());
 
