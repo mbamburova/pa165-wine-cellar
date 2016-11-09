@@ -20,18 +20,18 @@ public class PackingDaoImpl implements PackingDao {
     private EntityManager em;
 
     @Override
-    public void createPacking(Packing p) {
-        em.persist(p);
+    public void createPacking(Packing packing) {
+        em.persist(packing);
     }
 
     @Override
-    public void deletePacking(Packing p) {
-        em.remove(p);
+    public void deletePacking(Packing packing) {
+        em.remove(packing);
     }
 
     @Override
-    public void updatePacking(Packing p) {
-        em.merge(p);
+    public void updatePacking(Packing packing) {
+        em.merge(packing);
     }
 
     @Override
