@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 public interface PriceService {
 
     Price createPrice(Price p);
-    void updatePrice(Price p);
+    Price updatePrice(Price p);
     void deletePrice(Price p);
     Price getById(Long id);
     List<Price> getAllPrices();
-    //void add...
+
 }
