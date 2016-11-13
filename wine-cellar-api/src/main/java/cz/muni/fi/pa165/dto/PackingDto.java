@@ -12,6 +12,7 @@ public class PackingDto {
     private BigDecimal volume;
     private DateTime validFrom;
     private DateTime validTo;
+    private WineDto wine;
 
     public Long getId() {
         return id;
@@ -43,6 +44,14 @@ public class PackingDto {
 
     public void setValidTo(DateTime validTo) {
         this.validTo = validTo;
+    }
+
+    public WineDto getWine() {
+        return wine;
+    }
+
+    public void setWine(WineDto wine) {
+        this.wine = wine;
     }
 
     @Override
