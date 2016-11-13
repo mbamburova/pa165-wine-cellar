@@ -2,6 +2,9 @@ package cz.muni.fi.pa165.dto;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author MarekScholtz
  * @version 2016.10.29
@@ -12,9 +15,14 @@ public class WineListDto {
     private String name;
     private DateTime date;
     private MarketingEventDto marketingEvent;
+    private List<WineDto> wines = new ArrayList<>();
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -39,6 +47,22 @@ public class WineListDto {
 
     public void setMarketingEvent(MarketingEventDto marketingEvent) {
         this.marketingEvent = marketingEvent;
+    }
+
+    public List<WineDto> getWines() {
+        return wines;
+    }
+
+    public void setWines(List<WineDto> wines) {
+        this.wines = wines;
+    }
+
+    public void addWine(WineDto wine) {
+        this.wines.add(wine);
+    }
+
+    public void removeWine(WineDto wine) {
+        this.wines.remove(wine);
     }
 
     @Override

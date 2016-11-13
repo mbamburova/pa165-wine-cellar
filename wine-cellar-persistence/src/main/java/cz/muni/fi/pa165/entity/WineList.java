@@ -69,6 +69,14 @@ public class WineList {
         this.wines = wines;
     }
 
+    public void addWine(Wine wine) {
+        this.wines.add(wine);
+    }
+
+    public void removeWine(Wine wine) {
+        this.wines.remove(wine);
+    }
+
     public MarketingEvent getMarketingEvent() {
         return marketingEvent;
     }

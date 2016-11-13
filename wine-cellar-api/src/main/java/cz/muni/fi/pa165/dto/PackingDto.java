@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.dto;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+
 import java.math.BigDecimal;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Michaela Bamburová on 25.10.2016.
@@ -9,9 +12,17 @@ import java.math.BigDecimal;
 public class PackingDto {
 
     private Long id;
+
+    @NotNull
+    @Min(0)
     private BigDecimal volume;
-    private DateTime validFrom;
-    private DateTime validTo;
+
+    @NotNull
+    private LocalDateTime validFrom;
+
+    private LocalDateTime validTo;
+
+    @NotNull
     private WineDto wine;
 
     public Long getId() {
@@ -30,19 +41,19 @@ public class PackingDto {
         this.volume = volume;
     }
 
-    public DateTime getValidFrom() {
+    public LocalDateTime getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(DateTime validFrom) {
+    public void setValidFrom(LocalDateTime validFrom) {
         this.validFrom = validFrom;
     }
 
-    public DateTime getValidTo() {
+    public LocalDateTime getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(DateTime validTo) {
+    public void setValidTo(LocalDateTime validTo) {
         this.validTo = validTo;
     }
 

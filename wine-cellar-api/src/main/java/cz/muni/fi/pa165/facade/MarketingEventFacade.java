@@ -12,7 +12,7 @@ import java.util.List;
 public interface MarketingEventFacade {
 
     void create(MarketingEventDto marketingEvent);
-    void delete(Long marketingEventId);
+    void delete(MarketingEventDto marketingEvent);
     void update(Long marketingEventId);
     void updateDescription(Long marketingEventId, String name);
 

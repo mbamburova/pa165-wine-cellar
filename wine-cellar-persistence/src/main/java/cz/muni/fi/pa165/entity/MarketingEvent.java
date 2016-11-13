@@ -19,9 +19,6 @@ public class MarketingEvent {
     @NotNull
     private String description;
 
-    @OneToMany(mappedBy = "marketingEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Price> prices = new ArrayList<>();
-
     public MarketingEvent(Long id) {
         this.id = id;
     }
@@ -39,18 +36,6 @@ public class MarketingEvent {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
-    }
-
-    public void addPrices(Price price) {
-        prices.add(price);
     }
 
     @Override
