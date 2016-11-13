@@ -1,12 +1,14 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Packing;
+import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class PackingDaoImpl implements PackingDao {
     }
 
     @Override
-    public Packing findById(Long id) {
+    public Packing findPackingById(Long id) {
         return em.find(Packing.class, id);
     }
 
@@ -49,12 +51,24 @@ public class PackingDaoImpl implements PackingDao {
                     Packing.class).setParameter("volume", volume)
                 .getResultList();
         } catch (NoResultException nrf) {
-            return null;
+            return new ArrayList<>();
         }
     }
 
     @Override
-    public List<Packing> findAll() {
+    public List<Packing> findAllPackings() {
         return Collections.unmodifiableList(em.createQuery("SELECT p FROM Packing p", Packing.class).getResultList());
+    }
+
+    @Override
+    public List<Packing> findPackingsByWine(Wine wine) {
+        if (wine == null)
+            throw new IllegalArgumentException("Cannot search for null wine");
+        try {
+            return em.createQuery("select p from Packing p where p.wine = :wine",
+                Packing.class).setParameter("wine", wine).getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
     }
 }

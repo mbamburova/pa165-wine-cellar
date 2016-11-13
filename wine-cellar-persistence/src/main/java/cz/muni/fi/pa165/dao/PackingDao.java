@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Packing;
+import cz.muni.fi.pa165.entity.Wine;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,7 +34,7 @@ public interface PackingDao {
      * @param id id of packing
      * @return Packing with given id.
      */
-    Packing findById(Long id);
+    Packing findPackingById(Long id);
 
     /**
      * Finds packings by given volume in database.
@@ -46,5 +47,12 @@ public interface PackingDao {
      * Finds all packings in database.
      * @return List of all packing.
      */
-    List<Packing> findAll();
+    List<Packing> findAllPackings();
+
+    /**
+     * Finds all packing by given wine.
+     * @param wine
+     * @return List of all packings with given wine.
+     */
+    List<Packing> findPackingsByWine(Wine wine);
 }

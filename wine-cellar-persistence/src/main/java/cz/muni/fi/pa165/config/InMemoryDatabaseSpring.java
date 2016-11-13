@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165;
+package cz.muni.fi.pa165.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
