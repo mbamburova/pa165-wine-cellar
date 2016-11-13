@@ -6,7 +6,14 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @author Silvia Borzová
+ *         13/11/2016
+ */
 
 public interface PackingFacade {
+
+    Long createPacking(PackingCreateDto p);
+    void deletePacking(Long id);
 
 }
