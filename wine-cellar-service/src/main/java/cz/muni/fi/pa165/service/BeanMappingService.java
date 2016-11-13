@@ -11,8 +11,9 @@ import org.dozer.Mapper;
 
 public interface BeanMappingService {
 
-    public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass);
-
-    public  <T> T mapTo(Object u, Class<T> mapToClass);
     public Mapper getMapper();
+    public <T> T mapTo(Object objectToMap, Class<T> classToMapTo);
+    public <T> T mapToEnforceID(Object objectToMap, Class<T> classToMapTo);
+    public <T> List<T> mapToCollection(Collection<?> objects, Class<T> mapToClass);
+    <T> List<T> mapToCollectionEnforceID(Collection<?> objectsToMap, Class<T> classToMapTo);
 }

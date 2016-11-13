@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.config;
 
+import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.entity.*;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -32,8 +34,11 @@ public class ServiceConfiguration {
     public class DozerCustomConfig extends BeanMappingBuilder {
         @Override
         protected void configure() {
-
-            //mapping();
+            mapping(MarketingEvent.class, MarketingEventDto.class);
+            mapping(Packing.class, PackingDto.class);
+            mapping(Price.class, PriceDto.class);
+            mapping(WineList.class, WineListDto.class);
+            mapping(Wine.class, WineDto.class);
         }
     }
 }
