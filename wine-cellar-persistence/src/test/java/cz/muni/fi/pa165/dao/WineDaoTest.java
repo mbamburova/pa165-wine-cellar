@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
-import cz.muni.fi.pa165.PersistenceApplicationContext;
-import cz.muni.fi.pa165.entity.Packing;
+import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

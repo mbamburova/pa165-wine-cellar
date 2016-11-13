@@ -4,12 +4,10 @@ import java.math.BigDecimal;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import cz.muni.fi.pa165.PersistenceApplicationContext;
+import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.MarketingEvent;
-import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.*;
 
 /**
  * @author Silvia Borzová

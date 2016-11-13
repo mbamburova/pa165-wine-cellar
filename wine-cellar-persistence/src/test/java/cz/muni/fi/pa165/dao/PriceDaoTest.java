@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
-import cz.muni.fi.pa165.PersistenceApplicationContext;
+import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
@@ -196,20 +196,5 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         priceWithNullPrice.setPrice(null);
         priceWithNullPrice.setCurrency(Currency.getInstance("EUR"));
         priceDao.createPrice(priceWithNullPrice);
-    }
-    //!!!
-    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void testUpdatePriceWithNegativePrice() {
-        Price price = priceDao.get(price1.getId());
-        price.setPrice(new BigDecimal("-0.1"));
-        priceDao.updatePrice(price);
-    }
-
-    //!!!
-    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void testUpdatePriceWithNullCurrency() {
-        Price price = priceDao.get(price1.getId());
-        price.setCurrency(null);
-        priceDao.updatePrice(price);
     }
 }

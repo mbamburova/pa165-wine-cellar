@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface PackingFacade {
 
-    Long createPacking(PackingCreateDto p);
+   // Long createPacking(PackingCreateDto p);
     void deletePacking(Long id);
 
 }

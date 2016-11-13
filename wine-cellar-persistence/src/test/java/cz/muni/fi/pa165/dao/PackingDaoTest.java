@@ -1,8 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
-import cz.muni.fi.pa165.PersistenceApplicationContext;
+import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Packing;
-import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.Year;
-import java.util.Currency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -106,52 +104,43 @@ public class PackingDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCreate() {
-        Packing packing = packingDao.findById(packing1.getId());
+        Packing packing = packingDao.findPackingById(packing1.getId());
         assertThat(packing).isEqualTo(packing1);
     }
 
     @Test
     public void update() {
-        Packing packing = packingDao.findById(packing1.getId());
+        Packing packing = packingDao.findPackingById(packing1.getId());
         packing.setVolume(new BigDecimal("2"));
         packingDao.updatePacking(packing);
 
-        assertThat(packingDao.findById(packing.getId())).isEqualTo(packing);
-    }
-
-    @Test(expectedExceptions =  java.lang.AssertionError.class)
-    public void updateWithNullVolume() {
-        Packing packing = packingDao.findById(packing1.getId());
-        packing.setVolume(null);
-        packingDao.updatePacking(packing);
-
-        assertThat(packingDao.findById(packing.getId())).isEqualToComparingFieldByField(packing);
+        assertThat(packingDao.findPackingById(packing.getId())).isEqualTo(packing);
     }
 
     @Test
     public void updateWithNullValidTo() {
-        Packing packing = packingDao.findById(packing1.getId());
+        Packing packing = packingDao.findPackingById(packing1.getId());
         packing.setValidTo(null);
         packingDao.updatePacking(packing);
 
-        assertThat(packingDao.findById(packing.getId())).isEqualToComparingFieldByField(packing);
+        assertThat(packingDao.findPackingById(packing.getId())).isEqualToComparingFieldByField(packing);
     }
 
     @Test//(expectedExceptions = java.lang.AssertionError.class)
     public void updateWithNullValidFrom() {
-        Packing packing = packingDao.findById(packing1.getId());
+        Packing packing = packingDao.findPackingById(packing1.getId());
         packing.setValidFrom(null);
         packingDao.updatePacking(packing);
 
-        assertThat(packingDao.findById(packing.getId()).getValidFrom()).isEqualTo(packing.getValidFrom());
+        assertThat(packingDao.findPackingById(packing.getId()).getValidFrom()).isEqualTo(packing.getValidFrom());
 
     }
 
     @Test
     public void delete() {
-        assertThat(packingDao.findById(packing1.getId())).isNotNull();
+        assertThat(packingDao.findPackingById(packing1.getId())).isNotNull();
         packingDao.deletePacking(packing1);
-        assertThat(packingDao.findById(packing1.getId())).isNull();
+        assertThat(packingDao.findPackingById(packing1.getId())).isNull();
     }
 
 
