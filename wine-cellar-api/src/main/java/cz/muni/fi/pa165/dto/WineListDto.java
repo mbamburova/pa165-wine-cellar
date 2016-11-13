@@ -11,6 +11,7 @@ public class WineListDto {
     private Long id;
     private String name;
     private DateTime date;
+    private MarketingEventDto marketingEvent;
 
     public Long getId() {
         return id;
@@ -30,6 +31,14 @@ public class WineListDto {
 
     public void setDate(DateTime date) {
         this.date = date;
+    }
+
+    public MarketingEventDto getMarketingEvent() {
+        return marketingEvent;
+    }
+
+    public void setMarketingEvent(MarketingEventDto marketingEvent) {
+        this.marketingEvent = marketingEvent;
     }
 
     @Override

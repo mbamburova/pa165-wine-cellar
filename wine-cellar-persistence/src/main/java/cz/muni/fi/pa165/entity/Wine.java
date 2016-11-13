@@ -54,9 +54,6 @@ public class Wine {
     @DecimalMin("0.0")
     private BigDecimal grapeSugarContent;
 
-    @OneToMany
-    private List<Packing> packings = new ArrayList<>();
-
     public Wine(Long id) {
         this.id = id;
     }
@@ -156,13 +153,6 @@ public class Wine {
         this.grapeSugarContent = grapeSugarContent;
     }
 
-    public List<Packing> getPackings() {
-        return Collections.unmodifiableList(packings);
-    }
-
-    public void addPacking(Packing p) {
-        packings.add(p);
-    }
 
     @Override
     public boolean equals(Object o) {

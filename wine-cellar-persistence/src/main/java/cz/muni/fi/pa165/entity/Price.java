@@ -24,9 +24,19 @@ public class Price {
     @NotNull
     private Currency currency;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="MARKETING_EVENT_ID")
+    @ManyToOne
     private MarketingEvent marketingEvent;
+
+    @ManyToOne(optional = false)
+    private Packing packing;
+
+    public Packing getPacking() {
+        return packing;
+    }
+
+    public void setPacking(Packing packing) {
+        this.packing = packing;
+    }
 
     public Price() {
     }

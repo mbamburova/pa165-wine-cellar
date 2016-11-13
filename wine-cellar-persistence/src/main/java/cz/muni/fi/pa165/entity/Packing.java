@@ -20,7 +20,6 @@ public class Packing {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @DecimalMin("0.0")
     private BigDecimal volume;
 
@@ -29,10 +28,8 @@ public class Packing {
 
     private LocalDateTime validTo;
 
-    @NotNull
-    @OneToMany
-    @JoinColumn(name = "PRICE_ID")
-    private List<Price> prices = new ArrayList<>();
+    @ManyToOne(optional = false)
+    private Wine wine;
 
     public Packing() {
     }
@@ -69,12 +66,12 @@ public class Packing {
         this.validTo = validTo;
     }
 
-    public List<Price> getPrices() {
-        return Collections.unmodifiableList(prices);
+    public Wine getWine() {
+        return wine;
     }
 
-    public void addPrice(Price price) {
-        prices.add(price);
+    public void setWine(Wine wine) {
+        this.wine = wine;
     }
 
     @Override

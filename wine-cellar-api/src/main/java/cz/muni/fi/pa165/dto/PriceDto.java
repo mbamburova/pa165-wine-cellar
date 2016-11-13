@@ -11,6 +11,7 @@ public class PriceDto {
     private Long id;
     private BigDecimal price;
     private Currency currency;
+    private PackingDto packing;
     private MarketingEventDto marketingEvent;
 
     public Long getId() {
@@ -39,6 +40,14 @@ public class PriceDto {
 
     public MarketingEventDto getMarketingEvent() {
         return marketingEvent;
+    }
+
+    public PackingDto getPacking() {
+        return packing;
+    }
+
+    public void setPacking(PackingDto packing) {
+        this.packing = packing;
     }
 
     public void setMarketingEvent(MarketingEventDto marketingEvent) {
