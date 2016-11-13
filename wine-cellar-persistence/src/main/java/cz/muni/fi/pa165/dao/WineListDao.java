@@ -1,7 +1,10 @@
 package cz.muni.fi.pa165.dao;
 
+import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.util.List;
 
@@ -25,8 +28,9 @@ public interface WineListDao {
     WineList get(Long id);
 
     /**
-     * update wineList in database
+     * Update wineList in database
      * @param wineList
+     * @return winelist
      */
     void update(WineList wineList);
 
@@ -47,5 +51,19 @@ public interface WineListDao {
      * @param date
      * @return list of wineLists
      */
-    List<WineList> findByDate(DateTime date);
+    List<WineList> findByDate(LocalDateTime date);
+
+    /**
+     * Finds all winelists by name in database
+     * @param name of the winelist
+     * @return List of all winelists by given name
+     */
+    List<WineList> findByName(String name);
+
+    /**
+     * Finds winelist by marketing event in database
+     * @param marketingEvent in winelist
+     * @return Winelist with given marketing event
+     */
+    WineList findByMarketingEvent(MarketingEvent marketingEvent);
 }

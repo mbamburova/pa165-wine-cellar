@@ -2,9 +2,6 @@ package cz.muni.fi.pa165.entity;
 
 import org.joda.time.LocalDateTime;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -20,6 +17,7 @@ public class Packing {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @DecimalMin("0.0")
     private BigDecimal volume;
 
