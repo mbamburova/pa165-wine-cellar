@@ -35,13 +35,13 @@ public interface WineDao {
      * @param id
      * @return wine
      */
-    Wine getWineById(Long id);
+    Wine findWineById(Long id);
 
     /**
      *  get all wines from database
      * @return list of wines
      */
-    List<Wine> getAllWines();
+    List<Wine> findAllWines();
 
     /**
      *  get wines by given  names
