@@ -14,7 +14,7 @@ import java.util.List;
  * @author MarekScholtz
  * @version 2016.11.06
  */
-public class PackingSerivceImpl implements PackingService {
+public class PackingServiceImpl implements PackingService {
 
     @Autowired
     private PackingDao packingDao;
@@ -24,48 +24,45 @@ public class PackingSerivceImpl implements PackingService {
 
     @Override
     public void create(Packing packing) {
-        packingDao.create(packing);
+        packingDao.createPacking(packing);
     }
 
     @Override
     public Packing get(Long id) {
-        return packingDao.get(id);
+        return packingDao.findPackingById(id);
     }
 
     @Override
     public List<Packing> getAll() {
-        return packingDao.getAll();
+        return packingDao.findAllPackings();
     }
 
     @Override
     public void update(Packing packing) {
-        packingDao.update(packing);
+        packingDao.updatePacking(packing);
     }
 
     @Override
     public void updateVolume(Packing packing, BigDecimal volume) {
         packing.setVolume(volume);
-        packingDao.update(volume);
+        packingDao.updatePacking(packing);
     }
 
     @Override
     public void updateValidFrom(Packing packing, LocalDateTime validFrom) {
         packing.setValidFrom(validFrom);
-        packingDao.update(volume);
+        packingDao.updatePacking(packing);
     }
 
     @Override
     public void updateValidTo(Packing packing, LocalDateTime validTo) {
         packing.setValidTo(validTo);
-        packingDao.update(volume);
+        packingDao.updatePacking(packing);
     }
 
     @Override
     public void delete(Packing packing) {
-        for (Price price : packing.getPrices()) {
-            priceDao.delete(price);
-        }
-        packingDao.delete(packing);
+        packingDao.deletePacking(packing);
     }
 
     @Override
@@ -75,11 +72,11 @@ public class PackingSerivceImpl implements PackingService {
 
     @Override
     public void addPrice(Packing packing, Price price) {
-        packingDao.addPrice(packing, price);
+
     }
 
     @Override
     public void removePrice(Packing packing, Price price) {
-        packingDao.removePrice(packing, price);
+
     }
 }

@@ -78,8 +78,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Wine muskatMoravsky = muskatMoravsky().build();
         wineDao.createWine(veltlinskeZelene);
         wineDao.createWine(muskatMoravsky);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
-        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
+        assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
+        assertThat(wineDao.findWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
@@ -134,8 +134,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         muskatMoravsky.setVintage(Year.of(2015));
         wineDao.updateWine(veltlinskeZelene);
         wineDao.updateWine(muskatMoravsky);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
-        assertThat(wineDao.getWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
+        assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
+        assertThat(wineDao.findWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
@@ -198,9 +198,9 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     public void delete() {
         Wine veltlinskeZelene = veltlinskeZelene().build();
         wineDao.createWine(veltlinskeZelene);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isNotNull();
+        assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isNotNull();
         wineDao.deleteWine(veltlinskeZelene);
-        assertThat(wineDao.getWineById(veltlinskeZelene.getId())).isNull();
+        assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isNull();
     }
 
     @Test
@@ -208,7 +208,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.getAllWines();
+        List<Wine> found = wineDao.findAllWines();
         Assert.assertEquals(found.size(), 3);
     }
 

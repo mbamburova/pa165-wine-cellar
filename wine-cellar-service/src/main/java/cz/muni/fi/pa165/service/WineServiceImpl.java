@@ -112,12 +112,12 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public List<Wine> findAll() {
-        return wineDao.getAllWines();
+        return wineDao.findAllWines();
     }
 
     @Override
     public Wine get(Long id) {
-        return wineDao.getWineById(id);
+        return wineDao.findWineById(id);
     }
 
     @Override

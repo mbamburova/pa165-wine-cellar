@@ -36,12 +36,12 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public Wine getWineById(Long id) {
+    public Wine findWineById(Long id) {
         return em.find(Wine.class, id);
     }
 
     @Override
-    public List<Wine> getAllWines() {
+    public List<Wine> findAllWines() {
         return em.createQuery("SELECT w FROM Wine w", Wine.class)
                 .getResultList();
     }
