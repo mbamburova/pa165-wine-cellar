@@ -13,7 +13,9 @@ import java.util.List;
 
 public interface PackingFacade {
 
-   // Long createPacking(PackingCreateDto p);
+    PackingDto createPacking(PackingDto p);
+    PackingDto updatePacking(PackingDto p);
     void deletePacking(Long id);
+
 
 }
