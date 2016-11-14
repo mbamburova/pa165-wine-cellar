@@ -1,8 +1,11 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.config.ServiceConfiguration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +13,10 @@ import static org.junit.Assert.*;
  * @author Silvia Borzová
  *         13/11/2016
  */
-public class MarketingEventFacadeTest {
+
+@ContextConfiguration(classes = ServiceConfiguration.class)
+public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
+
     @Before
     public void setUp() throws Exception {
 
