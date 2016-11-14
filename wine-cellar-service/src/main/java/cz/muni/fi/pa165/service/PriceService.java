@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
  *         13/11/2016
  */
 
-@Service
 public interface PriceService {
 
     void createPrice(Price p);
