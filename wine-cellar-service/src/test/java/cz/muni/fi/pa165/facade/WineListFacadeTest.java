@@ -12,77 +12,77 @@ import static org.junit.Assert.*;
  */
 public class WineListFacadeTest {
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
 
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
 
     }
 
     @Test
-    public void create() throws Exception {
+    public void create(){
 
     }
 
     @Test
-    public void delete() throws Exception {
+    public void delete(){
 
     }
 
     @Test
-    public void update() throws Exception {
+    public void update(){
 
     }
 
     @Test
-    public void updateName() throws Exception {
+    public void updateName(){
 
     }
 
     @Test
-    public void updateDate() throws Exception {
+    public void updateDate(){
 
     }
 
     @Test
-    public void updateMarketingEvent() throws Exception {
+    public void updateMarketingEvent(){
 
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void findAll(){
 
     }
 
     @Test
-    public void get() throws Exception {
+    public void get(){
 
     }
 
     @Test
-    public void findByName() throws Exception {
+    public void findByName(){
 
     }
 
     @Test
-    public void findByDate() throws Exception {
+    public void findByDate(){
 
     }
 
     @Test
-    public void findByMarketingEvent() throws Exception {
+    public void findByMarketingEvent(){
 
     }
 
     @Test
-    public void addWine() throws Exception {
+    public void addWine(){
 
     }
 
     @Test
-    public void removeWine() throws Exception {
+    public void removeWine(){
 
     }
 

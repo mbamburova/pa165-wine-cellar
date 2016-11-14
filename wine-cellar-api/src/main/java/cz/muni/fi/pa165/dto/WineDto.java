@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
 import java.math.BigDecimal;
+import java.time.Year;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import com.sun.istack.internal.NotNull;
