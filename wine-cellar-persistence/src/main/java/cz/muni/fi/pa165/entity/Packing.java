@@ -32,6 +32,9 @@ public class Packing {
     public Packing() {
     }
 
+    public Packing(Long id) {
+    }
+
     public Long getId() {
         return id;
     }
