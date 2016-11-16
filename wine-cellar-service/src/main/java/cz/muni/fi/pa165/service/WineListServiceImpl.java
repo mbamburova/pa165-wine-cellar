@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 /**
  * @author Michaela Bamburová on 08.11.2016.
  */
@@ -30,7 +31,6 @@ public class WineListServiceImpl implements WineListService {
 
     @Override
     public void updateWineList(WineList wineList) {
-        //???
         wineListDao.update(wineList);
     }
 
