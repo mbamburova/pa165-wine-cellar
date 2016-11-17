@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class WineListDto {
 
     private Long id;
     private String name;
-    private DateTime date;
+    private LocalDateTime date;
     private MarketingEventDto marketingEvent;
     private List<WineDto> wines = new ArrayList<>();
 
@@ -33,11 +33,11 @@ public class WineListDto {
         this.name = name;
     }
 
-    public DateTime getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

@@ -8,7 +8,7 @@ import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.WineService;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,13 +68,13 @@ public class PackingFacadeImpl implements PackingFacade {
     }
 
     @Override
-    public List<PackingDto> findPackingByValidFrom(DateTime validFrom) {
+    public List<PackingDto> findPackingByValidFrom(LocalDateTime validFrom) {
         return beanMappingService.mapToCollectionEnforceID(packingService.findPackingByValidFrom(validFrom),
                 PackingDto.class);
     }
 
     @Override
-    public List<PackingDto> findPackingByValidTo(DateTime validTo) {
+    public List<PackingDto> findPackingByValidTo(LocalDateTime validTo) {
         return beanMappingService.mapToCollectionEnforceID(packingService.findPackingByValidTo(validTo),
                 PackingDto.class);
     }
@@ -86,7 +86,7 @@ public class PackingFacadeImpl implements PackingFacade {
     }
 
     @Override
-    public List<PackingDto> findPackingValidForDate(DateTime dateTime) {
+    public List<PackingDto> findPackingValidForDate(LocalDateTime dateTime) {
         return beanMappingService.mapToCollectionEnforceID(packingService.findPackingValidForDate(dateTime),
                 PackingDto.class);
     }
