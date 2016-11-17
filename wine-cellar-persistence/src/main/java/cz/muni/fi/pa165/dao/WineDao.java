@@ -51,6 +51,13 @@ public interface WineDao {
     List<Wine> findByName(String name);
 
     /**
+     * get vines by given vintage
+     * @param name
+     * @return
+     */
+    List<Wine> findByVintage(Year name);
+
+    /**
      *  get wines by given predicate
      * @param predicate
      * @return list of wines
