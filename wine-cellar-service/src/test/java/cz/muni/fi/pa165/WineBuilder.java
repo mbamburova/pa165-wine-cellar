@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.service;
+package cz.muni.fi.pa165;
 
 import java.math.BigDecimal;
 import java.time.Year;
