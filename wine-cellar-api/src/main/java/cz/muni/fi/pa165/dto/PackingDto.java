@@ -13,17 +13,16 @@ public class PackingDto {
 
     private Long id;
 
-    @NotNull
-    @Min(0)
     private BigDecimal volume;
 
-    @NotNull
     private LocalDateTime validFrom;
 
     private LocalDateTime validTo;
 
-    @NotNull
     private WineDto wine;
+
+    public PackingDto() {
+    }
 
     public Long getId() {
         return id;
@@ -63,6 +62,12 @@ public class PackingDto {
 
     public void setWine(WineDto wine) {
         this.wine = wine;
+    }
+
+    @Override
+    public String toString() {
+        return "PackingDto{" + "id=" + id + ", volume=" + volume + ", validFrom=" +
+            validFrom + ", validTo=" + validTo + ", wine=" + wine + '}';
     }
 
     @Override

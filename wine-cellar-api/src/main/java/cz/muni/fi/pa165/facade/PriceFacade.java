@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface PriceFacade {
 
-    void createPrice(PriceDto price);
+    void createPrice(PriceCreateDto price);
     void updatePrice(PriceDto price);
     void deletePrice(PriceDto price);
 

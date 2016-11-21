@@ -17,4 +17,5 @@ public interface BeanMappingService {
     public <T> T mapToEnforceID(Object objectToMap, Class<T> classToMapTo);
     public <T> List<T> mapToCollection(Collection<?> objects, Class<T> mapToClass);
     <T> List<T> mapToCollectionEnforceID(Collection<?> objectsToMap, Class<T> classToMapTo);
+    public Object mapToDTOWithID(Object objectToMap);
 }

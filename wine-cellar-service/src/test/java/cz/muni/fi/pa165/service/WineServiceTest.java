@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.WineDao;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import cz.muni.fi.pa165.exceptions.WineCellarServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -132,7 +131,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNullBatch() {
         svatovavrinecke.setBatch(null);
-        doThrow(new WineCellarServiceException("Cannot create wine with null batch"))
+        doThrow(new WineCellarDataAccessException("Cannot create wine with null batch"))
             .when(wineDao)
             .createWine(svatovavrinecke);
 

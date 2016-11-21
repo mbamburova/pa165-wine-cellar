@@ -1,28 +1,37 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.WineBuilder;
+import cz.muni.fi.pa165.config.ServiceConfiguration;
+import cz.muni.fi.pa165.dto.PackingCreateDto;
+import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.WineService;
 import org.joda.time.LocalDateTime;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
 
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Michaela Bamburová on 08.11.2016
  */
+@ContextConfiguration(classes = ServiceConfiguration.class)
 public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Mock
@@ -39,6 +48,7 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     private Packing packing1;
     private Packing packing2;
+    private PackingCreateDto packingCreateDto1;
     private Wine veltlinskeZelene;
     private Wine muskatMoravsky;
 
@@ -102,7 +112,11 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     @Test
     public void testCreatePacking() {
-
+//        PackingCreateDto packingCreateDto = new PackingCreateDto();
+//        packingCreateDto.setWineId(veltlinskeZelene.getId());
+//        packingCreateDto.setValidFrom(packing1.getValidFrom());
+//        packingCreateDto.setValidTo(packing1.getValidTo());
+//        packingCreateDto.setVolume(packing1.getVolume());
     }
 
     @Test
@@ -112,41 +126,51 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     @Test
     public void testDeletePacking() {
-
+        PackingDto packingDto = (PackingDto) beanMappingService.mapToDTOWithID(packing2); //???
+        packingFacade.deletePacking(packingDto);
+        verify(packingService).delete(packing2);
     }
 
     @Test
     public void testFindPackingById() {
+        when(packingService.get(packing1.getId())).thenReturn(packing1);
+        PackingDto packingDto = packingFacade.findPackingById(packing1.getId());
 
+        assertThat(packingFacade.findPackingById(packing1.getId())).isEqualToComparingFieldByField(packingDto);
     }
 
     @Test
     public void testFindAllPackings() {
+        List<Packing> allPackings = new ArrayList<>();
+        allPackings.add(packing1);
+        allPackings.add(packing2);
+
+        when(packingService.getAll()).thenReturn(allPackings);
+        assertThat(packingFacade.findAllPackings().size()).isEqualTo(allPackings.size());
+    }
+
+    @Test
+    public void testFindPackingsByVolume() {
 
     }
 
     @Test
-    public void testFindPackingByVolume() {
+    public void testFindPackingsByValidFrom() {
 
     }
 
     @Test
-    public void testFindPackingByValidFrom() {
+    public void testFindPackingsByValidTo() {
 
     }
 
     @Test
-    public void testFindPackingByValidTo() {
+    public void testFindPackingsByWine() {
 
     }
 
     @Test
-    public void testFindPackingByWine() {
-
-    }
-
-    @Test
-    public void testFindPackingValidForDate() {
+    public void testFindPackingsValidForDate() {
 
     }
 }
