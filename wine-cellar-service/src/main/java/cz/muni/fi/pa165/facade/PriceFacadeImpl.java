@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.MarketingEventService;
+import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,13 +32,21 @@ public class PriceFacadeImpl implements PriceFacade {
     @Autowired
     private PriceService priceService;
 
+    @Autowired
+    private MarketingEventService marketingEventService;
+
+    @Autowired
+    private PackingService packingService;
+
 
     @Override
-    public void createPrice(PriceDto priceDto) {
-        if (priceDto == null) {
-            throw new NoResultException();
+    public void createPrice(PriceCreateDto priceCreateDto) {
+        if (priceCreateDto == null) {
+            throw new IllegalArgumentException("PriceCreateDto is null!");
         }
-        Price mappedPrice = beanMappingService.mapTo(priceDto, Price.class);
+        Price mappedPrice = beanMappingService.mapTo(priceCreateDto, Price.class);
+        mappedPrice.setMarketingEvent(marketingEventService.findMarketingEventById(priceCreateDto.getMarketingEventId()));
+        mappedPrice.setPacking(packingService.get(priceCreateDto.getPackingId()));
         priceService.createPrice(mappedPrice);
     }
 
