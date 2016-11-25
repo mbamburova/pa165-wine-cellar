@@ -259,7 +259,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         when(wineDao.findWineById(veltlinskeZelene.getId()))
             .thenReturn(veltlinskeZelene);
 
-        assertThat(wineService.get(veltlinskeZelene.getId()))
+        assertThat(wineService.findWineById(veltlinskeZelene.getId()))
             .isEqualToComparingFieldByField(veltlinskeZelene);
 
         verify(wineDao).findWineById(veltlinskeZelene.getId());
@@ -287,9 +287,6 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         List<Wine> actWines = wineService.findAllWines();
 
         assertThat(actWines.size()).isEqualTo(expectedWines.size());
-        for(int i = 0; i < expectedWines.size(); i++) {
-            assertThat(actWines.findWineById(i)).isEqualToComparingFieldByField(expectedWines.get(i));
-        }
 
         verify(wineDao).findAllWines();
     }
@@ -319,7 +316,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         when(wineDao.findWinesByVintage(year)).thenReturn(expectedWines);
         assertThat(wineService.findWinesByVintage(year).size()).isEqualTo(expectedWines.size());
 
-        verify(wineDao).findWInesByVintage(year);
+        verify(wineDao).findWinesByVintage(year);
     }
 
     @Test
@@ -356,7 +353,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         expectedWines.add(svatovavrinecke);
 
         when(wineDao.findWinesByPredicateEquivalent(predicateEquivalent)).thenReturn(expectedWines);
-        assertThat(wineService.findByWinesPredicateEquivalent(predicateEquivalent).size()).isEqualTo(expectedWines.size());
+        assertThat(wineService.findWinesByPredicateEquivalent(predicateEquivalent).size()).isEqualTo(expectedWines.size());
 
         verify(wineDao).findWinesByPredicateEquivalent(predicateEquivalent);
     }
@@ -388,7 +385,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDeleteWine() {
-        wineService.delete(veltlinskeZelene);
+        wineService.deleteWine(veltlinskeZelene);
         verify(wineDao).deleteWine(veltlinskeZelene);
     }
 }
