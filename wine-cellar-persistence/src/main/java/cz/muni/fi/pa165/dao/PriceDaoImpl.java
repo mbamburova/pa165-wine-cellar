@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -79,6 +80,18 @@ public class PriceDaoImpl implements PriceDao {
         try {
             return entityManager.createQuery("select p from Price p where p.marketingEvent = :marketingEvent",
                     Price.class).setParameter("marketingEvent", marketingEvent).getResultList();
+        } catch (NoResultException nrf) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Price> findPriceByPacking(Packing packing) {
+        if (packing == null)
+            throw new IllegalArgumentException("Cannot search for null marketingEvent");
+        try {
+            return entityManager.createQuery("select p from Price p where p.packing = :packing",
+                    Price.class).setParameter("packing", packing).getResultList();
         } catch (NoResultException nrf) {
             return null;
         }

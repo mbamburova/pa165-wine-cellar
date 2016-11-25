@@ -12,30 +12,19 @@ import java.util.List;
  */
 public interface WineService {
 
-    void create(Wine wine);
-    void delete(Wine wine);
-    void update(Wine wine);
-    void updateName(Wine wine, String name);
-    void updateVintage(Wine wine, Year vintage);
-    void updateBatch(Wine wine, String batch);
-    void updatePredicate(Wine wine, String predicate);
-    void updatePredicateEquivalent(Wine wine, String predicateEquivalent);
-    void updateDescription(Wine wine, String description);
-    void updateNotes(Wine wine, String notes);
-    void updateAlcoholVolume(Wine wine, BigDecimal alcoholVolume);
-    void updateResidualSugar(Wine wine, BigDecimal residualSugar);
-    void updateAcidity(Wine wine, BigDecimal acidity);
-    void updateGrapeSugarContent(Wine wine, BigDecimal grapeSugarContent);
+    void createWine(Wine wine);
+    void deleteWine(Wine wine);
+    void updateWine(Wine wine);
 
-    List<Wine> findAll();
-    Wine get(Long id);
-    List<Wine> findByName(String name);
-    List<Wine> findByVintage(Year vintage);
-    List<Wine> findByPredicate(String predicate);
-    List<Wine> findByPredicateEquivalent(String predicateEquivalent);
-    List<Wine> findByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume);
-    List<Wine> findByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar);
-    List<Wine> findByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity);
-    List<Wine> findByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent);
-    List<Wine> findAllWinesFromYears(Year from, Year to);
+    List<Wine> findAllWines();
+    Wine findWineById(Long id);
+    List<Wine> findWinesByName(String name);
+    List<Wine> findWinesByVintage(Year vintage);
+    List<Wine> findWinesByPredicate(String predicate);
+    List<Wine> findWinesByPredicateEquivalent(String predicateEquivalent);
+    List<Wine> findWinesByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume);
+    List<Wine> findWinesByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar);
+    List<Wine> findWinesByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity);
+    List<Wine> findWinesByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent);
+    List<Wine> findWinesBetweenYears(Year from, Year to);
 }
