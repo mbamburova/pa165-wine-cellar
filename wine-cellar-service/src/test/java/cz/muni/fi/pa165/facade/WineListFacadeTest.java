@@ -1,43 +1,46 @@
 package cz.muni.fi.pa165.facade;
 
-import java.math.BigDecimal;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.MarketingEventDao;
+import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.dao.WineDao;
 import cz.muni.fi.pa165.dao.WineListDao;
 import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListDto;
-import cz.muni.fi.pa165.entity.MarketingEvent;
-import cz.muni.fi.pa165.entity.Wine;
-import cz.muni.fi.pa165.entity.WineList;
+import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventService;
 import cz.muni.fi.pa165.service.WineListService;
 import cz.muni.fi.pa165.service.WineService;
+import org.dozer.inject.Inject;
 import org.joda.time.LocalDateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.math.BigDecimal;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Currency;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 /**
  * @author Silvia Borzová
@@ -47,20 +50,28 @@ import static org.mockito.Mockito.when;
 public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
+    private MarketingEventDao marketingEventDao;
+
+    @Mock
+    private WineDao wineDao;
+
+    @Mock
+    private WineListDao wineListDao;
+
+    @Mock
     private MarketingEventService marketingEventService;
 
-    @InjectMocks
+    @Mock
     private WineListService wineListService;
 
-    @InjectMocks
+    @Mock
     private WineService wineService;
 
     @Autowired
     @InjectMocks
     private WineListFacade wineListFacade;
 
-    @Autowired
-    @InjectMocks
+    @Mock
     private WineFacade wineFacade;
 
     @Autowired

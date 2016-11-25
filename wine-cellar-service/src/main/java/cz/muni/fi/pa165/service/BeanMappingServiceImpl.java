@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BeanMappingServiceImpl implements BeanMappingService {
 
-    @Inject
+    @Autowired
     private Mapper mapper;
 
     @Override

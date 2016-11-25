@@ -87,7 +87,7 @@ public class WineListServiceImpl implements WineListService {
     }
 
     @Override
-    public WineList findWineListByMarketingEvent(MarketingEvent marketingEvent) {
+    public List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent) {
         try {
             return wineListDao.findWineListByMarketingEvent(marketingEvent);
         } catch (Exception e) {

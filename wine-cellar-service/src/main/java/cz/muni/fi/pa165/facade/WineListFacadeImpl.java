@@ -35,7 +35,7 @@ public class WineListFacadeImpl implements WineListFacade {
     @Override
     public void createWineList(WineListDto wineListDto) {
         if (wineListDto == null) {
-            throw new IllegalArgumentException("PriceCreateDto is null!");
+            throw new IllegalArgumentException("WineListDto is null!");
         }
         WineList mappedWineList = beanMappingService.mapTo(wineListDto, WineList.class);
         mappedWineList.setMarketingEvent(marketingEventService.findMarketingEventById(wineListDto.getMarketingEvent().getId()));

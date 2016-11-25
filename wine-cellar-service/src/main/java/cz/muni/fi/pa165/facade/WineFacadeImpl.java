@@ -29,6 +29,9 @@ public class WineFacadeImpl implements WineFacade {
 
     @Override
     public Long createWine(WineDto wineDto) {
+        if (wineDto == null) {
+            throw new IllegalArgumentException("wineDto is null");
+        }
         Wine wine = new Wine();
         wine.setName(wineDto.getName());
         wine.setVintage(wineDto.getVintage());

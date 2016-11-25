@@ -107,13 +107,13 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createPrice() throws Exception {
+    public void createPrice() {
         priceFacade.createPrice(price1CreateDto);
         verify(priceFacade).createPrice(price1CreateDto);
     }
 
     @Test
-    public void updatePrice() throws Exception {
+    public void updatePrice() {
         priceFacade.createPrice(price1CreateDto);
         price1.setPrice(new BigDecimal(110));
         price1Dto = beanMappingService.mapTo(price1, PriceDto.class);
@@ -122,14 +122,14 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPriceById() throws Exception {
+    public void findPriceById() {
         when(priceFacade.findPriceById(price1.getId())).thenReturn(price1Dto);
         assertThat(priceFacade.findPriceById(price1.getId())).isEqualToComparingFieldByField(price1);
         verify(priceFacade).findPriceById(price1.getId());
     }
 
     @Test
-    public void deletePrice() throws Exception {
+    public void deletePrice() {
         priceFacade.createPrice(price1CreateDto);
         price1Dto = beanMappingService.mapTo(price1CreateDto, PriceDto.class);
         priceFacade.deletePrice(price1Dto);
@@ -137,16 +137,8 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findAllPrices() throws Exception {
-        List<Price> expectedPrices = new ArrayList<>();
-        expectedPrices.add(price1);
-        expectedPrices.add(price2);
-        when(priceDao.findAllPrices()).thenReturn(expectedPrices);
-        List<PriceDto> currentPrices = priceFacade.findAllPrices();
-        assertThat(currentPrices).isEqualTo(expectedPrices.size());
-        for(int i = 0; i < expectedPrices.size(); i++) {
-            assertThat(currentPrices.get(i)).isEqualToComparingFieldByField(expectedPrices.get(i));
-        }
+    public void findAllPrices() {
+        priceFacade.findAllPrices();
         verify(priceFacade).findAllPrices();
     }
 }

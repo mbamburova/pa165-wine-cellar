@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
+import cz.muni.fi.pa165.dao.MarketingEventDao;
+import cz.muni.fi.pa165.dao.WineDao;
 import cz.muni.fi.pa165.dao.WineListDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
@@ -40,6 +42,12 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private WineListDao wineListDao;
+
+    @Mock
+    private WineDao wineDao;
+
+    @Mock
+    private MarketingEventDao marketingEventDao;
 
     @Autowired
     @InjectMocks
@@ -99,7 +107,6 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
                 .acidity(new BigDecimal("4.6"))
                 .grapeSugarContent(new BigDecimal("0"));
     }
-    
 
     @BeforeClass
     public void setUpMock(){
@@ -125,7 +132,6 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
         wineList1.setName("anniversary");
         wineList1.setWines(wines1);
         wineList1.setMarketingEvent(marketingEvent);
-        wineListService.createWineList(wineList1);
         wineList2 = new WineList();
         List<Wine> wines2 = new ArrayList<>();
         wines2.add(muskatMoravsky);
@@ -165,6 +171,8 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findAllWineLists() {
+        wineListService.createWineList(wineList1);
+        wineListService.createWineList(wineList2);
         List<WineList> expectedWineLists = new ArrayList<>();
         expectedWineLists.add(wineList1);
         expectedWineLists.add(wineList2);
@@ -180,43 +188,33 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     public void addWine() {
         wineListService.createWineList(wineList1);
         wineList1.addWine(svatovavrinecke);
-        assertThat(wineListDao.findWineListById(wineList1.getId())).isEqualToComparingFieldByField(wineList1);
+        wineListService.updateWineList(wineList1);
+        verify(wineListDao).updateWineList(wineList1);
     }
 
     @Test
     public void removeWine() {
         wineListService.createWineList(wineList1);
         wineList1.removeWine(svatovavrinecke);
-        assertThat(wineListDao.findWineListById(wineList1.getId())).isEqualToComparingFieldByField(wineList1);
+        wineListService.updateWineList(wineList1);
+        verify(wineListDao).updateWineList(wineList1);
     }
 
     @Test
     public void findWineListByMarketingEvent() {
-        wineListService.createWineList(wineList1);
-        wineListService.createWineList(wineList2);
-        assertThat(wineListDao.findWineListByMarketingEvent(marketingEvent)).isEqualToComparingFieldByField(wineList1);
-
+        wineListService.findWineListByMarketingEvent(marketingEvent);
+        verify(wineListDao).findWineListByMarketingEvent(marketingEvent);
     }
 
     @Test
     public void findWineListByName() {
-        List<WineList> expectedWineLists = new ArrayList<>();
-        expectedWineLists.add(wineList1);
-        List<WineList> currentWineLists = wineListService.findWineListByName("anniversary");
-        for(int i = 0; i < expectedWineLists.size(); i++) {
-            assertThat(currentWineLists.get(i)).isEqualToComparingFieldByField(expectedWineLists.get(i));
-        }
+        wineListService.findWineListByName("anniversary");
         verify(wineListDao).findWineListsByName("anniversary");
     }
 
     @Test
     public void findWineListByDate() {
-        List<WineList> expectedWineLists = new ArrayList<>();
-        expectedWineLists.add(wineList1);
-        List<WineList> currentWineLists = wineListService.findWineListByDate(new LocalDateTime(2016,11,6,0,0));
-        for(int i = 0; i < expectedWineLists.size(); i++) {
-            assertThat(currentWineLists.get(i)).isEqualToComparingFieldByField(expectedWineLists.get(i));
-        }
+        wineListService.findWineListByDate(new LocalDateTime(2016,11,6,0,0));
         verify(wineListDao).findWineListsByDate(new LocalDateTime(2016,11,6,0,0));
     }
 }
