@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Michaela Bamburová on 08.11.2016.
  */
 @Service
+@Transactional
 public class WineListServiceImpl implements WineListService {
 
     @Autowired
@@ -51,6 +53,7 @@ public class WineListServiceImpl implements WineListService {
     public void addWine(WineList wineList, Wine wine) {
         try {
             wineList.addWine(wine);
+            wineListDao.updateWineList(wineList);
         } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot add wine to wineList", e);
         }
@@ -60,6 +63,7 @@ public class WineListServiceImpl implements WineListService {
     public void removeWine(WineList wineList, Wine wine) {
         try {
             wineList.removeWine(wine);
+            wineListDao.updateWineList(wineList);
         } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot remove wine from wineList", e);
         }

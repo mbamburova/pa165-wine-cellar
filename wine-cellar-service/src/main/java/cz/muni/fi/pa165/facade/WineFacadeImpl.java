@@ -5,6 +5,8 @@ import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import java.math.BigDecimal;
@@ -15,6 +17,8 @@ import java.util.List;
  * @author MarekScholtz
  * @version 2016.11.06
  */
+@Service
+@Transactional
 public class WineFacadeImpl implements WineFacade {
 
     @Autowired

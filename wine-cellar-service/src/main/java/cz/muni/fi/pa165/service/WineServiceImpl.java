@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.dao.WineDao;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Year;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Tomas Gordian on 11/6/2016.
  */
 @Service
+@Transactional
 public class WineServiceImpl implements WineService {
 
     @Autowired
