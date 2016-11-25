@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.WineListDao;
+import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import org.joda.time.LocalDateTime;
@@ -32,6 +33,10 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     private WineList wineList1;
     private WineList wineList2;
+    private Wine veltlinskeZelene;
+    private Wine muskatMoravsky;
+    private Wine svatovavrinecke;
+    private MarketingEvent marketingEvent;
 
     @Mock
     private WineListDao wineListDao;
@@ -43,6 +48,10 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     @InjectMocks
     private WineService wineService;
+
+    @Autowired
+    @InjectMocks
+    private MarketingEventService marketingEventService;
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
@@ -99,24 +108,29 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() {
-        Wine veltlinskeZelene = veltlinskeZelene().build();
-        Wine muskatMoravsky = muskatMoravsky().build();
-        Wine svatovavrinecke = svatovavrinecke().build();
+        veltlinskeZelene = veltlinskeZelene().build();
+        muskatMoravsky = muskatMoravsky().build();
+        svatovavrinecke = svatovavrinecke().build();
         wineService.createWine(veltlinskeZelene);
         wineService.createWine(muskatMoravsky);
         wineService.createWine(svatovavrinecke);
+        marketingEvent = new MarketingEvent();
+        marketingEvent.setDescription("anniversary");
+        marketingEventService.createMarketingEvent(marketingEvent);
         wineList1 = new WineList();
         List<Wine> wines1 = new ArrayList<>();
         wines1.add(veltlinskeZelene);
         wines1.add(muskatMoravsky);
-        wineList1.setDate(LocalDateTime.now());
+        wineList1.setDate(new LocalDateTime(2016,11,25,0,0));
         wineList1.setName("anniversary");
         wineList1.setWines(wines1);
+        wineList1.setMarketingEvent(marketingEvent);
+        wineListService.createWineList(wineList1);
         wineList2 = new WineList();
         List<Wine> wines2 = new ArrayList<>();
         wines2.add(muskatMoravsky);
         wines2.add(svatovavrinecke);
-        wineList2.setDate(LocalDateTime.now());
+        wineList2.setDate(new LocalDateTime(2016,11,6,0,0));
         wineList2.setName("birthday");
         wineList2.setWines(wines2);
         
@@ -138,10 +152,8 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findWineListById() {
-        when(wineListDao.findWineListById(wineList1.getId()))
-                .thenReturn(wineList1);
-        assertThat(wineListService.findWineListById(wineList1.getId()))
-                .isEqualToComparingFieldByField(wineList1);
+        when(wineListDao.findWineListById(wineList1.getId())).thenReturn(wineList1);
+        assertThat(wineListService.findWineListById(wineList1.getId())).isEqualToComparingFieldByField(wineList1);
         verify(wineListDao).findWineListById(wineList1.getId());
     }
 
@@ -159,10 +171,53 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
         expectedWineLists.add(wineList2);
         when(wineListDao.findAllWineLists()).thenReturn(expectedWineLists);
         List<WineList> currentWineLists = wineListService.findAllWineLists();
-        assertThat(currentWineLists).isEqualTo(expectedWineLists.size());
         for(int i = 0; i < expectedWineLists.size(); i++) {
             assertThat(currentWineLists.get(i)).isEqualToComparingFieldByField(expectedWineLists.get(i));
         }
         verify(wineListDao).findAllWineLists();
+    }
+
+    @Test
+    public void addWine() {
+        wineListService.createWineList(wineList1);
+        wineList1.addWine(svatovavrinecke);
+        assertThat(wineListDao.findWineListById(wineList1.getId())).isEqualToComparingFieldByField(wineList1);
+    }
+
+    @Test
+    public void removeWine() {
+        wineListService.createWineList(wineList1);
+        wineList1.removeWine(svatovavrinecke);
+        assertThat(wineListDao.findWineListById(wineList1.getId())).isEqualToComparingFieldByField(wineList1);
+    }
+
+    @Test
+    public void findWineListByMarketingEvent() {
+        wineListService.createWineList(wineList1);
+        wineListService.createWineList(wineList2);
+        assertThat(wineListDao.findWineListByMarketingEvent(marketingEvent)).isEqualToComparingFieldByField(wineList1);
+
+    }
+
+    @Test
+    public void findWineListByName() {
+        List<WineList> expectedWineLists = new ArrayList<>();
+        expectedWineLists.add(wineList1);
+        List<WineList> currentWineLists = wineListService.findWineListByName("anniversary");
+        for(int i = 0; i < expectedWineLists.size(); i++) {
+            assertThat(currentWineLists.get(i)).isEqualToComparingFieldByField(expectedWineLists.get(i));
+        }
+        verify(wineListDao).findWineListsByName("anniversary");
+    }
+
+    @Test
+    public void findWineListByDate() {
+        List<WineList> expectedWineLists = new ArrayList<>();
+        expectedWineLists.add(wineList1);
+        List<WineList> currentWineLists = wineListService.findWineListByDate(new LocalDateTime(2016,11,6,0,0));
+        for(int i = 0; i < expectedWineLists.size(); i++) {
+            assertThat(currentWineLists.get(i)).isEqualToComparingFieldByField(expectedWineLists.get(i));
+        }
+        verify(wineListDao).findWineListsByDate(new LocalDateTime(2016,11,6,0,0));
     }
 }

@@ -53,6 +53,7 @@ public class WineListServiceImpl implements WineListService {
     public void addWine(WineList wineList, Wine wine) {
         try {
             wineList.addWine(wine);
+            wineListDao.updateWineList(wineList);
         } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot add wine to wineList", e);
         }
@@ -62,6 +63,7 @@ public class WineListServiceImpl implements WineListService {
     public void removeWine(WineList wineList, Wine wine) {
         try {
             wineList.removeWine(wine);
+            wineListDao.updateWineList(wineList);
         } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot remove wine from wineList", e);
         }

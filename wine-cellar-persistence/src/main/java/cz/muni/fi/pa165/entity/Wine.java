@@ -1,14 +1,12 @@
 package cz.muni.fi.pa165.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Michaela Bamburová on 25.10.2016.
@@ -49,6 +47,9 @@ public class Wine {
 
     @DecimalMin("0.0")
     private BigDecimal grapeSugarContent;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "wines")
+    private List<WineList> wineLists = new ArrayList<>();
 
     public Wine(Long id) {
         this.id = id;
