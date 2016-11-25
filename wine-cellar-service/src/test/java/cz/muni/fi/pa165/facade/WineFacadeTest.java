@@ -22,7 +22,10 @@ import org.testng.annotations.BeforeMethod;
 import java.math.BigDecimal;
 import java.time.Year;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Tomas Gordian on 11/25/2016.
@@ -95,13 +98,10 @@ public class WineFacadeTest extends AbstractTestNGSpringContextTests {
                 .grapeSugarContent(new BigDecimal("0"));
     }
 
-    @BeforeClass
-    public void setUpMock(){
-        MockitoAnnotations.initMocks(this);
-    }
-
     @BeforeMethod
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
+
         veltlinskeZelene = veltlinskeZelene().build();
         veltlinskeZelene.setId(1L);
         muskatMoravsky = muskatMoravsky().build();
@@ -112,8 +112,84 @@ public class WineFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testCreateWine() {
-        WineDto wineDto = new WineDto();
-        
+    public void createWine() {
+
+        wineFacade.createWine(veltlinskeZeleneDto);
+        verify(wineFacade).createWine(veltlinskeZeleneDto);
+    }
+
+    @Test
+    public void delete(){
+        wineFacade.deleteWine(veltlinskeZeleneDto);
+        verify(wineFacade).deleteWine(veltlinskeZeleneDto);
+    }
+
+    @Test
+    public void update(){
+        wineFacade.updateWine(veltlinskeZeleneDto);
+        verify(wineFacade).updateWine(veltlinskeZeleneDto);
+    }
+
+    @Test
+    public void findWineById(){
+        when(wineService.findWineById(veltlinskeZelene.getId())).thenReturn(veltlinskeZelene);
+        WineDto wineDto = wineFacade.findWineById(veltlinskeZeleneDto.getId());
+
+        assertThat(wineFacade.findWineById(veltlinskeZeleneDto.getId())).isEqualToComparingFieldByField(veltlinskeZeleneDto);
+    }
+
+    @Test
+    public void findAllWines(){
+
+    }
+
+    @Test
+    public void findWinesByName(){
+
+    }
+
+    @Test
+    public void findWinesByVintage(){
+
+    }
+
+    @Test
+    public void findWineByBatch(){
+
+    }
+
+    @Test
+    public void findWinesByPredicate(){
+
+    }
+
+    @Test
+    public void findWinesByPredicateEquivalent(){
+
+    }
+
+    @Test
+    public void findWinesByAlcoholVolume(){
+
+    }
+
+    @Test
+    public void findWinesByResidualSugar(){
+
+    }
+
+    @Test
+    public void findWinesByAcidity(){
+
+    }
+
+    @Test
+    public void findWinesByGrapeSugarContent(){
+
+    }
+
+    @Test
+    public void findWinesBetweenYears(){
+
     }
 }
