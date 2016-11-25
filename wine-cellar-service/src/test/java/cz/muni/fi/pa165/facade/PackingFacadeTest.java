@@ -151,12 +151,16 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     @Test
     public void testFindPackingsByVolume() {
+        List<Packing> expectedPackings = new ArrayList<>();
+        expectedPackings.add(packing2);
 
+        when(packingService.findPackingsByVolume(muskatMoravsky.getAlcoholVolume())).thenReturn(expectedPackings);
+        assertThat(packingFacade.findPackingByVolume(muskatMoravsky.getAlcoholVolume()).size()).isEqualTo(expectedPackings.size());
     }
 
     @Test
     public void testFindPackingsByValidFrom() {
-
+        when(packingService.)
     }
 
     @Test
@@ -166,7 +170,13 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     @Test
     public void testFindPackingsByWine() {
+        List<Packing> expectedPacking = new ArrayList<>();
+        expectedPacking.add(packing1);
 
+        /*
+        when(packingService.findPackingsByWine(veltlinskeZelene)).thenReturn(expectedPacking);
+        assertThat(packingFacade.findPackingByWine(veltlinskeZelene).size()).isEqualTo(expectedPacking.size());
+        */
     }
 
     @Test

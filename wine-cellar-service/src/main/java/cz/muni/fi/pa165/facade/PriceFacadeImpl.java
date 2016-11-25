@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.dto.PackingDto;
+import cz.muni.fi.pa165.dto.PriceCreateDto;
 import cz.muni.fi.pa165.dto.PriceDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
@@ -46,7 +47,7 @@ public class PriceFacadeImpl implements PriceFacade {
         }
         Price mappedPrice = beanMappingService.mapTo(priceCreateDto, Price.class);
         mappedPrice.setMarketingEvent(marketingEventService.findMarketingEventById(priceCreateDto.getMarketingEventId()));
-        mappedPrice.setPacking(packingService.get(priceCreateDto.getPackingId()));
+        mappedPrice.setPacking(packingService.findPackingById(priceCreateDto.getPackingId()));
         priceService.createPrice(mappedPrice);
     }
 
@@ -76,7 +77,7 @@ public class PriceFacadeImpl implements PriceFacade {
     }
 
     @Override
-    public List<PriceDto> findByMarketingEvent(MarketingEventDto marketingEventDto) {
+    public List<PriceDto> findPricesByMarketingEvent(MarketingEventDto marketingEventDto) {
         MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
 
         if (priceService.findPriceByMarketingEvent(mappedMarketingEvent) == null) {
@@ -86,7 +87,7 @@ public class PriceFacadeImpl implements PriceFacade {
     }
 
     @Override
-    public List<PriceDto> findByPacking(PackingDto packingDto) {
+    public List<PriceDto> findPricesByPacking(PackingDto packingDto) {
         Packing mappedPacking = beanMappingService.mapTo(packingDto, Packing.class);
 
         if (priceService.findPriceByPacking(mappedPacking) == null) {
@@ -96,7 +97,7 @@ public class PriceFacadeImpl implements PriceFacade {
     }
 
     @Override
-    public List<PriceDto> findByCurrency(Currency currency) {
+    public List<PriceDto> findPricesByCurrency(Currency currency) {
         if (priceService.findPriceByCurrency(currency) == null) {
             throw new NoResultException();
         }
@@ -104,7 +105,7 @@ public class PriceFacadeImpl implements PriceFacade {
     }
 
     @Override
-    public List<PriceDto> findByPrice(BigDecimal price) {
+    public List<PriceDto> findPricesByPrice(BigDecimal price) {
         if (priceService.findPriceByPriceAttribute(price) == null) {
             throw new NoResultException();
         }
