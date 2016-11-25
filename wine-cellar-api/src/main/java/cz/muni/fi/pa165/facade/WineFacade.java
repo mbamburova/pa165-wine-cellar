@@ -26,9 +26,10 @@ public interface WineFacade {
     WineDto findWineByBatch(String batch);
     List<WineDto> findWinesByPredicate(String predicate);
     List<WineDto> findWinesByPredicateEquivalent(String predicateEquivalent);
-    List<WineDto> findWinesByAlcoholVolume(BigDecimal alcoholVolume);
-    List<WineDto> findWinesByResidualSugar(BigDecimal residualSugar);
-    List<WineDto> findWinesByAcidity(BigDecimal acidity);
-    List<WineDto> findWinesByGrapeSugarContent(BigDecimal grapeSugarContent);
+    List<WineDto> findWinesByAlcoholVolume(BigDecimal fromAlcoholVolume, BigDecimal toAlcoholVolume);
+    List<WineDto> findWinesByResidualSugar(BigDecimal fromResidualSugar, BigDecimal toResidualSugar);
+    List<WineDto> findWinesByAcidity(BigDecimal fromAcidity, BigDecimal toAcidity);
+    List<WineDto> findWinesByGrapeSugarContent(BigDecimal fromGrapeSugarContent, BigDecimal toGrapeSugarContent);
+
     List<WineDto> findWinesBetweenYears(Year from, Year to);
 }

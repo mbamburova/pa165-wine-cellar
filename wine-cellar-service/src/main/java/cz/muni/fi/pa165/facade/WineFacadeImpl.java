@@ -37,7 +37,7 @@ public class WineFacadeImpl implements WineFacade {
         wine.setResidualSugar(wineDto.getResidualSugar());
         wine.setAcidity(wineDto.getAcidity());
         wine.setGrapeSugarContent(wineDto.getGrapeSugarContent());
-        wineService.create(wine);
+        wineService.createWine(wine);
         return wine.getId();
     }
 
@@ -107,35 +107,35 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public List<WineDto> findWinesByAlcoholVolume(BigDecimal alcoholVolume) {
-        if (wineService.findWinesByAlcoholVolume(alcoholVolume) == null) {
+    public List<WineDto> findWinesByAlcoholVolume(BigDecimal fromAlcoholVolume, BigDecimal toAlcoholVolume) {
+        if (wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByAlcoholVolume(alcoholVolume), Wine.class);
+        return beanMappingService.mapTo(wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume), Wine.class);
     }
 
     @Override
-    public List<WineDto> findWinesByResidualSugar(BigDecimal residualSugar) {
-        if (wineService.findWinesByResidualSugar(residualSugar) == null) {
+    public List<WineDto> findWinesByResidualSugar(BigDecimal fromResidualSugar, BigDecimal toResidualSugar) {
+        if (wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByResidualSugar(residualSugar), Wine.class);
+        return beanMappingService.mapTo(wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar), Wine.class);
     }
 
     @Override
-    public List<WineDto> findWinesByAcidity(BigDecimal acidity) {
-        if (wineService.findWinesByAcidity(acidity) == null) {
+    public List<WineDto> findWinesByAcidity(BigDecimal fromAcidity, BigDecimal toAcidity) {
+        if (wineService.findWinesByAcidity(fromAcidity, toAcidity) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByAcidity(acidity), Wine.class);
+        return beanMappingService.mapTo(wineService.findWinesByAcidity(fromAcidity, toAcidity), Wine.class);
     }
 
     @Override
-    public List<WineDto> findWinesByGrapeSugarContent(BigDecimal grapeSugarContent) {
-        if (wineService.findWinesByGrapeSugarContent(grapeSugarContent) == null) {
+    public List<WineDto> findWinesByGrapeSugarContent(BigDecimal fromGrapeSugarContent, BigDecimal toGrapeSugarContent) {
+        if (wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByGrapeSugarContent(grapeSugarContent), Wine.class);
+        return beanMappingService.mapTo(wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent), Wine.class);
     }
 
     @Override
