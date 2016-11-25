@@ -162,8 +162,8 @@ public class WineDaoImpl implements WineDao {
                     .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromYear" +
                                     " AND :toYear",
                             Wine.class)
-                    .setParameter("fromYear", from)
-                    .setParameter("toYear", to)
+                    .setParameter("fromYear", from.getValue())
+                    .setParameter("toYear", to.getValue())
                     .getResultList();
         } catch (NoResultException nrf) {
             return new ArrayList<>();
