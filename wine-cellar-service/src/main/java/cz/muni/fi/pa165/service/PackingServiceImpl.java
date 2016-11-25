@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
+import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,41 +25,73 @@ public class PackingServiceImpl implements PackingService {
 
     @Override
     public void createPacking(Packing packing) {
-        packingDao.createPacking(packing);
+        try {
+            packingDao.createPacking(packing);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot create packing", e);
+        }
     }
 
     @Override
     public Packing findPackingById(Long id) {
-        return packingDao.findPackingById(id);
+        try {
+            return packingDao.findPackingById(id);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot find packing by id", e);
+        }
     }
 
     @Override
     public List<Packing> findAllPackings() {
-        return packingDao.findAllPackings();
+        try {
+            return packingDao.findAllPackings();
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot find all packings", e);
+        }
     }
 
     @Override
     public List<Packing> findPackingsByVolume(BigDecimal volume) {
-        return packingDao.findPackingsByVolume(volume);
+        try {
+            return packingDao.findPackingsByVolume(volume);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot find packing by volume", e);
+        }
     }
 
     @Override
     public List<Packing> findPackingsByWine(Wine wine) {
-        return packingDao.findPackingsByWine(wine);
+        try {
+            return packingDao.findPackingsByWine(wine);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot find packing by wine", e);
+        }
     }
 
     @Override
     public void updatePacking(Packing packing) {
-        packingDao.updatePacking(packing);
+        try {
+            packingDao.updatePacking(packing);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot update packing", e);
+        }
     }
 
     @Override
     public void deletePacking(Packing packing) {
-        packingDao.deletePacking(packing);
+        try {
+            packingDao.deletePacking(packing);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot delete packing", e);
+        }
     }
 
     @Override
     public boolean isPackingValid(Packing packing) {
-        return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
+        try {
+            return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("cannot check if packing is valid", e);
+        }
     }
 }
