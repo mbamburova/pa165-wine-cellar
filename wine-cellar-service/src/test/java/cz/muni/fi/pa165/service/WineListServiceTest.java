@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.WineBuilder;
+import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.WineListDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
@@ -9,6 +10,8 @@ import org.joda.time.LocalDateTime;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -28,6 +31,7 @@ import static org.mockito.Mockito.when;
  * @author MarekScholtz
  * @version 2016.11.25
  */
+@ContextConfiguration(classes = ServiceConfiguration.class)
 public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     private WineList wineList1;
@@ -39,6 +43,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private WineListDao wineListDao;
 
+    @Autowired
     @InjectMocks
     private WineService wineService;
 
