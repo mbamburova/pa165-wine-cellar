@@ -110,6 +110,13 @@ public interface WineDao {
      * @param to year
      * @return list of wines
      */
-    List<Wine> findWinesFromYears(Year from, Year to);
+    List<Wine> findWinesBetweenYears(Year from, Year to);
+
+    /**
+     * get wine by given batch
+     * @param batch
+     * @return wine
+     */
+    Wine findWineByBatch(String batch);
 
 }
