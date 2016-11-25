@@ -45,7 +45,7 @@ public class WineListServiceImpl implements WineListService {
     }
 
     @Override
-    public List<WineList> findAll() {
+    public List<WineList> findAllWineLists() {
         return wineListDao.getAll();
     }
 
@@ -55,22 +55,22 @@ public class WineListServiceImpl implements WineListService {
     }
 
     @Override
-    public WineList findByMarketingEvent(MarketingEvent marketingEvent) {
+    public WineList findWineListByMarketingEvent(MarketingEvent marketingEvent) {
         return wineListDao.findByMarketingEvent(marketingEvent);
     }
 
     @Override
-    public List<WineList> findByName(String name) {
+    public List<WineList> findWineListByName(String name) {
         return wineListDao.findByName(name);
     }
 
     @Override
-    public List<WineList> findByWine(Wine wine) {
+    public List<WineList> findWineListByWine(Wine wine) {
         return null;
     }
 
     @Override
-    public List<WineList> findByDate(LocalDateTime date) {
+    public List<WineList> findWineListByDate(LocalDateTime date) {
         return wineListDao.findByDate(date);
     }
 }

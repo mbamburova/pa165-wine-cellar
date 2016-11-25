@@ -68,7 +68,7 @@ public class PackingServiceImpl implements PackingService {
     }
 
     @Override
-    public boolean isValid(Packing packing) {
+    public boolean isValid(Packing packing)  {
         return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
     }
 

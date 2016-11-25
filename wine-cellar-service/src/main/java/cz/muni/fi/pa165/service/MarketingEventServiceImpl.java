@@ -3,12 +3,14 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.MarketingEventDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author Michaela Bamburová on 08.11.2016.
  */
+@Service
 public class MarketingEventServiceImpl implements MarketingEventService {
 
     @Autowired

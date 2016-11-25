@@ -104,7 +104,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCreateWine() {
-        wineService.create(veltlinskeZelene);
+        wineService.createWine(veltlinskeZelene);
         verify(wineDao).createWine(veltlinskeZelene);
     }
 
@@ -115,7 +115,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(veltlinskeZelene);
 
-        wineService.create(veltlinskeZelene);
+        wineService.createWine(veltlinskeZelene);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -125,7 +125,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(muskatMoravsky);
 
-        wineService.create(muskatMoravsky);
+        wineService.createWine(muskatMoravsky);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -135,7 +135,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(svatovavrinecke);
 
-        wineService.create(svatovavrinecke);
+        wineService.createWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -145,7 +145,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(veltlinskeZelene);
 
-        wineService.create(veltlinskeZelene);
+        wineService.createWine(veltlinskeZelene);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -155,7 +155,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(muskatMoravsky);
 
-        wineService.create(muskatMoravsky);
+        wineService.createWine(muskatMoravsky);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -165,7 +165,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(svatovavrinecke);
 
-        wineService.create(svatovavrinecke);
+        wineService.createWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -175,12 +175,12 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .createWine(veltlinskeZelene);
 
-        wineService.create(veltlinskeZelene);
+        wineService.createWine(veltlinskeZelene);
     }
 
     @Test
     public void testUpdateWine() {
-        wineService.update(muskatMoravsky);
+        wineService.updateWine(muskatMoravsky);
         verify(wineDao).updateWine(muskatMoravsky);
     }
 
@@ -191,7 +191,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(veltlinskeZelene);
 
-        wineService.update(veltlinskeZelene);
+        wineService.updateWine(veltlinskeZelene);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -201,7 +201,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(muskatMoravsky);
 
-        wineService.update(muskatMoravsky);
+        wineService.updateWine(muskatMoravsky);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -211,7 +211,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(svatovavrinecke);
 
-        wineService.update(svatovavrinecke);
+        wineService.updateWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -221,7 +221,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(veltlinskeZelene);
 
-        wineService.update(veltlinskeZelene);
+        wineService.updateWine(veltlinskeZelene);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -231,7 +231,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(muskatMoravsky);
 
-        wineService.update(muskatMoravsky);
+        wineService.updateWine(muskatMoravsky);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -241,7 +241,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(svatovavrinecke);
 
-        wineService.update(svatovavrinecke);
+        wineService.updateWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -251,7 +251,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .when(wineDao)
             .updateWine(veltlinskeZelene);
 
-        wineService.update(veltlinskeZelene);
+        wineService.updateWine(veltlinskeZelene);
     }
 
     @Test
@@ -271,7 +271,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         when(wineDao.findWineById(-1L))
             .thenReturn(null);
 
-        assertThat(wineService.get(-1L)).isNull();
+        assertThat(wineService.findWineById(-1L)).isNull();
 
         verify(wineDao).findWineById(-1L);
     }
@@ -284,11 +284,11 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         expectedWines.add(svatovavrinecke);
 
         when(wineDao.findAllWines()).thenReturn(expectedWines);
-        List<Wine> actWines = wineService.findAll();
+        List<Wine> actWines = wineService.findAllWines();
 
         assertThat(actWines.size()).isEqualTo(expectedWines.size());
         for(int i = 0; i < expectedWines.size(); i++) {
-            assertThat(actWines.get(i)).isEqualToComparingFieldByField(expectedWines.get(i));
+            assertThat(actWines.findWineById(i)).isEqualToComparingFieldByField(expectedWines.get(i));
         }
 
         verify(wineDao).findAllWines();
@@ -301,10 +301,10 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         List<Wine> expectedWines = new ArrayList<>();
         expectedWines.add(veltlinskeZelene);
 
-        when(wineDao.findByName(name)).thenReturn(expectedWines);
-        assertThat(wineService.findByName(name).size()).isEqualTo(expectedWines.size());
+        when(wineDao.findWinesByName(name)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByName(name).size()).isEqualTo(expectedWines.size());
 
-        verify(wineDao).findByName(name);
+        verify(wineDao).findWinesByName(name);
     }
 
     @Test
@@ -316,20 +316,20 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         expectedWines.add(muskatMoravsky);
         expectedWines.add(svatovavrinecke);
 
-        when(wineDao.findByVintage(year)).thenReturn(expectedWines);
-        assertThat(wineService.findByVintage(year).size()).isEqualTo(expectedWines.size());
+        when(wineDao.findWinesByVintage(year)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByVintage(year).size()).isEqualTo(expectedWines.size());
 
-        verify(wineDao).findByVintage(year);
+        verify(wineDao).findWInesByVintage(year);
     }
 
     @Test
     public void testFindWineByBatch() {
         String batch = "6/15";
 
-        when(wineDao.findByBatch(batch)).thenReturn(svatovavrinecke);
-        assertThat(wineService.findByBatch(batch)).isEqualToComparingFieldByField(svatovavrinecke);
+        when(wineDao.findWineByBatch(batch)).thenReturn(svatovavrinecke);
+        assertThat(wineService.findWineByBatch(batch)).isEqualToComparingFieldByField(svatovavrinecke);
 
-        verify(wineDao).findByBatch(batch);
+        verify(wineDao).findWineByBatch(batch);
     }
 
     @Test
@@ -340,10 +340,10 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         expectedWines.add(veltlinskeZelene);
         expectedWines.add(muskatMoravsky);
 
-        when(wineDao.findByPredicate(predicate)).thenReturn(expectedWines);
-        assertThat(wineService.findByPredicate(predicate).size()).isEqualTo(expectedWines.size());
+        when(wineDao.findWinesByPredicate(predicate)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByPredicate(predicate).size()).isEqualTo(expectedWines.size());
 
-        verify(wineDao).findByPredicate(predicate);
+        verify(wineDao).findWinesByPredicate(predicate);
     }
 
     @Test
@@ -355,92 +355,35 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
         expectedWines.add(muskatMoravsky);
         expectedWines.add(svatovavrinecke);
 
-        when(wineDao.findByPredicateEquivalent(predicateEquivalent)).thenReturn(expectedWines);
-        assertThat(wineService.findByPredicateEquivalent(predicateEquivalent).size()).isEqualTo(expectedWines.size());
+        when(wineDao.findWinesByPredicateEquivalent(predicateEquivalent)).thenReturn(expectedWines);
+        assertThat(wineService.findByWinesPredicateEquivalent(predicateEquivalent).size()).isEqualTo(expectedWines.size());
 
-        verify(wineDao).findByPredicateEquivalent(predicateEquivalent);
-    }
-
-    @Test
-    public void testFindWinesByDescription() {
-        String description = "Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. " +
-            "Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.";
-
-        List<Wine> expectedWines = new ArrayList<>();
-        expectedWines.add(veltlinskeZelene);
-
-        when(wineDao.findByDescription(description)).thenReturn(expectedWines);
-        assertThat(wineService.findByDescription(description).size()).isEqualTo(expectedWines.size());
-
-        verify(wineDao).findByDescription(description);
-    }
-
-    @Test
-    public void testFindWinesByNotes() {
-        String notes = "30,2°ČNM";
-
-        List<Wine> expectedWines = new ArrayList<>();
-        expectedWines.add(svatovavrinecke);
-
-        when(wineDao.findByNotes(notes)).thenReturn(expectedWines);
-        assertThat(wineService.findByNotes(notes).size()).isEqualTo(expectedWines.size());
-
-        verify(wineDao).findByNotes(notes);
+        verify(wineDao).findWinesByPredicateEquivalent(predicateEquivalent);
     }
 
     @Test
     public void testFindWinesByAlcoholVolume() {
-        BigDecimal alcoholVolume = new BigDecimal("12");
 
-        List<Wine> expectedWines = new ArrayList<>();
-        expectedWines.add(svatovavrinecke);
-        expectedWines.add(muskatMoravsky);
-
-        when(wineDao.findByAlcoholVolume(alcoholVolume)).thenReturn(expectedWines);
-        assertThat(wineService.findByAlcoholVolume(alcoholVolume).size()).isEqualTo(expectedWines.size());
-
-        verify(wineDao).findByAlcoholVolume(alcoholVolume);
     }
 
     @Test
     public void testFindWinesByResidualSugar() {
-        BigDecimal residualSugar = new BigDecimal("0.7");
 
-        List<Wine> expectedWines = new ArrayList<>();
-        expectedWines.add(muskatMoravsky);
-
-        when(wineDao.findByResidualSugar(residualSugar)).thenReturn(expectedWines);
-        assertThat(wineService.findByResidualSugar(residualSugar).size()).isEqualTo(expectedWines.size());
-
-        verify(wineDao).findByResidualSugar(residualSugar);
     }
 
     @Test
     public void testFindWinesByAcidity() {
-        BigDecimal acidity = new BigDecimal("4.6");
 
-        List<Wine> expectedWines = new ArrayList<>();
-        expectedWines.add(svatovavrinecke);
-
-        when(wineDao.findByAcidity(acidity)).thenReturn(expectedWines);
-        assertThat(wineService.findByAcidity(acidity).size()).isEqualTo(expectedWines.size());
-
-        verify(wineDao).findByAcidity(acidity);
     }
 
     @Test
     public void testFindWinesByGrapeSugarContent() {
-        BigDecimal grapeSugarContent = new BigDecimal("4.6");
 
-        List<Wine> expectedWines = new ArrayList<>();
-        expectedWines.add(svatovavrinecke);
-        expectedWines.add(veltlinskeZelene);
-        expectedWines.add(muskatMoravsky);
+    }
 
-        when(wineDao.findByGrapeSugarContent(grapeSugarContent)).thenReturn(expectedWines);
-        assertThat(wineService.findByGrapeSugarContent(grapeSugarContent).size()).isEqualTo(expectedWines.size());
+    @Test
+    public void testFindWinesFromYears() {
 
-        verify(wineDao).findByGrapeSugarContent(grapeSugarContent);
     }
 
     @Test
