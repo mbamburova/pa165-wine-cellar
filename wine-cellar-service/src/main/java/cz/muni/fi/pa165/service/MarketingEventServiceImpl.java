@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.MarketingEventDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,26 +19,46 @@ public class MarketingEventServiceImpl implements MarketingEventService {
 
     @Override
     public void createMarketingEvent(MarketingEvent marketingEvent) {
-        marketingEventDao.create(marketingEvent);
+        try {
+            marketingEventDao.createMarketingEvent(marketingEvent);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot create marketing event", e);
+        }
     }
 
     @Override
     public void updateMarketingEvent(MarketingEvent marketingEvent) {
-        marketingEventDao.update(marketingEvent);
+        try {
+            marketingEventDao.updateMarketingEvent(marketingEvent);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot update marketing event", e);
+        }
     }
 
     @Override
     public MarketingEvent findMarketingEventById(Long marketingEventId) {
-        return marketingEventDao.get(marketingEventId);
+         try {
+             return marketingEventDao.findMarketingEventById(marketingEventId);
+         } catch (Exception e) {
+             throw new WineCellarDataAccessException("Cannot find marketing event by id", e);
+         }
     }
 
     @Override
     public void deleteMarketingEvent(MarketingEvent marketingEvent) {
-        marketingEventDao.delete(marketingEvent);
+        try {
+            marketingEventDao.deleteMarketingEvent(marketingEvent);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot delete marketing event", e);
+        }
     }
 
     @Override
     public List<MarketingEvent> findAllMarketingEvents() {
-        return null;
+        try {
+            return marketingEventDao.findAllMarketingEvents();
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find all marketing events", e);
+        }
     }
 }

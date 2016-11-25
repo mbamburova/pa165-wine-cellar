@@ -128,12 +128,12 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     public void testDeletePacking() {
         PackingDto packingDto = (PackingDto) beanMappingService.mapToDTOWithID(packing2); //???
         packingFacade.deletePacking(packingDto);
-        verify(packingService).delete(packing2);
+        verify(packingService).deletePacking(packing2);
     }
 
     @Test
     public void testFindPackingById() {
-        when(packingService.get(packing1.getId())).thenReturn(packing1);
+        when(packingService.findPackingById(packing1.getId())).thenReturn(packing1);
         PackingDto packingDto = packingFacade.findPackingById(packing1.getId());
 
         assertThat(packingFacade.findPackingById(packing1.getId())).isEqualToComparingFieldByField(packingDto);
@@ -145,7 +145,7 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         allPackings.add(packing1);
         allPackings.add(packing2);
 
-        when(packingService.getAll()).thenReturn(allPackings);
+        when(packingService.findAllPackings()).thenReturn(allPackings);
         assertThat(packingFacade.findAllPackings().size()).isEqualTo(allPackings.size());
     }
 
