@@ -77,7 +77,7 @@ public class WineListServiceImpl implements WineListService {
     @Override
     public WineList findWineListById(Long wineListId) {
         try {
-            return wineListDao.getWineListById(wineListId);
+            return wineListDao.findWineListById(wineListId);
         } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wineList by id", e);
         }

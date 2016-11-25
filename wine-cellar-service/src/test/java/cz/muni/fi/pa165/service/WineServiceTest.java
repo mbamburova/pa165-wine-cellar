@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
@@ -33,6 +34,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private WineDao wineDao;
 
+    @Autowired
     @InjectMocks
     private WineService wineService;
 
@@ -321,9 +323,9 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWineByBatch() {
-        String batch = "6/15";
+       /* String batch = "6/15";
 
-      /*  when(wineDao.findWineByBatch(batch)).thenReturn(svatovavrinecke);
+        when(wineDao.findWineByBatch(batch)).thenReturn(svatovavrinecke);
         assertThat(wineService.findWineByBatch(batch)).isEqualToComparingFieldByField(svatovavrinecke);
 
         verify(wineDao).findWineByBatch(batch);*/
