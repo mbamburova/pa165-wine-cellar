@@ -21,7 +21,7 @@ public interface WineListService {
 
     List<WineList> findAllWineLists();
     WineList findWineListById(Long wineListId);
-    WineList findWineListByMarketingEvent(MarketingEvent marketingEvent);
+    List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent);
     List<WineList> findWineListByName(String name);
     List<WineList> findWineListByDate(LocalDateTime date);
 }

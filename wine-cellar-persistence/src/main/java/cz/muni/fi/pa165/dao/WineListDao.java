@@ -63,5 +63,5 @@ public interface WineListDao {
      * @param marketingEvent in wine list
      * @return wine list with given marketing event
      */
-    WineList findWineListByMarketingEvent(MarketingEvent marketingEvent);
+    List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent);
 }
