@@ -9,6 +9,8 @@ import cz.muni.fi.pa165.service.MarketingEventService;
 import cz.muni.fi.pa165.service.WineListService;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import java.util.Collection;
@@ -17,6 +19,8 @@ import java.util.List;
 /**
  * @author Tomas Gordian on 11/6/2016.
  */
+@Service
+@Transactional
 public class WineListFacadeImpl implements WineListFacade {
 
     @Autowired
