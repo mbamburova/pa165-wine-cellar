@@ -87,7 +87,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWineByBatch(batch) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWineByBatch(batch), Wine.class);
+        return beanMappingService.mapTo(wineService.findWineByBatch(batch), WineDto.class);
     }
 
     @Override

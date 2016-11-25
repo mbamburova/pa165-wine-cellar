@@ -2,17 +2,24 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.MarketingEventDao;
+import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.BeforeClass;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Silvia Borzová
@@ -29,56 +36,52 @@ public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
     @InjectMocks
     private MarketingEventService marketingEventService;
 
+    @Autowired
+    @InjectMocks
+    private MarketingEventFacade marketingEventFacade;
 
-    @Before
-    public void setUp(){
+    @Autowired
+    private BeanMappingService beanMappingService;
 
+    @BeforeClass
+    public void setUpMock(){
+        MockitoAnnotations.initMocks(this);
     }
 
-    @After
-    public void tearDown(){
+    @Test
+    public void createMarketingEvent(){
+        MarketingEventDto dto = new MarketingEventDto();
+        dto.setDescription("Marketing event");
+
+        MarketingEvent event = beanMappingService.mapTo(dto, MarketingEvent.class);
+
+        marketingEventFacade.createMarketingEvent(dto);
+        verify(marketingEventService, times(1)).createMarketingEvent(event);
+    }
+
+    @Test
+    public void deleteMarketingEvent(){
 
     }
 
     @Test
-    public void create(){
-
-    }
-
-    @Test
-    public void delete(){
-
-    }
-
-    @Test
-    public void update(){
+    public void updateMarketingEvent(){
 
     }
 
 
     @Test
-    public void findAll() throws Exception {
+    public void findAllMarketingEvents(){
 
     }
 
     @Test
-    public void get() throws Exception {
+    public void findMarketingEventById(){
 
     }
 
     @Test
-    public void findByDescription() throws Exception {
+    public void findMarketingEventByDescription(){
 
     }
-
-    @Test
-    public void addPrice() throws Exception {
-
-    }
-
-    @Test
-    public void removePrice() throws Exception {
-
-    }
-
 }

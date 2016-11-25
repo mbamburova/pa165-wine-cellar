@@ -5,6 +5,8 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.List;
 /**
  * @author Tomas Gordian on 11/6/2016.
  */
+
+@Service
+@Transactional
 public class MarketingEventFacadeImpl implements MarketingEventFacade {
 
     @Autowired

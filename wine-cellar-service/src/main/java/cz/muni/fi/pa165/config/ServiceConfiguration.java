@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(PersistenceApplicationContext.class)
-@ComponentScan(basePackages = {"cz.muni.fi.pa165.service"})
+@ComponentScan(basePackages = {"cz.muni.fi.pa165.service", "cz.muni.fi.pa165.facade"})
 public class ServiceConfiguration {
 
     @Bean
@@ -26,11 +26,6 @@ public class ServiceConfiguration {
         return dozer;
     }
 
-    /**
-     * Custom config for Dozer if needed
-     * @author nguyen
-     *
-     */
     public class DozerCustomConfig extends BeanMappingBuilder {
         @Override
         protected void configure() {
