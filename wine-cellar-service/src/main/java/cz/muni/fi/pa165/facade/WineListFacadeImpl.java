@@ -12,67 +12,42 @@ import java.util.List;
 public class WineListFacadeImpl implements WineListFacade {
 
     @Override
-    public void create(WineListDto wineList) {
+    public void createWineList(WineListDto wineList) {
 
     }
 
     @Override
-    public void delete(Long wineListId) {
+    public void deleteWineList(Long wineListId) {
 
     }
 
     @Override
-    public void update(Long wineListId) {
+    public void updateWineList(Long wineListId) {
 
     }
 
     @Override
-    public void updateName(Long wineListId, String name) {
-
-    }
-
-    @Override
-    public void updateDate(Long wineListId, LocalDateTime date) {
-
-    }
-
-    @Override
-    public void updateMarketingEvent(Long wineListId, MarketingEventDto marketingEventDto) {
-
-    }
-
-    @Override
-    public List<WineListDto> findAll() {
+    public List<WineListDto> findAllWineLists() {
         return null;
     }
 
     @Override
-    public WineListDto get(Long id) {
+    public WineListDto findWineListById(Long id) {
         return null;
     }
 
     @Override
-    public List<WineListDto> findByName(String name) {
+    public List<WineListDto> findWineListsByName(String name) {
         return null;
     }
 
     @Override
-    public List<WineListDto> findByDate(LocalDateTime date) {
+    public List<WineListDto> findWineListsByDate(LocalDateTime date) {
         return null;
     }
 
     @Override
-    public List<WineListDto> findByMarketingEvent(MarketingEventDto marketingEventDto) {
-        return null;
-    }
-
-    @Override
-    public WineListDto addWine(Long wineListId, Long wineId) {
-        return null;
-    }
-
-    @Override
-    public WineListDto removeWine(Long wineListId, Long wineId) {
+    public List<WineListDto> findWineListsByMarketingEvent(MarketingEventDto marketingEventDto) {
         return null;
     }
 }

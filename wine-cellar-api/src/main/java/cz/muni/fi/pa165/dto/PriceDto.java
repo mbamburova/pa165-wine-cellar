@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Currency;
 
@@ -9,9 +10,13 @@ import java.util.Currency;
 public class PriceDto {
 
     private Long id;
+
     private BigDecimal price;
+
     private Currency currency;
+
     private PackingDto packing;
+
     private MarketingEventDto marketingEvent;
 
     public Long getId() {
@@ -57,16 +62,16 @@ public class PriceDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof PriceDto)) return false;
 
         PriceDto priceDto = (PriceDto) o;
 
-        return id.equals(priceDto.id);
+        return getId() != null && getId().equals(priceDto.getId());
 
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

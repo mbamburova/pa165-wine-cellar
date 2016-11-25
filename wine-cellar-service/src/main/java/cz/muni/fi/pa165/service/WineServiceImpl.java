@@ -27,18 +27,12 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public void create(Wine wine) {
-        wineDao.create(wine);
+        wineDao.createWine(wine);
     }
 
     @Override
     public void delete(Wine wine) {
-        for(Packing packing : wine.getPackings()) {
-            for(Price price : packing.getPrices()) {
-                priceDao.delete(price);
-            }
-            packingDao.delete(packing);
-        }
-        wineDao.delete(wine);
+        wineDao.deleteWine(wine);
     }
 
     @Override
@@ -49,67 +43,67 @@ public class WineServiceImpl implements WineService {
     @Override
     public void updateName(Wine wine, String name) {
         wine.setName(name);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateVintage(Wine wine, Year vintage) {
         wine.setVintage(vintage);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateBatch(Wine wine, String batch) {
         wine.setBatch(batch);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updatePredicate(Wine wine, String predicate) {
         wine.setPredicate(predicate);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updatePredicateEquivalent(Wine wine, String predicateEquivalent) {
         wine.setPredicateEquivalent(predicateEquivalent);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateDescription(Wine wine, String description) {
         wine.setDescription(description);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateNotes(Wine wine, String notes) {
         wine.setNotes(notes);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateAlcoholVolume(Wine wine, BigDecimal alcoholVolume) {
         wine.setAlcoholVolume(alcoholVolume);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateResidualSugar(Wine wine, BigDecimal residualSugar) {
         wine.setResidualSugar(residualSugar);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateAcidity(Wine wine, BigDecimal acidity) {
         wine.setAcidity(acidity);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
     public void updateGrapeSugarContent(Wine wine, BigDecimal grapeSugarContent) {
         wine.setGrapeSugarContent(grapeSugarContent);
-        wineDao.update(wine);
+        wineDao.updateWine(wine);
     }
 
     @Override
@@ -124,72 +118,46 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public List<Wine> findByName(String name) {
-        return wineDao.findByName(name);
+        return wineDao.findWinesByName(name);
     }
 
     @Override
     public List<Wine> findByVintage(Year vintage) {
-        return wineDao.findByVintage(vintage);
-    }
-
-    @Override
-    public Wine findByBatch(String batch) {
-        return wineDao.findByBatch(batch);
+        return wineDao.findWinesByVintage(vintage);
     }
 
     @Override
     public List<Wine> findByPredicate(String predicate) {
-        return wineDao.findByPredicate(predicate);
+        return wineDao.findWinesByPredicate(predicate);
     }
 
     @Override
     public List<Wine> findByPredicateEquivalent(String predicateEquivalent) {
-        return wineDao.findByPredicateEquivalent(predicateEquivalent);
+        return wineDao.findWinesByPredicateEquivalent(predicateEquivalent);
     }
 
     @Override
-    public List<Wine> findByDescription(String description) {
-        return wineDao.findByDescription(description);
+    public List<Wine> findByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume) {
+        return wineDao.findWinesByAlcoholVolume(minAlcoholVolume, maxAlcoholVolume);
     }
 
     @Override
-    public List<Wine> findByNotes(String notes) {
-        return wineDao.findByNotes(notes);
+    public List<Wine> findByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar) {
+        return wineDao.findWinesByResidualSugar(minResidualSugar, maxResidualSugar);
     }
 
     @Override
-    public List<Wine> findByAlcoholVolume(BigDecimal alcoholVolume) {
-        return wineDao.findByAlcoholVolume(alcoholVolume);
+    public List<Wine> findByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity) {
+        return wineDao.findWinesByAcidity(minAcidity, maxAcidity);
     }
 
     @Override
-    public List<Wine> findByResidualSugar(BigDecimal residualSugar) {
-        return wineDao.findByResidualSugar(residualSugar);
-    }
-
-    @Override
-    public List<Wine> findByAcidity(BigDecimal acidity) {
-        return wineDao.findByAcidity(acidity);
-    }
-
-    @Override
-    public List<Wine> findByGrapeSugarContent(BigDecimal grapeSugarContent) {
-        return wineDao.findByGrapeSugarContent(grapeSugarContent);
+    public List<Wine> findByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent) {
+        return wineDao.findWinesByGrapeSugarContent(minGrapeSugarContent, maxGrapeSugarContent);
     }
 
     @Override
     public List<Wine> findAllWinesFromYears(Year from, Year to) {
-        return findAll().stream().filter(wine -> from.isBefore(wine.getVintage()) &&
-                to.isAfter(wine.getVintage())).collect(Collectors.toList());
-    }
-
-    @Override
-    public void addPackage(Wine wine, Packing packing) {
-        wineDao.addPacking(wine, packing);
-    }
-
-    @Override
-    public void removePackage(Wine wine, Packing packing) {
-        wineDao.removePacking(wine, packing);
+        return wineDao.findWinesFromYears(from, to);
     }
 }

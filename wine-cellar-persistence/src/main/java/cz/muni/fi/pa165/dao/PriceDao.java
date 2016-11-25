@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 
 import java.math.BigDecimal;
@@ -35,32 +36,34 @@ public interface PriceDao {
      * @param id
      * @return price
      */
-    Price get(Long id);
+    Price findPriceById(Long id);
 
     /**
      *  get all prices
      * @return list of prices
      */
-    List<Price> getAll();
+    List<Price> findAllPrices();
 
     /**
      *  get prices by given price
      * @param price
      * @return list of prices
      */
-    List<Price> getByPrice(BigDecimal price);
+    List<Price> findByPrice(BigDecimal price);
 
     /**
      *  get prices by given currency
      * @param currency
      * @return list of prices
      */
-    List<Price> getByCurrency(Currency currency);
+    List<Price> findByCurrency(Currency currency);
 
     /**
      *  get prices by given marketingEvent
      * @param marketingEvent
      * @return list of prices
      */
-    List<Price> getByMarketingEvent(MarketingEvent marketingEvent);
+    List<Price> findByMarketingEvent(MarketingEvent marketingEvent);
+
+    List<Packing> findPricebyPacking()
 }
