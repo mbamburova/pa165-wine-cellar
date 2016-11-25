@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Michaela Bamburová on 08.11.2016.
  */
 @Service
+@Transactional
 public class WineListServiceImpl implements WineListService {
 
     @Autowired

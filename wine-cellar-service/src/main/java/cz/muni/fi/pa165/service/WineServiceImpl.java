@@ -3,21 +3,20 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.PackingDao;
 import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.dao.WineDao;
-import cz.muni.fi.pa165.entity.Packing;
-import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Tomas Gordian on 11/6/2016.
  */
 @Service
+@Transactional
 public class WineServiceImpl implements WineService {
 
     @Autowired
@@ -61,7 +60,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWineByBatch(String batch) {
+    public Wine findWineByBatch(String batch) {
         return wineDao.findWineByBatch(batch);
     }
 
@@ -97,6 +96,6 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public List<Wine> findWinesBetweenYears(Year from, Year to) {
-        return wineDao.findWinesFromYears(from, to);
+        return wineDao.findWinesBetweenYears(from, to);
     }
 }

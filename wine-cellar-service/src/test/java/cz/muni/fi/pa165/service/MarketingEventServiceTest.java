@@ -43,17 +43,20 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
 
     @BeforeMethod
     public void setUp() {
+        marketingEvent1 = new MarketingEvent();
         marketingEvent1.setDescription("anniversary");
+        marketingEvent2 = new MarketingEvent();
+        marketingEvent2.setDescription("birthday");
     }
 
     @Test
-    public void createMarketingEvent() throws Exception {
+    public void createMarketingEvent() {
         marketingEventService.createMarketingEvent(marketingEvent1);
         verify(marketingEventDao).createMarketingEvent(marketingEvent1);
     }
 
     @Test
-    public void updateMarketingEvent() throws Exception {
+    public void updateMarketingEvent() {
         marketingEventService.createMarketingEvent(marketingEvent1);
         marketingEvent1.setDescription("birthday");
         marketingEventService.updateMarketingEvent(marketingEvent1);
@@ -61,7 +64,7 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
     }
 
     @Test
-    public void findMarketingEventById() throws Exception {
+    public void findMarketingEventById() {
         when(marketingEventDao.findMarketingEventById(marketingEvent1.getId()))
                 .thenReturn(marketingEvent1);
         assertThat(marketingEventService.findMarketingEventById(marketingEvent1.getId()))
@@ -70,20 +73,19 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
     }
 
     @Test
-    public void deleteMarketingEvent() throws Exception {
+    public void deleteMarketingEvent() {
         marketingEventService.createMarketingEvent(marketingEvent1);
         marketingEventService.deleteMarketingEvent(marketingEvent1);
         verify(marketingEventDao).deleteMarketingEvent(marketingEvent1);
     }
 
     @Test
-    public void findAllMarketingEvents() throws Exception {
+    public void findAllMarketingEvents() {
         List<MarketingEvent> expectedMarketingEvents = new ArrayList<>();
         expectedMarketingEvents.add(marketingEvent1);
         expectedMarketingEvents.add(marketingEvent2);
         when(marketingEventDao.findAllMarketingEvents()).thenReturn(expectedMarketingEvents);
         List<MarketingEvent> currentMarketingEvents = marketingEventService.findAllMarketingEvents();
-        assertThat(currentMarketingEvents).isEqualTo(expectedMarketingEvents.size());
         for(int i = 0; i < expectedMarketingEvents.size(); i++) {
             assertThat(currentMarketingEvents.get(i)).isEqualToComparingFieldByField(expectedMarketingEvents.get(i));
         }

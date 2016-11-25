@@ -32,19 +32,17 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     private WineList wineList1;
     private WineList wineList2;
-    private Wine veltlinskeZelene;
-    private Wine muskatMoravsky;
-    private Wine svatovavrinecke;
-    
+
     @Mock
     private WineListDao wineListDao;
 
     @Autowired
     @InjectMocks
-    private WineService wineService;
-
-    @InjectMocks
     private WineListService wineListService;
+
+    @Autowired
+    @InjectMocks
+    private WineService wineService;
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
@@ -101,15 +99,23 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void setUp() {
+        Wine veltlinskeZelene = veltlinskeZelene().build();
+        Wine muskatMoravsky = muskatMoravsky().build();
+        Wine svatovavrinecke = svatovavrinecke().build();
+        wineService.createWine(veltlinskeZelene);
+        wineService.createWine(muskatMoravsky);
+        wineService.createWine(svatovavrinecke);
+        wineList1 = new WineList();
         List<Wine> wines1 = new ArrayList<>();
-        wines1.add(veltlinskeZelene().build());
-        wines1.add(muskatMoravsky().build());
+        wines1.add(veltlinskeZelene);
+        wines1.add(muskatMoravsky);
         wineList1.setDate(LocalDateTime.now());
         wineList1.setName("anniversary");
         wineList1.setWines(wines1);
+        wineList2 = new WineList();
         List<Wine> wines2 = new ArrayList<>();
-        wines1.add(muskatMoravsky().build());
-        wines1.add(svatovavrinecke().build());
+        wines2.add(muskatMoravsky);
+        wines2.add(svatovavrinecke);
         wineList2.setDate(LocalDateTime.now());
         wineList2.setName("birthday");
         wineList2.setWines(wines2);
@@ -117,13 +123,13 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createWineList() throws Exception {
+    public void createWineList() {
         wineListService.createWineList(wineList1);
         verify(wineListDao).createWineList(wineList1);
     }
 
     @Test
-    public void updateWineList() throws Exception {
+    public void updateWineList() {
         wineListService.createWineList(wineList1);
         wineList1.setName("birthday");
         wineListService.updateWineList(wineList1);
@@ -131,7 +137,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findWineListById() throws Exception {
+    public void findWineListById() {
         when(wineListDao.findWineListById(wineList1.getId()))
                 .thenReturn(wineList1);
         assertThat(wineListService.findWineListById(wineList1.getId()))
@@ -140,14 +146,14 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void deleteWineList() throws Exception {
+    public void deleteWineList() {
         wineListService.createWineList(wineList1);
         wineListService.deleteWineList(wineList1);
         verify(wineListDao).deleteWineList(wineList1);
     }
 
     @Test
-    public void findAllWineLists() throws Exception {
+    public void findAllWineLists() {
         List<WineList> expectedWineLists = new ArrayList<>();
         expectedWineLists.add(wineList1);
         expectedWineLists.add(wineList2);
