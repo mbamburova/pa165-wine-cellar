@@ -35,11 +35,9 @@ public class PackingFacadeImpl implements PackingFacade {
 
     @Override
     public void createPacking(PackingCreateDto p) {
-        packingService.createPacking(convertDto(p));
-/*
         Packing packing = beanMappingService.mapTo(p, Packing.class);
         packing.setWine(wineService.findWineById(p.getWineId()));
-        packingService.createPacking(packing);*/
+        packingService.createPacking(packing);
     }
 
     @Override
@@ -83,15 +81,5 @@ public class PackingFacadeImpl implements PackingFacade {
 
         return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByWine(wine),
                 PackingDto.class);
-    }
-
-
-    private Packing convertDto(PackingCreateDto dto) {
-        Packing p = new Packing();
-        p.setWine(wineService.findWineById(dto.getWineId())); //alebo convertWineToDto ?
-        p.setVolume(dto.getVolume());
-        p.setValidFrom(dto.getValidFrom());
-        p.setValidTo(dto.getValidTo());
-        return p;
     }
 }

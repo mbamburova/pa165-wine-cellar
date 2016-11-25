@@ -147,7 +147,7 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void updateWineList(){
+    public void updateWineList() {
         WineList wineList = wineListDao.findWineListById(wineList1.getId());
         wineList.setName("Wine List Update");
         wineList.setDate(new LocalDateTime(2017,12,12,0,0));

@@ -5,7 +5,9 @@ import cz.muni.fi.pa165.entity.WineList;
 import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,13 +56,24 @@ public class WineListDaoImpl implements WineListDao {
 
     @Override
     public List<WineList> findWineListsByName(String name) {
-        return Collections.unmodifiableList(
-            entityManager.createQuery("SELECT wl FROM WineList wl WHERE name = :name", WineList.class).setParameter("name", name).getResultList());
-
+        try {
+            return entityManager
+                    .createQuery("SELECT wl FROM WineList wl WHERE wl.name = :name",
+                            WineList.class).setParameter("name", name)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
     }
 
     @Override
-    public WineList findWineListByMarketingEvent(MarketingEvent marketingEvent) {
-        return entityManager.createQuery("SELECT wl FROM WineList wl WHERE marketingEvent = :marketingEvent", WineList.class).setParameter("marketingEvent", marketingEvent).getSingleResult();
+    public List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent) {
+        try {
+            return entityManager
+                    .createQuery("SELECT wl FROM WineList wl WHERE MARKETING_EVENT_ID = :marketingEventId", WineList.class).setParameter("marketingEventId", marketingEvent.getId())
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
     }
 }
