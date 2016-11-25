@@ -20,6 +20,7 @@ public interface WineService {
     Wine findWineById(Long id);
     List<Wine> findWinesByName(String name);
     List<Wine> findWinesByVintage(Year vintage);
+    List<Wine> findWineByBatch(String batch);
     List<Wine> findWinesByPredicate(String predicate);
     List<Wine> findWinesByPredicateEquivalent(String predicateEquivalent);
     List<Wine> findWinesByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume);

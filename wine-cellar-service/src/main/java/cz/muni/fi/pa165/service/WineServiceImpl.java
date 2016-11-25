@@ -61,6 +61,11 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
+    public List<Wine> findWineByBatch(String batch) {
+        return wineDao.findWineByBatch(batch);
+    }
+
+    @Override
     public List<Wine> findWinesByPredicate(String predicate) {
         return wineDao.findWinesByPredicate(predicate);
     }
