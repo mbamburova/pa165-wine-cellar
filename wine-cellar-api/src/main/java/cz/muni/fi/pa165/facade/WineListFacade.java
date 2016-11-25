@@ -11,19 +11,14 @@ import java.util.List;
  */
 public interface WineListFacade {
 
-    void create(WineListDto wineList);
-    void delete(Long wineListId);
-    void update(Long wineListId);
-    void updateName(Long wineListId, String name);
-    void updateDate(Long wineListId, LocalDateTime date);
-    void updateMarketingEvent(Long wineListId, MarketingEventDto marketingEventDto);
+    void createWineList(WineListDto wineList);
+    void deleteWineList(Long wineListId);
+    void updateWineList(Long wineListId);
 
-    List<WineListDto> findAll();
-    WineListDto get(Long id);
-    List<WineListDto> findByName(String name);
-    List<WineListDto> findByDate(LocalDateTime date);
-    List<WineListDto> findByMarketingEvent(MarketingEventDto marketingEventDto);
+    List<WineListDto> findAllWineLists();
+    WineListDto findWineListById(Long id);
 
-    WineListDto addWine(Long wineListId, Long wineId);
-    WineListDto removeWine(Long wineListId, Long wineId);
+    List<WineListDto> findWineListsByName(String name);
+    List<WineListDto> findWineListsByDate(LocalDateTime date);
+    List<WineListDto> findWineListsByMarketingEvent(MarketingEventDto marketingEventDto);
 }

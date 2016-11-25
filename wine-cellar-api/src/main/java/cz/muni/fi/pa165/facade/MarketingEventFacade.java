@@ -11,17 +11,10 @@ import java.util.List;
  */
 public interface MarketingEventFacade {
 
-    void create(MarketingEventDto marketingEvent);
-    void delete(MarketingEventDto marketingEvent);
-    void update(Long marketingEventId);
-    void updateDescription(Long marketingEventId, String name);
+    void createMarketingEvent(MarketingEventDto marketingEvent);
+    void deleteMarketingEvent(MarketingEventDto marketingEvent);
+    void updateMarketingEvent(Long marketingEventId);
 
-
-    List<MarketingEventDto> findAll();
-    MarketingEventDto get(Long id);
-    List<MarketingEventDto> findByDescription(String name);
-
-
-    MarketingEventDto addPrice(Long marketingEventId, Long priceId);
-    MarketingEventDto removePrice(Long marketingEventId, Long priceId);
+    List<MarketingEventDto> findAllMarketingEvents();
+    MarketingEventDto findMarketingEventById(Long id);
 }
