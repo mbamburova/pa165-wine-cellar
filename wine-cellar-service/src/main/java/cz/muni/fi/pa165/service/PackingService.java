@@ -21,9 +21,6 @@ public interface PackingService {
     List<Packing> findAllPackings();
 
     void updatePacking(Packing packing);
-    void updatePackingVolume(Packing packing, BigDecimal volume);
-    void updatePackingValidFrom(Packing packing, LocalDateTime validFrom);
-    void updatePackingValidTo(Packing packing, LocalDateTime validTo);
 
     void deletePacking(Packing packing);
 

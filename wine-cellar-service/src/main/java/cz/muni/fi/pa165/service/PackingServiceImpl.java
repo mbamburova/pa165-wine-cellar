@@ -45,24 +45,6 @@ public class PackingServiceImpl implements PackingService {
     }
 
     @Override
-    public void updatePackingVolume(Packing packing, BigDecimal volume) {
-        packing.setVolume(volume);
-        packingDao.updatePacking(packing);
-    }
-
-    @Override
-    public void updatePackingValidFrom(Packing packing, LocalDateTime validFrom) {
-        packing.setValidFrom(validFrom);
-        packingDao.updatePacking(packing);
-    }
-
-    @Override
-    public void updatePackingValidTo(Packing packing, LocalDateTime validTo) {
-        packing.setValidTo(validTo);
-        packingDao.updatePacking(packing);
-    }
-
-    @Override
     public void deletePacking(Packing packing) {
         packingDao.deletePacking(packing);
     }
