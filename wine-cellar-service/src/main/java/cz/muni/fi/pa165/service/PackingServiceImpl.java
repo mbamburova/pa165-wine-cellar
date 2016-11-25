@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dao.PackingDao;
 import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
+import cz.muni.fi.pa165.entity.Wine;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,16 @@ public class PackingServiceImpl implements PackingService {
     @Override
     public List<Packing> findAllPackings() {
         return packingDao.findAllPackings();
+    }
+
+    @Override
+    public List<Packing> findPackingsByVolume(BigDecimal volume) {
+        return packingDao.findPackingsByVolume(volume);
+    }
+
+    @Override
+    public List<Packing> findPackingsByWine(Wine wine) {
+        return packingDao.findPackingsByWine(wine);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class WineListDaoImpl implements WineListDao {
     }
 
     @Override
-    public WineList getWineListById(Long id) {
+    public WineList findWineListById(Long id) {
         return entityManager.find(WineList.class, id);
     }
 
