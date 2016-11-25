@@ -16,7 +16,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
 
@@ -33,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michaela Bamburová on 08.11.2016
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextTests {
+public class PackingFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private PackingService packingService;
