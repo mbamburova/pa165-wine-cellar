@@ -107,8 +107,8 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
         price3.setPacking(packing1);
 
-        marketingEventDao.create(marketingEvent1);
-        marketingEventDao.create(marketingEvent2);
+        marketingEventDao.createMarketingEvent(marketingEvent1);
+        marketingEventDao.createMarketingEvent(marketingEvent2);
 
         priceDao.createPrice(price1);
         priceDao.createPrice(price2);
@@ -117,19 +117,19 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCreatePrice() {
-        Price price = priceDao.get(price1.getId());
+        Price price = priceDao.findPriceById(price1.getId());
         assertThat(price).isEqualToComparingFieldByField(price1);
     }
 
     @Test
     public void testFindAll() {
-        List<Price> prices = priceDao.getAll();
+        List<Price> prices = priceDao.findAllPrices();
         assertThat(prices.size()).isEqualTo(3);
     }
 
     @Test
     public void testFindById() {
-        Price price = priceDao.get(price1.getId());
+        Price price = priceDao.findPriceById(price1.getId());
 
         assertThat(price.getCurrency()).isEqualToComparingFieldByField(Currency.getInstance("CZK"));
         assertThat(price.getMarketingEvent()).isEqualToComparingFieldByField(marketingEvent1);
@@ -138,46 +138,46 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDeletePrice() {
-        assertThat(priceDao.get(price2.getId())).isNotNull();
+        assertThat(priceDao.findPriceById(price2.getId())).isNotNull();
         priceDao.deletePrice(price2);
 
-        assertThat(priceDao.get(price2.getId())).isNull();
+        assertThat(priceDao.findPriceById(price2.getId())).isNull();
     }
 
     @Test
     public void testUpdatePrice() {
-        Price price = priceDao.get(price3.getId());
+        Price price = priceDao.findPriceById(price3.getId());
         price.setCurrency(Currency.getInstance("CZK"));
 
         priceDao.updatePrice(price);
 
-        assertThat(priceDao.get(price.getId())).isEqualToComparingFieldByField(price);
+        assertThat(priceDao.findPriceById(price.getId())).isEqualToComparingFieldByField(price);
     }
 
     @Test
     public void testPricesByMarketingEvent1() {
-        List<Price> prices = priceDao.getByMarketingEvent(marketingEvent1);
+        List<Price> prices = priceDao.findPriceByMarketingEvent(marketingEvent1);
 
         assertThat(prices.size()).isEqualTo(2);
     }
 
     @Test
     public void testPricesByMarketingEvent2() {
-        List<Price> prices = priceDao.getByMarketingEvent(marketingEvent2);
+        List<Price> prices = priceDao.findPriceByMarketingEvent(marketingEvent2);
 
         assertThat(prices.size()).isEqualToComparingFieldByField(1);
     }
 
     @Test
     public void testPricesByCurrency() {
-        List<Price> prices = priceDao.getByCurrency(Currency.getInstance("CZK"));
+        List<Price> prices = priceDao.findPriceByCurrency(Currency.getInstance("CZK"));
 
         assertThat(prices.size()).isEqualTo(2);
     }
 
     @Test
     public void testPricesByPrice() {
-        List<Price> prices = priceDao.getByPrice(new BigDecimal("100"));
+        List<Price> prices = priceDao.findPriceByPrice(new BigDecimal("100"));
 
         assertThat(prices.size()).isEqualTo(1);
     }
