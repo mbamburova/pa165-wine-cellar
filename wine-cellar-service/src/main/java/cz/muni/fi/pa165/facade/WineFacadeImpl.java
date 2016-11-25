@@ -2,9 +2,11 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Wine;
+import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.NoResultException;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.List;
@@ -17,6 +19,9 @@ public class WineFacadeImpl implements WineFacade {
 
     @Autowired
     private WineService wineService;
+
+    @Autowired
+    private BeanMappingService beanMappingService;
 
     @Override
     public Long createWine(WineDto wineDto) {
@@ -38,9 +43,10 @@ public class WineFacadeImpl implements WineFacade {
 
     @Override
     public WineDto findWineById(Long id) {
-        if (wineService.get(id) != null) {
-            return
+        if (wineService.findWineById(id) == null) {
+            throw new NoResultException();
         }
+        return beanMappingService.mapTo(wineService.findWineById(id), Wine.class);
     }
 
     @Override
@@ -50,27 +56,38 @@ public class WineFacadeImpl implements WineFacade {
 
     @Override
     public void updateWine(Long wineId) {
-
+        Wine mappedWine = beanMappingService.mapTo(WineDto, Wine.class);
+        wineService.updateWine(mappedWine);
     }
 
     @Override
     public void deleteWine(Long wineId) {
-
+        Wine mappedWine = beanMappingService.mapTo(WineDto, Wine.class);
+        wineService.deleteWine(mappedWine);
     }
 
     @Override
     public List<WineDto> findWinesByName(String name) {
-        return null;
+        if (wineService.findWineById(id) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWineByName(name), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByVintage(Year vintage) {
-        return null;
+        if (wineService.findWinesByVintage(id) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByVintage(vintage), Wine.class);
     }
 
     @Override
     public WineDto findWineByBatch(String batch) {
-        return null;
+        if (wineService.findWineById(id) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWineById(id), Wine.class);
     }
 
     @Override

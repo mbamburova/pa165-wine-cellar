@@ -232,4 +232,37 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
         Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
     }
+
+    @Test
+    public void findByAlcoholVolume() {
+        wineDao.createWine(veltlinskeZelene().build());
+        wineDao.createWine(muskatMoravsky().build());
+        wineDao.createWine(svatovavrinecke().build());
+        List<Wine> found = wineDao.findByPredicate("kabinetní víno");
+        Assert.assertEquals(found.size(), 2);
+        Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
+        Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
+    }
+
+    @Test
+    public void findFromYears() {
+        wineDao.createWine(veltlinskeZelene().build());
+        wineDao.createWine(muskatMoravsky().build());
+        wineDao.createWine(svatovavrinecke().build());
+        List<Wine> found = wineDao.findWinesFromYears("kabinetní víno");
+        Assert.assertEquals(found.size(), 2);
+        Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
+        Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
+    }
+
+    @Test
+    public void findByVintage() {
+        wineDao.createWine(veltlinskeZelene().build());
+        wineDao.createWine(muskatMoravsky().build());
+        wineDao.createWine(svatovavrinecke().build());
+        List<Wine> found = wineDao.findByPredicate("kabinetní víno");
+        Assert.assertEquals(found.size(), 2);
+        Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
+        Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
+    }
 }
