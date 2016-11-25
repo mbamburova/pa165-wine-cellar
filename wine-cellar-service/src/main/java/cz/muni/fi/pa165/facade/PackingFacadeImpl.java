@@ -43,6 +43,7 @@ public class PackingFacadeImpl implements PackingFacade {
     @Override
     public void updatePacking(PackingCreateDto p) {
         Packing packing = beanMappingService.mapTo(p, Packing.class);
+        packing.setWine(wineService.findWineById(p.getWineId()));
         packingService.updatePacking(packing);
     }
 
@@ -51,11 +52,11 @@ public class PackingFacadeImpl implements PackingFacade {
         packingService.deletePacking(new Packing(p.getId()));
     }
 
-    @Override
-    public boolean isPackingValid(PackingDto p) {
-        Packing packing = beanMappingService.mapTo(p, Packing.class);
-        return packingService.isPackingValid(packing);
-    }
+//    @Override
+//    public boolean isPackingValid(PackingDto p) {
+//        Packing packing = beanMappingService.mapTo(p, Packing.class);
+//        return packingService.isPackingValid(packing);
+//    }
 
     @Override
     public PackingDto findPackingById(Long id) {

@@ -11,6 +11,8 @@ import java.math.BigDecimal;
  */
 public class PackingCreateDto {
 
+    private Long id;
+
     @NotNull
     @Min(0)
     private BigDecimal volume;
@@ -22,6 +24,9 @@ public class PackingCreateDto {
 
     @NotNull
     private Long wineId;
+
+    public PackingCreateDto() {
+    }
 
     public BigDecimal getVolume() {
         return volume;
@@ -53,6 +58,14 @@ public class PackingCreateDto {
 
     public void setWineId(Long wineId) {
         this.wineId = wineId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

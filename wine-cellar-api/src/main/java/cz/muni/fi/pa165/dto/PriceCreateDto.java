@@ -9,6 +9,8 @@ import java.util.Currency;
  */
 public class PriceCreateDto {
 
+    private Long id;
+
     @NotNull
     private BigDecimal price;
 
@@ -17,6 +19,14 @@ public class PriceCreateDto {
 
     @NotNull
     private Long packingId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     private Long marketingEventId;
 

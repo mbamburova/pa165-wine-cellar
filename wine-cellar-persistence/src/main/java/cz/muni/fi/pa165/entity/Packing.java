@@ -33,6 +33,7 @@ public class Packing {
     }
 
     public Packing(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

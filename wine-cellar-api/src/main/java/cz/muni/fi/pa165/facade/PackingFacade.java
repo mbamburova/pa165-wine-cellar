@@ -18,7 +18,7 @@ public interface PackingFacade {
     void createPacking(PackingCreateDto p);
     void updatePacking(PackingCreateDto p);
     void deletePacking(PackingDto p);
-    boolean isPackingValid(PackingDto p);
+  //  boolean isPackingValid(PackingDto p);
 
     PackingDto findPackingById(Long id);
     List<PackingDto> findAllPackings();

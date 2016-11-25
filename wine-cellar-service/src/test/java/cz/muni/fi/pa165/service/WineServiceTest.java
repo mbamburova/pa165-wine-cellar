@@ -362,27 +362,79 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWinesByAlcoholVolume() {
+        BigDecimal from = new BigDecimal("10");
+        BigDecimal to = new BigDecimal("12");
 
+        List<Wine> expectedWines = new ArrayList<>();
+        expectedWines.add(veltlinskeZelene);
+        expectedWines.add(muskatMoravsky);
+        expectedWines.add(svatovavrinecke);
+
+        when(wineDao.findWinesByAlcoholVolume(from, to)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByAlcoholVolume(from, to).size()).isEqualTo(expectedWines.size());
+
+        verify(wineDao).findWinesByAlcoholVolume(from, to);
     }
 
     @Test
     public void testFindWinesByResidualSugar() {
+        BigDecimal from = new BigDecimal("2.8");
+        BigDecimal to = new BigDecimal("2.8");
 
+        List<Wine> expectedWines = new ArrayList<>();
+        expectedWines.add(veltlinskeZelene);
+
+        when(wineDao.findWinesByResidualSugar(from, to)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByResidualSugar(from, to).size()).isEqualTo(expectedWines.size());
+
+        verify(wineDao).findWinesByResidualSugar(from, to);
     }
 
     @Test
     public void testFindWinesByAcidity() {
+        BigDecimal from = new BigDecimal("6");
+        BigDecimal to = new BigDecimal("7");
 
+        List<Wine> expectedWines = new ArrayList<>();
+        expectedWines.add(veltlinskeZelene);
+        expectedWines.add(muskatMoravsky);
+
+        when(wineDao.findWinesByAcidity(from, to)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByAcidity(from, to).size()).isEqualTo(expectedWines.size());
+
+        verify(wineDao).findWinesByAcidity(from, to);
     }
 
     @Test
     public void testFindWinesByGrapeSugarContent() {
+        BigDecimal from = new BigDecimal("0");
+        BigDecimal to = new BigDecimal("0");
 
+        List<Wine> expectedWines = new ArrayList<>();
+        expectedWines.add(veltlinskeZelene);
+        expectedWines.add(muskatMoravsky);
+        expectedWines.add(svatovavrinecke);
+
+        when(wineDao.findWinesByGrapeSugarContent(from, to)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesByGrapeSugarContent(from, to).size()).isEqualTo(expectedWines.size());
+
+        verify(wineDao).findWinesByGrapeSugarContent(from, to);
     }
 
     @Test
-    public void testFindWinesFromYears() {
+    public void testFindWinesBetweenYears() {
+        Year from = Year.of(2014);
+        Year to = Year.of(2016);
 
+        List<Wine> expectedWines = new ArrayList<>();
+        expectedWines.add(veltlinskeZelene);
+        expectedWines.add(muskatMoravsky);
+        expectedWines.add(svatovavrinecke);
+
+        when(wineDao.findWinesBetweenYears(from, to)).thenReturn(expectedWines);
+        assertThat(wineService.findWinesBetweenYears(from, to).size()).isEqualTo(expectedWines.size());
+
+        verify(wineDao).findWinesBetweenYears(from, to);
     }
 
     @Test
