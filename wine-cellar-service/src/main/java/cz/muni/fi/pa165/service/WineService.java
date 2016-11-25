@@ -31,14 +31,11 @@ public interface WineService {
     Wine get(Long id);
     List<Wine> findByName(String name);
     List<Wine> findByVintage(Year vintage);
-    Wine findByBatch(String batch);
     List<Wine> findByPredicate(String predicate);
     List<Wine> findByPredicateEquivalent(String predicateEquivalent);
-
     List<Wine> findByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume);
     List<Wine> findByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar);
     List<Wine> findByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity);
     List<Wine> findByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent);
-
     List<Wine> findAllWinesFromYears(Year from, Year to);
 }

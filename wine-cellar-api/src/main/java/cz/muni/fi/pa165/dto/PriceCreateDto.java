@@ -14,8 +14,11 @@ public class PriceCreateDto {
 
     @NotNull
     private Currency currency;
+
+    @NotNull
     private Long packingId;
-    private Long marketingEventid;
+
+    private Long marketingEventId;
 
     public BigDecimal getPrice() {
         return price;
@@ -42,11 +45,11 @@ public class PriceCreateDto {
     }
 
     public Long getMarketingEventid() {
-        return marketingEventid;
+        return marketingEventId;
     }
 
     public void setMarketingEventid(Long marketingEventid) {
-        this.marketingEventid = marketingEventid;
+        this.marketingEventId = marketingEventid;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class PriceCreateDto {
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
         if (currency != null ? !currency.equals(that.currency) : that.currency != null) return false;
         if (packingId != null ? !packingId.equals(that.packingId) : that.packingId != null) return false;
-        return marketingEventid != null ? marketingEventid.equals(that.marketingEventid) : that.marketingEventid == null;
+        return marketingEventId != null ? marketingEventId.equals(that.marketingEventId) : that.marketingEventId == null;
 
     }
 
@@ -68,7 +71,7 @@ public class PriceCreateDto {
         int result = price != null ? price.hashCode() : 0;
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         result = 31 * result + (packingId != null ? packingId.hashCode() : 0);
-        result = 31 * result + (marketingEventid != null ? marketingEventid.hashCode() : 0);
+        result = 31 * result + (marketingEventId != null ? marketingEventId.hashCode() : 0);
         return result;
     }
 }

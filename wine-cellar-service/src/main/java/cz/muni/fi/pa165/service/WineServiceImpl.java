@@ -32,12 +32,6 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public void delete(Wine wine) {
-        for(Packing packing : wine.getPackings()) {
-            for(Price price : packing.getPrices()) {
-                priceDao.deletePrice(price);
-            }
-            packingDao.deletePacking(packing);
-        }
         wineDao.deleteWine(wine);
     }
 
@@ -124,52 +118,46 @@ public class WineServiceImpl implements WineService {
 
     @Override
     public List<Wine> findByName(String name) {
-        return wineDao.findByName(name);
+        return wineDao.findWinesByName(name);
     }
 
     @Override
     public List<Wine> findByVintage(Year vintage) {
-        return wineDao.findByVintage(vintage);
-    }
-
-    @Override
-    public Wine findByBatch(String batch) {
-        return wineDao.findByBatch(batch);
+        return wineDao.findWinesByVintage(vintage);
     }
 
     @Override
     public List<Wine> findByPredicate(String predicate) {
-        return wineDao.findByPredicate(predicate);
+        return wineDao.findWinesByPredicate(predicate);
     }
 
     @Override
     public List<Wine> findByPredicateEquivalent(String predicateEquivalent) {
-        return wineDao.findByPredicateEquivalent(predicateEquivalent);
+        return wineDao.findWinesByPredicateEquivalent(predicateEquivalent);
     }
 
     @Override
     public List<Wine> findByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume) {
-        return wineDao.findByAlcoholVolume(alcoholVolume);
+        return wineDao.findWinesByAlcoholVolume(minAlcoholVolume, maxAlcoholVolume);
     }
 
     @Override
     public List<Wine> findByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar) {
-        return wineDao.findByResidualSugar(residualSugar);
+        return wineDao.findWinesByResidualSugar(minResidualSugar, maxResidualSugar);
     }
 
     @Override
     public List<Wine> findByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity) {
-        return wineDao.findByAcidity(acidity);
+        return wineDao.findWinesByAcidity(minAcidity, maxAcidity);
     }
 
     @Override
     public List<Wine> findByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent) {
-        return wineDao.findByGrapeSugarContent(grapeSugarContent);
+        return wineDao.findWinesByGrapeSugarContent(minGrapeSugarContent, maxGrapeSugarContent);
     }
 
     @Override
     public List<Wine> findAllWinesFromYears(Year from, Year to) {
-        return findAll().stream().filter(wine -> from.isBefore(wine.getVintage()) &&
-                to.isAfter(wine.getVintage())).collect(Collectors.toList());
+        return wineDao.findWinesFromYears(from, to);
     }
 }
