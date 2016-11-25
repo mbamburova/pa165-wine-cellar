@@ -12,8 +12,8 @@ import java.util.List;
 public interface WineListFacade {
 
     void createWineList(WineListDto wineList);
-    void deleteWineList(Long wineListId);
-    void updateWineList(Long wineListId);
+    void deleteWineList(WineListDto wineList);
+    void updateWineList(WineListDto wineList);
 
     List<WineListDto> findAllWineLists();
     WineListDto findWineListById(Long id);

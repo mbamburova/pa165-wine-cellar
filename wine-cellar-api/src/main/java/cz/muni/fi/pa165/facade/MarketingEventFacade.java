@@ -13,7 +13,7 @@ public interface MarketingEventFacade {
 
     void createMarketingEvent(MarketingEventDto marketingEvent);
     void deleteMarketingEvent(MarketingEventDto marketingEvent);
-    void updateMarketingEvent(Long marketingEventId);
+    void updateMarketingEvent(MarketingEventDto marketingEvent);
 
     List<MarketingEventDto> findAllMarketingEvents();
     MarketingEventDto findMarketingEventById(Long id);

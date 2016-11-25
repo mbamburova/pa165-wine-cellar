@@ -65,5 +65,10 @@ public interface PriceDao {
      */
     List<Price> findByMarketingEvent(MarketingEvent marketingEvent);
 
-    List<Packing> findPricebyPacking()
+    /**
+     *  get prices by given packing
+     * @param packing
+     * @return list of prices
+     */
+    List<Price> findPriceByPacking(Packing packing);
 }

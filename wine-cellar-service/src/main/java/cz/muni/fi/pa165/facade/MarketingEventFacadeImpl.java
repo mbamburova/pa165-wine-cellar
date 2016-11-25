@@ -1,55 +1,57 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.MarketingEventService;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
  * @author Tomas Gordian on 11/6/2016.
  */
 public class MarketingEventFacadeImpl implements MarketingEventFacade {
-    @Override
-    public void create(MarketingEventDto marketingEvent) {
 
+    @Autowired
+    private BeanMappingService beanMappingService;
+
+    @Autowired
+    private MarketingEventService marketingEventService;
+
+    @Override
+    public void createMarketingEvent(MarketingEventDto marketingEventDto) {
+
+        if (marketingEventDto == null) {
+            throw new IllegalArgumentException("marketingEvent is null!");
+        }
+        MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
+        marketingEventService.createMarketingEvent(mappedMarketingEvent);
     }
 
     @Override
-    public void delete(Long marketingEventId) {
-
+    public void deleteMarketingEvent(MarketingEventDto marketingEventDto) {
+        MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
+        marketingEventService.deleteMarketingEvent(mappedMarketingEvent);
     }
 
     @Override
-    public void update(Long marketingEventId) {
-
+    public void updateMarketingEvent(MarketingEventDto marketingEventDto) {
+        MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
+        marketingEventService.updateMarketingEvent(mappedMarketingEvent);
     }
 
     @Override
-    public void updateDescription(Long marketingEventId, String name) {
-
+    public List<MarketingEventDto> findAllMarketingEvents() {
+        return beanMappingService.mapToCollection(marketingEventService.findAllMarketingEvents(), MarketingEventDto.class);
     }
 
     @Override
-    public List<MarketingEventDto> findAll() {
-        return null;
-    }
-
-    @Override
-    public MarketingEventDto get(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<MarketingEventDto> findByDescription(String name) {
-        return null;
-    }
-
-    @Override
-    public MarketingEventDto addPrice(Long marketingEventId, Long priceId) {
-        return null;
-    }
-
-    @Override
-    public MarketingEventDto removePrice(Long marketingEventId, Long priceId) {
-        return null;
+    public MarketingEventDto findMarketingEventById(Long id) {
+        if (marketingEventService.findMarketingEventById(id) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(marketingEventService.findMarketingEventById(id), MarketingEventDto.class);
     }
 }
