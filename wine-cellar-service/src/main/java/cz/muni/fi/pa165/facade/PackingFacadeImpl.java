@@ -53,6 +53,12 @@ public class PackingFacadeImpl implements PackingFacade {
     }
 
     @Override
+    public boolean isPackingValid(PackingDto p) {
+        Packing packing = beanMappingService.mapTo(p, Packing.class);
+        return packingService.isPackingValid(packing);
+    }
+
+    @Override
     public PackingDto findPackingById(Long id) {
         Packing packing = packingService.findPackingById(id);
         return (packing == null) ? null : beanMappingService.mapToEnforceID(packing,PackingDto.class);
