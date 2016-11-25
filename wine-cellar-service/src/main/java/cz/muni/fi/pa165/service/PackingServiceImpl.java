@@ -25,60 +25,60 @@ public class PackingServiceImpl implements PackingService {
     private PriceDao priceDao;
 
     @Override
-    public void create(Packing packing) {
+    public void createPacking(Packing packing) {
         packingDao.createPacking(packing);
     }
 
     @Override
-    public Packing get(Long id) {
+    public Packing findPackingById(Long id) {
         return packingDao.findPackingById(id);
     }
 
     @Override
-    public List<Packing> getAll() {
+    public List<Packing> findAllPackings() {
         return packingDao.findAllPackings();
     }
 
     @Override
-    public void update(Packing packing) {
+    public void updatePacking(Packing packing) {
         packingDao.updatePacking(packing);
     }
 
     @Override
-    public void updateVolume(Packing packing, BigDecimal volume) {
+    public void updatePackingVolume(Packing packing, BigDecimal volume) {
         packing.setVolume(volume);
         packingDao.updatePacking(packing);
     }
 
     @Override
-    public void updateValidFrom(Packing packing, LocalDateTime validFrom) {
+    public void updatePackingValidFrom(Packing packing, LocalDateTime validFrom) {
         packing.setValidFrom(validFrom);
         packingDao.updatePacking(packing);
     }
 
     @Override
-    public void updateValidTo(Packing packing, LocalDateTime validTo) {
+    public void updatePackingValidTo(Packing packing, LocalDateTime validTo) {
         packing.setValidTo(validTo);
         packingDao.updatePacking(packing);
     }
 
     @Override
-    public void delete(Packing packing) {
+    public void deletePacking(Packing packing) {
         packingDao.deletePacking(packing);
     }
 
     @Override
-    public boolean isValid(Packing packing)  {
+    public boolean isPackingValid(Packing packing) {
         return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
     }
 
     @Override
-    public void addPrice(Packing packing, Price price) {
+    public void addPackingPrice(Packing packing, Price price) {
 
     }
 
     @Override
-    public void removePrice(Packing packing, Price price) {
+    public void removePackingPrice(Packing packing, Price price) {
 
     }
 }

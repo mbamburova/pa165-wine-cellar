@@ -20,47 +20,47 @@ public class WineListDaoImpl implements WineListDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(WineList wineList) {
+    public void createWineList(WineList wineList) {
         entityManager.persist(wineList);
     }
 
     @Override
-    public WineList get(Long id) {
+    public WineList getWineListById(Long id) {
         return entityManager.find(WineList.class, id);
     }
 
     @Override
-    public void update(WineList wineList) {
+    public void updateWineList(WineList wineList) {
         entityManager.merge(wineList);
     }
 
     @Override
-    public void delete(WineList wineList) {
+    public void deleteWineList(WineList wineList) {
         entityManager.remove(wineList);
     }
 
     @Override
-    public List<WineList> getAll() {
+    public List<WineList> findAllWineLists() {
         return Collections.unmodifiableList(
                 entityManager.createQuery("SELECT wl FROM WineList wl", WineList.class).getResultList());
     }
 
     @Override
-    public List<WineList> findByDate(LocalDateTime date) {
+    public List<WineList> findWineListsByDate(LocalDateTime date) {
         return Collections.unmodifiableList(
             entityManager.createQuery("SELECT wl FROM WineList wl WHERE date = :date", WineList.class).setParameter("date", date).getResultList());
 
     }
 
     @Override
-    public List<WineList> findByName(String name) {
+    public List<WineList> findWineListsByName(String name) {
         return Collections.unmodifiableList(
             entityManager.createQuery("SELECT wl FROM WineList wl WHERE name = :name", WineList.class).setParameter("name", name).getResultList());
 
     }
 
     @Override
-    public WineList findByMarketingEvent(MarketingEvent marketingEvent) {
+    public WineList findWineListByMarketingEvent(MarketingEvent marketingEvent) {
         return entityManager.createQuery("SELECT wl FROM WineList wl WHERE marketingEvent = :marketingEvent", WineList.class).setParameter("marketingEvent", marketingEvent).getSingleResult();
     }
 }

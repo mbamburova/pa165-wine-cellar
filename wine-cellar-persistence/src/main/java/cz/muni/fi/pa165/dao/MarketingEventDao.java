@@ -12,32 +12,32 @@ public interface MarketingEventDao {
 
     /**
      * create marketingEvent in database
-     * @param marketingEvent
+     * @param marketingEvent to create
      */
-    void create(MarketingEvent marketingEvent);
+    void createMarketingEvent(MarketingEvent marketingEvent);
 
     /**
      * get marketingEvent by id from database
      * @param id
      * @return
      */
-    MarketingEvent get(Long id);
+    MarketingEvent findMarketingEventById(Long id);
 
     /**
      * update marketingEvent in database
-     * @param marketingEvent
+     * @param marketingEvent to update
      */
-    void update(MarketingEvent marketingEvent);
+    void updateMarketingEvent(MarketingEvent marketingEvent);
 
     /**
      * delete marketingEvent from database
-     * @param marketingEvent
+     * @param marketingEvent to delete
      */
-    void delete(MarketingEvent marketingEvent);
+    void deleteMarketingEvent(MarketingEvent marketingEvent);
 
     /**
      * get all marketingEvents from database
      * @return list of marketingEvents
      */
-    List<MarketingEvent> getAll();
+    List<MarketingEvent> findAllMarketingEvents();
 }
