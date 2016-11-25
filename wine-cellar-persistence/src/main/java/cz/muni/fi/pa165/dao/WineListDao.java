@@ -23,7 +23,7 @@ public interface WineListDao {
      * @param id
      * @return wineList
      */
-    WineList getWineListById(Long id);
+    WineList findWineListById(Long id);
 
     /**
      * Update wine list in database

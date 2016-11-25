@@ -7,15 +7,24 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author MarekScholtz
  * @version 2016.11.25
  */
 public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests {
+
+    private MarketingEvent marketingEvent1;
+    private MarketingEvent marketingEvent2;
 
     @Mock
     private MarketingEventDao marketingEventDao;
@@ -24,40 +33,56 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
     private MarketingEventService marketingEventService;
 
     @BeforeClass
-    public void setUpMock(){
+    public void setUpMock() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @BeforeMethod
+    public void setUp() {
+        marketingEvent1.setDescription("anniversary");
     }
 
     @Test
     public void createMarketingEvent() throws Exception {
-        MarketingEvent marketingEvent = new MarketingEvent();
-        marketingEvent.setDescription("anniversary");
-        marketingEventService.createMarketingEvent(marketingEvent);
-        verify(marketingEventDao).createMarketingEvent(marketingEvent);
+        marketingEventService.createMarketingEvent(marketingEvent1);
+        verify(marketingEventDao).createMarketingEvent(marketingEvent1);
     }
 
     @Test
     public void updateMarketingEvent() throws Exception {
-        MarketingEvent marketingEvent = new MarketingEvent();
-        marketingEvent.setDescription("anniversary");
-        marketingEventService.createMarketingEvent(marketingEvent);
-        marketingEvent.setDescription("birthday");
-        marketingEventService.updateMarketingEvent(marketingEvent);
-        verify(marketingEventDao).updateMarketingEvent(marketingEvent);
+        marketingEventService.createMarketingEvent(marketingEvent1);
+        marketingEvent1.setDescription("birthday");
+        marketingEventService.updateMarketingEvent(marketingEvent1);
+        verify(marketingEventDao).updateMarketingEvent(marketingEvent1);
     }
 
     @Test
     public void findMarketingEventById() throws Exception {
-
+        when(marketingEventDao.findMarketingEventById(marketingEvent1.getId()))
+                .thenReturn(marketingEvent1);
+        assertThat(marketingEventService.findMarketingEventById(marketingEvent1.getId()))
+                .isEqualToComparingFieldByField(marketingEvent1);
+        verify(marketingEventDao).findMarketingEventById(marketingEvent1.getId());
     }
 
     @Test
     public void deleteMarketingEvent() throws Exception {
-
+        marketingEventService.createMarketingEvent(marketingEvent1);
+        marketingEventService.deleteMarketingEvent(marketingEvent1);
+        verify(marketingEventDao).deleteMarketingEvent(marketingEvent1);
     }
 
     @Test
     public void findAllMarketingEvents() throws Exception {
-
+        List<MarketingEvent> expectedMarketingEvents = new ArrayList<>();
+        expectedMarketingEvents.add(marketingEvent1);
+        expectedMarketingEvents.add(marketingEvent2);
+        when(marketingEventDao.findAllMarketingEvents()).thenReturn(expectedMarketingEvents);
+        List<MarketingEvent> currentMarketingEvents = marketingEventService.findAllMarketingEvents();
+        assertThat(currentMarketingEvents).isEqualTo(expectedMarketingEvents.size());
+        for(int i = 0; i < expectedMarketingEvents.size(); i++) {
+            assertThat(currentMarketingEvents.get(i)).isEqualToComparingFieldByField(expectedMarketingEvents.get(i));
+        }
+        verify(marketingEventDao).findAllMarketingEvents();
     }
 }
