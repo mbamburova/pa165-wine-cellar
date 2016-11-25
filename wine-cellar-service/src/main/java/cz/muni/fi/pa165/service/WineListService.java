@@ -19,10 +19,10 @@ public interface WineListService {
     void addWine(WineList wineList, Wine wine);
     void removeWine(WineList wineList, Wine wine);
 
-    List<WineList> findAll();
+    List<WineList> findAllWineLists();
     WineList findWineListById(Long wineListId);
-    WineList findByMarketingEvent(MarketingEvent marketingEvent);
-    List<WineList> findByName(String name);
-    List<WineList> findByWine(Wine wine);
-    List<WineList> findByDate(LocalDateTime date);
+    WineList findWineListByMarketingEvent(MarketingEvent marketingEvent);
+    List<WineList> findWineListByName(String name);
+    List<WineList> findWineListByWine(Wine wine);
+    List<WineList> findWineListByDate(LocalDateTime date);
 }

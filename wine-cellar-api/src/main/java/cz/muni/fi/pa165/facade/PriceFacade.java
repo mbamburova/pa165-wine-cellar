@@ -19,8 +19,8 @@ public interface PriceFacade {
 
     List<PriceDto> findAllPrices();
     PriceDto findPriceById(Long priceId);
-    List<PriceDto> findByMarketingEvent(MarketingEventDto marketingEvent);
-    List<PriceDto> findByPacking(PackingDto packing);
-    List<PriceDto> findByCurrency(Currency currency);
-    List<PriceDto> findByPrice(BigDecimal price);
+    List<PriceDto> findPricesByMarketingEvent(MarketingEventDto marketingEvent);
+    List<PriceDto> findPricesByPacking(PackingDto packing);
+    List<PriceDto> findPricesByCurrency(Currency currency);
+    List<PriceDto> findPricesByPrice(BigDecimal price);
 }
