@@ -156,28 +156,28 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testPricesByMarketingEvent1() {
-        List<Price> prices = priceDao.findPriceByMarketingEvent(marketingEvent1);
+        List<Price> prices = priceDao.findPricesByMarketingEvent(marketingEvent1);
 
         assertThat(prices.size()).isEqualTo(2);
     }
 
     @Test
     public void testPricesByMarketingEvent2() {
-        List<Price> prices = priceDao.findPriceByMarketingEvent(marketingEvent2);
+        List<Price> prices = priceDao.findPricesByMarketingEvent(marketingEvent2);
 
         assertThat(prices.size()).isEqualToComparingFieldByField(1);
     }
 
     @Test
     public void testPricesByCurrency() {
-        List<Price> prices = priceDao.findPriceByCurrency(Currency.getInstance("CZK"));
+        List<Price> prices = priceDao.findPricesByCurrency(Currency.getInstance("CZK"));
 
         assertThat(prices.size()).isEqualTo(2);
     }
 
     @Test
     public void testPricesByPrice() {
-        List<Price> prices = priceDao.findPriceByPrice(new BigDecimal("100"));
+        List<Price> prices = priceDao.findPricesByPriceAttribute(new BigDecimal("100"));
 
         assertThat(prices.size()).isEqualTo(1);
     }
