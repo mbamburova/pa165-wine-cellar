@@ -44,11 +44,11 @@ public class PriceCreateDto {
         this.packingId = packingId;
     }
 
-    public Long getMarketingEventid() {
+    public Long getMarketingEventId() {
         return marketingEventId;
     }
 
-    public void setMarketingEventid(Long marketingEventid) {
+    public void setMarketingEventId(Long marketingEventid) {
         this.marketingEventId = marketingEventid;
     }
 
