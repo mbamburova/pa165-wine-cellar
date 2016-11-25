@@ -2,18 +2,14 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dao.PackingDao;
 import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.PriceDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
 import org.joda.time.LocalDateTime;
-import org.junit.After;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -22,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.Year;
@@ -29,11 +26,9 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Tomas Gordian on 11/25/2016.
  */
@@ -53,10 +48,10 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     @InjectMocks
     private PriceService priceService;
 
-    @InjectMocks
+    @Mock
     private PackingService packingService;
 
-    @Autowired
+    @Mock
     private WineService wineService;
 
     private Price price1;
@@ -74,14 +69,14 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
-                .name("Veltlínske zelené")
+                .name("Veltl?nske zelen?")
                 .vintage(Year.of(2014))
                 .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, sv??í víno s lehkou aromatikou angre?tu a zeleného pep?e. " +
-                        "Chu?ový vjem je tvo?en pikantní kyselinkou a ko?enito-ovocnými tóny.")
-                .notes("20,0°?NM")
+                .predicate("kabinetn? v?no")
+                .predicateEquivalent("such?")
+                .description("Elegantn?, sv??? v?no s lehkou aromatikou angre?tu a zelen?ho pep?e. " +
+                        "Chu?ov? vjem je tvo?en pikantn? kyselinkou a ko?enito-ovocn?mi t?ny.")
+                .notes("20,0??NM")
                 .alcoholVolume(new BigDecimal("10.94"))
                 .residualSugar(new BigDecimal("2.8"))
                 .acidity(new BigDecimal("7.5"))
@@ -90,15 +85,15 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
 
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
-                .name("Mu?kát moravský")
+                .name("Mu?k?t moravsk?")
                 .vintage(Year.of(2015))
                 .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou v?ní citrusových plod? a mu?kátového o?í?ku." +
-                        " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chu? provází p?íjemná kyselinka," +
-                        " díky ní? je víno pikantní se suchým záv?rem.")
-                .notes("20,2°?NM")
+                .predicate("kabinetn? v?no")
+                .predicateEquivalent("such?")
+                .description("V?no zlatav? barvy s ovocnou v?n? citrusov?ch plod? a mu?k?tov?ho o???ku." +
+                        " V chuti nab?z? ovocn? t?ny grapefruitu a zral?ho citr?nu. Ovocnou chu? prov?z? p??jemn? kyselinka," +
+                        " d?ky n?? je v?no pikantn? se such?m z?v?rem.")
+                .notes("20,2??NM")
                 .alcoholVolume(new BigDecimal("12"))
                 .residualSugar(new BigDecimal("0.7"))
                 .acidity(new BigDecimal("6.1"))
@@ -146,21 +141,17 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
 
         price2 = new Price();
         price2.setPacking(packing2);
-        price2.setCurrency(Currency.getInstance("SK"));
+        price2.setCurrency(Currency.getInstance("SKK"));
         price2.setPrice(new BigDecimal("80"));
         price2.setMarketingEvent(marketingEvent2);
         priceService.createPrice(price2);
 
         price3 = new Price();
         price3.setPacking(packing2);
-        price3.setCurrency(Currency.getInstance("SK"));
+        price3.setCurrency(Currency.getInstance("SKK"));
         price3.setPrice(new BigDecimal("120"));
         price3.setMarketingEvent(marketingEvent1);
         priceService.createPrice(price3);
-    }
-
-    @After
-    public void tearDown(){
     }
 
     @Test
@@ -213,7 +204,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findPricesByCurrency(){
-        Currency currency = Currency.getInstance("SK");
+        Currency currency = Currency.getInstance("CZK");
 
         List<Price> expected = new ArrayList<>();
         expected.add(price2);
