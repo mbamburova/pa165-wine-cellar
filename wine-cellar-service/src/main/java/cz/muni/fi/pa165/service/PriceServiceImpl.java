@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import org.dozer.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PriceServiceImpl implements PriceService {
 
-    @Inject
+    @Autowired
     private PriceDao priceDao;
 
     @Override
@@ -39,31 +40,32 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Price findPriceById(Long id) {
-        return priceDao.get(id);
+        return priceDao.findPriceById(id);
     }
 
     @Override
     public List<Price> findAllPrices() {
-        return priceDao.getAll();
+        return priceDao.findAllPrices();
     }
 
     @Override
     public List<Price> findPriceByCurrency(Currency currency) {
-        return priceDao.getByCurrency(currency);
+        return priceDao.findPriceByCurrency(currency);
     }
 
     @Override
     public List<Price> findPriceByPriceAttribute(BigDecimal price) {
-        return priceDao.getByPrice(price);
+        return priceDao.findPriceByPriceAttribute(price);
     }
 
     @Override
     public List<Price> findPriceByMarketingEvent(MarketingEvent event) {
-        return priceDao.getByMarketingEvent(event);
+        return priceDao.findPriceByMarketingEvent(event);
     }
 
     @Override
     public List<Price> findPriceByPacking(Packing packing) {
         return priceDao.findPriceByPacking;
+        return new ArrayList<>();
     }
 }

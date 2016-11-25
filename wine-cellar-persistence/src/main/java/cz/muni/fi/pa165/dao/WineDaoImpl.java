@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dao;
 
+import java.math.BigDecimal;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public List<Wine> findByName(String name) {
+    public List<Wine> findWinesByName(String name) {
         try {
             return em
                     .createQuery("SELECT w FROM Wine w WHERE w.name = :name",
@@ -59,19 +60,19 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public List<Wine> findByVintage(Year vintage) {
+    public List<Wine> findWinesByVintage(Year vintage) {
         try {
             return em
-                .createQuery("SELECT w FROM Wine w WHERE w.vintage = :vintage",
-                    Wine.class).setParameter("vintage", vintage)
-                .getResultList();
+                    .createQuery("SELECT w FROM Wine w WHERE w.vintage = :vintage",
+                            Wine.class).setParameter("vintage", vintage)
+                    .getResultList();
         } catch (NoResultException nrf) {
             return new ArrayList<>();
         }
     }
 
     @Override
-    public List<Wine> findByPredicate(String predicate) {
+    public List<Wine> findWinesByPredicate(String predicate) {
         try {
             return em
                     .createQuery("SELECT w FROM Wine w WHERE w.predicate = :predicate",
@@ -81,4 +82,93 @@ public class WineDaoImpl implements WineDao {
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public List<Wine> findWinesByPredicateEquivalent(String predicateEquivalent) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.predicateEquivalent = :predicateEquivalent",
+                            Wine.class).setParameter("predicateEquivalent", predicateEquivalent)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findWinesByAlcoholVolume(BigDecimal from, BigDecimal to) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromVolume" +
+                                    " AND :toVolume",
+                            Wine.class)
+                    .setParameter("fromVolume", from)
+                    .setParameter("toVolume", to)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findWinesByResidualSugar(BigDecimal from, BigDecimal to) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromSugar" +
+                                    " AND :toSugar",
+                            Wine.class)
+                    .setParameter("fromSugar", from)
+                    .setParameter("toSugar", to)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findWinesByAcidity(BigDecimal from, BigDecimal to) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromAcidity" +
+                                    " AND :toAcidity",
+                            Wine.class)
+                    .setParameter("fromAcidity", from)
+                    .setParameter("toAcidity", to)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findWinesByGrapeSugarContent(BigDecimal from, BigDecimal to) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromSugar" +
+                                    " AND :toSugar",
+                            Wine.class)
+                    .setParameter("fromSugar", from)
+                    .setParameter("toSugar", to)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Wine> findWinesFromYears(Year from, Year to) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromYear" +
+                                    " AND :toYear",
+                            Wine.class)
+                    .setParameter("fromYear", from)
+                    .setParameter("toYear", to)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
+        }
+    }
+
+
 }

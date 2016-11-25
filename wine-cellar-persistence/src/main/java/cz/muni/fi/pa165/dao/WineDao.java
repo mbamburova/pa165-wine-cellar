@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Wine;
 
+import java.math.BigDecimal;
 import java.time.Year;
 import java.util.List;
 
@@ -48,19 +49,67 @@ public interface WineDao {
      * @param name
      * @return list of wines
      */
-    List<Wine> findByName(String name);
+    List<Wine> findWinesByName(String name);
 
     /**
      * get vines by given vintage
-     * @param name
+     * @param vintage
      * @return
      */
-    List<Wine> findByVintage(Year name);
+    List<Wine> findWinesByVintage(Year vintage);
 
     /**
      *  get wines by given predicate
      * @param predicate
      * @return list of wines
      */
-    List<Wine> findByPredicate(String predicate);
+    List<Wine> findWinesByPredicate(String predicate);
+
+    /**
+     * get wines by given predicate equivalent
+     * @param predicateEquivalent
+     * @return list of wines
+     */
+    List<Wine> findWinesByPredicateEquivalent(String predicateEquivalent);
+
+    /**
+     * get wines by given alcoholVolume
+     * @param from lower bound
+     * @param to upper bound
+     * @return list of wines
+     */
+    List<Wine> findWinesByAlcoholVolume(BigDecimal from, BigDecimal to);
+
+    /**
+     * get wines by given residualSugar
+     * @param from lower bound
+     * @param to upper bound
+     * @return list of wines
+     */
+    List<Wine> findWinesByResidualSugar(BigDecimal from, BigDecimal to);
+
+    /**
+     * get wines by given acidity
+     * @param from lower bound
+     * @param to upper bound
+     * @return list of wines
+     */
+    List<Wine> findWinesByAcidity(BigDecimal from, BigDecimal to);
+
+    /**
+     * get wines by given grapeSugarContent
+     * @param from lower bound
+     * @param to upper bound
+     * @return list of wines
+     */
+    List<Wine> findWinesByGrapeSugarContent(BigDecimal from, BigDecimal to);
+
+    /**
+     * get wines by given years
+     * @param from year
+     * @param to year
+     * @return list of wines
+     */
+    List<Wine> findWinesFromYears(Year from, Year to);
+
 }

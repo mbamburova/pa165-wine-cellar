@@ -64,13 +64,14 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void setUp() {
         Wine wine = wine().build();
-        wineService.create(wine);
+        wineService.createWine(wine);
 
         packing1 = new Packing();
         packing1.setVolume(new BigDecimal("0.75"));
         packing1.setWine(wine);
         packing1.setValidFrom(new LocalDateTime(2016,10,10,0,0));
         packing1.setValidTo(null);
+        packingService.createPacking(packing1);
     }
 
     @After
@@ -97,22 +98,7 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     public void updatePacking(){
 
     }
-/*
-    @Test
-    public void updateVolume() throws Exception {
 
-    }
-
-    @Test
-    public void updateValidFrom() throws Exception {
-
-    }
-
-    @Test
-    public void updateValidTo() throws Exception {
-
-    }
-*/
     @Test
     public void deletePacking() throws Exception {
 
@@ -127,10 +113,4 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     public void addWine() throws Exception {
 
     }
-/*
-    @Test
-    public void removeWine() throws Exception {
-
-    }
-*/
 }
