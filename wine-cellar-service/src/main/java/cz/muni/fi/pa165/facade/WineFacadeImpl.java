@@ -68,15 +68,15 @@ public class WineFacadeImpl implements WineFacade {
 
     @Override
     public List<WineDto> findWinesByName(String name) {
-        if (wineService.findWineById(id) == null) {
+        if (wineService.findWinesByName(name) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWineByName(name), Wine.class);
+        return beanMappingService.mapTo(wineService.findWinesByName(name), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByVintage(Year vintage) {
-        if (wineService.findWinesByVintage(id) == null) {
+        if (wineService.findWinesByVintage(vintage) == null) {
             throw new NoResultException();
         }
         return beanMappingService.mapTo(wineService.findWinesByVintage(vintage), Wine.class);
@@ -84,64 +84,65 @@ public class WineFacadeImpl implements WineFacade {
 
     @Override
     public WineDto findWineByBatch(String batch) {
-        if (wineService.findWineById(id) == null) {
+        if (wineService.findWineByBatch(batch) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWineById(id), Wine.class);
+        return beanMappingService.mapTo(wineService.findWineByBatch(batch), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByPredicate(String predicate) {
-        return null;
+        if (wineService.findWinesByPredicate(predicate) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByPredicate(predicate), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByPredicateEquivalent(String predicateEquivalent) {
-        return null;
-    }
-
-    @Override
-    public List<WineDto> findWinesByDescription(String description) {
-        return null;
-    }
-
-    @Override
-    public List<WineDto> findWinesByNotes(String notes) {
-        return null;
+        if (wineService.findWinesByPredicateEquivalent(predicateEquivalent) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByPredicateEquivalent(predicateEquivalent), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByAlcoholVolume(BigDecimal alcoholVolume) {
-        return null;
+        if (wineService.findWinesByAlcoholVolume(alcoholVolume) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByAlcoholVolume(alcoholVolume), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByResidualSugar(BigDecimal residualSugar) {
-        return null;
+        if (wineService.findWinesByResidualSugar(residualSugar) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByResidualSugar(residualSugar), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByAcidity(BigDecimal acidity) {
-        return null;
+        if (wineService.findWinesByAcidity(acidity) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByAcidity(acidity), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesByGrapeSugarContent(BigDecimal grapeSugarContent) {
-        return null;
+        if (wineService.findWinesByGrapeSugarContent(grapeSugarContent) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesByGrapeSugarContent(grapeSugarContent), Wine.class);
     }
 
     @Override
     public List<WineDto> findWinesBetweenYears(Year from, Year to) {
-        return null;
-    }
-
-    @Override
-    public void addWinePackage(Long wine, Long packing) {
-
-    }
-
-    @Override
-    public void removeWinePackage(Long wine, Long packing) {
-
+        if (wineService.findWinesBetweenYears(from, to) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWinesBetweenYears(from, to), Wine.class);
     }
 }

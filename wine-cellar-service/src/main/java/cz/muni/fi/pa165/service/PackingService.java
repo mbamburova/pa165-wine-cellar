@@ -25,8 +25,4 @@ public interface PackingService {
     void deletePacking(Packing packing);
 
     boolean isPackingValid(Packing packing);
-
-    void addPackingPrice(Packing packing, Price price);
-    void removePackingPrice(Packing packing, Price price);
-
 }

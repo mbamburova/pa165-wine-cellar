@@ -21,9 +21,6 @@ public class PackingServiceImpl implements PackingService {
     @Autowired
     private PackingDao packingDao;
 
-    @Autowired
-    private PriceDao priceDao;
-
     @Override
     public void createPacking(Packing packing) {
         packingDao.createPacking(packing);
@@ -52,15 +49,5 @@ public class PackingServiceImpl implements PackingService {
     @Override
     public boolean isPackingValid(Packing packing) {
         return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
-    }
-
-    @Override
-    public void addPackingPrice(Packing packing, Price price) {
-
-    }
-
-    @Override
-    public void removePackingPrice(Packing packing, Price price) {
-
     }
 }
