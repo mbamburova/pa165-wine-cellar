@@ -36,18 +36,18 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public Price get(Long id) {
+    public Price findPriceById(Long id) {
         return entityManager.find(Price.class, id);
     }
 
     @Override
-    public List<Price> getAll() {
+    public List<Price> findAllPrices() {
         return Collections.unmodifiableList(
                 entityManager.createQuery("SELECT pl FROM Price pl", Price.class).getResultList());
     }
 
     @Override
-    public List<Price> getByPrice(BigDecimal price) {
+    public List<Price> findByPrice(BigDecimal price) {
 
         if (price == null)
             throw new IllegalArgumentException("Cannot search for null price");
@@ -60,7 +60,7 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public List<Price> getByCurrency(Currency currency) {
+    public List<Price> findByCurrency(Currency currency) {
 
         if (currency == null)
             throw new IllegalArgumentException("Cannot search for null currency");
@@ -73,7 +73,7 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public List<Price> getByMarketingEvent(MarketingEvent marketingEvent) {
+    public List<Price> findByMarketingEvent(MarketingEvent marketingEvent) {
         if (marketingEvent == null)
             throw new IllegalArgumentException("Cannot search for null marketingEvent");
         try {

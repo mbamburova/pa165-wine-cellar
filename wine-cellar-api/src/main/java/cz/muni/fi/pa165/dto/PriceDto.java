@@ -11,10 +11,8 @@ public class PriceDto {
 
     private Long id;
 
-    @NotNull
     private BigDecimal price;
 
-    @NotNull
     private Currency currency;
 
     private PackingDto packing;

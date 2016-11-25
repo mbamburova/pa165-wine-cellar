@@ -34,15 +34,11 @@ public interface WineService {
     Wine findByBatch(String batch);
     List<Wine> findByPredicate(String predicate);
     List<Wine> findByPredicateEquivalent(String predicateEquivalent);
-    List<Wine> findByDescription(String description);
-    List<Wine> findByNotes(String notes);
-    List<Wine> findByAlcoholVolume(BigDecimal alcoholVolume);
-    List<Wine> findByResidualSugar(BigDecimal residualSugar);
-    List<Wine> findByAcidity(BigDecimal acidity);
-    List<Wine> findByGrapeSugarContent(BigDecimal grapeSugarContent);
+
+    List<Wine> findByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume);
+    List<Wine> findByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar);
+    List<Wine> findByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity);
+    List<Wine> findByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent);
 
     List<Wine> findAllWinesFromYears(Year from, Year to);
-
-    void addPackage(Wine wine, Packing packing);
-    void removePackage(Wine wine, Packing packing);
 }
