@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import org.joda.time.LocalDateTime;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public interface PackingFacade {
 
-    void createPacking(PackingDto p);
-    void updatePacking(PackingDto p);
+    void createPacking(PackingCreateDto p);
+    void updatePacking(PackingCreateDto p);
     void deletePacking(PackingDto p);
 
     PackingDto findPackingById(Long id);
