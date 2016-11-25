@@ -51,6 +51,7 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     private PackingService packingService;
 
     @Autowired
+    @InjectMocks
     private WineService wineService;
 
     private Packing packing1;
