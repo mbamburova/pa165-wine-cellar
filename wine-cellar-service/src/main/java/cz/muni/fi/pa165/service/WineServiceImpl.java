@@ -16,7 +16,6 @@ import java.util.List;
  * @author Tomas Gordian on 11/6/2016.
  */
 @Service
-@Transactional
 public class WineServiceImpl implements WineService {
 
     @Autowired

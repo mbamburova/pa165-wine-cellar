@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Silvia Borzová
@@ -73,7 +74,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findPriceByCurrency(Currency currency) {
         try{
-            return priceDao.findPriceByCurrency(currency);
+            return priceDao.findPricesByCurrency(currency);
         }catch(Exception e){
             throw new WineCellarDataAccessException("Cannot find price by currency"
                     + currency, e);
@@ -83,7 +84,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findPriceByPriceAttribute(BigDecimal price) {
         try{
-            return priceDao.findPriceByPrice(price);
+            return priceDao.findPricesByPriceAttribute(price);
         }catch(Exception e){
             throw new WineCellarDataAccessException("Cannot find price by price attribute"
                     + price, e);
@@ -93,7 +94,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findPriceByMarketingEvent(MarketingEvent event) {
         try{
-            return priceDao.findPriceByMarketingEvent(event);
+            return priceDao.findPricesByMarketingEvent(event);
         }catch(Exception e){
             throw new WineCellarDataAccessException("Cannot find price by marketing event"
                     + event, e);
@@ -103,7 +104,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findPriceByPacking(Packing packing) {
         try{
-            return priceDao.findPriceByPacking(packing);
+            return priceDao.findPricesByPacking(packing);
         }catch(Exception e){
             throw new WineCellarDataAccessException("Cannot find price by packing"
                     + packing, e);

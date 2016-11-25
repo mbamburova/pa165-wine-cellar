@@ -133,7 +133,6 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
         wineList2.setDate(new LocalDateTime(2016,11,6,0,0));
         wineList2.setName("birthday");
         wineList2.setWines(wines2);
-        
     }
 
     @Test

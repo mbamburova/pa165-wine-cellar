@@ -48,7 +48,7 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public List<Price> findPriceByPrice(BigDecimal price) {
+    public List<Price> findPricesByPriceAttribute(BigDecimal price) {
 
         if (price == null)
             throw new IllegalArgumentException("Cannot search for null price");
@@ -61,7 +61,7 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public List<Price> findPriceByCurrency(Currency currency) {
+    public List<Price> findPricesByCurrency(Currency currency) {
 
         if (currency == null)
             throw new IllegalArgumentException("Cannot search for null currency");
@@ -74,7 +74,7 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public List<Price> findPriceByMarketingEvent(MarketingEvent marketingEvent) {
+    public List<Price> findPricesByMarketingEvent(MarketingEvent marketingEvent) {
         if (marketingEvent == null)
             throw new IllegalArgumentException("Cannot search for null marketingEvent");
         try {
@@ -86,7 +86,7 @@ public class PriceDaoImpl implements PriceDao {
     }
 
     @Override
-    public List<Price> findPriceByPacking(Packing packing) {
+    public List<Price> findPricesByPacking(Packing packing) {
         if (packing == null)
             throw new IllegalArgumentException("Cannot search for null marketingEvent");
         try {
