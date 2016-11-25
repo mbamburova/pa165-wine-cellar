@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.Year;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import com.sun.istack.internal.NotNull;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Silvia Borzová

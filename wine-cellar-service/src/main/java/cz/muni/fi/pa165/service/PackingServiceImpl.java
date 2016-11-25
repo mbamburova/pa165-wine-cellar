@@ -87,12 +87,12 @@ public class PackingServiceImpl implements PackingService {
         }
     }
 
-    @Override
-    public boolean isPackingValid(Packing packing) {
-        try {
-            return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
-        } catch (Exception e) {
-            throw new WineCellarDataAccessException("cannot check if packing is valid", e);
-        }
-    }
+//    @Override
+//    public boolean isPackingValid(Packing packing) {
+//        try {
+//            return packing.getValidFrom().isBefore(LocalDateTime.now()) && packing.getValidTo().isAfter(LocalDateTime.now());
+//        } catch (Exception e) {
+//            throw new WineCellarDataAccessException("cannot check if packing is valid", e);
+//        }
+//    }
 }

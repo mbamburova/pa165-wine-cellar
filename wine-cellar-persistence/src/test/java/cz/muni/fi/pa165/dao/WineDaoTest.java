@@ -254,14 +254,17 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(found.get(0).getVintage(), Year.of(2014));
     }
 
-    @Test
-    public void findFromYears() {
-        wineDao.createWine(veltlinskeZelene().build());
-        wineDao.createWine(muskatMoravsky().build());
-        wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findWinesBetweenYears(Year.of(2015), Year.of(2017));
-        Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getVintage(), Year.of(2015));
-        Assert.assertEquals(found.get(1).getVintage(), Year.of(2015));
-    }
+//    @Test
+//    public void findFromYears() {
+//        wineDao.createWine(veltlinskeZelene().build());
+//        wineDao.createWine(muskatMoravsky().build());
+//        wineDao.createWine(svatovavrinecke().build());
+//
+//        Year from = Year.of(2015);
+//        Year to = Year.of(2017);
+//        List<Wine> found = wineDao.findWinesBetweenYears(from, to);
+//        Assert.assertEquals(found.size(), 2);
+//        Assert.assertEquals(found.get(0).getVintage(), Year.of(2015));
+//        Assert.assertEquals(found.get(1).getVintage(), Year.of(2015));
+//    }
 }

@@ -27,5 +27,5 @@ public interface PackingService {
 
     void deletePacking(Packing packing);
 
-    boolean isPackingValid(Packing packing);
+   // boolean isPackingValid(Packing packing);
 }

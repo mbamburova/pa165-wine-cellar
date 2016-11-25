@@ -31,6 +31,8 @@ public class ServiceConfiguration {
         protected void configure() {
             mapping(MarketingEvent.class, MarketingEventDto.class);
             mapping(Packing.class, PackingDto.class);
+            mapping(Packing.class, PackingCreateDto.class);
+            mapping(Price.class, PriceCreateDto.class);
             mapping(Price.class, PriceDto.class);
             mapping(WineList.class, WineListDto.class);
             mapping(Wine.class, WineDto.class);
