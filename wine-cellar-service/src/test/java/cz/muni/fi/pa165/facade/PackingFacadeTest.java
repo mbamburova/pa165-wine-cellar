@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
+import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
@@ -48,9 +49,13 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     private Packing packing1;
     private Packing packing2;
+    private PackingDto packing1Dto;
+    private PackingDto packing2Dto;
     private PackingCreateDto packingCreateDto1;
     private Wine veltlinskeZelene;
     private Wine muskatMoravsky;
+    private WineDto veltlinskeZeleneDto;
+    private WineDto muskatMoravskyDto;
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
@@ -108,15 +113,24 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         packing2.setValidFrom(new LocalDateTime(2014,2,1,0,0));
         packing2.setValidTo(new LocalDateTime(2017,2,1,0,0));
         packing2.setWine(muskatMoravsky);
+
+        veltlinskeZeleneDto = (WineDto) beanMappingService.mapToDTOWithID(veltlinskeZelene);
+        muskatMoravskyDto = (WineDto) beanMappingService.mapToDTOWithID(muskatMoravsky);
+
+        packing1Dto = (PackingDto) beanMappingService.mapToDTOWithID(packing1);
+        packing2Dto = (PackingDto) beanMappingService.mapToDTOWithID(packing2);
     }
 
     @Test
     public void testCreatePacking() {
-//        PackingCreateDto packingCreateDto = new PackingCreateDto();
-//        packingCreateDto.setWineId(veltlinskeZelene.getId());
-//        packingCreateDto.setValidFrom(packing1.getValidFrom());
-//        packingCreateDto.setValidTo(packing1.getValidTo());
-//        packingCreateDto.setVolume(packing1.getVolume());
+        PackingCreateDto packingCreateDto = new PackingCreateDto();
+        packingCreateDto.setWineId(veltlinskeZelene.getId());
+        packingCreateDto.setValidFrom(packing1.getValidFrom());
+        packingCreateDto.setValidTo(packing1.getValidTo());
+        packingCreateDto.setVolume(packing1.getVolume());
+
+        packingFacade.createPacking(packingCreateDto);
+        verify(packingService).createPacking(packing1);
     }
 
     @Test
@@ -134,9 +148,9 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     @Test
     public void testFindPackingById() {
         when(packingService.findPackingById(packing1.getId())).thenReturn(packing1);
-        PackingDto packingDto = packingFacade.findPackingById(packing1.getId());
+        PackingDto packingDto = packingFacade.findPackingById(packing1Dto.getId());
 
-        assertThat(packingFacade.findPackingById(packing1.getId())).isEqualToComparingFieldByField(packingDto);
+        assertThat(packingFacade.findPackingById(packing1Dto.getId())).isEqualToComparingFieldByField(packingDto);
     }
 
     @Test
@@ -155,12 +169,12 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         expectedPackings.add(packing2);
 
         when(packingService.findPackingsByVolume(muskatMoravsky.getAlcoholVolume())).thenReturn(expectedPackings);
-        assertThat(packingFacade.findPackingByVolume(muskatMoravsky.getAlcoholVolume()).size()).isEqualTo(expectedPackings.size());
+        assertThat(packingFacade.findPackingByVolume(muskatMoravskyDto.getAlcoholVolume()).size()).isEqualTo(expectedPackings.size());
     }
 
     @Test
     public void testFindPackingsByValidFrom() {
-        when(packingService.)
+
     }
 
     @Test
@@ -173,10 +187,8 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         List<Packing> expectedPacking = new ArrayList<>();
         expectedPacking.add(packing1);
 
-        /*
         when(packingService.findPackingsByWine(veltlinskeZelene)).thenReturn(expectedPacking);
-        assertThat(packingFacade.findPackingByWine(veltlinskeZelene).size()).isEqualTo(expectedPacking.size());
-        */
+        assertThat(packingFacade.findPackingByWine(veltlinskeZeleneDto).size()).isEqualTo(expectedPacking.size());
     }
 
     @Test
