@@ -78,8 +78,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Wine muskatMoravsky = muskatMoravsky().build();
         wineDao.createWine(veltlinskeZelene);
         wineDao.createWine(muskatMoravsky);
-        assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
-        assertThat(wineDao.findWineById(muskatMoravsky.getId())).isEqualToIgnoringGivenFields(muskatMoravsky, "packings");
+        assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isEqualToComparingFieldByField(veltlinskeZelene);
+        assertThat(wineDao.findWineById(muskatMoravsky.getId())).isEqualToComparingFieldByField(muskatMoravsky);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
@@ -217,7 +217,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByName("Veltlínske zelené");
+        List<Wine> found = wineDao.findWinesByName("Veltlínske zelené");
         Assert.assertEquals(found.size(), 1);
         Assert.assertEquals(found.get(0).getName(), "Veltlínske zelené");
     }
@@ -227,7 +227,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByPredicate("kabinetní víno");
+        List<Wine> found = wineDao.findWinesByPredicate("kabinetní víno");
         Assert.assertEquals(found.size(), 2);
         Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
         Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
@@ -238,21 +238,10 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByPredicate("kabinetní víno");
+        List<Wine> found = wineDao.findWinesByAlcoholVolume(new BigDecimal(11), new BigDecimal(13));
         Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
-        Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
-    }
-
-    @Test
-    public void findFromYears() {
-        wineDao.createWine(veltlinskeZelene().build());
-        wineDao.createWine(muskatMoravsky().build());
-        wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findWinesFromYears("kabinetní víno");
-        Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
-        Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
+        Assert.assertEquals(found.get(0).getAlcoholVolume(), new BigDecimal(12));
+        Assert.assertEquals(found.get(1).getAlcoholVolume(), new BigDecimal(12));
     }
 
     @Test
@@ -260,9 +249,19 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findByPredicate("kabinetní víno");
+        List<Wine> found = wineDao.findWinesByVintage(Year.of(2014));
+        Assert.assertEquals(found.size(), 1);
+        Assert.assertEquals(found.get(0).getVintage(), Year.of(2014));
+    }
+
+    @Test
+    public void findFromYears() {
+        wineDao.createWine(veltlinskeZelene().build());
+        wineDao.createWine(muskatMoravsky().build());
+        wineDao.createWine(svatovavrinecke().build());
+        List<Wine> found = wineDao.findWinesFromYears(Year.of(2015), Year.of(2017));
         Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getPredicate(), "kabinetní víno");
-        Assert.assertEquals(found.get(1).getPredicate(), "kabinetní víno");
+        Assert.assertEquals(found.get(0).getVintage(), Year.of(2015));
+        Assert.assertEquals(found.get(1).getVintage(), Year.of(2015));
     }
 }
