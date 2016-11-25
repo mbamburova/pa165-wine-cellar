@@ -203,7 +203,7 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
 
         when(packingDao.findPackingsByVolume(new BigDecimal("0.75")))
                 .thenReturn(expect);
-        List<Packing> found = packingService.findPackingByVolume(new BigDecimal("0.75"));
+        List<Packing> found = packingService.findPackingsByVolume(new BigDecimal("0.75"));
 
         assertEquals(expect.size(), found.size());
 
