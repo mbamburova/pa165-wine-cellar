@@ -23,8 +23,5 @@ public interface PackingFacade {
     PackingDto findPackingById(Long id);
     List<PackingDto> findAllPackings();
     List<PackingDto> findPackingByVolume(BigDecimal volume);
-    List<PackingDto> findPackingByValidFrom(LocalDateTime validFrom);
-    List<PackingDto> findPackingByValidTo(LocalDateTime validTo);
     List<PackingDto> findPackingByWine(WineDto wineDto);
-    List<PackingDto> findPackingValidForDate(LocalDateTime dateTime);
 }

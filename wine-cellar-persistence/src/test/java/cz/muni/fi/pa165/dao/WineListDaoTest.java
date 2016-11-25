@@ -104,7 +104,7 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
 
         marketingEvent = new MarketingEvent();
         marketingEvent.setDescription("Marketing event");
-        marketingEventDao.create(marketingEvent);
+        marketingEventDao.createMarketingEvent(marketingEvent);
 
 
         wineList1.setDate(new LocalDateTime(2016,11,10,0,0));
@@ -123,47 +123,47 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
         wines2.add(svatovavrinecke);
         wineList2.setWines(wines2);
 
-        wineListDao.create(wineList1);
-        wineListDao.create(wineList2);
+        wineListDao.createWineList(wineList1);
+        wineListDao.createWineList(wineList2);
     }
 
     @Test
     public void createWineList(){
-        Assert.assertEquals(wineListDao.get(wineList1.getId()), wineList1);
+        Assert.assertEquals(wineListDao.findWineListById(wineList1.getId()), wineList1);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNullDate(){
         WineList wineList = new WineList();
         wineList.setDate(null);
-        wineListDao.create(wineList);
+        wineListDao.createWineList(wineList);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNullName(){
         WineList wineList = new WineList();
         wineList.setName(null);
-        wineListDao.create(wineList);
+        wineListDao.createWineList(wineList);
     }
 
     @Test
     public void updateWineList(){
-        WineList wineList = wineListDao.get(wineList1.getId());
+        WineList wineList = wineListDao.findWineListById(wineList1.getId());
         wineList.setName("Wine List Update");
         wineList.setDate(new LocalDateTime(2017,12,12,0,0));
-        wineListDao.update(wineList);
-        Assert.assertEquals(wineListDao.get(wineList.getId()), wineList);
+        wineListDao.updateWineList(wineList);
+        Assert.assertEquals(wineListDao.findWineListById(wineList.getId()), wineList);
     }
 
     @Test
     public void deleteWineList(){
-        wineListDao.delete(wineList1);
-        Assert.assertEquals(wineListDao.getAll().size(), 1);
+        wineListDao.deleteWineList(wineList1);
+        Assert.assertEquals(wineListDao.findAllWineLists().size(), 1);
     }
 
     @Test
     public void getAllWineList(){
-        Assert.assertEquals(wineListDao.getAll().size(), 2);
+        Assert.assertEquals(wineListDao.findAllWineLists().size(), 2);
     }
 
 }

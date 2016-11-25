@@ -36,13 +36,13 @@ public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
         marketingEvent1.setDescription("Marketing event 1 description");
         marketingEvent2.setDescription("Marketing event 2 description");
 
-        marketingEventDao.create(marketingEvent1);
-        marketingEventDao.create(marketingEvent2);
+        marketingEventDao.createMarketingEvent(marketingEvent1);
+        marketingEventDao.createMarketingEvent(marketingEvent2);
     }
 
     @Test
     public void createMarketingEvent(){
-        MarketingEvent marketingEvent = marketingEventDao.get(marketingEvent1.getId());
+        MarketingEvent marketingEvent = marketingEventDao.findMarketingEventById(marketingEvent1.getId());
         Assert.assertEquals(marketingEvent, marketingEvent1);
     }
 
@@ -50,28 +50,28 @@ public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
     public void createMarketingEventWithNullDescription(){
         MarketingEvent marketingEvent = new MarketingEvent();
         marketingEvent.setDescription(null);
-        marketingEventDao.create(marketingEvent);
+        marketingEventDao.createMarketingEvent(marketingEvent);
     }
 
     @Test
     public void updateMarketingEvent(){
-        MarketingEvent marketingEvent = marketingEventDao.get(marketingEvent1.getId());
+        MarketingEvent marketingEvent = marketingEventDao.findMarketingEventById(marketingEvent1.getId());
         marketingEvent.setDescription("Update description");
-        marketingEventDao.update(marketingEvent);
-        Assert.assertEquals(marketingEventDao.get(marketingEvent.getId()), marketingEvent);
+        marketingEventDao.updateMarketingEvent(marketingEvent);
+        Assert.assertEquals(marketingEventDao.findMarketingEventById(marketingEvent.getId()), marketingEvent);
     }
 
     @Test
     public void deleteMarketingEvent(){
-        marketingEventDao.delete(marketingEvent1);
-        marketingEventDao.delete(marketingEvent2);
-        Assert.assertNull(marketingEventDao.get(marketingEvent1.getId()));
-        Assert.assertNull(marketingEventDao.get(marketingEvent2.getId()));
+        marketingEventDao.deleteMarketingEvent(marketingEvent1);
+        marketingEventDao.deleteMarketingEvent(marketingEvent2);
+        Assert.assertNull(marketingEventDao.findMarketingEventById(marketingEvent1.getId()));
+        Assert.assertNull(marketingEventDao.findMarketingEventById(marketingEvent2.getId()));
     }
 
     @Test
     public void getAllMarketingEvent(){
-        Assert.assertEquals(marketingEventDao.getAll().size(), 2);
+        Assert.assertEquals(marketingEventDao.findAllMarketingEvents().size(), 2);
     }
 
 }

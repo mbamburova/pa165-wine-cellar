@@ -156,7 +156,7 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public List<Wine> findWinesFromYears(Year from, Year to) {
+    public List<Wine> findWinesBetweenYears(Year from, Year to) {
         try {
             return em
                     .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromYear" +
@@ -167,6 +167,18 @@ public class WineDaoImpl implements WineDao {
                     .getResultList();
         } catch (NoResultException nrf) {
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Wine findWineByBatch(String batch) {
+        try {
+            return em
+                    .createQuery("SELECT w FROM Wine w WHERE w.batch = :batch",
+                            Wine.class).setParameter("batch", batch)
+                    .getSingleResult();
+        } catch (NoResultException nrf) {
+            return null;
         }
     }
 

@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
+import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.WineService;
@@ -77,28 +78,13 @@ public class PackingFacadeImpl implements PackingFacade {
     }
 
     @Override
-    public List<PackingDto> findPackingByValidFrom(LocalDateTime validFrom) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByValidFrom(validFrom),
-                PackingDto.class);
-    }
-
-    @Override
-    public List<PackingDto> findPackingByValidTo(LocalDateTime validTo) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByValidTo(validTo),
-                PackingDto.class);
-    }
-
-    @Override
     public List<PackingDto> findPackingByWine(WineDto wineDto) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByWine(wineDto),
+        Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
+
+        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByWine(wine),
                 PackingDto.class);
     }
 
-    @Override
-    public List<PackingDto> findPackingValidForDate(LocalDateTime dateTime) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsValidForDate(dateTime),
-                PackingDto.class);
-    }
 
     private Packing convertDto(PackingCreateDto dto) {
         Packing p = new Packing();
