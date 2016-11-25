@@ -75,7 +75,7 @@ public class BeanMappingServiceImpl implements BeanMappingService {
             MarketingEvent marketingEventToMap = (MarketingEvent)objectToMap;
             Object mappedObject = mapper.map(marketingEventToMap, MarketingEventDto.class);
             MarketingEventDto mappedMarketingEvent = (MarketingEventDto) mappedObject;
-            //mappedMarketingEvent.setId(marketingEventToMap.getId());
+            mappedMarketingEvent.setId(marketingEventToMap.getId());
             return mappedMarketingEvent;
         }
         if (objectToMap instanceof Packing){

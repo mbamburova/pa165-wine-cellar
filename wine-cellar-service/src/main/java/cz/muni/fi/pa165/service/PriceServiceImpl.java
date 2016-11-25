@@ -83,7 +83,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findPriceByPriceAttribute(BigDecimal price) {
         try{
-            return priceDao.findPriceByPriceAttribute(price);
+            return priceDao.findPriceByPrice(price);
         }catch(Exception e){
             throw new WineCellarDataAccessException("Cannot find price by price attribute"
                     + price, e);
@@ -103,7 +103,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findPriceByPacking(Packing packing) {
         try{
-            return priceDao.findPriceByPacking;
+            return priceDao.findPriceByPacking(packing);
         }catch(Exception e){
             throw new WineCellarDataAccessException("Cannot find price by packing"
                     + packing, e);
