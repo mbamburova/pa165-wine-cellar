@@ -49,26 +49,26 @@ public interface PriceDao {
      * @param price
      * @return list of prices
      */
-    List<Price> findPriceByPrice(BigDecimal price);
+    List<Price> findPricesByPriceAttribute(BigDecimal price);
 
     /**
      *  get prices by given currency
      * @param currency
      * @return list of prices
      */
-    List<Price> findPriceByCurrency(Currency currency);
+    List<Price> findPricesByCurrency(Currency currency);
 
     /**
      *  get prices by given marketingEvent
      * @param marketingEvent
      * @return list of prices
      */
-    List<Price> findPriceByMarketingEvent(MarketingEvent marketingEvent);
+    List<Price> findPricesByMarketingEvent(MarketingEvent marketingEvent);
 
     /**
      *  get prices by given packing
      * @param packing
      * @return list of prices
      */
-    List<Price> findPriceByPacking(Packing packing);
+    List<Price> findPricesByPacking(Packing packing);
 }
