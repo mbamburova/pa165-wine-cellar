@@ -18,17 +18,6 @@ public interface WineFacade {
     List<WineDto> findAllWines();
 
     void updateWine(Long wineId);
-    void updateWineName(Long wineId, String name);
-    void updateWineVintage(Long wineId, Year vintage);
-    void updateWineBatch(Long wineId, String batch);
-    void updateWinePredicate(Long wineId, String predicate);
-    void updateWinePredicateEquivalent(Long wineId, String predicateEquivalent);
-    void updateWineDescription(Long wineId, String description);
-    void updateWineNotes(Long wineId, String notes);
-    void updateWineAlcoholVolume(Long wineId, BigDecimal alcoholVolume);
-    void updateWineResidualSugar(Long wineId, BigDecimal residualSugar);
-    void updateWineAcidity(Long wineId, BigDecimal acidity);
-    void updateWineGrapeSugarContent(Long wineId, BigDecimal grapeSugarContent);
 
     void deleteWine(Long wineId);
 

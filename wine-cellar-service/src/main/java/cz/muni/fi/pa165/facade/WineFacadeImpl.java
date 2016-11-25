@@ -54,61 +54,6 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public void updateWineName(Long wineId, String name) {
-
-    }
-
-    @Override
-    public void updateWineVintage(Long wineId, Year vintage) {
-
-    }
-
-    @Override
-    public void updateWineBatch(Long wineId, String batch) {
-
-    }
-
-    @Override
-    public void updateWinePredicate(Long wineId, String predicate) {
-
-    }
-
-    @Override
-    public void updateWinePredicateEquivalent(Long wineId, String predicateEquivalent) {
-
-    }
-
-    @Override
-    public void updateWineDescription(Long wineId, String description) {
-
-    }
-
-    @Override
-    public void updateWineNotes(Long wineId, String notes) {
-
-    }
-
-    @Override
-    public void updateWineAlcoholVolume(Long wineId, BigDecimal alcoholVolume) {
-
-    }
-
-    @Override
-    public void updateWineResidualSugar(Long wineId, BigDecimal residualSugar) {
-
-    }
-
-    @Override
-    public void updateWineAcidity(Long wineId, BigDecimal acidity) {
-
-    }
-
-    @Override
-    public void updateWineGrapeSugarContent(Long wineId, BigDecimal grapeSugarContent) {
-
-    }
-
-    @Override
     public void deleteWine(Long wineId) {
 
     }
