@@ -82,4 +82,6 @@ public class PackingCreateDto {
         result = 31 * result + getWineId().hashCode();
         return result;
     }
+
+
 }

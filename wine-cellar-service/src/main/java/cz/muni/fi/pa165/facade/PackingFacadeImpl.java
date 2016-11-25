@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.facade;
 
 import java.math.BigDecimal;
 import java.util.List;
+import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
@@ -32,68 +33,70 @@ public class PackingFacadeImpl implements PackingFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public void createPacking(PackingDto p) {
+    public void createPacking(PackingCreateDto p) {
         //packingService.create(convertDto(p));
 
-        //Packing packing = beanMappingService.mapTo(p, Packing.class);
-
+        Packing packing = beanMappingService.mapTo(p, Packing.class);
+        packing.setWine(wineService.findWineById(p.getWineId()));
+        packingService.createPacking(packing);
     }
 
     @Override
-    public void updatePacking(PackingDto p) {
-
+    public void updatePacking(PackingCreateDto p) {
+        Packing packing = beanMappingService.mapTo(p, Packing.class);
+        packingService.updatePacking(packing);
     }
 
     @Override
     public void deletePacking(PackingDto p) {
-        packingService.delete(new Packing(p.getId()));
+        packingService.deletePacking(new Packing(p.getId()));
     }
 
     @Override
     public PackingDto findPackingById(Long id) {
-        Packing packing = packingService.get(id);
+        Packing packing = packingService.findPackingById(id);
         return (packing == null) ? null : beanMappingService.mapToEnforceID(packing,PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findAllPackings() {
-        return beanMappingService.mapToCollectionEnforceID(packingService.getAll(),
+        return beanMappingService.mapToCollectionEnforceID(packingService.findAllPackings(),
                 PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingByVolume(BigDecimal volume) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingByVolume(volume),
+        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByVolume(volume),
                 PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingByValidFrom(LocalDateTime validFrom) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingByValidFrom(validFrom),
+        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByValidFrom(validFrom),
                 PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingByValidTo(LocalDateTime validTo) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingByValidTo(validTo),
+        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByValidTo(validTo),
                 PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingByWine(WineDto wineDto) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingByWine(wineDto),
+        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByWine(wineDto),
                 PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingValidForDate(LocalDateTime dateTime) {
-        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingValidForDate(dateTime),
+        return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsValidForDate(dateTime),
                 PackingDto.class);
     }
 
-    private Packing convertDto(PackingDto dto) {
+    private Packing convertDto(PackingCreateDto dto) {
         Packing p = new Packing();
-        p.setWine(wineService.get(dto.getId())); //alebo convertWineToDto ?
+        //p.setWine(wineService.get(dto.getId())); //alebo convertWineToDto ?
         p.setVolume(dto.getVolume());
         p.setValidFrom(dto.getValidFrom());
         p.setValidTo(dto.getValidTo());
