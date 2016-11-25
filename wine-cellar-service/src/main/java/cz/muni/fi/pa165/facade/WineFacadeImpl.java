@@ -42,27 +42,27 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public WineDto findWineById(Long id) {
-        if (wineService.findWineById(id) == null) {
-            throw new NoResultException();
-        }
-        return beanMappingService.mapTo(wineService.findWineById(id), Wine.class);
-    }
-
-    @Override
     public List<WineDto> findAllWines() {
         return null;
     }
 
     @Override
-    public void updateWine(Long wineId) {
-        Wine mappedWine = beanMappingService.mapTo(WineDto, Wine.class);
+    public void updateWine(WineDto wineDto) {
+        Wine mappedWine = beanMappingService.mapTo(wineDto, Wine.class);
         wineService.updateWine(mappedWine);
     }
 
     @Override
-    public void deleteWine(Long wineId) {
-        Wine mappedWine = beanMappingService.mapTo(WineDto, Wine.class);
+    public WineDto findWineById(Long id) {
+        if (wineService.findWineById(id) == null) {
+            throw new NoResultException();
+        }
+        return beanMappingService.mapTo(wineService.findWineById(id), WineDto.class);
+    }
+
+    @Override
+    public void deleteWine(WineDto wineDto) {
+        Wine mappedWine = beanMappingService.mapTo(wineDto, Wine.class);
         wineService.deleteWine(mappedWine);
     }
 
@@ -71,7 +71,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByName(name) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByName(name), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByName(name), WineDto.class);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByVintage(vintage) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByVintage(vintage), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByVintage(vintage), WineDto.class);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByPredicate(predicate) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByPredicate(predicate), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByPredicate(predicate), WineDto.class);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByPredicateEquivalent(predicateEquivalent) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByPredicateEquivalent(predicateEquivalent), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByPredicateEquivalent(predicateEquivalent), WineDto.class);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume), WineDto.class);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar), WineDto.class);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByAcidity(fromAcidity, toAcidity) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByAcidity(fromAcidity, toAcidity), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByAcidity(fromAcidity, toAcidity), WineDto.class);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent), WineDto.class);
     }
 
     @Override
@@ -143,6 +143,6 @@ public class WineFacadeImpl implements WineFacade {
         if (wineService.findWinesBetweenYears(from, to) == null) {
             throw new NoResultException();
         }
-        return beanMappingService.mapTo(wineService.findWinesBetweenYears(from, to), Wine.class);
+        return beanMappingService.mapToCollection(wineService.findWinesBetweenYears(from, to), WineDto.class);
     }
 }

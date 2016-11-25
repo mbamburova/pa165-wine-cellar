@@ -14,13 +14,12 @@ public interface WineFacade {
 
     Long createWine(WineDto wineDto);
 
+    void updateWine(WineDto wineDto);
+
+    void deleteWine(WineDto wineDto);
+
     WineDto findWineById(Long id);
     List<WineDto> findAllWines();
-
-    void updateWine(Long wineId);
-
-    void deleteWine(Long wineId);
-
     List<WineDto> findWinesByName(String name);
     List<WineDto> findWinesByVintage(Year vintage);
     WineDto findWineByBatch(String batch);
