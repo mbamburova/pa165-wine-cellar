@@ -2,6 +2,10 @@ package cz.muni.fi.pa165.service;
 
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
@@ -21,8 +25,12 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * @author Silvia Borzová
@@ -106,7 +114,7 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
 
         packing2 = new Packing();
         packing2.setVolume(new BigDecimal("0.75"));
-        packing2.setWine(veltlinskeZelene);
+        packing2.setWine(muskatMoravsky);
         packing2.setValidFrom(new LocalDateTime(2014,8,5,0,0));
         packing2.setValidTo(new LocalDateTime(2015,12,11,0,0));
         packingService.createPacking(packing2);
@@ -131,24 +139,27 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
         packing.setVolume(new BigDecimal("0.5"));
         packing.setValidFrom(new LocalDateTime(2010,11,2,0,0));
         packing.setValidTo(new LocalDateTime(2017,5,2,0,0));
-        packingService.createPacking(packing);
 
+        packingService.createPacking(packing);
         verify(packingDao, times(1)).createPacking(packing);
     }
 
     @Test
     public void findPackingById(){
+        when(packingDao.findPackingById(packing1.getId()))
+                .thenReturn(packing1);
 
+        assertThat(packingService.findPackingById(packing1.getId()))
+                .isEqualToComparingFieldByField(packing1);
+
+        verify(packingDao, times(1)).findPackingById(packing1.getId());
     }
 
-    @Test
-    public void findAllPackings(){
-
-    }
 
     @Test
     public void updatePacking(){
-
+        packingService.updatePacking(packing1);
+        verify(packingDao, times(1)).updatePacking(packing1);
     }
 
     @Test
@@ -159,21 +170,64 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void packingIsValid(){
+        when(packingService.isPackingValid(packing1)).thenReturn(true);
 
+        when(packingService.isPackingValid(packing2)).thenReturn(false);
+
+        when(packingService.isPackingValid(packing3)).thenReturn(true);
     }
 
     @Test
-    public void addWine(){
+    public void findAllPackings(){
+        List<Packing> expect = new ArrayList<>();
+        expect.add(packing1);
+        expect.add(packing2);
+        expect.add(packing3);
 
+        when(packingDao.findAllPackings()).thenReturn(expect);
+        List<Packing> found = packingService.findAllPackings();
+
+        assertEquals(expect.size(), found.size());
+
+        Collections.sort(expect, (p1, p2) -> p1.getId().compareTo(p2.getId()));
+        Collections.sort(found, (p1, p2) -> p1.getId().compareTo(p2.getId()));
+
+        assertEquals(expect, found);
     }
 
     @Test
     public void findPackingsByVolume(){
+        List<Packing> expect = new ArrayList<>();
+        expect.add(packing1);
+        expect.add(packing2);
 
+        when(packingDao.findPackingsByVolume(new BigDecimal("0.75")))
+                .thenReturn(expect);
+        List<Packing> found = packingService.findPackingByVolume(new BigDecimal("0.75"));
+
+        assertEquals(expect.size(), found.size());
+
+        Collections.sort(expect, (p1, p2) -> p1.getId().compareTo(p2.getId()));
+        Collections.sort(found, (p1, p2) -> p1.getId().compareTo(p2.getId()));
+
+        assertEquals(expect, found);
     }
 
     @Test
     public void findPackingsByWine(){
+        List<Packing> expect = new ArrayList<>();
+        expect.add(packing2);
+        expect.add(packing3);
 
+        when(packingDao.findPackingsByWine(muskatMoravsky)).
+                thenReturn(expect);
+        List<Packing> found = packingService.findPackingsByWine(muskatMoravsky);
+
+        assertEquals(expect.size(), found.size());
+
+        Collections.sort(expect, (p1, p2) -> p1.getId().compareTo(p2.getId()));
+        Collections.sort(found, (p1, p2) -> p1.getId().compareTo(p2.getId()));
+
+        assertEquals(expect, found);
     }
 }
