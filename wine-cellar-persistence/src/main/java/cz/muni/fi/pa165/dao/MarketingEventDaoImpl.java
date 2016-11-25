@@ -18,27 +18,27 @@ public class MarketingEventDaoImpl implements MarketingEventDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(MarketingEvent marketingEvent) {
+    public void createMarketingEvent(MarketingEvent marketingEvent) {
         entityManager.persist(marketingEvent);
     }
 
     @Override
-    public MarketingEvent get(Long id) {
+    public MarketingEvent findMarketingEventById(Long id) {
         return entityManager.find(MarketingEvent.class, id);
     }
 
     @Override
-    public void update(MarketingEvent marketingEvent) {
+    public void updateMarketingEvent(MarketingEvent marketingEvent) {
         entityManager.merge(marketingEvent);
     }
 
     @Override
-    public void delete(MarketingEvent marketingEvent) {
+    public void deleteMarketingEvent(MarketingEvent marketingEvent) {
         entityManager.remove(marketingEvent);
     }
 
     @Override
-    public List<MarketingEvent> getAll() {
+    public List<MarketingEvent> findAllMarketingEvents() {
         return Collections.unmodifiableList(
                 entityManager.createQuery("SELECT me FROM MarketingEvent me", MarketingEvent.class).getResultList());
     }

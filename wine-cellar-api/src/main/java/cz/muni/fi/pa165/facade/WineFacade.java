@@ -12,40 +12,23 @@ import java.util.List;
  */
 public interface WineFacade {
 
-    Long create(WineDto wineDto);
+    Long createWine(WineDto wineDto);
 
-    WineDto get(Long id);
-    List<WineDto> getAll();
+    WineDto findWineById(Long id);
+    List<WineDto> findAllWines();
 
-    void update(Long wineId);
-    void updateName(Long wineId, String name);
-    void updateVintage(Long wineId, Year vintage);
-    void updateBatch(Long wineId, String batch);
-    void updatePredicate(Long wineId, String predicate);
-    void updatePredicateEquivalent(Long wineId, String predicateEquivalent);
-    void updateDescription(Long wineId, String description);
-    void updateNotes(Long wineId, String notes);
-    void updateAlcoholVolume(Long wineId, BigDecimal alcoholVolume);
-    void updateResidualSugar(Long wineId, BigDecimal residualSugar);
-    void updateAcidity(Long wineId, BigDecimal acidity);
-    void updateGrapeSugarContent(Long wineId, BigDecimal grapeSugarContent);
+    void updateWine(Long wineId);
 
-    void delete(Long wineId);
+    void deleteWine(Long wineId);
 
-    List<WineDto> findByName(String name);
-    List<WineDto> findByVintage(Year vintage);
-    WineDto findByBatch(String batch);
-    List<WineDto> findByPredicate(String predicate);
-    List<WineDto> findByPredicateEquivalent(String predicateEquivalent);
-    List<WineDto> findByDescription(String description);
-    List<WineDto> findByNotes(String notes);
-    List<WineDto> findByAlcoholVolume(BigDecimal alcoholVolume);
-    List<WineDto> findByResidualSugar(BigDecimal residualSugar);
-    List<WineDto> findByAcidity(BigDecimal acidity);
-    List<WineDto> findByGrapeSugarContent(BigDecimal grapeSugarContent);
-    List<WineDto> findBetweenYears(Year from, Year to);
-
-    void addPackage(Long wine, Long packing);
-    void removePackage(Long wine, Long packing);
-
+    List<WineDto> findWinesByName(String name);
+    List<WineDto> findWinesByVintage(Year vintage);
+    WineDto findWineByBatch(String batch);
+    List<WineDto> findWinesByPredicate(String predicate);
+    List<WineDto> findWinesByPredicateEquivalent(String predicateEquivalent);
+    List<WineDto> findWinesByAlcoholVolume(BigDecimal alcoholVolume);
+    List<WineDto> findWinesByResidualSugar(BigDecimal residualSugar);
+    List<WineDto> findWinesByAcidity(BigDecimal acidity);
+    List<WineDto> findWinesByGrapeSugarContent(BigDecimal grapeSugarContent);
+    List<WineDto> findWinesBetweenYears(Year from, Year to);
 }

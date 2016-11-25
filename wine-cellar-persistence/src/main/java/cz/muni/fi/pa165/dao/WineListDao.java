@@ -13,55 +13,55 @@ import java.util.List;
 public interface WineListDao {
 
     /**
-     * create wineList in database
+     * create wine list in database
      * @param wineList
      */
-    void create(WineList wineList);
+    void createWineList(WineList wineList);
 
     /**
-     * get wineList by id from database
+     * get wine list by id from database
      * @param id
      * @return wineList
      */
-    WineList get(Long id);
+    WineList getWineListById(Long id);
 
     /**
-     * Update wineList in database
+     * Update wine list in database
      * @param wineList
-     * @return winelist
+     * @return wine list
      */
-    void update(WineList wineList);
+    void updateWineList(WineList wineList);
 
     /**
      * delete wineList from database
      * @param wineList
      */
-    void delete(WineList wineList);
+    void deleteWineList(WineList wineList);
 
     /**
-     * get all wineLists from database
+     * get all wine lists from database
      * @return list of wineLists
      */
-    List<WineList> getAll();
+    List<WineList> findAllWineLists();
 
     /**
-     * find wineLists by date
+     * find wine lists by date
      * @param date
      * @return list of wineLists
      */
-    List<WineList> findByDate(LocalDateTime date);
+    List<WineList> findWineListsByDate(LocalDateTime date);
 
     /**
-     * Finds all winelists by name in database
-     * @param name of the winelist
-     * @return List of all winelists by given name
+     * Finds all wine lists by name in database
+     * @param name of the wine list
+     * @return list of all wine lists by given name
      */
-    List<WineList> findByName(String name);
+    List<WineList> findWineListsByName(String name);
 
     /**
-     * Finds winelist by marketing event in database
-     * @param marketingEvent in winelist
-     * @return Winelist with given marketing event
+     * Finds wine list by marketing event in database
+     * @param marketingEvent in wine list
+     * @return wine list with given marketing event
      */
-    WineList findByMarketingEvent(MarketingEvent marketingEvent);
+    WineList findWineListByMarketingEvent(MarketingEvent marketingEvent);
 }

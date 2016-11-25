@@ -15,21 +15,14 @@ import java.util.List;
 
 public interface PackingService {
 
-    void create(Packing packing);
+    void createPacking(Packing packing);
 
-    Packing get(Long id);
-    List<Packing> getAll();
+    Packing findPackingById(Long id);
+    List<Packing> findAllPackings();
 
-    void update(Packing packing);
-    void updateVolume(Packing packing, BigDecimal volume);
-    void updateValidFrom(Packing packing, LocalDateTime validFrom);
-    void updateValidTo(Packing packing, LocalDateTime validTo);
+    void updatePacking(Packing packing);
 
-    void delete(Packing packing);
+    void deletePacking(Packing packing);
 
-    boolean isValid(Packing packing);
-
-    void addPrice(Packing packing, Price price);
-    void removePrice(Packing packing, Price price);
-
+    boolean isPackingValid(Packing packing);
 }
