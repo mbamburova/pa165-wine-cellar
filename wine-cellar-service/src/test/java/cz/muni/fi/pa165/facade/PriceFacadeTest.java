@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -152,38 +153,38 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPriceById() {
+    public void findById() {
         when(priceService.findPriceById(1L)).thenReturn(price1);
         assertThat(priceFacade.findPriceById(1L)).isEqualToIgnoringGivenFields(price1, "price", "packing", "marketingEvent");
     }
 
     @Test
-    public void findAllPrices() {
+    public void findAll() {
         when(priceService.findAllPrices()).thenReturn(Arrays.asList(price1, price2));
         assertEquals(priceFacade.findAllPrices().size(), 2);
     }
 
     @Test
-    public void findPricesByMarketingEvent() {
-        when(priceService.findPriceByMarketingEvent(marketingEvent1)).thenReturn(Arrays.asList(price1));
+    public void findByMarketingEvent() {
+        when(priceService.findPriceByMarketingEvent(marketingEvent1)).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByMarketingEvent(marketingEventDto1).size(), 1);
     }
 
     @Test
-    public void findPricesByPacking() {
-        when(priceService.findPriceByPacking(packing1)).thenReturn(Arrays.asList(price1));
+    public void findByPacking() {
+        when(priceService.findPriceByPacking(packing1)).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByPacking(packingDto1).size(), 1);
     }
 
     @Test
-    public void findPricesByCurrency() {
-        when(priceService.findPriceByPriceAttribute(new BigDecimal(100))).thenReturn(Arrays.asList(price1));
+    public void findByCurrency() {
+        when(priceService.findPriceByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByPrice(new BigDecimal(100)).size(), 1);
     }
 
     @Test
-    public void findPricesByPrice() {
-        when(priceService.findPriceByPriceAttribute(new BigDecimal(100))).thenReturn(Arrays.asList(price1));
+    public void findByPrice() {
+        when(priceService.findPriceByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByPrice(new BigDecimal(100)).size(), 1);
     }
 

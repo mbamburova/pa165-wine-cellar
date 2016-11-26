@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.testng.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -43,27 +44,6 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     private Wine muskatMoravsky;
     private WineDto veltlinskeZeleneDto;
     private WineDto muskatMoravskyDto;
-
-    @Mock
-    private PackingService packingService;
-
-    @Mock
-    private WineService wineService;
-
-    @InjectMocks
-    private PackingFacade packingFacade = new PackingFacadeImpl();
-
-    @Captor
-    private ArgumentCaptor<Packing> packingArgumentCaptor;
-
-    @Spy
-    @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
-
-    @BeforeClass
-    public void initMocks(){
-        MockitoAnnotations.initMocks(this);
-    }
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
@@ -93,6 +73,27 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
                 .residualSugar(new BigDecimal(0.7))
                 .acidity(new BigDecimal(6.1))
                 .grapeSugarContent(new BigDecimal(0));
+    }
+
+    @Mock
+    private PackingService packingService;
+
+    @Mock
+    private WineService wineService;
+
+    @InjectMocks
+    private PackingFacade packingFacade = new PackingFacadeImpl();
+
+    @Captor
+    private ArgumentCaptor<Packing> packingArgumentCaptor;
+
+    @Spy
+    @Inject
+    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+
+    @BeforeClass
+    public void initMocks(){
+        MockitoAnnotations.initMocks(this);
     }
     
     @BeforeMethod
@@ -124,44 +125,44 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     }
 
     @Test
-    public void createPacking() {
+    public void create() {
         packingFacade.createPacking(packingCreateDto1);
         verify(packingService).createPacking(packingArgumentCaptor.capture());
     }
 
     @Test
-    public void updatePacking() {
+    public void update() {
         packingFacade.updatePacking(packingCreateDto1);
         verify(packingService).deletePacking(packingArgumentCaptor.capture());
     }
 
     @Test
-    public void deletePacking() {
+    public void delete() {
         packingFacade.deletePacking(packingDto1);
         verify(packingService).deletePacking(packingArgumentCaptor.capture());
     }
 
     @Test
-    public void findPackingById() {
+    public void findById() {
         when(packingService.findPackingById(1L)).thenReturn(packing1);
         assertThat(packingFacade.findPackingById(1L)).isEqualToIgnoringGivenFields(packing1, "validFrom", "validTo", "wine");
     }
 
     @Test
-    public void findAllPackings() {
+    public void findAll() {
         when(packingService.findAllPackings()).thenReturn(Arrays.asList(packing1, packing2));
         assertEquals(packingFacade.findAllPackings().size(), 2);
     }
 
     @Test
-    public void findPackingsByVolume() {
-        when(packingService.findPackingsByVolume(new BigDecimal(0.7))).thenReturn(Arrays.asList(packing1));
+    public void findByVolume() {
+        when(packingService.findPackingsByVolume(new BigDecimal(0.7))).thenReturn(Collections.singletonList(packing1));
         assertEquals(packingFacade.findPackingByVolume(new BigDecimal(0.7)).size(), 1);
     }
 
     @Test
-    public void findPackingsByWine() {
-        when(packingService.findPackingsByWine(veltlinskeZelene)).thenReturn(Arrays.asList(packing1));
+    public void findByWine() {
+        when(packingService.findPackingsByWine(veltlinskeZelene)).thenReturn(Collections.singletonList(packing1));
         assertEquals(packingFacade.findPackingByWine(veltlinskeZeleneDto).size(), 1);
     }
 }

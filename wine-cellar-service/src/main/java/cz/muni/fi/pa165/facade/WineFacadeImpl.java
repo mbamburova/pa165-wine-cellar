@@ -4,14 +4,12 @@ import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.List;
 
 /**
@@ -33,25 +31,14 @@ public class WineFacadeImpl implements WineFacade {
         if (wineDto == null) {
             throw new IllegalArgumentException("wineDto is null");
         }
-        Wine wine = new Wine();
-        wine.setName(wineDto.getName());
-        wine.setVintage(wineDto.getVintage());
-        wine.setBatch(wineDto.getBatch());
-        wine.setPredicate(wineDto.getPredicate());
-        wine.setPredicateEquivalent(wineDto.getPredicateEquivalent());
-        wine.setDescription(wineDto.getDescription());
-        wine.setNotes(wineDto.getNotes());
-        wine.setAlcoholVolume(wineDto.getAlcoholVolume());
-        wine.setResidualSugar(wineDto.getResidualSugar());
-        wine.setAcidity(wineDto.getAcidity());
-        wine.setGrapeSugarContent(wineDto.getGrapeSugarContent());
+        Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
         wineService.createWine(wine);
         return wine.getId();
     }
 
     @Override
     public List<WineDto> findAllWines() {
-        return null;
+        return beanMappingService.mapToCollection(wineService.findAllWines(), WineDto.class);
     }
 
     @Override

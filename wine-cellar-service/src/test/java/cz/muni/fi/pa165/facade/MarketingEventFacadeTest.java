@@ -89,7 +89,6 @@ public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findAll() {
         when(marketingEventService.findAllMarketingEvents()).thenReturn(Arrays.asList(event1, event2));
-        List<MarketingEventDto> list = marketingEventFacade.findAllMarketingEvents();
-        assertEquals(list.size(), 2);
+        assertEquals(marketingEventFacade.findAllMarketingEvents().size(), 2);
     }
 }
