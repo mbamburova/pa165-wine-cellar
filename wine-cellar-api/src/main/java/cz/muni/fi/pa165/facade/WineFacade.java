@@ -21,7 +21,7 @@ public interface WineFacade {
     WineDto findWineById(Long id);
     List<WineDto> findAllWines();
     List<WineDto> findWinesByName(String name);
-    List<WineDto> findWinesByVintage(Year vintage);
+    List<WineDto> findWinesByVintage(int vintage);
     WineDto findWineByBatch(String batch);
     List<WineDto> findWinesByPredicate(String predicate);
     List<WineDto> findWinesByPredicateEquivalent(String predicateEquivalent);
@@ -30,5 +30,5 @@ public interface WineFacade {
     List<WineDto> findWinesByAcidity(BigDecimal fromAcidity, BigDecimal toAcidity);
     List<WineDto> findWinesByGrapeSugarContent(BigDecimal fromGrapeSugarContent, BigDecimal toGrapeSugarContent);
 
-    List<WineDto> findWinesBetweenYears(Year from, Year to);
+    List<WineDto> findWinesBetweenYears(int from, int to);
 }

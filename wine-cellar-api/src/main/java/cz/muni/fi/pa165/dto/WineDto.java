@@ -18,7 +18,7 @@ public class WineDto {
     private String name;
 
     @NotNull
-    private Year vintage;
+    private int vintage;
 
     @NotNull
     private String batch;
@@ -63,11 +63,11 @@ public class WineDto {
         this.name = name;
     }
 
-    public Year getVintage() {
+    public int getVintage() {
         return vintage;
     }
 
-    public void setVintage(Year vintage) {
+    public void setVintage(int vintage) {
         this.vintage = vintage;
     }
 

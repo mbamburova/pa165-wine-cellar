@@ -11,7 +11,7 @@ import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;
 import org.joda.time.LocalDateTime;
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -50,52 +50,32 @@ public class WineFacadeTest extends AbstractTestNGSpringContextTests {
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
-                .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
+                .name("VeltlÃ­nske zelenÃ©")
+                .vintage(2014)
                 .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, sv??í víno s lehkou aromatikou angre?tu a zeleného pep?e. " +
-                        "Chu?ový vjem je tvo?en pikantní kyselinkou a ko?enito-ovocnými tóny.")
-                .notes("20,0°?NM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
+                .predicate("kabinetnÃ­ vÃ­no")
+                .predicateEquivalent("suchÃ©")
+                .description("ElegantnÃ­, svÄ›Å¾Ã­ vÃ­no s lehkou aromatikou angreÅ¡tu a zelenÃ©ho pepÅ™e. ChuÅ¥ovÃ½ vjem je tvoÅ™en pikantnÃ­ kyselinkou a koÅ™enito-ovocnÃ½mi tÃ³ny.")
+                .notes("20,0Â°ÄŒNM")
+                .alcoholVolume(new BigDecimal(10.94))
+                .residualSugar(new BigDecimal(2.8))
+                .acidity(new BigDecimal(7.5))
+                .grapeSugarContent(new BigDecimal(0));
     }
 
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
-                .name("Mu?kát moravský")
-                .vintage(Year.of(2015))
+                .name("MuÅ¡kÃ¡t moravskÃ½")
+                .vintage(2015)
                 .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou v?ní citrusových plod? a mu?kátového o?í?ku." +
-                        " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chu? provází p?íjemná kyselinka," +
-                        " díky ní? je víno pikantní se suchým záv?rem.")
-                .notes("20,2°?NM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
-    }
-
-    private WineBuilder svatovavrinecke() {
-        return new WineBuilder()
-                .name("Svatovav?inecké")
-                .vintage(Year.of(2015))
-                .batch("6/15")
-                .predicate("pozdní sb?r")
-                .predicateEquivalent("suché")
-                .description("Jiskrné víno rubínových odstín? barvy. Ko?enitá v?n? vi?ní a t?e??ové k?ry. " +
-                        "Zabalená v nádechu kou?e z dubového d?eva. Chu? charakterní pevná, v ní? se snoubí tóny vi?ní," +
-                        " sv??í kyselinky a p?íjemného t?ísla.")
-                .notes("30,2°?NM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("6.2"))
-                .acidity(new BigDecimal("4.6"))
-                .grapeSugarContent(new BigDecimal("0"));
+                .predicate("kabinetnÃ­ vÃ­no")
+                .predicateEquivalent("suchÃ©")
+                .description("VÃ­no zlatavÃ© barvy s ovocnou vÅ¯nÃ­ citrusovÃ½ch plodÅ¯ a muÅ¡kÃ¡tovÃ©ho oÅ™Ã­Å¡ku. V chuti nabÃ­zÃ­ ovocnÃ© tÃ³ny grapefruitu a zralÃ©ho citrÃ³nu. Ovocnou chuÅ¥ provÃ¡zÃ­ pÅ™Ã­jemnÃ¡ kyselinka, dÃ­ky nÃ­Å¾ je vÃ­no pikantnÃ­ se suchÃ½m zÃ¡vÄ›rem.")
+                .notes("20,2Â°ÄŒNM")
+                .alcoholVolume(new BigDecimal(12))
+                .residualSugar(new BigDecimal(0.7))
+                .acidity(new BigDecimal(6.1))
+                .grapeSugarContent(new BigDecimal(0));
     }
 
     @BeforeMethod

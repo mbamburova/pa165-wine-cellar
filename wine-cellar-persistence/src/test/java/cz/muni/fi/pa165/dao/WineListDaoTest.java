@@ -47,7 +47,7 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
                 .name("Muškát moravský")
-                .vintage(Year.of(2015))
+                .vintage(2015)
                 .batch("1/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
@@ -62,7 +62,7 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
+                .vintage(2014)
                 .batch("10/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
@@ -77,7 +77,7 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder svatovavrinecke() {
         return new WineBuilder()
                 .name("Svatovavřinecké")
-                .vintage(Year.of(2015))
+                .vintage(2015)
                 .batch("6/15")
                 .predicate("pozdní sběr")
                 .predicateEquivalent("suché")

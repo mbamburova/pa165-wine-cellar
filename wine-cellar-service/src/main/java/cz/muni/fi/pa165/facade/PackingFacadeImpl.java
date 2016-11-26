@@ -7,13 +7,11 @@ import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
-import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.PackingService;
-import cz.muni.fi.pa165.service.WineService;
-import org.joda.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
+import cz.muni.fi.pa165.service.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
 
 /**
  * @author Silvia Borzová
@@ -24,32 +22,32 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PackingFacadeImpl implements PackingFacade {
 
-    @Autowired
+    @Inject
     private PackingService packingService;
 
-    @Autowired
+    @Inject
     private WineService wineService;
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
     @Override
-    public void createPacking(PackingCreateDto p) {
-        Packing packing = beanMappingService.mapTo(p, Packing.class);
-        packing.setWine(wineService.findWineById(p.getWineId()));
+    public void createPacking(PackingCreateDto packingCreateDto) {
+        Packing packing = beanMappingService.mapTo(packingCreateDto, Packing.class);
+        packing.setWine(wineService.findWineById(packingCreateDto.getWineId()));
         packingService.createPacking(packing);
     }
 
     @Override
-    public void updatePacking(PackingCreateDto p) {
-        Packing packing = beanMappingService.mapTo(p, Packing.class);
-        packing.setWine(wineService.findWineById(p.getWineId()));
+    public void updatePacking(PackingCreateDto packingCreateDto) {
+        Packing packing = beanMappingService.mapTo(packingCreateDto, Packing.class);
+        packing.setWine(wineService.findWineById(packingCreateDto.getWineId()));
         packingService.updatePacking(packing);
     }
 
     @Override
-    public void deletePacking(PackingDto p) {
-        packingService.deletePacking(new Packing(p.getId()));
+    public void deletePacking(PackingDto packingDto) {
+        packingService.deletePacking(new Packing(packingDto.getId()));
     }
 
 //    @Override

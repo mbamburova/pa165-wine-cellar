@@ -45,7 +45,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
             .name("Veltlínske zelené")
-            .vintage(Year.of(2014))
+            .vintage(2014)
             .batch("10/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
@@ -61,7 +61,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
             .name("Muškát moravský")
-            .vintage(Year.of(2015))
+            .vintage(2015)
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
@@ -78,7 +78,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder svatovavrinecke() {
         return new WineBuilder()
             .name("Svatovavřinecké")
-            .vintage(Year.of(2015))
+            .vintage(2015)
             .batch("6/15")
             .predicate("pozdní sběr")
             .predicateEquivalent("suché")
@@ -118,16 +118,6 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .createWine(veltlinskeZelene);
 
         wineService.createWine(veltlinskeZelene);
-    }
-
-    @Test(expectedExceptions = WineCellarDataAccessException.class)
-    public void testCreateWineWithNullVintage() {
-        muskatMoravsky.setVintage(null);
-        doThrow(new WineCellarDataAccessException("Cannot create wine with null vintage."))
-            .when(wineDao)
-            .createWine(muskatMoravsky);
-
-        wineService.createWine(muskatMoravsky);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -194,16 +184,6 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
             .updateWine(veltlinskeZelene);
 
         wineService.updateWine(veltlinskeZelene);
-    }
-
-    @Test(expectedExceptions = WineCellarDataAccessException.class)
-    public void testUpdateWineWithNullVintage() {
-        muskatMoravsky.setVintage(null);
-        doThrow(new WineCellarDataAccessException("Cannot update wine with null vintage."))
-            .when(wineDao)
-            .updateWine(muskatMoravsky);
-
-        wineService.updateWine(muskatMoravsky);
     }
 
     @Test(expectedExceptions = WineCellarDataAccessException.class)
@@ -308,7 +288,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWinesByVintage() {
-        Year year = Year.of(2015);
+        int year = 2015;
 
         List<Wine> expectedWines = new ArrayList<>();
 
@@ -423,8 +403,8 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWinesBetweenYears() {
-        Year from = Year.of(2014);
-        Year to = Year.of(2016);
+        int from = 2014;
+        int to = 2016;
 
         List<Wine> expectedWines = new ArrayList<>();
         expectedWines.add(veltlinskeZelene);

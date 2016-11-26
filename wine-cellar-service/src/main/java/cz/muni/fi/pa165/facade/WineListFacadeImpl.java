@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import java.util.Collection;
 import java.util.List;
@@ -23,13 +24,13 @@ import java.util.List;
 @Transactional
 public class WineListFacadeImpl implements WineListFacade {
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
-    @Autowired
+    @Inject
     private WineListService wineListService;
 
-    @Autowired
+    @Inject
     private MarketingEventService marketingEventService;
 
     @Override
