@@ -30,7 +30,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
             .name("Veltlínske zelené")
-            .vintage(Year.of(2014))
+            .vintage(2014)
             .batch("10/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
@@ -45,7 +45,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
             .name("Muškát moravský")
-            .vintage(Year.of(2015))
+            .vintage(2015)
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
@@ -60,7 +60,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder svatovavrinecke() {
         return new WineBuilder()
             .name("Svatovavřinecké")
-            .vintage(Year.of(2015))
+            .vintage(2015)
             .batch("6/15")
             .predicate("pozdní sběr")
             .predicateEquivalent("suché")
@@ -85,12 +85,6 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNullName() {
         Wine svatovavrinecke = svatovavrinecke().name(null).build();
-        wineDao.createWine(svatovavrinecke);
-    }
-
-    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void createWithNullVintage() {
-        Wine svatovavrinecke = svatovavrinecke().vintage(null).build();
         wineDao.createWine(svatovavrinecke);
     }
 
@@ -130,8 +124,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Wine muskatMoravsky = muskatMoravsky().build();
         wineDao.createWine(veltlinskeZelene);
         wineDao.createWine(muskatMoravsky);
-        veltlinskeZelene.setVintage(Year.of(2016));
-        muskatMoravsky.setVintage(Year.of(2015));
+        veltlinskeZelene.setVintage(2016);
+        muskatMoravsky.setVintage(2015);
         wineDao.updateWine(veltlinskeZelene);
         wineDao.updateWine(muskatMoravsky);
         assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
@@ -143,14 +137,6 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
         svatovavrinecke = svatovavrinecke().name(null).build();
-        wineDao.updateWine(svatovavrinecke);
-    }
-
-    @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void updateWithNullVintage() {
-        Wine svatovavrinecke = svatovavrinecke().build();
-        wineDao.createWine(svatovavrinecke);
-        svatovavrinecke = svatovavrinecke().vintage(null).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
@@ -249,9 +235,9 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findWinesByVintage(Year.of(2014));
+        List<Wine> found = wineDao.findWinesByVintage(2014);
         Assert.assertEquals(found.size(), 1);
-        Assert.assertEquals(found.get(0).getVintage(), Year.of(2014));
+        Assert.assertEquals(found.get(0).getVintage(), 2014);
     }
 
 //    @Test
@@ -260,11 +246,11 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
 //        wineDao.createWine(muskatMoravsky().build());
 //        wineDao.createWine(svatovavrinecke().build());
 //
-//        Year from = Year.of(2015);
-//        Year to = Year.of(2017);
+//        int from = 2015);
+//        int to = 2017);
 //        List<Wine> found = wineDao.findWinesBetweenYears(from, to);
 //        Assert.assertEquals(found.size(), 2);
-//        Assert.assertEquals(found.get(0).getVintage(), Year.of(2015));
-//        Assert.assertEquals(found.get(1).getVintage(), Year.of(2015));
+//        Assert.assertEquals(found.get(0).getVintage(), 2015));
+//        Assert.assertEquals(found.get(1).getVintage(), 2015));
 //    }
 }

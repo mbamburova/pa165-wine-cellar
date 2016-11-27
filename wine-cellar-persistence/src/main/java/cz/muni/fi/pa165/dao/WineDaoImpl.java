@@ -60,7 +60,7 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public List<Wine> findWinesByVintage(Year vintage) {
+    public List<Wine> findWinesByVintage(int vintage) {
         try {
             return em
                     .createQuery("SELECT w FROM Wine w WHERE w.vintage = :vintage",
@@ -156,14 +156,14 @@ public class WineDaoImpl implements WineDao {
     }
 
     @Override
-    public List<Wine> findWinesBetweenYears(Year from, Year to) {
+    public List<Wine> findWinesBetweenYears(int from, int to) {
         try {
             return em
                     .createQuery("SELECT w FROM Wine w WHERE w.alcoholVolume BETWEEN :fromYear" +
                                     " AND :toYear",
                             Wine.class)
-                    .setParameter("fromYear", from.getValue())
-                    .setParameter("toYear", to.getValue())
+                    .setParameter("fromYear", from)
+                    .setParameter("toYear", to)
                     .getResultList();
         } catch (NoResultException nrf) {
             return new ArrayList<>();

@@ -81,7 +81,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWinesByVintage(Year vintage) {
+    public List<Wine> findWinesByVintage(int vintage) {
         try {
             return wineDao.findWinesByVintage(vintage);
         } catch(Exception e) {
@@ -153,7 +153,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWinesBetweenYears(Year from, Year to) {
+    public List<Wine> findWinesBetweenYears(int from, int to) {
         try {
             return wineDao.findWinesBetweenYears(from, to);
         } catch(Exception e) {

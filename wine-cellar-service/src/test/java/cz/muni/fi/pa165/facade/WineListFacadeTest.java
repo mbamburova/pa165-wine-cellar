@@ -2,45 +2,30 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dao.MarketingEventDao;
-import cz.muni.fi.pa165.dao.PriceDao;
-import cz.muni.fi.pa165.dao.WineDao;
-import cz.muni.fi.pa165.dao.WineListDao;
 import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListDto;
 import cz.muni.fi.pa165.entity.*;
-import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.MarketingEventService;
-import cz.muni.fi.pa165.service.WineListService;
-import cz.muni.fi.pa165.service.WineService;
-import org.dozer.inject.Inject;
+import cz.muni.fi.pa165.service.*;
 import org.joda.time.LocalDateTime;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.time.Year;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Silvia Borzová
@@ -49,47 +34,25 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
 
-    @Mock
-    private MarketingEventDao marketingEventDao;
-
-    @Mock
-    private WineDao wineDao;
-
-    @Mock
-    private WineListDao wineListDao;
-
-    @Mock
-    private MarketingEventService marketingEventService;
-
-    @Mock
-    private WineListService wineListService;
-
-    @Mock
-    private WineService wineService;
-
-    @Autowired
-    @InjectMocks
-    private WineListFacade wineListFacade;
-
-    @Mock
-    private WineFacade wineFacade;
-
-    @Autowired
-    private BeanMappingService beanMappingService;
-
-    private Wine veltlinskeZelene;
     private WineList wineList1;
     private WineList wineList2;
-
     private WineListDto wineListDto1;
     private WineListDto wineListDto2;
-
-    private WineDto wineDto;
+    private Wine veltlinskeZelene;
+    private Wine muskatMoravsky;
+    private Wine svatovavrinecke;
+    private WineDto veltlinskeZeleneDto;
+    private WineDto muskatMoravskyDto;
+    private WineDto svatovavrineckeDto;
+    private MarketingEvent marketingEvent1;
+    private MarketingEvent marketingEvent2;
+    private MarketingEventDto marketingEventDto1;
+    
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
+                .vintage(2014)
                 .batch("10/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
@@ -101,119 +64,145 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
                 .grapeSugarContent(new BigDecimal(0));
     }
 
+    private WineBuilder muskatMoravsky() {
+        return new WineBuilder()
+                .name("Muškát moravský")
+                .vintage(2015)
+                .batch("1/14")
+                .predicate("kabinetní víno")
+                .predicateEquivalent("suché")
+                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
+                .notes("20,2°ČNM")
+                .alcoholVolume(new BigDecimal(12))
+                .residualSugar(new BigDecimal(0.7))
+                .acidity(new BigDecimal(6.1))
+                .grapeSugarContent(new BigDecimal(0));
+    }
+
+    private WineBuilder svatovavrinecke() {
+        return new WineBuilder()
+                .name("Svatovavřinecké")
+                .vintage(2015)
+                .batch("6/15")
+                .predicate("pozdní sběr")
+                .predicateEquivalent("suché")
+                .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní, svěží kyselinky a příjemného třísla.")
+                .notes("30,2°ČNM")
+                .alcoholVolume(new BigDecimal(12))
+                .residualSugar(new BigDecimal(6.2))
+                .acidity(new BigDecimal(4.6))
+                .grapeSugarContent(new BigDecimal(0));
+    }
+    
+    @Mock
+    private WineListService wineListService;
+
+    @Mock
+    private WineService wineService;
+    
+    @Mock
+    private MarketingEventService marketingEventService;
+
+    @InjectMocks
+    private WineListFacade wineListFacade = new WineListFacadeImpl();
+
+    @Captor
+    private ArgumentCaptor<WineList> wineListArgumentCaptor;
+
+    @Spy
+    @Inject
+    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+
     @BeforeClass
-    public void setUp(){
+    public void initMocks(){
         MockitoAnnotations.initMocks(this);
+    }
+
+    @BeforeMethod
+    public void setUp(){
 
         veltlinskeZelene = veltlinskeZelene().build();
-        wineDto = new WineDto();
-        wineDto.setName(veltlinskeZelene.getName());
-        wineDto.setVintage(veltlinskeZelene.getVintage());
-        wineDto.setBatch(veltlinskeZelene.getBatch());
-        wineDto.setPredicate(veltlinskeZelene.getPredicate());
-        wineDto.setPredicateEquivalent(veltlinskeZelene.getPredicateEquivalent());
-        wineDto.setDescription(veltlinskeZelene.getDescription());
-        wineDto.setNotes(veltlinskeZelene.getNotes());
-        wineDto.setAlcoholVolume(veltlinskeZelene.getAlcoholVolume());
-        wineDto.setResidualSugar(veltlinskeZelene.getResidualSugar());
-        wineDto.setAcidity(veltlinskeZelene.getAcidity());
-        wineDto.setGrapeSugarContent(veltlinskeZelene.getGrapeSugarContent());
+        veltlinskeZelene.setId(1l);
+        veltlinskeZeleneDto = beanMappingService.mapTo(veltlinskeZelene, WineDto.class);
 
-        wineListDto1 = new WineListDto();
-        wineListDto1.setName("Wine list 1");
-        wineListDto1.setDate(new LocalDateTime(2016,12,24,0,0));
-        wineListDto1.setMarketingEvent(null);
-        wineListDto1.addWine(wineDto);
+        muskatMoravsky = muskatMoravsky().build();
+        muskatMoravsky.setId(2L);
+        muskatMoravskyDto = beanMappingService.mapTo(muskatMoravsky, WineDto.class);
 
-        wineListDto2 = new WineListDto();
-        wineListDto2.setName("Wine list 2");
-        wineListDto2.setDate(new LocalDateTime(2017,1,1,0,0));
-        wineListDto2.setMarketingEvent(null);
-        wineListDto2.addWine(wineDto);
+        svatovavrinecke = svatovavrinecke().build();
+        svatovavrinecke.setId(3L);
+        svatovavrineckeDto = beanMappingService.mapTo(svatovavrinecke, WineDto.class);
 
+        marketingEvent1 = new MarketingEvent();
+        marketingEvent1.setId(1L);
+        marketingEvent1.setDescription("marketing event 1");
+        marketingEventDto1 = beanMappingService.mapTo(marketingEvent1, MarketingEventDto.class);
+
+        marketingEvent2 = new MarketingEvent();
+        marketingEvent2.setId(2L);
+        marketingEvent2.setDescription("marketing event 2");
+        
         wineList1 = new WineList();
-        wineList1.setName(wineListDto1.getName());
-        wineList1.setMarketingEvent(null);
-        wineList1.addWine(veltlinskeZelene);
-        wineList1.setDate(wineListDto1.getDate());
+        wineList1.setName("wine list 1");
+        wineList1.setWines(Arrays.asList(veltlinskeZelene, muskatMoravsky));
+        wineList1.setDate(new LocalDateTime(2016,11,25,0,0));
+        wineList1.setMarketingEvent(marketingEvent1);
+        wineListDto1 = beanMappingService.mapTo(wineList1, WineListDto.class);
 
         wineList2 = new WineList();
-        wineList2.setName(wineListDto2.getName());
-        wineList2.setMarketingEvent(null);
-        wineList2.addWine(veltlinskeZelene);
-        wineList2.setDate(wineListDto2.getDate());
+        wineList2.setName("wine list 2");
+        wineList2.setWines(Arrays.asList(muskatMoravsky, svatovavrinecke));
+        wineList2.setDate(new LocalDateTime(2016,10,25,0,0));
+        wineList2.setMarketingEvent(marketingEvent2);
+        wineListDto2 = beanMappingService.mapTo(wineList2, WineListDto.class);
     }
 
     @Test
-    public void create(){
+    public void create() {
         wineListFacade.createWineList(wineListDto1);
-        verify(wineListService, times(1)).createWineList(wineList1);
+        verify(wineListService).createWineList(wineListArgumentCaptor.capture());
     }
 
     @Test
-    public void delete(){
-        wineListFacade.deleteWineList(wineListDto1);
-        verify(wineListService, times(1)).deleteWineList(wineList1);
-    }
-
-    @Test
-    public void update(){
+    public void update() {
         wineListFacade.updateWineList(wineListDto1);
-        verify(wineListService, times(1)).updateWineList(wineList1);
-    }
-
-
-    @Test
-    public void findAll(){
-        List<WineList> expect = new ArrayList<>();
-        expect.add(wineList1);
-        expect.add(wineList2);
-
-        when(wineListService.findAllWineLists()).thenReturn(expect);
-        List<WineListDto> found = wineListFacade.findAllWineLists();
-
-        Collections.sort(expect, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-        Collections.sort(found, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-
-        for(int i = 0; i < expect.size(); i++)
-        {
-            Assert.assertEquals(beanMappingService.mapTo(
-                    expect.get(i), MarketingEventDto.class), found.get(i));
-        }
+        verify(wineListService).deleteWineList(wineListArgumentCaptor.capture());
     }
 
     @Test
-    public void findById(){
-        when(wineListService.findWineListById(any(Long.class))).thenReturn(wineList1);
+    public void delete() {
+        wineListFacade.deleteWineList(wineListDto1);
+        verify(wineListService).deleteWineList(wineListArgumentCaptor.capture());
+    }
 
-        WineListDto result = wineListFacade.findWineListById(1L);
-        assertEquals(beanMappingService.mapTo(wineList1, WineListDto.class), result);
+    @Test
+    public void findById() {
+        when(wineListService.findWineListById(1L)).thenReturn(wineList1);
+        assertThat(wineListFacade.findWineListById(1L)).isEqualToIgnoringGivenFields(wineList1, "marketingEvent", "wines");
+    }
+
+    @Test
+    public void findAll() {
+        when(wineListService.findAllWineLists()).thenReturn(Arrays.asList(wineList1, wineList2));
+        assertEquals(wineListFacade.findAllWineLists().size(), 2);
     }
 
     @Test
     public void findByName(){
-        when(wineListService.findWineListById(any(Long.class))).thenReturn(wineList1);
-
-        WineListDto result = wineListFacade.findWineListById(1L);
-        assertEquals(beanMappingService.mapTo(wineList1, WineListDto.class), result);
+        when(wineListService.findWineListByName("wine list 1")).thenReturn(Collections.singletonList(wineList1));
+        assertEquals(wineListFacade.findWineListsByName("wine list 1").size(), 1);
     }
 
     @Test
     public void findByDate(){
-        List<WineList> expect = new ArrayList<>();
-        expect.add(wineList1);
-        when(wineListService.findWineListByDate(any(LocalDateTime.class))).thenReturn(expect);
-
-        List<WineListDto> found =  wineListFacade.findWineListsByDate(new LocalDateTime(20016,1,1,0,0));
-        assertEquals(beanMappingService.mapTo(wineList1, WineListDto.class), found);
+        when(wineListService.findWineListByDate(new LocalDateTime(2016,11,25,0,0))).thenReturn(Collections.singletonList(wineList1));
+        assertEquals(wineListFacade.findWineListsByDate(new LocalDateTime(2016,11,25,0,0)).size(), 1);
     }
 
     @Test
     public void findByMarketingEvent(){
-        when(wineListService.findWineListByMarketingEvent(any(MarketingEvent.class))).thenReturn(null);
-
-        List<WineListDto> found =  wineListFacade.findWineListsByMarketingEvent(null);
-        assertEquals(null, found);
+        when(wineListService.findWineListByMarketingEvent(marketingEvent1)).thenReturn(Collections.singletonList(wineList1));
+        assertEquals(wineListFacade.findWineListsByMarketingEvent(marketingEventDto1).size(), 1);
     }
 
 }

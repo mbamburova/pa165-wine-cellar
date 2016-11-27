@@ -1,18 +1,21 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventService;
 import cz.muni.fi.pa165.service.WineListService;
 import org.joda.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,13 +26,13 @@ import java.util.List;
 @Transactional
 public class WineListFacadeImpl implements WineListFacade {
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
-    @Autowired
+    @Inject
     private WineListService wineListService;
 
-    @Autowired
+    @Inject
     private MarketingEventService marketingEventService;
 
     @Override
@@ -37,59 +40,122 @@ public class WineListFacadeImpl implements WineListFacade {
         if (wineListDto == null) {
             throw new IllegalArgumentException("WineListDto is null!");
         }
-        WineList mappedWineList = beanMappingService.mapTo(wineListDto, WineList.class);
-        mappedWineList.setMarketingEvent(marketingEventService.findMarketingEventById(wineListDto.getMarketingEvent().getId()));
-        wineListService.createWineList(mappedWineList);
+        WineList wineList = new WineList();
+        wineList.setId(wineListDto.getId());
+        wineList.setName(wineListDto.getName());
+        wineList.setDate(wineListDto.getDate());
+        wineList.setWines(beanMappingService.mapToCollection(wineListDto.getWines(), Wine.class));
+        if (wineListDto.getMarketingEvent() != null) {
+            wineList.setMarketingEvent(beanMappingService.mapTo(wineListDto.getMarketingEvent(), MarketingEvent.class));
+        }
+        wineListService.createWineList(wineList);
     }
 
     @Override
     public void deleteWineList(WineListDto wineListDto) {
-        WineList mappedWineList = beanMappingService.mapTo(wineListDto, WineList.class);
-        wineListService.deleteWineList(mappedWineList);
+        WineList wineList = new WineList();
+        wineList.setId(wineListDto.getId());
+        wineList.setName(wineListDto.getName());
+        wineList.setDate(wineListDto.getDate());
+        wineList.setWines(beanMappingService.mapToCollection(wineListDto.getWines(), Wine.class));
+        if (wineListDto.getMarketingEvent() != null) {
+            wineList.setMarketingEvent(beanMappingService.mapTo(wineListDto.getMarketingEvent(), MarketingEvent.class));
+        }
+        wineListService.deleteWineList(wineList);
     }
 
     @Override
     public void updateWineList(WineListDto wineListDto) {
-        WineList mappedWineList = beanMappingService.mapTo(wineListDto, WineList.class);
-        wineListService.updateWineList(mappedWineList);
+        WineList wineList = new WineList();
+        wineList.setId(wineListDto.getId());
+        wineList.setName(wineListDto.getName());
+        wineList.setDate(wineListDto.getDate());
+        wineList.setWines(beanMappingService.mapToCollection(wineListDto.getWines(), Wine.class));
+        if (wineListDto.getMarketingEvent() != null) {
+            wineList.setMarketingEvent(beanMappingService.mapTo(wineListDto.getMarketingEvent(), MarketingEvent.class));
+        }
+        wineListService.updateWineList(wineList);
     }
 
     @Override
     public List<WineListDto> findAllWineLists() {
-        return beanMappingService.mapToCollection(wineListService.findAllWineLists(), WineListDto.class);
+        List<WineListDto> wineLists = new ArrayList<>();
+        for (WineList wineList : wineListService.findAllWineLists()) {
+            WineListDto wineListDto = new WineListDto();
+            wineListDto.setId(wineList.getId());
+            wineListDto.setName(wineList.getName());
+            wineListDto.setDate(wineList.getDate());
+            wineListDto.setWines(beanMappingService.mapToCollection(wineList.getWines(), WineDto.class));
+            if (wineList.getMarketingEvent() != null) {
+                wineListDto.setMarketingEvent(beanMappingService.mapTo(wineList.getMarketingEvent(), MarketingEventDto.class));
+            }
+            wineLists.add(wineListDto);
+        }
+        return wineLists;
     }
 
     @Override
     public WineListDto findWineListById(Long id) {
-        if (wineListService.findWineListById(id) == null) {
-            throw new NoResultException();
+        WineList wineList = wineListService.findWineListById(id);
+        WineListDto wineListDto = new WineListDto();
+        wineListDto.setId(wineList.getId());
+        wineListDto.setName(wineList.getName());
+        wineListDto.setDate(wineList.getDate());
+        wineListDto.setWines(beanMappingService.mapToCollection(wineList.getWines(), WineDto.class));
+        if (wineList.getMarketingEvent() != null) {
+            wineListDto.setMarketingEvent(beanMappingService.mapTo(wineList.getMarketingEvent(), MarketingEventDto.class));
         }
-        return beanMappingService.mapTo(wineListService.findWineListById(id), WineListDto.class);
+        return wineListDto;
     }
 
     @Override
     public List<WineListDto> findWineListsByName(String name) {
-        if (wineListService.findWineListByName(name) == null) {
-            throw new NoResultException();
+        List<WineListDto> wineLists = new ArrayList<>();
+        for (WineList wineList : wineListService.findWineListByName(name)) {
+            WineListDto wineListDto = new WineListDto();
+            wineListDto.setId(wineList.getId());
+            wineListDto.setName(wineList.getName());
+            wineListDto.setDate(wineList.getDate());
+            wineListDto.setWines(beanMappingService.mapToCollection(wineList.getWines(), WineDto.class));
+            if (wineList.getMarketingEvent() != null) {
+                wineListDto.setMarketingEvent(beanMappingService.mapTo(wineList.getMarketingEvent(), MarketingEventDto.class));
+            }
+            wineLists.add(wineListDto);
         }
-        return beanMappingService.mapToCollection(wineListService.findWineListByName(name), WineListDto.class);
+        return wineLists;
     }
 
     @Override
     public List<WineListDto> findWineListsByDate(LocalDateTime date) {
-        if (wineListService.findWineListByDate(date) == null) {
-            throw new NoResultException();
+        List<WineListDto> wineLists = new ArrayList<>();
+        for (WineList wineList : wineListService.findWineListByDate(date)) {
+            WineListDto wineListDto = new WineListDto();
+            wineListDto.setId(wineList.getId());
+            wineListDto.setName(wineList.getName());
+            wineListDto.setDate(wineList.getDate());
+            wineListDto.setWines(beanMappingService.mapToCollection(wineList.getWines(), WineDto.class));
+            if (wineList.getMarketingEvent() != null) {
+                wineListDto.setMarketingEvent(beanMappingService.mapTo(wineList.getMarketingEvent(), MarketingEventDto.class));
+            }
+            wineLists.add(wineListDto);
         }
-        return beanMappingService.mapToCollection(wineListService.findWineListByDate(date), WineListDto.class);
+        return wineLists;
     }
 
     @Override
     public List<WineListDto> findWineListsByMarketingEvent(MarketingEventDto marketingEventDto) {
-        MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
-
-        if (wineListService.findWineListByMarketingEvent(mappedMarketingEvent) == null) {
-            throw new NoResultException();
+        List<WineListDto> wineLists = new ArrayList<>();
+        for (WineList wineList : wineListService.findWineListByMarketingEvent(beanMappingService.mapTo(marketingEventDto, MarketingEvent.class))) {
+            WineListDto wineListDto = new WineListDto();
+            wineListDto.setId(wineList.getId());
+            wineListDto.setName(wineList.getName());
+            wineListDto.setDate(wineList.getDate());
+            wineListDto.setWines(beanMappingService.mapToCollection(wineList.getWines(), WineDto.class));
+            if (wineList.getMarketingEvent() != null) {
+                wineListDto.setMarketingEvent(beanMappingService.mapTo(wineList.getMarketingEvent(), MarketingEventDto.class));
+            }
+            wineLists.add(wineListDto);
         }
-        return beanMappingService.mapToCollection((Collection<?>) wineListService.findWineListByMarketingEvent(mappedMarketingEvent), WineListDto.class);
+        return wineLists;
     }
 }

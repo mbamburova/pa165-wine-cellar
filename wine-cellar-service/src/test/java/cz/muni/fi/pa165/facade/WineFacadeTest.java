@@ -2,29 +2,26 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dto.PackingCreateDto;
-import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.WineService;
-import org.joda.time.LocalDateTime;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.testng.annotations.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.time.Year;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.testng.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 /**
@@ -33,163 +30,148 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class WineFacadeTest extends AbstractTestNGSpringContextTests {
 
-    @Mock
-    private WineService wineService;
-
-    @Mock
-    private BeanMappingService beanMappingService;
-
-    @InjectMocks
-    private WineFacade wineFacade;
-
     private Wine veltlinskeZelene;
     private Wine muskatMoravsky;
-
     private WineDto veltlinskeZeleneDto;
     private WineDto muskatMoravskyDto;
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
-                .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
+                .name("VeltlÃ­nske zelenÃ©")
+                .vintage(2014)
                 .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, sv??í víno s lehkou aromatikou angre?tu a zeleného pep?e. " +
-                        "Chu?ový vjem je tvo?en pikantní kyselinkou a ko?enito-ovocnými tóny.")
-                .notes("20,0°?NM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
+                .predicate("kabinetnÃ­ vÃ­no")
+                .predicateEquivalent("suchÃ©")
+                .description("ElegantnÃ­, svÄ›Å¾Ã­ vÃ­no s lehkou aromatikou angreÅ¡tu a zelenÃ©ho pepÅ™e. ChuÅ¥ovÃ½ vjem je tvoÅ™en pikantnÃ­ kyselinkou a koÅ™enito-ovocnÃ½mi tÃ³ny.")
+                .notes("20,0Â°ÄŒNM")
+                .alcoholVolume(new BigDecimal(10.94))
+                .residualSugar(new BigDecimal(2.8))
+                .acidity(new BigDecimal(7.5))
+                .grapeSugarContent(new BigDecimal(0));
     }
 
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
-                .name("Mu?kát moravský")
-                .vintage(Year.of(2015))
+                .name("MuÅ¡kÃ¡t moravskÃ½")
+                .vintage(2015)
                 .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou v?ní citrusových plod? a mu?kátového o?í?ku." +
-                        " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chu? provází p?íjemná kyselinka," +
-                        " díky ní? je víno pikantní se suchým záv?rem.")
-                .notes("20,2°?NM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
+                .predicate("kabinetnÃ­ vÃ­no")
+                .predicateEquivalent("suchÃ©")
+                .description("VÃ­no zlatavÃ© barvy s ovocnou vÅ¯nÃ­ citrusovÃ½ch plodÅ¯ a muÅ¡kÃ¡tovÃ©ho oÅ™Ã­Å¡ku. V chuti nabÃ­zÃ­ ovocnÃ© tÃ³ny grapefruitu a zralÃ©ho citrÃ³nu. Ovocnou chuÅ¥ provÃ¡zÃ­ pÅ™Ã­jemnÃ¡ kyselinka, dÃ­ky nÃ­Å¾ je vÃ­no pikantnÃ­ se suchÃ½m zÃ¡vÄ›rem.")
+                .notes("20,2Â°ÄŒNM")
+                .alcoholVolume(new BigDecimal(12))
+                .residualSugar(new BigDecimal(0.7))
+                .acidity(new BigDecimal(6.1))
+                .grapeSugarContent(new BigDecimal(0));
     }
 
-    private WineBuilder svatovavrinecke() {
-        return new WineBuilder()
-                .name("Svatovav?inecké")
-                .vintage(Year.of(2015))
-                .batch("6/15")
-                .predicate("pozdní sb?r")
-                .predicateEquivalent("suché")
-                .description("Jiskrné víno rubínových odstín? barvy. Ko?enitá v?n? vi?ní a t?e??ové k?ry. " +
-                        "Zabalená v nádechu kou?e z dubového d?eva. Chu? charakterní pevná, v ní? se snoubí tóny vi?ní," +
-                        " sv??í kyselinky a p?íjemného t?ísla.")
-                .notes("30,2°?NM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("6.2"))
-                .acidity(new BigDecimal("4.6"))
-                .grapeSugarContent(new BigDecimal("0"));
+    @Mock
+    private WineService wineService;
+
+    @InjectMocks
+    private WineFacade wineFacade = new WineFacadeImpl();
+    
+    @Spy
+    @Inject
+    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+
+    @Captor
+    private ArgumentCaptor<Wine> wineArgumentCaptor;
+
+    @BeforeClass
+    public void setUpMock(){
+        MockitoAnnotations.initMocks(this);
     }
 
     @BeforeMethod
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
+    public void init(){
         veltlinskeZelene = veltlinskeZelene().build();
-        veltlinskeZelene.setId(1L);
+        veltlinskeZeleneDto = beanMappingService.mapTo(veltlinskeZelene, WineDto.class);
         muskatMoravsky = muskatMoravsky().build();
-        muskatMoravsky.setId(2L);
-
-        veltlinskeZeleneDto = (WineDto) beanMappingService.mapToDTOWithID(veltlinskeZelene);
-        muskatMoravskyDto = (WineDto) beanMappingService.mapToDTOWithID(muskatMoravsky);
+        muskatMoravskyDto = beanMappingService.mapTo(muskatMoravsky, WineDto.class);
     }
 
     @Test
-    public void createWine() {
-
+    public void create() {
         wineFacade.createWine(veltlinskeZeleneDto);
-        verify(wineFacade).createWine(veltlinskeZeleneDto);
+        verify(wineService).createWine(wineArgumentCaptor.capture());
     }
 
     @Test
-    public void delete(){
+    public void delete() {
         wineFacade.deleteWine(veltlinskeZeleneDto);
-        verify(wineFacade).deleteWine(veltlinskeZeleneDto);
+        verify(wineService).deleteWine(wineArgumentCaptor.capture());
     }
 
     @Test
-    public void update(){
+    public void update() {
         wineFacade.updateWine(veltlinskeZeleneDto);
-        verify(wineFacade).updateWine(veltlinskeZeleneDto);
+        verify(wineService).updateWine(wineArgumentCaptor.capture());
     }
 
     @Test
-    public void findWineById(){
-        when(wineService.findWineById(veltlinskeZelene.getId())).thenReturn(veltlinskeZelene);
-        WineDto wineDto = wineFacade.findWineById(veltlinskeZeleneDto.getId());
-
-        assertThat(wineFacade.findWineById(veltlinskeZeleneDto.getId())).isEqualToComparingFieldByField(veltlinskeZeleneDto);
+    public void findById() {
+        when(wineService.findWineById(1L)).thenReturn(veltlinskeZelene);
+        assertThat(wineFacade.findWineById(1L)).isEqualToComparingFieldByField(veltlinskeZelene);
     }
 
     @Test
-    public void findAllWines(){
-
+    public void findAll() {
+        when(wineService.findAllWines()).thenReturn(Arrays.asList(veltlinskeZelene, muskatMoravsky));
+        assertEquals(wineFacade.findAllWines().size(), 2);
     }
 
     @Test
-    public void findWinesByName(){
-
+    public void findByName(){
+        when(wineService.findWinesByName("VeltlÃ­nske zelenÃ©")).thenReturn(Collections.singletonList(veltlinskeZelene));
+        assertEquals(wineFacade.findWinesByName("VeltlÃ­nske zelenÃ©").size(), 1);
     }
 
     @Test
-    public void findWinesByVintage(){
-
+    public void findByVintage(){
+        when(wineService.findWinesByVintage(2014)).thenReturn(Collections.singletonList(veltlinskeZelene));
+        assertEquals(wineFacade.findWinesByVintage(2014).size(), 1);
     }
 
     @Test
-    public void findWineByBatch(){
-
+    public void findByBatch(){
+        when(wineService.findWineByBatch("10/14")).thenReturn(veltlinskeZelene);
+        assertThat(wineFacade.findWineByBatch("10/14")).isEqualToComparingFieldByField(veltlinskeZelene);
     }
 
     @Test
-    public void findWinesByPredicate(){
-
+    public void findByPredicate(){
+        when(wineService.findWinesByPredicate("kabinetnÃ­ vÃ­no")).thenReturn(Collections.singletonList(veltlinskeZelene));
+        assertEquals(wineFacade.findWinesByPredicate("kabinetnÃ­ vÃ­no").size(), 1);
     }
 
     @Test
-    public void findWinesByPredicateEquivalent(){
-
+    public void findByPredicateEquivalent(){
+        when(wineService.findWinesByPredicateEquivalent("suchÃ©")).thenReturn(Arrays.asList(veltlinskeZelene, muskatMoravsky));
+        assertEquals(wineFacade.findWinesByPredicateEquivalent("suchÃ©").size(), 2);
     }
 
     @Test
-    public void findWinesByAlcoholVolume(){
-
+    public void findByAlcoholVolume(){
+        when(wineService.findWinesByAlcoholVolume(new BigDecimal(10), new BigDecimal(11))).thenReturn(Collections.singletonList(veltlinskeZelene));
+        assertEquals(wineFacade.findWinesByAlcoholVolume(new BigDecimal(10), new BigDecimal(11)).size(), 1);
     }
 
     @Test
-    public void findWinesByResidualSugar(){
-
+    public void findByResidualSugar(){
+        when(wineService.findWinesByResidualSugar(new BigDecimal(2), new BigDecimal(3))).thenReturn(Collections.singletonList(veltlinskeZelene));
+        assertEquals(wineFacade.findWinesByResidualSugar(new BigDecimal(2), new BigDecimal(3)).size(), 1);
     }
 
     @Test
-    public void findWinesByAcidity(){
-
+    public void findByAcidity(){
+        when(wineService.findWinesByAcidity(new BigDecimal(7), new BigDecimal(8))).thenReturn(Collections.singletonList(veltlinskeZelene));
+        assertEquals(wineFacade.findWinesByAcidity(new BigDecimal(7), new BigDecimal(8)).size(), 1);
     }
 
     @Test
-    public void findWinesByGrapeSugarContent(){
-
-    }
-
-    @Test
-    public void findWinesBetweenYears(){
-
+    public void findByGrapeSugarContent(){
+        when(wineService.findWinesByGrapeSugarContent(new BigDecimal(0), new BigDecimal(1))).thenReturn(Arrays.asList(veltlinskeZelene, muskatMoravsky));
+        assertEquals(wineFacade.findWinesByGrapeSugarContent(new BigDecimal(0), new BigDecimal(1)).size(), 2);
     }
 }

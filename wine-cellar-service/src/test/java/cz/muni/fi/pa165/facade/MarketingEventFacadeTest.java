@@ -2,29 +2,24 @@ package cz.muni.fi.pa165.facade;
 
 import java.util.*;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dao.MarketingEventDao;
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.MarketingEventService;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.*;
+import org.testng.annotations.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
+import javax.inject.Inject;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Silvia Borzová
@@ -34,25 +29,22 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
 
-    @Mock
-    private MarketingEventDao marketingEventDao;
-
-    @Autowired
-    @InjectMocks
-    private MarketingEventService marketingEventService;
-
-    @Autowired
-    @InjectMocks
-    private MarketingEventFacade marketingEventFacade;
-
-    @Autowired
-    private BeanMappingService beanMappingService;
-
-    private MarketingEventDto eventDto1;
-    private MarketingEventDto eventDto2;
-
     private MarketingEvent event1;
     private MarketingEvent event2;
+    private MarketingEventDto eventDto1;
+
+    @Mock
+    private MarketingEventService marketingEventService;
+
+    @InjectMocks
+    private MarketingEventFacade marketingEventFacade = new MarketingEventFacadeImpl();
+
+    @Spy
+    @Inject
+    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+
+    @Captor
+    private ArgumentCaptor<MarketingEvent> marketingEventArgumentCaptor;
 
     @BeforeClass
     public void setUpMock(){
@@ -61,73 +53,42 @@ public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void init(){
-        eventDto1 = new MarketingEventDto();
-        eventDto1.setDescription("Marketing event 1");
-
-        eventDto2 = new MarketingEventDto();
-        eventDto2.setDescription("Marketing event 2");
-
         event1 = new MarketingEvent();
-        event1.setDescription(eventDto1.getDescription());
-
+        event1.setDescription("event 1");
         event2 = new MarketingEvent();
-        event2.setDescription(eventDto2.getDescription());
+        event2.setDescription("event 2");
+        eventDto1 = new MarketingEventDto();
+        eventDto1.setDescription(event1.getDescription());
     }
 
 
     @Test
-    public void createMarketingEvent(){
-        MarketingEventDto dto = new MarketingEventDto();
-        dto.setDescription("Marketing event");
-
-        MarketingEvent event = new MarketingEvent();
-        event.setDescription(event.getDescription());
-
-        marketingEventFacade.createMarketingEvent(dto);
-        verify(marketingEventService, times(1)).createMarketingEvent(event);
+    public void create() {
+        marketingEventFacade.createMarketingEvent(eventDto1);
+        verify(marketingEventService).createMarketingEvent(marketingEventArgumentCaptor.capture());
     }
 
     @Test
-    public void deleteMarketingEvent(){
+    public void delete() {
         marketingEventFacade.deleteMarketingEvent(eventDto1);
-        verify(marketingEventService, times(1)).deleteMarketingEvent(
-                beanMappingService.mapTo(eventDto1, MarketingEvent.class));
+        verify(marketingEventService).deleteMarketingEvent(marketingEventArgumentCaptor.capture());
     }
 
     @Test
-    public void updateMarketingEvent(){
+    public void update() {
         marketingEventFacade.updateMarketingEvent(eventDto1);
-        verify(marketingEventService, times(1)).updateMarketingEvent(
-                beanMappingService.mapTo(eventDto1, MarketingEvent.class)
-        );
-    }
-
-
-    @Test
-    public void findAllMarketingEvents(){
-        List<MarketingEvent> expect = new ArrayList<>();
-        expect.add(event1);
-        expect.add(event2);
-
-        when(marketingEventService.findAllMarketingEvents()).thenReturn(expect);
-        List<MarketingEventDto> found = marketingEventFacade.findAllMarketingEvents();
-
-        Collections.sort(expect, (o1, o2) -> o1.getDescription().compareTo(o2.getDescription()));
-        Collections.sort(found, (o1, o2) -> o1.getDescription().compareTo(o2.getDescription()));
-
-        for(int i = 0; i < expect.size(); i++)
-        {
-            Assert.assertEquals(beanMappingService.mapTo(
-                    expect.get(i), MarketingEventDto.class), found.get(i));
-        }
+        verify(marketingEventService).updateMarketingEvent(marketingEventArgumentCaptor.capture());
     }
 
     @Test
-    public void findMarketingEventById(){
-        when(marketingEventService.findMarketingEventById(any(Long.class))).thenReturn(event1);
-
-        MarketingEventDto result = marketingEventFacade.findMarketingEventById(1L);
-        assertEquals(beanMappingService.mapTo(event1, MarketingEventDto.class), result);
+    public void findById() {
+        when(marketingEventService.findMarketingEventById(1L)).thenReturn(event1);
+        assertThat(marketingEventFacade.findMarketingEventById(1L)).isEqualToComparingFieldByField(event1);
     }
 
+    @Test
+    public void findAll() {
+        when(marketingEventService.findAllMarketingEvents()).thenReturn(Arrays.asList(event1, event2));
+        assertEquals(marketingEventFacade.findAllMarketingEvents().size(), 2);
+    }
 }

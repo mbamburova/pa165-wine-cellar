@@ -70,7 +70,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltl?nske zelen?")
-                .vintage(Year.of(2014))
+                .vintage(2014)
                 .batch("10/14")
                 .predicate("kabinetn? v?no")
                 .predicateEquivalent("such?")
@@ -86,7 +86,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
                 .name("Mu?k?t moravsk?")
-                .vintage(Year.of(2015))
+                .vintage(2015)
                 .batch("1/14")
                 .predicate("kabinetn? v?no")
                 .predicateEquivalent("such?")

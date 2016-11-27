@@ -56,7 +56,7 @@ public interface WineDao {
      * @param vintage
      * @return
      */
-    List<Wine> findWinesByVintage(Year vintage);
+    List<Wine> findWinesByVintage(int vintage);
 
     /**
      *  get wines by given predicate
@@ -110,7 +110,7 @@ public interface WineDao {
      * @param to year
      * @return list of wines
      */
-    List<Wine> findWinesBetweenYears(Year from, Year to);
+    List<Wine> findWinesBetweenYears(int from, int to);
 
     /**
      * get wine by given batch
