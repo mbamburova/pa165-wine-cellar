@@ -166,25 +166,25 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByMarketingEvent() {
-        when(priceService.findPriceByMarketingEvent(marketingEvent1)).thenReturn(Collections.singletonList(price1));
+        when(priceService.findPricesByMarketingEvent(marketingEvent1)).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByMarketingEvent(marketingEventDto1).size(), 1);
     }
 
     @Test
     public void findByPacking() {
-        when(priceService.findPriceByPacking(packing1)).thenReturn(Collections.singletonList(price1));
+        when(priceService.findPricesByPacking(packing1)).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByPacking(packingDto1).size(), 1);
     }
 
     @Test
     public void findByCurrency() {
-        when(priceService.findPriceByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
+        when(priceService.findPricesByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByPrice(new BigDecimal(100)).size(), 1);
     }
 
     @Test
     public void findByPrice() {
-        when(priceService.findPriceByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
+        when(priceService.findPricesByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
         assertEquals(priceFacade.findPricesByPrice(new BigDecimal(100)).size(), 1);
     }
 

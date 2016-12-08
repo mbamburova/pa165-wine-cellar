@@ -69,13 +69,13 @@ public class PackingFacadeImpl implements PackingFacade {
     }
 
     @Override
-    public List<PackingDto> findPackingByVolume(BigDecimal volume) {
+    public List<PackingDto> findPackingsByVolume(BigDecimal volume) {
         return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByVolume(volume),
                 PackingDto.class);
     }
 
     @Override
-    public List<PackingDto> findPackingByWine(WineDto wineDto) {
+    public List<PackingDto> findPackingsByWine(WineDto wineDto) {
         Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
 
         return beanMappingService.mapToCollectionEnforceID(packingService.findPackingsByWine(wine),

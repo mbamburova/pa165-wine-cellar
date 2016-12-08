@@ -122,7 +122,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
     public void setUp(){
 
         veltlinskeZelene = veltlinskeZelene().build();
-        veltlinskeZelene.setId(1l);
+        veltlinskeZelene.setId(1L);
         veltlinskeZeleneDto = beanMappingService.mapTo(veltlinskeZelene, WineDto.class);
 
         muskatMoravsky = muskatMoravsky().build();

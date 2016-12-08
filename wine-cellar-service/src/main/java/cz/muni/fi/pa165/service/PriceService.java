@@ -6,7 +6,6 @@ import java.util.List;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Silvia Borzová
@@ -21,8 +20,8 @@ public interface PriceService {
 
     Price findPriceById(Long id);
     List<Price> findAllPrices();
-    List<Price> findPriceByCurrency(Currency currency);
-    List<Price> findPriceByPriceAttribute(BigDecimal price);
-    List<Price> findPriceByMarketingEvent(MarketingEvent event);
-    List<Price> findPriceByPacking(Packing packing);
+    List<Price> findPricesByCurrency(Currency currency);
+    List<Price> findPricesByPriceAttribute(BigDecimal price);
+    List<Price> findPricesByMarketingEvent(MarketingEvent event);
+    List<Price> findPricesByPacking(Packing packing);
 }

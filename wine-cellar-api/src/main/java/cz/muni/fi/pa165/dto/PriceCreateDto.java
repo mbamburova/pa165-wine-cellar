@@ -58,8 +58,8 @@ public class PriceCreateDto {
         return marketingEventId;
     }
 
-    public void setMarketingEventId(Long marketingEventid) {
-        this.marketingEventId = marketingEventid;
+    public void setMarketingEventId(Long marketingEventId) {
+        this.marketingEventId = marketingEventId;
     }
 
     @Override

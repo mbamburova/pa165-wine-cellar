@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
-import org.joda.time.LocalDateTime;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,6 +21,6 @@ public interface PackingFacade {
 
     PackingDto findPackingById(Long id);
     List<PackingDto> findAllPackings();
-    List<PackingDto> findPackingByVolume(BigDecimal volume);
-    List<PackingDto> findPackingByWine(WineDto wineDto);
+    List<PackingDto> findPackingsByVolume(BigDecimal volume);
+    List<PackingDto> findPackingsByWine(WineDto wineDto);
 }

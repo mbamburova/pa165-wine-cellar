@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import cz.muni.fi.pa165.dao.PriceDao;
@@ -9,10 +8,8 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Silvia Borzová
@@ -72,7 +69,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public List<Price> findPriceByCurrency(Currency currency) {
+    public List<Price> findPricesByCurrency(Currency currency) {
         try{
             return priceDao.findPricesByCurrency(currency);
         }catch(Exception e){
@@ -82,7 +79,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public List<Price> findPriceByPriceAttribute(BigDecimal price) {
+    public List<Price> findPricesByPriceAttribute(BigDecimal price) {
         try{
             return priceDao.findPricesByPriceAttribute(price);
         }catch(Exception e){
@@ -92,7 +89,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public List<Price> findPriceByMarketingEvent(MarketingEvent event) {
+    public List<Price> findPricesByMarketingEvent(MarketingEvent event) {
         try{
             return priceDao.findPricesByMarketingEvent(event);
         }catch(Exception e){
@@ -102,7 +99,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public List<Price> findPriceByPacking(Packing packing) {
+    public List<Price> findPricesByPacking(Packing packing) {
         try{
             return priceDao.findPricesByPacking(packing);
         }catch(Exception e){
