@@ -157,12 +157,12 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     @Test
     public void findByVolume() {
         when(packingService.findPackingsByVolume(new BigDecimal(0.7))).thenReturn(Collections.singletonList(packing1));
-        assertEquals(packingFacade.findPackingByVolume(new BigDecimal(0.7)).size(), 1);
+        assertEquals(packingFacade.findPackingsByVolume(new BigDecimal(0.7)).size(), 1);
     }
 
     @Test
     public void findByWine() {
         when(packingService.findPackingsByWine(veltlinskeZelene)).thenReturn(Collections.singletonList(packing1));
-        assertEquals(packingFacade.findPackingByWine(veltlinskeZeleneDto).size(), 1);
+        assertEquals(packingFacade.findPackingsByWine(veltlinskeZeleneDto).size(), 1);
     }
 }

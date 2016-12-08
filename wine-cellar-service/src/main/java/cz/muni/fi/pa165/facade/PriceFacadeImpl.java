@@ -11,7 +11,6 @@ import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventService;
 import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.PriceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,11 +114,11 @@ public class PriceFacadeImpl implements PriceFacade {
     public List<PriceDto> findPricesByMarketingEvent(MarketingEventDto marketingEventDto) {
         MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
 
-        if (priceService.findPriceByMarketingEvent(mappedMarketingEvent) == null) {
+        if (priceService.findPricesByMarketingEvent(mappedMarketingEvent) == null) {
             throw new NoResultException();
         }
         List<PriceDto> prices = new ArrayList<>();
-        for (Price price : priceService.findPriceByMarketingEvent(beanMappingService.mapTo(marketingEventDto, MarketingEvent.class))) {
+        for (Price price : priceService.findPricesByMarketingEvent(beanMappingService.mapTo(marketingEventDto, MarketingEvent.class))) {
             PriceDto priceDto = new PriceDto();
             priceDto.setId(price.getId());
             priceDto.setCurrency(price.getCurrency());
@@ -136,11 +135,11 @@ public class PriceFacadeImpl implements PriceFacade {
     public List<PriceDto> findPricesByPacking(PackingDto packingDto) {
         Packing mappedPacking = beanMappingService.mapTo(packingDto, Packing.class);
 
-        if (priceService.findPriceByPacking(mappedPacking) == null) {
+        if (priceService.findPricesByPacking(mappedPacking) == null) {
             throw new NoResultException();
         }
         List<PriceDto> prices = new ArrayList<>();
-        for (Price price : priceService.findPriceByPacking(beanMappingService.mapTo(packingDto, Packing.class))) {
+        for (Price price : priceService.findPricesByPacking(beanMappingService.mapTo(packingDto, Packing.class))) {
             PriceDto priceDto = new PriceDto();
             priceDto.setId(price.getId());
             priceDto.setCurrency(price.getCurrency());
@@ -155,11 +154,11 @@ public class PriceFacadeImpl implements PriceFacade {
 
     @Override
     public List<PriceDto> findPricesByCurrency(Currency currency) {
-        if (priceService.findPriceByCurrency(currency) == null) {
+        if (priceService.findPricesByCurrency(currency) == null) {
             throw new NoResultException();
         }
         List<PriceDto> prices = new ArrayList<>();
-        for (Price price : priceService.findPriceByCurrency(currency)) {
+        for (Price price : priceService.findPricesByCurrency(currency)) {
             PriceDto priceDto = new PriceDto();
             priceDto.setId(price.getId());
             priceDto.setCurrency(price.getCurrency());
@@ -174,11 +173,11 @@ public class PriceFacadeImpl implements PriceFacade {
 
     @Override
     public List<PriceDto> findPricesByPrice(BigDecimal value) {
-        if (priceService.findPriceByPriceAttribute(value) == null) {
+        if (priceService.findPricesByPriceAttribute(value) == null) {
             throw new NoResultException();
         }
         List<PriceDto> prices = new ArrayList<>();
-        for (Price price : priceService.findPriceByPriceAttribute(value)) {
+        for (Price price : priceService.findPricesByPriceAttribute(value)) {
             PriceDto priceDto = new PriceDto();
             priceDto.setId(price.getId());
             priceDto.setCurrency(price.getCurrency());
