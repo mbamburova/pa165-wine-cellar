@@ -52,5 +52,26 @@
     </div>
 </nav>
 
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Wine</th>
+        <th>Volume</th>
+        <th>Valid From</th>
+        <th>Valid To</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{packing.id}}</td>
+        <td>{{packing.wine}}</td>
+        <td>{{packing.volume}}</td>
+        <td>{{packing.validFrom}}</td>
+        <td>{{packing.validTo}}</td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
