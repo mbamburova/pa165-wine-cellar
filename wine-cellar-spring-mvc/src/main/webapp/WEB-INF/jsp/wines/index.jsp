@@ -14,7 +14,7 @@
 <my:template title="Wines">
 <jsp:attribute name="body">
 
-    <my:a href="/wines/create" class="btn btn-primary">
+    <my:a href="/wines/new" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         New wine
     </my:a>
