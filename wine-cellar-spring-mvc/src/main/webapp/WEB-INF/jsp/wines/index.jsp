@@ -5,7 +5,10 @@
   Time: 16:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -55,7 +58,6 @@
 <table class="table">
 
     <tr>
-        <th>Hovno</th>
         <th><fmt:message key="wine.name"/></th>
         <th><fmt:message key="wine.vintage"/></th>
         <th><fmt:message key="wine.batch"/></th>
@@ -67,7 +69,7 @@
         <th><fmt:message key="wine.residualSugar"/></th>
         <th><fmt:message key="wine.acidity"/></th>
         <th><fmt:message key="wine.grapeSugarContent"/></th>
-        <th><fmt:message key="wine.wineLists"/></th>
+        <%--<th><fmt:message key="wine.wineLists"/></th>--%>
         <c:if test="${isAdmin}">
             <th class="text-center"><fmt:message key="edit"/></th>
             <th class="text-center"><fmt:message key="remove"/></th>
@@ -89,7 +91,7 @@
         <td class="col-xs-3 text-center"><c:out value="${wine.residualSugar}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${wine.acidity}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${wine.grapeSugarContent}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.wineLists}"/></td>
+        <%--<td class="col-xs-3 text-center"><c:out value="${wine.wineLists}"/></td>--%>
 
         <c:if test="${isAdmin}">
             <form:form method="get" action="${pageContext.request.contextPath}/sports/update/${sport.id}" cssClass="form-horizontal">

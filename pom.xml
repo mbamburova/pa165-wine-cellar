@@ -42,7 +42,6 @@
         <module>wine-cellar-api</module>
         <module>wine-cellar-persistence</module>
         <module>wine-cellar-service</module>
-        <module>wine-cellar-angular</module>
     </modules>
 
 
