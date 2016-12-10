@@ -34,11 +34,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="wines">Wines</a></li>
-                        <li><a href="winelists">Wine Lists</a></li>
-                        <li><a href="packings">Packings</a></li>
-                        <li><a href="prices">Prices</a></li>
-                        <li><a href="marketingevents">Marketing Events</a></li>
+                        <li><a href="wines/index">Wines</a></li>
+                        <li><a href="winelists/index">Wine Lists</a></li>
+                        <li><a href="packings/index">Packings</a></li>
+                        <li><a href="prices/index">Prices</a></li>
+                        <li><a href="marketingevents/index">Marketing Events</a></li>
                     </ul>
                 </li>
             </ul>
