@@ -22,7 +22,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th><fmt:message key="wine.number"/></th>
+            <th><fmt:message key="number"/></th>
             <th><fmt:message key="wine.name"/></th>
             <th><fmt:message key="wine.vintage"/></th>
             <th><fmt:message key="wine.batch"/></th>

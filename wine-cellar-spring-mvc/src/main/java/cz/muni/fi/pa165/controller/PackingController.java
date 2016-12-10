@@ -31,8 +31,8 @@ import java.util.List;
 @RequestMapping("/packings")
 public class PackingController {
 
-    @Inject
-    private PackingFacade packingFacade;
+//    @Inject
+//    private PackingFacade packingFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
@@ -59,34 +59,34 @@ public class PackingController {
         return "packings/new";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-        PackingDto packingDto = packingFacade.findPackingById(id);
-        packingFacade.deletePacking(packingDto);
-        redirectAttributes.addFlashAttribute("alert_success", "Packing was deleted.");
-        return "redirect:" + uriBuilder.path("/packing/list").toUriString();
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("packingCreate") PackingCreateDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        //log.debug("create(productCreate={})", formBean);
-        //in case of validation error forward back to the the form
-        if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                //      log.trace("ObjectError: {}", ge);
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-                //    log.trace("FieldError: {}", fe);
-            }
-            return "product/new";
-        }
-        //create product
-        packingFacade.createPacking(formBean);
-        //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Packing was created");
-        return "redirect:" + uriBuilder.path("/packings/index");
-    }
+//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+//    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+//        PackingDto packingDto = packingFacade.findPackingById(id);
+//        packingFacade.deletePacking(packingDto);
+//        redirectAttributes.addFlashAttribute("alert_success", "Packing was deleted.");
+//        return "redirect:" + uriBuilder.path("/packing/list").toUriString();
+//    }
+//
+//    @RequestMapping(value = "/create", method = RequestMethod.POST)
+//    public String create(@Valid @ModelAttribute("packingCreate") PackingCreateDto formBean, BindingResult bindingResult,
+//                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+//        //log.debug("create(productCreate={})", formBean);
+//        //in case of validation error forward back to the the form
+//        if (bindingResult.hasErrors()) {
+//            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+//                //      log.trace("ObjectError: {}", ge);
+//            }
+//            for (FieldError fe : bindingResult.getFieldErrors()) {
+//                model.addAttribute(fe.getField() + "_error", true);
+//                //    log.trace("FieldError: {}", fe);
+//            }
+//            return "product/new";
+//        }
+//        //create product
+//        packingFacade.createPacking(formBean);
+//        //report success
+//        redirectAttributes.addFlashAttribute("alert_success", "Packing was created");
+//        return "redirect:" + uriBuilder.path("/packings/index");
+//    }
 
 }
