@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by MarekScholtz on 10.12.2016.
+ * @author MarekScholtz
+ * @version 2016.12.10
  */
 @Controller
 @RequestMapping("/wines")
