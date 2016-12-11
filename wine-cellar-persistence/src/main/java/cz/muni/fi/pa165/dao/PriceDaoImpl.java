@@ -28,7 +28,7 @@ public class PriceDaoImpl implements PriceDao {
 
     @Override
     public void deletePrice(Price price) {
-        entityManager.remove(price);
+        entityManager.remove(findPriceById(price.getId()));
     }
 
     @Override

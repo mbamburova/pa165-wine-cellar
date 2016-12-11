@@ -28,7 +28,7 @@ public class PackingDaoImpl implements PackingDao {
 
     @Override
     public void deletePacking(Packing packing) {
-        em.remove(packing);
+        em.remove(findPackingById(packing.getId()));
     }
 
     @Override

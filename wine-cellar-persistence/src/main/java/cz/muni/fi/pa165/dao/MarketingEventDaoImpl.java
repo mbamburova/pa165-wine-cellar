@@ -34,7 +34,7 @@ public class MarketingEventDaoImpl implements MarketingEventDao {
 
     @Override
     public void deleteMarketingEvent(MarketingEvent marketingEvent) {
-        entityManager.remove(marketingEvent);
+        entityManager.remove(findMarketingEventById(marketingEvent.getId()));
     }
 
     @Override

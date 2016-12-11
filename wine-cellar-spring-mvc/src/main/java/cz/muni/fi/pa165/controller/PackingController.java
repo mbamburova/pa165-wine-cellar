@@ -34,69 +34,21 @@ import java.util.List;
 @RequestMapping("/packings")
 public class PackingController {
 
-//    @Inject
-//    private PackingFacade packingFacade;
+    @Inject
+    private PackingFacade packingFacade;
 
-//    @Inject
-//    private WineFacade wineFacade;
+    @Inject
+    private WineFacade wineFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-
-        List<PackingCreateDto> packings = new ArrayList<>();
-
-        PackingCreateDto packingCreateDto = new PackingCreateDto();
-        packingCreateDto.setId(1L);
-        packingCreateDto.setWineId(1L);
-
-        packingCreateDto.setVolume(new BigDecimal(0.35));
-
-        packingCreateDto.setValidFrom(new LocalDateTime(2016,12,1,0,0));
-        packingCreateDto.setValidTo(new LocalDateTime(2016,12,31,0,0));
-
-        packings.add(packingCreateDto);
-
-        model.addAttribute("packings", packings);
-
-
+        model.addAttribute("packings", packingFacade.findAllPackings());
         return "packings/index";
     }
 
     @ModelAttribute("wines")
-    public List<WineDto> wines() {
-
-        List<WineDto> wines = new ArrayList<>();
-
-        WineDto wineDto1 = new WineDto();
-        wineDto1.setId(1L);
-        wineDto1.setDescription("rgrhrh");
-        wineDto1.setAcidity(new BigDecimal(1));
-        wineDto1.setAlcoholVolume(new BigDecimal(2));
-        wineDto1.setGrapeSugarContent(new BigDecimal(3));
-        wineDto1.setBatch("hovno");
-        wineDto1.setPredicate("hovno");
-        wineDto1.setName("hovefef");
-        wineDto1.setVintage(12);
-        wineDto1.setResidualSugar(new BigDecimal(45));
-        wineDto1.setNotes("joejfie");
-        wineDto1.setPredicateEquivalent("efefef");
-        wines.add(wineDto1);
-        WineDto wineDto2 = new WineDto();
-        wineDto2.setId(2L);
-        wineDto2.setDescription("deskripcia");
-        wineDto2.setAcidity(new BigDecimal(1));
-        wineDto2.setAlcoholVolume(new BigDecimal(2));
-        wineDto2.setGrapeSugarContent(new BigDecimal(3));
-        wineDto2.setBatch("hovno");
-        wineDto2.setPredicate("hovno");
-        wineDto2.setName("finlandia");
-        wineDto2.setVintage(12);
-        wineDto2.setResidualSugar(new BigDecimal(45));
-        wineDto2.setNotes("brusnica");
-        wineDto2.setPredicateEquivalent("efefef");
-        wines.add(wineDto2);
-
-        return wines;
+    public List<WineDto> categories() {
+        return wineFacade.findAllWines();
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -105,34 +57,75 @@ public class PackingController {
         return "packings/new";
     }
 
-//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-//    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-//        PackingDto packingDto = packingFacade.findPackingById(id);
-//        packingFacade.deletePacking(packingDto);
-//        redirectAttributes.addFlashAttribute("alert_success", "Packing was deleted.");
-//        return "redirect:" + uriBuilder.path("/packing/list").toUriString();
-//    }
-//
-//    @RequestMapping(value = "/create", method = RequestMethod.POST)
-//    public String create(@Valid @ModelAttribute("packingCreate") PackingCreateDto formBean, BindingResult bindingResult,
-//                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-//        //log.debug("create(productCreate={})", formBean);
-//        //in case of validation error forward back to the the form
-//        if (bindingResult.hasErrors()) {
-//            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-//                //      log.trace("ObjectError: {}", ge);
-//            }
-//            for (FieldError fe : bindingResult.getFieldErrors()) {
-//                model.addAttribute(fe.getField() + "_error", true);
-//                //    log.trace("FieldError: {}", fe);
-//            }
-//            return "product/new";
-//        }
-//        //create product
-//        packingFacade.createPacking(formBean);
-//        //report success
-//        redirectAttributes.addFlashAttribute("alert_success", "Packing was created");
-//        return "redirect:" + uriBuilder.path("/packings/index");
-//    }
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(@Valid @ModelAttribute("packingCreate") PackingCreateDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        //log.debug("create(productCreate={})", formBean);
+        //in case of validation error forward back to the the form
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                //      log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                //    log.trace("FieldError: {}", fe);
+            }
+            return "packings/new";
+        }
+        PackingDto packingDto = new PackingDto();
+        packingDto.setVolume(formBean.getVolume());
+        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom()));
+        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo()));
+        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
+        packingFacade.createPacking(packingDto);
+        //report success
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine with ID " + packingDto.getId() + " was created");
+        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(packingDto.getId()).encode().toUriString();
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        PackingDto packingDto = packingFacade.findPackingById(id);
+        packingFacade.deletePacking(packingDto);
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine with ID " + packingDto.getId() + " was deleted.");
+        return "redirect:" + uriBuilder.path("/packings/index").toUriString();
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable long id, Model model) {
+        PackingDto packingDto = packingFacade.findPackingById(id);
+        PackingCreateDto packingCreateDto = new PackingCreateDto();
+        packingCreateDto.setValidFrom(packingDto.getValidFrom().toString());
+        packingCreateDto.setValidTo(packingDto.getValidTo().toString());
+        packingCreateDto.setVolume(packingDto.getVolume());
+        packingCreateDto.setWineId(packingDto.getWine().getId());
+        model.addAttribute("packingUpdate", packingCreateDto);
+        return "packings/update";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@Valid @ModelAttribute("packingUpdate") PackingCreateDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                //      log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                //    log.trace("FieldError: {}", fe);
+            }
+            return "packings/update";
+        }
+        //create product
+        PackingDto packingDto = new PackingDto();
+        packingDto.setVolume(formBean.getVolume());
+        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom()));
+        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo()));
+        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
+        packingFacade.updatePacking(packingDto);
+        //report success
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine with ID " + packingDto.getId() + " was updated");
+        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(packingDto.getId()).encode().toUriString();
+    }
 
 }
