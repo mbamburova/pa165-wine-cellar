@@ -4,8 +4,6 @@ import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +23,7 @@ public class WineFacadeImpl implements WineFacade {
     @Inject
     private WineService wineService;
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
     @Override
