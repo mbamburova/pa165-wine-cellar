@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
+    <script src="C:\Users\Tomas\programming\Java\pa165-wine-cellar\wine-cellar-spring-mvc\src\main\webapp\WEB-INF\resources\js.js"></script>
     <jsp:invoke fragment="head"/>
 </head>
 <body>
