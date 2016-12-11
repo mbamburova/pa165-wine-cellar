@@ -28,7 +28,7 @@
             <th><fmt:message key="packing"/></th>
             <th><fmt:message key="marketingevent"/></th>
             <th class="text-center"><fmt:message key="edit"/></th>
-            <th class="text-center"><fmt:message key="remove"/></th>
+            <th class="text-center"><fmt:message key="delete"/></th>
         </tr>
         </thead>
         <tbody>
@@ -50,10 +50,10 @@
                 </td>
             </form:form>
 
-        <form:form method="post" action="${pageContext.request.contextPath}/prices/remove/${price.id}" cssClass="form-horizontal">
+        <form:form method="post" action="${pageContext.request.contextPath}/prices/delete/${price.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">
                     <button class="btn btn-default" type="submit">
-                        <span class="sr-only"><fmt:message key="remove"/></span>
+                        <span class="sr-only"><fmt:message key="delete"/></span>
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                 </td>

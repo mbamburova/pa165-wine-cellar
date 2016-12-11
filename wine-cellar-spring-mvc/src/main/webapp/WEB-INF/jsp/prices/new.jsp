@@ -18,7 +18,7 @@
     <form:form method="post" action="${pageContext.request.contextPath}/prices/create"
                modelAttribute="priceCreate" cssClass="form-horizontal">
         <div class="container">
-            <div class="form-group ${name_error?'has-error':''}">
+            <div class="form-group ${price_error?'has-error':''}">
                 <form:label path="price" cssClass="col-sm-2 control-label">Price</form:label>
                 <div class="col-sm-10">
                     <form:input path="price" cssClass="form-control"/>

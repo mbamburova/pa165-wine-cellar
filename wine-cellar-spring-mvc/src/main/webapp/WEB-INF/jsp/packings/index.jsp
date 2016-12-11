@@ -28,7 +28,7 @@
             <th><fmt:message key="packing.validTo"/></th>
             <th><fmt:message key="packing.wineId"/></th>
             <th class="text-center"><fmt:message key="edit"/></th>
-            <th class="text-center"><fmt:message key="remove"/></th>
+            <th class="text-center"><fmt:message key="delete"/></th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
         <td class="col-xs-3 text-center"><c:out value="${packing.volume}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${packing.validFrom}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${packing.validTo}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${packing.wineId}"/></td>
+        <td class="col-xs-3 text-center"><c:out value="${packing.wine.name}"/></td>
 
         <form:form method="get" action="${pageContext.request.contextPath}/packings/update/${packing.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">
@@ -50,10 +50,10 @@
                 </td>
             </form:form>
 
-        <form:form method="post" action="${pageContext.request.contextPath}/packings/remove/${packing.id}" cssClass="form-horizontal">
+        <form:form method="post" action="${pageContext.request.contextPath}/packings/delete/${packing.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">
                     <button class="btn btn-default" type="submit">
-                        <span class="sr-only"><fmt:message key="remove"/></span>
+                        <span class="sr-only"><fmt:message key="delete"/></span>
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                 </td>

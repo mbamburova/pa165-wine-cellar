@@ -18,33 +18,29 @@
     <form:form method="post" action="${pageContext.request.contextPath}/packings/create"
                modelAttribute="packingCreate" cssClass="form-horizontal">
         <div class="container">
-            <div class="form-group ${name_error?'has-error':''}">
+            <div class="form-group ${volume_error?'has-error':''}">
                 <form:label path="volume" cssClass="col-sm-2 control-label">Volume</form:label>
                 <div class="col-sm-10">
                     <form:input path="volume" cssClass="form-control"/>
                     <form:errors path="volume" cssClass="help-block"/>
                 </div>
             </div>
-            <div class="form-group ${name_error?'has-error':''}">
+            <div class="form-group ${validFrom_error?'has-error':''}">
                 <form:label path="validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
                 <div class="col-sm-10">
-                    <form path="validFrom" cssClass="form-control">
-                        <input type="date">
-                    </form>
+                    <form:input path="validFrom" cssClass="form-control"/>
                     <form:errors path="validFrom" cssClass="help-block"/>
                 </div>
             </div>
-            <div class="form-group ${name_error?'has-error':''}">
+            <div class="form-group ${validTo_error?'has-error':''}">
                 <form:label path="validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
                 <div class="col-sm-10">
-                    <form path="validFrom" cssClass="form-control">
-                        <input type="date">
-                    </form>
+                    <form:input path="validTo" cssClass="form-control"/>
                     <form:errors path="validTo" cssClass="help-block"/>
                 </div>
             </div>
             <div class="form-group">
-                <form:label path="wineId" cssClass="col-sm-2 control-label">Wine</form:label>
+                <form:label path="wineId" cssClass="col-sm-2 control-label">Marketing Event</form:label>
                 <div class="col-sm-10">
                 <form:select path="wineId" cssClass="form-control">
                     <c:forEach items="${wines}" var="wine">
@@ -55,6 +51,7 @@
                 </div>
             </div>
         </div>
+
         <button class="btn btn-primary" type="submit">Create packing</button>
     </form:form>
 
