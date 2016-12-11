@@ -7,7 +7,9 @@ import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
+import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,13 +17,15 @@ import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static sun.java2d.cmm.ColorTransform.In;
+
 /**
  * @author Tomas Gordian on 11/6/2016.
  */
 @Service
 public class WineServiceImpl implements WineService {
 
-    @Autowired
+    @Inject
     private WineDao wineDao;
     private PackingDao packingDao;
     private PriceDao priceDao;
