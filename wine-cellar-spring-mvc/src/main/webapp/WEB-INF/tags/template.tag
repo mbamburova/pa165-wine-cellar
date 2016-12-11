@@ -95,7 +95,7 @@
 
     <!-- footer -->
     <footer class="footer">
-        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Masaryk University</p>
+        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Borsuk, Bulimička, Kýblik, Retard z východu</p>
     </footer>
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->
