@@ -30,31 +30,13 @@ import java.util.List;
 @RequestMapping("/wines")
 public class WineController {
 
-    //@Autowired
-    //private WineFacade wineFacade;
+    @Inject
+    private WineFacade wineFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
 
-        List<WineDto> wines = new ArrayList<>();
-
-        WineDto wineDto = new WineDto();
-        wineDto.setId(1L);
-        wineDto.setDescription("rgrhrh");
-        wineDto.setAcidity(new BigDecimal(1));
-        wineDto.setAlcoholVolume(new BigDecimal(2));
-        wineDto.setGrapeSugarContent(new BigDecimal(3));
-        wineDto.setBatch("hovno");
-        wineDto.setPredicate("hovno");
-        wineDto.setName("hovefef");
-        wineDto.setVintage(12);
-        wineDto.setResidualSugar(new BigDecimal(45));
-        wineDto.setNotes("joejfie");
-        wineDto.setPredicateEquivalent("efefef");
-
-        wines.add(wineDto);
-
-        model.addAttribute("wines", wines);
+        model.addAttribute("wines", wineFacade.findAllWines());
 
         return "wines/index";
     }
@@ -65,36 +47,36 @@ public class WineController {
         return "wines/new";
     }
 
-//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-//    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-//        WineDto wineDto = wineFacade.findWineById(id);
-//        wineFacade.deleteWine(wineDto);
-//        redirectAttributes.addFlashAttribute("alert_success", "Wine \"" + wineDto.getName() + "\" was deleted.");
-//        return "redirect:" + uriBuilder.path("/wines/index").toUriString();
-//    }
-//
-//
-//
-//    @RequestMapping(value = "/create", method = RequestMethod.POST)
-//    public String create(@Valid @ModelAttribute("wineCreate") WineDto formBean, BindingResult bindingResult,
-//                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-//        //log.debug("create(productCreate={})", formBean);
-//        //in case of validation error forward back to the the form
-//        if (bindingResult.hasErrors()) {
-//            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-//                //      log.trace("ObjectError: {}", ge);
-//            }
-//            for (FieldError fe : bindingResult.getFieldErrors()) {
-//                model.addAttribute(fe.getField() + "_error", true);
-//                //    log.trace("FieldError: {}", fe);
-//            }
-//            return "product/new";
-//        }
-//        //create product
-//        Long id = wineFacade.createWine(formBean);
-//        //report success
-//        redirectAttributes.addFlashAttribute("alert_success", "Wine " + id + " was created");
-//        return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand(id).encode().toUriString();
-//    }
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        WineDto wineDto = wineFacade.findWineById(id);
+        wineFacade.deleteWine(wineDto);
+        redirectAttributes.addFlashAttribute("alert_success", "Wine \"" + wineDto.getName() + "\" was deleted.");
+        return "redirect:" + uriBuilder.path("/wines/index").toUriString();
+    }
+
+
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(@Valid @ModelAttribute("wineCreate") WineDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        //log.debug("create(productCreate={})", formBean);
+        //in case of validation error forward back to the the form
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                //      log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                //    log.trace("FieldError: {}", fe);
+            }
+            return "wines/new";
+        }
+        //create product
+        Long id = wineFacade.createWine(formBean);
+        //report success
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + id + " was created");
+        return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand(id).encode().toUriString();
+    }
 
 }
