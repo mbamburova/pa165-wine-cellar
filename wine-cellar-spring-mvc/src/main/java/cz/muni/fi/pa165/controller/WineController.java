@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Tomas Gordian on 11/6/2016.
+ * @author MarekScholtz
+ * @version 2016.12.10
  */
 @Controller
 @RequestMapping("/wines")
