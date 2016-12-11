@@ -72,15 +72,10 @@ public class PackingController {
             }
             return "packings/new";
         }
-        PackingDto packingDto = new PackingDto();
-        packingDto.setVolume(formBean.getVolume());
-        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom()));
-        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo()));
-        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
-        packingFacade.createPacking(packingDto);
+        packingFacade.createPacking(formBean);
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine with ID " + packingDto.getId() + " was created");
-        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(packingDto.getId()).encode().toUriString();
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine with ID " + formBean.getId() + " was created");
+        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -94,12 +89,7 @@ public class PackingController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         PackingDto packingDto = packingFacade.findPackingById(id);
-        PackingCreateDto packingCreateDto = new PackingCreateDto();
-        packingCreateDto.setValidFrom(packingDto.getValidFrom().toString());
-        packingCreateDto.setValidTo(packingDto.getValidTo().toString());
-        packingCreateDto.setVolume(packingDto.getVolume());
-        packingCreateDto.setWineId(packingDto.getWine().getId());
-        model.addAttribute("packingUpdate", packingCreateDto);
+        model.addAttribute("packingUpdate", packingDto);
         return "packings/update";
     }
 
@@ -117,15 +107,10 @@ public class PackingController {
             return "packings/update";
         }
         //create product
-        PackingDto packingDto = new PackingDto();
-        packingDto.setVolume(formBean.getVolume());
-        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom()));
-        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo()));
-        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
-        packingFacade.updatePacking(packingDto);
+        packingFacade.updatePacking(formBean);
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine with ID " + packingDto.getId() + " was updated");
-        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(packingDto.getId()).encode().toUriString();
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine with ID " + formBean.getId() + " was updated");
+        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
 }

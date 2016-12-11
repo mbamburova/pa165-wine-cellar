@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <form:label path="wineId" cssClass="col-sm-2 control-label">Wine</form:label>
+                <form:label path="wineId" cssClass="col-sm-2 control-label">Marketing Event</form:label>
                 <div class="col-sm-10">
                 <form:select path="wineId" cssClass="form-control">
                     <c:forEach items="${wines}" var="wine">
@@ -51,12 +51,6 @@
                 </div>
             </div>
         </div>
-
-        <script type="text/javascript">
-            $(function() {
-                $('#idDateField').datepicker();
-            });
-        </script>
 
         <button class="btn btn-primary" type="submit">Create packing</button>
     </form:form>
