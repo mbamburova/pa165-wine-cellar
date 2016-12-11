@@ -38,7 +38,7 @@ public class WineListDaoImpl implements WineListDao {
 
     @Override
     public void deleteWineList(WineList wineList) {
-        entityManager.remove(wineList);
+        entityManager.remove(findWineListById(wineList.getId()));
     }
 
     @Override

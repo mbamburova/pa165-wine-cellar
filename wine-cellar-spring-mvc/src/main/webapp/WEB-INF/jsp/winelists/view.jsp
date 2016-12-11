@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
-  User: MarekScholtz
-  Date: 9.12.2016
-  Time: 16:05
+  User: Tomas
+  Date: 12/11/2016
+  Time: 6:15 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
@@ -14,10 +15,8 @@
 <my:template title="Wines">
 <jsp:attribute name="body">
 
-    <my:a href="/wines/new" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        New wine
-    </my:a>
+    <form:form method="get" action="${pageContext.request.contextPath}/winelists/view"
+               modelAttribute="wineListView" cssClass="form-horizontal">
 
     <table class="table">
         <thead>
@@ -34,13 +33,12 @@
             <th><fmt:message key="wine.residualSugar"/></th>
             <th><fmt:message key="wine.acidity"/></th>
             <th><fmt:message key="wine.grapeSugarContent"/></th>
-                <%--<th><fmt:message key="wine.wineLists"/></th>--%>
             <th class="text-center"><fmt:message key="edit"/></th>
             <th class="text-center"><fmt:message key="remove"/></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${wines}" var="wine">
+        <c:forEach items="${wineListWines}" var="wine">
         <c:set var="count" value="${count + 1}" scope="page"/>
     <tr>
         <td class="col-xs-3 lead-column">${count}.</td>
@@ -55,30 +53,12 @@
         <td class="col-xs-3 text-center"><c:out value="${wine.residualSugar}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${wine.acidity}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${wine.grapeSugarContent}"/></td>
-            <%--<td class="col-xs-3 text-center"><c:out value="${wine.wineLists}"/></td>--%>
-
-            <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
-                <td class="col-xs-1 text-center">
-                    <button class="btn btn-default" type="submit">
-                        <span class="sr-only"><fmt:message key="edit"/></span>
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </button>
-                </td>
-            </form:form>
-
-            <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${wine.id}" cssClass="form-horizontal">
-                <td class="col-xs-1 text-center">
-                    <button class="btn btn-default" type="submit">
-                        <span class="sr-only"><fmt:message key="remove"/></span>
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                </td>
-            </form:form>
     </tr>
     </c:forEach>
         </tbody>
     </table>
 
+    </form:form>
 
 </jsp:attribute>
 </my:template>

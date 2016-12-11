@@ -55,8 +55,6 @@ public class WineController {
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 
-
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("wineCreate") WineDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
@@ -79,4 +77,30 @@ public class WineController {
         return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand(id).encode().toUriString();
     }
 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable long id, Model model) {
+        WineDto wineDto = wineFacade.findWineById(id);
+        model.addAttribute("wineUpdate", wineDto);
+        return "wines/update";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@Valid @ModelAttribute("wineUpdate") WineDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                //      log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                //    log.trace("FieldError: {}", fe);
+            }
+            return "wines/update";
+        }
+        //create product
+        wineFacade.updateWine(formBean);
+        //report success
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getDescription() + " was updated");
+        return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand(formBean.getId()).encode().toUriString();
+    }
 }

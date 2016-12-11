@@ -33,7 +33,7 @@ public class WineDaoImpl implements WineDao {
 
     @Override
     public void deleteWine(Wine wine) {
-        em.remove(wine);
+        em.remove(findWineById(wine.getId()));
     }
 
     @Override
