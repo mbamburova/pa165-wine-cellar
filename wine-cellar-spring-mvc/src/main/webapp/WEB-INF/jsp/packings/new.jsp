@@ -13,47 +13,58 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:template title="New Packing">
-<jsp:attribute name="body">
+    <jsp:attribute name="scripts">
+        <script>
+            $(function () {
+                $("#datepickerFrom").datepicker({ dateFormat: 'dd.mm.yy' }).val();
+            });
+        </script>
+        <script>
+            $(function () {
+                $("#datepickerTo").datepicker({ dateFormat: 'dd.mm.yy' }).val();
+            });
+        </script>
+    </jsp:attribute>
+    <jsp:attribute name="body">
 
-    <form:form method="post" action="${pageContext.request.contextPath}/packings/create"
-               modelAttribute="packingCreate" cssClass="form-horizontal">
-        <div class="container">
-            <div class="form-group ${volume_error?'has-error':''}">
-                <form:label path="volume" cssClass="col-sm-2 control-label">Volume</form:label>
-                <div class="col-sm-10">
-                    <form:input path="volume" cssClass="form-control"/>
-                    <form:errors path="volume" cssClass="help-block"/>
+        <form:form method="post" action="${pageContext.request.contextPath}/packings/create"
+                   modelAttribute="packingCreate" cssClass="form-horizontal">
+            <div class="container">
+                <div class="form-group ${volume_error?'has-error':''}">
+                    <form:label path="volume" cssClass="col-sm-2 control-label">Volume</form:label>
+                    <div class="col-sm-10">
+                        <form:input path="volume" cssClass="form-control"/>
+                        <form:errors path="volume" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="form-group ${validFrom_error?'has-error':''}">
+                    <form:label path="validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
+                    <div class="col-sm-10">
+                        <form:input path="validFrom" id="datepickerFrom" cssClass="form-control"/>
+                        <form:errors path="validFrom" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="form-group ${validTo_error?'has-error':''}">
+                    <form:label path="validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
+                    <div class="col-sm-10">
+                        <form:input path="validTo" id="datepickerTo" cssClass="form-control"/>
+                        <form:errors path="validTo" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <form:label path="wineId" cssClass="col-sm-2 control-label">Wine</form:label>
+                    <div class="col-sm-10">
+                    <form:select path="wineId" cssClass="form-control">
+                        <c:forEach items="${wines}" var="wine">
+                            <form:option value="${wine.id}">${wine.name}</form:option>
+                        </c:forEach>
+                    </form:select>
+                        <p class="help-block"><form:errors path="wineId" cssClass="error"/></p>
+                    </div>
                 </div>
             </div>
-            <div class="form-group ${validFrom_error?'has-error':''}">
-                <form:label path="validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
-                <div class="col-sm-10">
-                    <form:input path="validFrom" cssClass="form-control"/>
-                    <form:errors path="validFrom" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="form-group ${validTo_error?'has-error':''}">
-                <form:label path="validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
-                <div class="col-sm-10">
-                    <form:input path="validTo" cssClass="form-control"/>
-                    <form:errors path="validTo" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <form:label path="wineId" cssClass="col-sm-2 control-label">Marketing Event</form:label>
-                <div class="col-sm-10">
-                <form:select path="wineId" cssClass="form-control">
-                    <c:forEach items="${wines}" var="wine">
-                        <form:option value="${wine.id}">${wine.name}</form:option>
-                    </c:forEach>
-                </form:select>
-                    <p class="help-block"><form:errors path="wineId" cssClass="error"/></p>
-                </div>
-            </div>
-        </div>
 
-        <button class="btn btn-primary" type="submit">Create packing</button>
-    </form:form>
-
-</jsp:attribute>
+            <button class="btn btn-primary" type="submit">Create packing</button>
+        </form:form>
+    </jsp:attribute>
 </my:template>
