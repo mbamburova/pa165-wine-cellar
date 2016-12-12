@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,18 @@ public class PackingController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("packings", packingFacade.findAllPackings());
+        List<PackingCreateDto> packings = new ArrayList<>();
+        for (PackingDto packingDto : packingFacade.findAllPackings()) {
+            PackingCreateDto packingCreateDto = new PackingCreateDto();
+            packingCreateDto.setId(packingDto.getId());
+            packingCreateDto.setVolume(packingDto.getVolume());
+            DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
+            packingCreateDto.setValidFrom(packingDto.getValidFrom().toString(dateTimeFormatter));
+            packingCreateDto.setValidTo(packingDto.getValidTo().toString(dateTimeFormatter));
+            packingCreateDto.setWineId(packingDto.getWine().getId());
+            packings.add(packingCreateDto);
+        }
+        model.addAttribute("packings", packings);
         return "packings/index";
     }
 
@@ -72,9 +84,14 @@ public class PackingController {
             }
             return "packings/new";
         }
-        packingFacade.createPacking(formBean);
-        //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine with ID " + formBean.getId() + " was created");
+        PackingDto packingDto = new PackingDto();
+        packingDto.setVolume(formBean.getVolume());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
+        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom(), dateTimeFormatter));
+        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo(), dateTimeFormatter));
+        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
+        packingFacade.createPacking(packingDto);
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine " + packingDto.getWine().getName() + " was created");
         return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
@@ -82,14 +99,22 @@ public class PackingController {
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         PackingDto packingDto = packingFacade.findPackingById(id);
         packingFacade.deletePacking(packingDto);
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine with ID " + packingDto.getId() + " was deleted.");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + packingDto.getValidFrom().toString(dateTimeFormatter) + " to " + packingDto.getValidTo().toString(dateTimeFormatter) + " for wine " + packingDto.getWine().getName() + " was deleted.");
         return "redirect:" + uriBuilder.path("/packings/index").toUriString();
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         PackingDto packingDto = packingFacade.findPackingById(id);
-        model.addAttribute("packingUpdate", packingDto);
+        PackingCreateDto packingCreateDto = new PackingCreateDto();
+        packingCreateDto.setId(packingDto.getId());
+        packingCreateDto.setVolume(packingDto.getVolume());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
+        packingCreateDto.setValidFrom(packingDto.getValidFrom().toString(dateTimeFormatter));
+        packingCreateDto.setValidTo(packingDto.getValidTo().toString(dateTimeFormatter));
+        packingCreateDto.setWineId(packingDto.getWine().getId());
+        model.addAttribute("packingUpdate", packingCreateDto);
         return "packings/update";
     }
 
@@ -107,9 +132,16 @@ public class PackingController {
             return "packings/update";
         }
         //create product
-        packingFacade.updatePacking(formBean);
+        PackingDto packingDto = new PackingDto();
+        packingDto.setVolume(formBean.getVolume());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
+        packingDto.setId(formBean.getId());
+        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom(), dateTimeFormatter));
+        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo(), dateTimeFormatter));
+        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
+        packingFacade.updatePacking(packingDto);
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from" + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine with ID " + formBean.getId() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + packingDto.getValidFrom().toString(dateTimeFormatter) + " to " + packingDto.getValidTo().toString(dateTimeFormatter) + " for wine " + packingDto.getWine().getName() + " was updated");
         return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 

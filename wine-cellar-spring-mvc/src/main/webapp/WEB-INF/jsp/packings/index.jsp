@@ -22,11 +22,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th><fmt:message key="number"/></th>
-            <th><fmt:message key="packing.volume"/></th>
-            <th><fmt:message key="packing.validFrom"/></th>
-            <th><fmt:message key="packing.validTo"/></th>
-            <th><fmt:message key="packing.wineId"/></th>
+            <th ><fmt:message key="number"/></th>
+            <th class="text-center"><fmt:message key="packing.volume"/></th>
+            <th class="text-center"><fmt:message key="packing.validFrom"/></th>
+            <th class="text-center"><fmt:message key="packing.validTo"/></th>
+            <th class="text-center"><fmt:message key="wine"/></th>
             <th class="text-center"><fmt:message key="edit"/></th>
             <th class="text-center"><fmt:message key="delete"/></th>
         </tr>
@@ -35,11 +35,11 @@
         <c:forEach items="${packings}" var="packing">
         <c:set var="count" value="${count + 1}" scope="page"/>
     <tr>
-        <td class="col-xs-3 lead-column">${count}.</td>
+        <td>${count}.</td>
         <td class="col-xs-3 text-center"><c:out value="${packing.volume}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${packing.validFrom}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${packing.validTo}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${packing.wine.name}"/></td>
+        <td class="col-xs-3 text-center"><c:out value="${packing.wineId}"/></td>
 
         <form:form method="get" action="${pageContext.request.contextPath}/packings/update/${packing.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">

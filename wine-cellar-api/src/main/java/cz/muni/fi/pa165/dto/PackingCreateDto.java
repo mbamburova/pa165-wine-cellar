@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165.dto;
 
-import org.joda.time.LocalDateTime;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -18,9 +16,9 @@ public class PackingCreateDto {
     private BigDecimal volume;
 
     @NotNull
-    private LocalDateTime validFrom;
+    private String validFrom;
 
-    private LocalDateTime validTo;
+    private String validTo;
 
     @NotNull
     private Long wineId;
@@ -36,19 +34,19 @@ public class PackingCreateDto {
         this.volume = volume;
     }
 
-    public LocalDateTime getValidFrom() {
+    public String getValidFrom() {
         return validFrom;
     }
 
-    public void setValidFrom(LocalDateTime validFrom) {
+    public void setValidFrom(String validFrom) {
         this.validFrom = validFrom;
     }
 
-    public LocalDateTime getValidTo() {
+    public String getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(LocalDateTime validTo) {
+    public void setValidTo(String validTo) {
         this.validTo = validTo;
     }
 

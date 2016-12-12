@@ -32,16 +32,16 @@ public class PackingFacadeImpl implements PackingFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public void createPacking(PackingCreateDto packingCreateDto) {
-        Packing packing = beanMappingService.mapTo(packingCreateDto, Packing.class);
-        packing.setWine(wineService.findWineById(packingCreateDto.getWineId()));
+    public void createPacking(PackingDto packingDto) {
+        Packing packing = beanMappingService.mapTo(packingDto, Packing.class);
+        packing.setWine(wineService.findWineById(packingDto.getWine().getId()));
         packingService.createPacking(packing);
     }
 
     @Override
-    public void updatePacking(PackingCreateDto packingCreateDto) {
-        Packing packing = beanMappingService.mapTo(packingCreateDto, Packing.class);
-        packing.setWine(wineService.findWineById(packingCreateDto.getWineId()));
+    public void updatePacking(PackingDto packingDto) {
+        Packing packing = beanMappingService.mapTo(packingDto, Packing.class);
+        packing.setWine(wineService.findWineById(packingDto.getWine().getId()));
         packingService.updatePacking(packing);
     }
 

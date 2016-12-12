@@ -1,12 +1,13 @@
 package cz.muni.fi.pa165.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.entity.*;
+import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BeanMappingServiceImpl implements BeanMappingService {
 
-    @Autowired
-    private Mapper mapper;
+    private Mapper mapper = new DozerBeanMapper(Arrays.asList(new String[]{"dozer.xml"}));
 
     @Override
     public Mapper getMapper() {

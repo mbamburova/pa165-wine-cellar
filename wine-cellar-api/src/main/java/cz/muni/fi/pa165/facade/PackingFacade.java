@@ -14,8 +14,8 @@ import java.util.List;
 
 public interface PackingFacade {
 
-    void createPacking(PackingCreateDto p);
-    void updatePacking(PackingCreateDto p);
+    void createPacking(PackingDto p);
+    void updatePacking(PackingDto p);
     void deletePacking(PackingDto p);
   //  boolean isPackingValid(PackingDto p);
 
