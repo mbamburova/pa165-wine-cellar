@@ -15,46 +15,44 @@
 <my:template title="Wines">
 <jsp:attribute name="body">
 
-    <form:form method="get" action="${pageContext.request.contextPath}/winelists/view"
+    <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${wineListView.id}"
                modelAttribute="wineListView" cssClass="form-horizontal">
 
     <table class="table">
         <thead>
-        <tr>
-            <th><fmt:message key="number"/></th>
-            <th><fmt:message key="wine.name"/></th>
-            <th><fmt:message key="wine.vintage"/></th>
-            <th><fmt:message key="wine.batch"/></th>
-            <th><fmt:message key="wine.predicate"/></th>
-            <th><fmt:message key="wine.predicateEquivalent"/></th>
-            <th><fmt:message key="wine.description"/></th>
-            <th><fmt:message key="wine.notes"/></th>
-            <th><fmt:message key="wine.alcoholVolume"/></th>
-            <th><fmt:message key="wine.residualSugar"/></th>
-            <th><fmt:message key="wine.acidity"/></th>
-            <th><fmt:message key="wine.grapeSugarContent"/></th>
-            <th class="text-center"><fmt:message key="edit"/></th>
-            <th class="text-center"><fmt:message key="remove"/></th>
-        </tr>
+            <tr>
+                <th class="text-center"><fmt:message key="number"/></th>
+                <th class="text-center"><fmt:message key="wine.name"/></th>
+                <th class="text-center"><fmt:message key="wine.vintage"/></th>
+                <th class="text-center"><fmt:message key="wine.batch"/></th>
+                <th class="text-center"><fmt:message key="wine.predicate"/></th>
+                <th class="text-center"><fmt:message key="wine.predicateEquivalent"/></th>
+                <th class="text-center"><fmt:message key="wine.description"/></th>
+                <th class="text-center"><fmt:message key="wine.notes"/></th>
+                <th class="text-center"><fmt:message key="wine.alcoholVolume"/></th>
+                <th class="text-center"><fmt:message key="wine.residualSugar"/></th>
+                <th class="text-center"><fmt:message key="wine.acidity"/></th>
+                <th class="text-center"><fmt:message key="wine.grapeSugarContent"/></th>
+            </tr>
         </thead>
         <tbody>
-        <c:forEach items="${wineListWines}" var="wine">
-        <c:set var="count" value="${count + 1}" scope="page"/>
-    <tr>
-        <td class="col-xs-3 lead-column">${count}.</td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.name}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.vintage}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.batch}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.predicate}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.predicateEquivalent}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.description}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.notes}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.alcoholVolume}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.residualSugar}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.acidity}"/></td>
-        <td class="col-xs-3 text-center"><c:out value="${wine.grapeSugarContent}"/></td>
-    </tr>
-    </c:forEach>
+            <c:forEach items="${wineListView.wines}" var="wine">
+            <c:set var="count" value="${count + 1}" scope="page"/>
+                <tr>
+                    <td class="col-xs-3 text-center">${count}.</td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.name}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.vintage}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.batch}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.predicate}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.predicateEquivalent}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.description}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.notes}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.alcoholVolume}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.residualSugar}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.acidity}"/></td>
+                    <td class="col-xs-3 text-center"><c:out value="${wine.grapeSugarContent}"/></td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
 

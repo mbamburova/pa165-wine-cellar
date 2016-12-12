@@ -13,10 +13,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:template title="Create Winelist">
+<jsp:attribute name="scripts">
+    <script>
+        $(function () {
+            $("#datepicker").datetimepicker({ dateFormat: 'dd.mm.yy H:m' }).val()
+            ;
+        });
+    </script>
+</jsp:attribute>
 <jsp:attribute name="body">
 
     <form:form method="post" action="${pageContext.request.contextPath}/winelists/create"
                modelAttribute="wineListCreate" cssClass="form-horizontal">
+
+
 
         <div class="container">
             <div class="form-group ${name_error?'has-error':''}">
@@ -29,30 +39,28 @@
             <div class="form-group ${date_error?'has-error':''}">
                 <form:label path="date" cssClass="col-sm-2 control-label">Date</form:label>
                 <div class="col-sm-10">
-                    <form:input path="date" cssClass="form-control"/>
+                    <form:input path="date" id="datepicker" cssClass="form-control"/>
                     <form:errors path="date" cssClass="help-block"/>
                 </div>
             </div>
             <div class="form-group">
-                <form:label path="wines" cssClass="col-sm-2 control-label">Wine</form:label>
+                <form:label path="marketingEventId" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
                 <div class="col-sm-10">
-                <form:select path="wines" cssClass="form-control">
-                    <c:forEach items="${wines}" var="wine">
-                        <form:option value="${wine.id}">${wine.name}</form:option>
-                    </c:forEach>
-                </form:select>
-                    <p class="help-block"><form:errors path="wines" cssClass="error"/></p>
+                    <form:select path="marketingEventId" cssClass="form-control">
+                        <c:forEach items="${marketingEvents}" var="marketingEvent">
+                            <form:option value="${marketingEvent.id}">${marketingEvent.description}</form:option>
+                        </c:forEach>
+                    </form:select>
+                    <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
                 </div>
             </div>
             <div class="form-group">
-                <form:label path="marketingEvent" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
+                <form:label path="winesIds" cssClass="col-sm-2 control-label">Wine</form:label>
                 <div class="col-sm-10">
-                    <form:select path="marketingEvent" cssClass="form-control">
-                        <c:forEach items="${marketingEvents}" var="marketingEvent">
-                            <form:option value="${marketingEvent.description}">${marketingEvent.description}</form:option>
+                        <c:forEach var="wine" items="${wines}">
+                            <form:checkbox path="winesIds" value="${wine.id}"/>${wine}<br>
                         </c:forEach>
-                    </form:select>
-                    <p class="help-block"><form:errors path="marketingEvent" cssClass="error"/></p>
+                    <p class="help-block"><form:errors path="winesIds" cssClass="error"/></p>
                 </div>
             </div>
         </div>
@@ -62,4 +70,3 @@
 
 </jsp:attribute>
 </my:template>
-

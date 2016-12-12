@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dto;
 import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**

@@ -4,11 +4,14 @@ import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListCreateDto;
 import cz.muni.fi.pa165.dto.WineListDto;
+import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
 import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,14 +55,13 @@ public class WineListController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newWineList(Model model) {
-        model.addAttribute("wineListCreate", new WineListDto());
+        model.addAttribute("wineListCreate", new WineListCreateDto());
         return "winelists/new";
     }
 
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String viewWines(Model model) {
-        model.addAttribute("wineListCreate", new WineListDto());
-        return "winelists/view";
+    @ModelAttribute("wines")
+    public List<WineDto> wineListWines() {
+        return wineFacade.findAllWines();
     }
 
     @ModelAttribute("marketingEvents")
@@ -92,12 +94,15 @@ public class WineListController {
         }
 
         WineListDto wineListDto = new WineListDto();
-        wineListDto.setId(formBean.getId());
-        wineListDto.setMarketingEvent(formBean.getMarketingEvent());
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy H:m");
+        wineListDto.setDate(LocalDateTime.parse(formBean.getDate(),dateTimeFormatter));
+
+        for (Long wineId : formBean.getWinesIds()) {
+            wineListDto.addWine(wineFacade.findWineById(wineId));
+        }
+        wineListDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
         wineListDto.setName(formBean.getName());
-        LocalDateTime date = LocalDateTime.parse(formBean.getDate());
-        wineListDto.setDate(date);
-        wineListDto.setWines(formBean.getWines());
 
         wineListFacade.createWineList(wineListDto);
         //report success
@@ -105,15 +110,35 @@ public class WineListController {
         return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public String viewWines(@PathVariable long id, Model model) {
+        model.addAttribute("wineListView", wineListFacade.findWineListById(id));
+        return "winelists/view";
+    }
+
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
-        model.addAttribute("wineListUpdate", wineListDto);
+
+        WineListCreateDto wineListCreateDto = new WineListCreateDto();
+        wineListCreateDto.setId(wineListDto.getId());
+        wineListCreateDto.setName(wineListDto.getName());
+        //wineListCreateDto.setDate(wineListDto.getDate());
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy H:m");
+        wineListCreateDto.setDate((wineListDto.getDate().toString(dateTimeFormatter)));
+
+        wineListCreateDto.setMarketingEventId(wineListDto.getMarketingEvent().getId());
+        for (WineDto wineDto : wineListDto.getWines()) {
+            wineListCreateDto.addWine(wineDto.getId());
+        }
+
+        model.addAttribute("wineListUpdate", wineListCreateDto);
         return "winelists/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("wineListUpdate") WineDto formBean, BindingResult bindingResult,
+    public String update(@Valid @ModelAttribute("wineListUpdate") WineListCreateDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -125,10 +150,22 @@ public class WineListController {
             }
             return "winelists/update";
         }
-        //create product
-        wineFacade.updateWine(formBean);
+
+        WineListDto wineListDto = new WineListDto();
+        wineListDto.setId(formBean.getId());
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy H:m");
+        wineListDto.setDate(LocalDateTime.parse(formBean.getDate(),dateTimeFormatter));
+
+        for (Long wineId : formBean.getWinesIds()) {
+            wineListDto.addWine(wineFacade.findWineById(wineId));
+        }
+        wineListDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
+        wineListDto.setName(formBean.getName());
+
+        wineListFacade.updateWineList(wineListDto);
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getDescription() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getName() + " was updated");
         return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 }
