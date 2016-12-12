@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.dto;
 import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ public class WineListCreateDto {
 
     private Long id;
     private String name;
-    private String date;
-    private MarketingEventDto marketingEvent;
-    private List<WineDto> wines = new ArrayList<>();
+    private Date date;
+    private Long marketingEventId;
+    private List<Long> winesIds = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -32,36 +33,36 @@ public class WineListCreateDto {
         this.name = name;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public MarketingEventDto getMarketingEvent() {
-        return marketingEvent;
+    public Long getMarketingEventId() {
+        return marketingEventId;
     }
 
-    public void setMarketingEvent(MarketingEventDto marketingEvent) {
-        this.marketingEvent = marketingEvent;
+    public void setMarketingEventId(Long marketingEvent) {
+        this.marketingEventId = marketingEvent;
     }
 
-    public List<WineDto> getWines() {
-        return wines;
+    public List<Long> getWinesIds() {
+        return winesIds;
     }
 
-    public void setWines(List<WineDto> wines) {
-        this.wines = wines;
+    public void setWinesIds(List<Long> wines) {
+        this.winesIds = wines;
     }
 
-    public void addWine(WineDto wine) {
-        this.wines.add(wine);
+    public void addWine(Long wine) {
+        this.winesIds.add(wine);
     }
 
-    public void removeWine(WineDto wine) {
-        this.wines.remove(wine);
+    public void removeWine(Long wine) {
+        this.winesIds.remove(wine);
     }
 
 
@@ -74,9 +75,9 @@ public class WineListCreateDto {
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (marketingEvent != null ? !marketingEvent.equals(that.marketingEvent) : that.marketingEvent != null)
+        if (marketingEventId != null ? !marketingEventId.equals(that.marketingEventId) : that.marketingEventId != null)
             return false;
-        return wines != null ? wines.equals(that.wines) : that.wines == null;
+        return winesIds != null ? winesIds.equals(that.winesIds) : that.winesIds == null;
 
     }
 
@@ -84,8 +85,8 @@ public class WineListCreateDto {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (marketingEvent != null ? marketingEvent.hashCode() : 0);
-        result = 31 * result + (wines != null ? wines.hashCode() : 0);
+        result = 31 * result + (marketingEventId != null ? marketingEventId.hashCode() : 0);
+        result = 31 * result + (winesIds != null ? winesIds.hashCode() : 0);
         return result;
     }
 }

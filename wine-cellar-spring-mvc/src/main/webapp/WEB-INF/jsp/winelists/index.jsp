@@ -39,7 +39,7 @@
             <td class="col-xs-3 text-center"><c:out value="${winelist.name}"/></td>
             <td class="col-xs-3 text-center"><c:out value="${winelist.date}"/></td>
             <td class="col-xs-3 text-center"><c:out value="${winelist.marketingEvent.description}"/></td>
-            <form:form method="get" action="${pageContext.request.contextPath}/winelists/update/${wineList.id}" cssClass="form-horizontal">
+            <form:form method="get" action="${pageContext.request.contextPath}/winelists/update/${winelist.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">
                     <button class="btn btn-default" type="submit">
                         <span class="sr-only"><fmt:message key="edit"/></span>
@@ -48,7 +48,7 @@
                 </td>
             </form:form>
 
-            <form:form method="post" action="${pageContext.request.contextPath}/winelists/delete/${wineList.id}" cssClass="form-horizontal">
+            <form:form method="post" action="${pageContext.request.contextPath}/winelists/delete/${winelist.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">
                     <button class="btn btn-default" type="submit">
                         <span class="sr-only"><fmt:message key="remove"/></span>
@@ -57,7 +57,7 @@
                 </td>
             </form:form>
 
-            <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${wineList.id}" cssClass="form-horizontal">
+            <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${winelist.id}" cssClass="form-horizontal">
                 <td class="col-xs-1 text-center">
                     <button class="btn btn-default" type="submit">
                         <span class="sr-only"><fmt:message key="wineList.viewWines"/></span>

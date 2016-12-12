@@ -15,7 +15,7 @@
 <my:template title="Wines">
 <jsp:attribute name="body">
 
-    <form:form method="get" action="${pageContext.request.contextPath}/winelists/view"
+    <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${wineListView.id}"
                modelAttribute="wineListView" cssClass="form-horizontal">
 
     <table class="table">
@@ -33,12 +33,10 @@
             <th><fmt:message key="wine.residualSugar"/></th>
             <th><fmt:message key="wine.acidity"/></th>
             <th><fmt:message key="wine.grapeSugarContent"/></th>
-            <th class="text-center"><fmt:message key="edit"/></th>
-            <th class="text-center"><fmt:message key="remove"/></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${wineListWines}" var="wine">
+        <c:forEach items="${wineListView.wines}" var="wine">
         <c:set var="count" value="${count + 1}" scope="page"/>
     <tr>
         <td class="col-xs-3 lead-column">${count}.</td>

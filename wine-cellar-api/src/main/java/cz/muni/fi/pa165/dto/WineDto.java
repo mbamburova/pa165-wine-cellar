@@ -161,19 +161,6 @@ public class WineDto {
 
     @Override
     public String toString() {
-        return "WineDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", vintage=" + vintage +
-                ", batch='" + batch + '\'' +
-                ", predicate='" + predicate + '\'' +
-                ", predicateEquivalent='" + predicateEquivalent + '\'' +
-                ", description='" + description + '\'' +
-                ", notes='" + notes + '\'' +
-                ", alcoholVolume=" + alcoholVolume +
-                ", residualSugar=" + residualSugar +
-                ", acidity=" + acidity +
-                ", grapeSugarContent=" + grapeSugarContent +
-                '}';
+        return " " + getName();
     }
 }

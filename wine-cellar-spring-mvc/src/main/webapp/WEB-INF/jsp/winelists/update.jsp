@@ -15,7 +15,7 @@
 <my:template title="Update Winelist">
 <jsp:attribute name="body">
 
-    <form:form method="post" action="${pageContext.request.contextPath}/winelists/update"
+    <form:form method="post" action="${pageContext.request.contextPath}/winelists/update/${wineListUpdate.id}"
                modelAttribute="wineListUpdate" cssClass="form-horizontal">
 
         <div class="container">

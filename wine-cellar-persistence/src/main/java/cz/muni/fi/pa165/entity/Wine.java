@@ -48,7 +48,7 @@ public class Wine {
     @DecimalMin("0.0")
     private BigDecimal grapeSugarContent;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "wines")
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "wines")
     private List<WineList> wineLists = new ArrayList<>();
 
     public Wine(Long id) {
@@ -168,5 +168,10 @@ public class Wine {
     @Override
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

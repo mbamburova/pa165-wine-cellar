@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,9 +24,9 @@ public class WineList {
     private String name;
 
     @NotNull
-    private LocalDateTime date;
+    private Date date;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "WINELIST_WINE",
             joinColumns = { @JoinColumn(name = "WINELIST_ID") },
             inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
@@ -57,11 +58,11 @@ public class WineList {
         this.name = name;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
