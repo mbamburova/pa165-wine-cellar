@@ -24,7 +24,7 @@ public class WineList {
     private String name;
 
     @NotNull
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "WINELIST_WINE",
@@ -58,11 +58,11 @@ public class WineList {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

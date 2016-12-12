@@ -14,7 +14,7 @@ public class WineListDto {
 
     private Long id;
     private String name;
-    private Date date;
+    private LocalDateTime date;
     private MarketingEventDto marketingEvent;
     private List<WineDto> wines = new ArrayList<>();
 
@@ -34,11 +34,11 @@ public class WineListDto {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
