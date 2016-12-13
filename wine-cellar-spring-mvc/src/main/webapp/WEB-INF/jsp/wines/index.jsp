@@ -11,13 +11,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:template title="Wines">
+<my:template>
 <jsp:attribute name="body">
 
-    <my:a href="/wines/new" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        New wine
-    </my:a>
+    <div class="jumbotron">
+        <h1><fmt:message key="Wines"/></h1>
+        <%--<p class="lead"><fmt:message key="songs.subheading"/></p>--%>
+        <%--<p><fmt:message key="songs.search_intro_text"/></p>--%>
+
+        <form:form method="GET"
+                   action="${pageContext.request.contextPath}/wines/index"
+                   acceptCharset=""
+                   cssClass="form-inline">
+
+                <fmt:message key="nameHolder" var="wineHolder"/>
+                <input name="name" value="${wine.name}" class="form-control" autocomplete="off" placeholder="${wineHolder}"/>
+
+                <select name="vintage" class="form-control">
+                    <option value="" display ${empty wine.vintage ? ' selected' : ''}><fmt:message key="vintageHolder"/></option>
+                    <c:forEach items="${wines}" var="wine">
+                        <option value="${wine.vintage}">${wine.vintage}</option>
+                    </c:forEach>
+                </select>
+
+            <button class="btn btn-primary search-btn" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;<fmt:message key="search"/></button>
+            </form:form>
+
+            <p align="right">
+                <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/new" role="button">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <fmt:message key="create_new"/>
+                </a>
+            </p>
+    </div>
 
     <table class="table">
         <thead>

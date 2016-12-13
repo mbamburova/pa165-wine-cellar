@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author MarekScholtz
- * @version 2016.12.10
+ * @author Tomas Gordian on 11/6/2016.
  */
 @Controller
 @RequestMapping("/wines")
@@ -34,11 +33,40 @@ public class WineController {
     private WineFacade wineFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, @RequestParam(value = "name", required = false) String title,
+                                     @RequestParam(value = "vintage", required = false)String vintage) {
 
-        model.addAttribute("wines", wineFacade.findAllWines());
+        List<WineDto> wines = new ArrayList<>();
 
+        if(!(("").equals(title)) && title != null) {
+            wines.addAll(wineFacade.findWinesByName(title));
+        } else {
+            wines.addAll(wineFacade.findAllWines());
+        }
+
+        if(!(("").equals(vintage)) && vintage!=null) {
+            wines = removeWines(wines,"vintage",vintage);
+        }
+
+        model.addAttribute("wines", wines);
         return "wines/index";
+    }
+
+    public List<WineDto> removeWines(List<WineDto> wines, String atribute, String value) {
+
+        List<WineDto> removedWines = new ArrayList<>();
+        removedWines.addAll(wines);
+
+        if(atribute.equals("vintage")) {
+
+            for(WineDto wine : wines) {
+                if(wine.getVintage() != Integer.valueOf(value)) {
+                    removedWines.remove(wine);
+                }
+            }
+        }
+
+        return removedWines;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
