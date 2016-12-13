@@ -16,8 +16,7 @@
 <jsp:attribute name="scripts">
     <script>
         $(function () {
-            $("#datepicker").datetimepicker({ dateFormat: 'dd.mm.yy H:m' }).val()
-            ;
+            $("#datepicker").datepicker({ dateFormat: 'dd.mm.yy' }).val();
         });
     </script>
 </jsp:attribute>
@@ -25,8 +24,6 @@
 
     <form:form method="post" action="${pageContext.request.contextPath}/winelists/create"
                modelAttribute="wineListCreate" cssClass="form-horizontal">
-
-
 
         <div class="container">
             <div class="form-group ${name_error?'has-error':''}">
@@ -47,6 +44,7 @@
                 <form:label path="marketingEventId" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
                 <div class="col-sm-10">
                     <form:select path="marketingEventId" cssClass="form-control">
+                        <option value="" display ${empty marketingEvent.id ? ' selected' : ''}><fmt:message key="selectEvent"/></option>
                         <c:forEach items="${marketingEvents}" var="marketingEvent">
                             <form:option value="${marketingEvent.id}">${marketingEvent.description}</form:option>
                         </c:forEach>
@@ -58,7 +56,7 @@
                 <form:label path="winesIds" cssClass="col-sm-2 control-label">Wine</form:label>
                 <div class="col-sm-10">
                         <c:forEach var="wine" items="${wines}">
-                            <form:checkbox path="winesIds" value="${wine.id}"/>${wine}<br>
+                            <form:checkbox path="winesIds" value="${wine.id}"/>&nbsp;${wine}<br>
                         </c:forEach>
                     <p class="help-block"><form:errors path="winesIds" cssClass="error"/></p>
                 </div>

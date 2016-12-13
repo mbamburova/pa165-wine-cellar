@@ -95,15 +95,16 @@ public class WineListController {
 
         WineListDto wineListDto = new WineListDto();
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy H:m");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
         wineListDto.setDate(LocalDateTime.parse(formBean.getDate(),dateTimeFormatter));
 
         for (Long wineId : formBean.getWinesIds()) {
             wineListDto.addWine(wineFacade.findWineById(wineId));
         }
-        wineListDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
+        if(formBean.getMarketingEventId() != null) {
+            wineListDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
+        }
         wineListDto.setName(formBean.getName());
-
         wineListFacade.createWineList(wineListDto);
         //report success
         redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getName() + " was created");
@@ -125,10 +126,12 @@ public class WineListController {
         wineListCreateDto.setName(wineListDto.getName());
         //wineListCreateDto.setDate(wineListDto.getDate());
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy H:m");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
         wineListCreateDto.setDate((wineListDto.getDate().toString(dateTimeFormatter)));
 
-        wineListCreateDto.setMarketingEventId(wineListDto.getMarketingEvent().getId());
+        if(wineListDto.getMarketingEvent() != null) {
+            wineListCreateDto.setMarketingEventId(wineListDto.getMarketingEvent().getId());
+        }
         for (WineDto wineDto : wineListDto.getWines()) {
             wineListCreateDto.addWine(wineDto.getId());
         }
@@ -154,7 +157,7 @@ public class WineListController {
         WineListDto wineListDto = new WineListDto();
         wineListDto.setId(formBean.getId());
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy H:m");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
         wineListDto.setDate(LocalDateTime.parse(formBean.getDate(),dateTimeFormatter));
 
         for (Long wineId : formBean.getWinesIds()) {

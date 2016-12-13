@@ -161,6 +161,6 @@ public class WineDto {
 
     @Override
     public String toString() {
-        return " " + getName();
+        return getName();
     }
 }
