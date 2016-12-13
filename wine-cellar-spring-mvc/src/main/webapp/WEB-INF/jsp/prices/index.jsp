@@ -23,10 +23,10 @@
         <thead>
         <tr>
             <th><fmt:message key="number"/></th>
-            <th><fmt:message key="price.price"/></th>
-            <th><fmt:message key="price.currency"/></th>
-            <th><fmt:message key="packing"/></th>
-            <th><fmt:message key="marketingevent"/></th>
+            <th class="text-center"><fmt:message key="price.price"/></th>
+            <th class="text-center"><fmt:message key="price.currency"/></th>
+            <th class="text-center"><fmt:message key="packing"/></th>
+            <th class="text-center"><fmt:message key="marketingevent"/></th>
             <th class="text-center"><fmt:message key="edit"/></th>
             <th class="text-center"><fmt:message key="delete"/></th>
         </tr>
@@ -35,7 +35,7 @@
         <c:forEach items="${prices}" var="price">
         <c:set var="count" value="${count + 1}" scope="page"/>
     <tr>
-        <td class="col-xs-3 lead-column">${count}.</td>
+        <td>${count}.</td>
         <td class="col-xs-3 text-center"><c:out value="${price.price}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${price.currency}"/></td>
         <td class="col-xs-3 text-center"><c:out value="${price.packingId}"/></td>

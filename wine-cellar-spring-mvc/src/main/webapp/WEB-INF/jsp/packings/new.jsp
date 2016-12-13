@@ -56,7 +56,7 @@
                     <div class="col-sm-10">
                     <form:select path="wineId" cssClass="form-control">
                         <c:forEach items="${wines}" var="wine">
-                            <form:option value="${wine.id}">${wine.name}</form:option>
+                            <form:option value="${wine.id}">${wine.name}&nbsp(${wine.vintage})</form:option>
                         </c:forEach>
                     </form:select>
                         <p class="help-block"><form:errors path="wineId" cssClass="error"/></p>
