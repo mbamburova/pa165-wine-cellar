@@ -1,12 +1,11 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dao.PackingDao;
 import cz.muni.fi.pa165.dto.*;
-import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.PriceFacade;
-import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -48,7 +45,19 @@ public class PriceController {
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("prices", priceFacade.findAllPrices());
+        List<PriceCreateDto> prices = new ArrayList<>();
+        for (PriceDto priceDto : priceFacade.findAllPrices()) {
+            PriceCreateDto priceCreateDto = new PriceCreateDto();
+            priceCreateDto.setId(priceDto.getId());
+            priceCreateDto.setPrice(priceDto.getPrice());
+            priceCreateDto.setCurrency(priceDto.getCurrency());
+            priceCreateDto.setPackingId(priceDto.getPacking().getId());
+            if (priceDto.getMarketingEvent() != null){
+                priceCreateDto.setMarketingEventId(priceDto.getMarketingEvent().getId());
+            }
+            prices.add(priceCreateDto);
+        }
+        model.addAttribute("prices", prices);
         return "prices/index";
     }
 
@@ -73,10 +82,15 @@ public class PriceController {
             }
             return "prices/new";
         }
-        //create product
-        priceFacade.createPrice(formBean);
-        //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPackingId() + " was created");
+        PriceDto priceDto = new PriceDto();
+        priceDto.setPrice(formBean.getPrice());
+        priceDto.setCurrency(formBean.getCurrency());
+        priceDto.setPacking(packingFacade.findPackingById(formBean.getPackingId()));
+        if (formBean.getMarketingEventId() != null) {
+            priceDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
+        }
+        priceFacade.createPrice(priceDto);
+        redirectAttributes.addFlashAttribute("alert_success", "Price " + priceDto.getPrice() + " for packing with ID " + formBean.getPackingId() + " was created");
         return "redirect:" + uriBuilder.path("/prices/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
@@ -91,12 +105,20 @@ public class PriceController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         PriceDto priceDto = priceFacade.findPriceById(id);
-        model.addAttribute("priceUpdate", priceDto);
+        PriceCreateDto priceCreateDto = new PriceCreateDto();
+        priceCreateDto.setId(priceDto.getId());
+        priceCreateDto.setPrice(priceDto.getPrice());
+        priceCreateDto.setCurrency(priceDto.getCurrency());
+        priceCreateDto.setPackingId(priceDto.getPacking().getId());
+        if (priceDto.getMarketingEvent() != null){
+            priceCreateDto.setMarketingEventId(priceDto.getMarketingEvent().getId());
+        }
+        model.addAttribute("priceUpdate", priceCreateDto);
         return "prices/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("priceUpdate") PriceDto formBean, BindingResult bindingResult,
+    public String update(@Valid @ModelAttribute("priceUpdate") PriceCreateDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -108,10 +130,17 @@ public class PriceController {
             }
             return "prices/update";
         }
-        //create product
-        priceFacade.updatePrice(formBean);
+        PriceDto priceDto = new PriceDto();
+        priceDto.setId(formBean.getId());
+        priceDto.setPrice(formBean.getPrice());
+        priceDto.setCurrency(formBean.getCurrency());
+        priceDto.setPacking(packingFacade.findPackingById(formBean.getPackingId()));
+        if (formBean.getMarketingEventId() != null) {
+            priceDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
+        }
+        priceFacade.updatePrice(priceDto);
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPacking().getId() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPackingId() + " was updated");
         return "redirect:" + uriBuilder.path("/prices/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
@@ -121,8 +150,19 @@ public class PriceController {
     }
 
     @ModelAttribute("packings")
-    public List<PackingDto> wines() {
-        return packingFacade.findAllPackings();
+    public List<PackingCreateDto> wines() {
+        List<PackingCreateDto> packings = new ArrayList<>();
+        for (PackingDto packingDto : packingFacade.findAllPackings()) {
+            PackingCreateDto packingCreateDto = new PackingCreateDto();
+            packingCreateDto.setId(packingDto.getId());
+            packingCreateDto.setVolume(packingDto.getVolume());
+            DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
+            packingCreateDto.setValidFrom(packingDto.getValidFrom().toString(dateTimeFormatter));
+            packingCreateDto.setValidTo(packingDto.getValidTo().toString(dateTimeFormatter));
+            packingCreateDto.setWineId(packingDto.getWine().getId());
+            packings.add(packingCreateDto);
+        }
+        return packings;
     }
     
     @ModelAttribute("marketingevents")

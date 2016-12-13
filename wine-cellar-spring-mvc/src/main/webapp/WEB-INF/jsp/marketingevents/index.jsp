@@ -22,8 +22,8 @@
     <table class="table">
         <thead>
         <tr>
-            <th><fmt:message key="number"/></th>
-            <th><fmt:message key="marketingevent.description"/></th>
+            <th class="text-center"><fmt:message key="number"/></th>
+            <th class="text-center"><fmt:message key="marketingevent.description"/></th>
             <th class="text-center"><fmt:message key="edit"/></th>
             <th class="text-center"><fmt:message key="delete"/></th>
         </tr>
@@ -32,7 +32,7 @@
         <c:forEach items="${marketingevents}" var="marketingevent">
         <c:set var="count" value="${count + 1}" scope="page"/>
     <tr>
-        <td class="col-xs-3 lead-column">${count}.</td>
+        <td>${count}.</td>
         <td class="col-xs-3 text-center"><c:out value="${marketingevent.description}"/></td>
 
         <form:form method="get" action="${pageContext.request.contextPath}/marketingevents/update/${marketingevent.id}" cssClass="form-horizontal">

@@ -133,9 +133,9 @@ public class PackingController {
         }
         //create product
         PackingDto packingDto = new PackingDto();
+        packingDto.setId(formBean.getId());
         packingDto.setVolume(formBean.getVolume());
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
-        packingDto.setId(formBean.getId());
         packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom(), dateTimeFormatter));
         packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo(), dateTimeFormatter));
         packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));

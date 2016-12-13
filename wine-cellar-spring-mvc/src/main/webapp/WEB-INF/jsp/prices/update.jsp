@@ -36,15 +36,14 @@
                         <form:errors path="currency" cssClass="error"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <form:label path="packingId" cssClass="col-sm-2 control-label">Packing</form:label>
                     <div class="col-sm-10">
-                    <form:select path="packingId" cssClass="form-control">
-                        <c:forEach items="${packings}" var="packing">
-                            <form:option value="${packing.id}">${packing.volume}</form:option>
-                        </c:forEach>
-                    </form:select>
+                <form:select path="packingId" cssClass="form-control">
+                    <c:forEach items="${packings}" var="packing">
+                        <form:option value="${packing.id}">${packing.volume}&nbspfrom&nbsp${packing.validFrom}&nbspto&nbsp${packing.validTo}</form:option>
+                    </c:forEach>
+                </form:select>
                         <p class="help-block"><form:errors path="packingId" cssClass="error"/></p>
                     </div>
                 </div>

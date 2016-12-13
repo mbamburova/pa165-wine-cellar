@@ -136,7 +136,7 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void createPrice() {
-        priceFacade.createPrice(priceCreateDto1);
+        priceFacade.createPrice(priceDto1);
         verify(priceService).createPrice(priceArgumentCaptor.capture());
     }
 

@@ -34,64 +34,26 @@ public class PriceFacadeImpl implements PriceFacade {
     @Inject
     private PriceService priceService;
 
-    @Inject
-    private MarketingEventService marketingEventService;
-
-    @Inject
-    private PackingService packingService;
-
-
     @Override
-    public void createPrice(PriceCreateDto priceCreateDto) {
-        if (priceCreateDto == null) {
-            throw new IllegalArgumentException("PriceCreateDto is null!");
-        }
-        Price price = new Price();
-        price.setPrice(priceCreateDto.getPrice());
-        price.setCurrency(priceCreateDto.getCurrency());
-        price.setPacking(packingService.findPackingById(priceCreateDto.getPackingId()));
-        price.setMarketingEvent(marketingEventService.findMarketingEventById(priceCreateDto.getMarketingEventId()));
+    public void createPrice(PriceDto priceDto) {
+        Price price = beanMappingService.mapTo(priceDto, Price.class);
         priceService.createPrice(price);
     }
 
     @Override
     public void updatePrice(PriceDto priceDto) {
-        Price price = new Price();
-        price.setPrice(priceDto.getPrice());
-        price.setCurrency(priceDto.getCurrency());
-        price.setPacking(beanMappingService.mapTo(priceDto.getPacking(), Packing.class));
-        if (priceDto.getMarketingEvent() != null) {
-            price.setMarketingEvent(beanMappingService.mapTo(priceDto.getMarketingEvent(), MarketingEvent.class));
-        }
+        Price price = beanMappingService.mapTo(priceDto, Price.class);
         priceService.updatePrice(price);
     }
 
     @Override
     public void deletePrice(PriceDto priceDto) {
-        Price price = new Price();
-        price.setPrice(priceDto.getPrice());
-        price.setCurrency(priceDto.getCurrency());
-        price.setPacking(beanMappingService.mapTo(priceDto.getPacking(), Packing.class));
-        if (priceDto.getMarketingEvent() != null) {
-            price.setMarketingEvent(beanMappingService.mapTo(priceDto.getMarketingEvent(), MarketingEvent.class));
-        }
-        priceService.deletePrice(price);
+        priceService.deletePrice(new Price(priceDto.getId()));
     }
 
     @Override
     public List<PriceDto> findAllPrices() {
-        List<PriceDto> prices = new ArrayList<>();
-        for (Price price : priceService.findAllPrices()) {
-            PriceDto priceDto = new PriceDto();
-            priceDto.setId(price.getId());
-            priceDto.setCurrency(price.getCurrency());
-            priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
-            if (price.getMarketingEvent() != null) {
-                priceDto.setMarketingEvent(beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class));
-            }
-            prices.add(priceDto);
-        }
-        return prices;
+        return beanMappingService.mapToCollectionEnforceID(priceService.findAllPrices(), PriceDto.class);
     }
 
     @Override
@@ -100,9 +62,7 @@ public class PriceFacadeImpl implements PriceFacade {
             throw new NoResultException();
         }
         Price price = priceService.findPriceById(priceId);
-        PriceDto priceDto = new PriceDto();
-        priceDto.setId(price.getId());
-        priceDto.setCurrency(price.getCurrency());
+        PriceDto priceDto = beanMappingService.mapTo(price, PriceDto.class);
         priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
         if (price.getMarketingEvent() != null) {
             priceDto.setMarketingEvent(beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class));
