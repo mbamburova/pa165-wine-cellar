@@ -12,13 +12,13 @@ import cz.muni.fi.pa165.entity.Wine;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -44,7 +44,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private WineDto wineDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private PriceService priceService;
 

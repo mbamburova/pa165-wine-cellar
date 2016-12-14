@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.entity;
 
-import cz.muni.fi.pa165.config.YearConverter;
+import cz.muni.fi.pa165.converters.YearConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;

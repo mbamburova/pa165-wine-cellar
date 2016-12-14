@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
+import cz.muni.fi.pa165.converters.LocalDateTimeConverter;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -22,8 +24,10 @@ public class Packing {
     private BigDecimal volume;
 
     @NotNull
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime validFrom;
 
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime validTo;
 
     @ManyToOne(optional = false)

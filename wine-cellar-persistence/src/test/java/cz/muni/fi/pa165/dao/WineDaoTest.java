@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.Wine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -11,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.Year;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,17 +26,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class WineDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     private WineDao wineDao;
 
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
             .name("Veltlínske zelené")
-            .vintage(2014)
+            .vintage(Year.of(2014))
             .batch("10/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
-            .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
+            .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. " +
+                "Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
             .notes("20,0°ČNM")
             .alcoholVolume(new BigDecimal("10.94"))
             .residualSugar(new BigDecimal("2.8"))
@@ -46,11 +48,13 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
             .name("Muškát moravský")
-            .vintage(2015)
+            .vintage(Year.of(2015))
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
-            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
+            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." +
+                " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
+                " díky níž je víno pikantní se suchým závěrem.")
             .notes("20,2°ČNM")
             .alcoholVolume(new BigDecimal("12"))
             .residualSugar(new BigDecimal("0.7"))
@@ -61,11 +65,13 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder svatovavrinecke() {
         return new WineBuilder()
             .name("Svatovavřinecké")
-            .vintage(2015)
+            .vintage(Year.of(2015))
             .batch("6/15")
             .predicate("pozdní sběr")
             .predicateEquivalent("suché")
-            .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní, svěží kyselinky a příjemného třísla.")
+            .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry." +
+                " Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní," +
+                " svěží kyselinky a příjemného třísla.")
             .notes("30,2°ČNM")
             .alcoholVolume(new BigDecimal("12"))
             .residualSugar(new BigDecimal("6.2"))
@@ -125,8 +131,8 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         Wine muskatMoravsky = muskatMoravsky().build();
         wineDao.createWine(veltlinskeZelene);
         wineDao.createWine(muskatMoravsky);
-        veltlinskeZelene.setVintage(2016);
-        muskatMoravsky.setVintage(2015);
+        veltlinskeZelene.setVintage(Year.of(2016));
+        muskatMoravsky.setVintage(Year.of(2015));
         wineDao.updateWine(veltlinskeZelene);
         wineDao.updateWine(muskatMoravsky);
         assertThat(wineDao.findWineById(veltlinskeZelene.getId())).isEqualToIgnoringGivenFields(veltlinskeZelene, "packings");
@@ -236,9 +242,9 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findWinesByVintage(2014);
+        List<Wine> found = wineDao.findWinesByVintage(Year.of(2014));
         Assert.assertEquals(found.size(), 1);
-        Assert.assertEquals(found.get(0).getVintage(), 2014);
+        Assert.assertEquals(found.get(0).getVintage(), Year.of(2014));
     }
 
 //    @Test

@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -14,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -29,13 +29,13 @@ import java.util.List;
 @Transactional
 public class WineListDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     public WineListDao wineListDao;
 
-    @Autowired
+    @Inject
     public WineDao wineDao;
 
-    @Autowired
+    @Inject
     public MarketingEventDao marketingEventDao;
 
     private WineList wineList1;
@@ -52,7 +52,9 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
                 .batch("1/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
+                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." +
+                    " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
+                    " díky níž je víno pikantní se suchým závěrem.")
                 .notes("20,2°ČNM")
                 .alcoholVolume(new BigDecimal("12"))
                 .residualSugar(new BigDecimal("0.7"))
@@ -67,7 +69,8 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
                 .batch("10/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
-                .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
+                .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře." +
+                    " Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
                 .notes("20,0°ČNM")
                 .alcoholVolume(new BigDecimal("10.94"))
                 .residualSugar(new BigDecimal("2.8"))
@@ -82,7 +85,8 @@ public class WineListDaoTest extends AbstractTestNGSpringContextTests {
                 .batch("6/15")
                 .predicate("pozdní sběr")
                 .predicateEquivalent("suché")
-                .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní, svěží kyselinky a příjemného třísla.")
+                .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry." +
+                    " Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní, svěží kyselinky a příjemného třísla.")
                 .notes("30,2°ČNM")
                 .alcoholVolume(new BigDecimal("12"))
                 .residualSugar(new BigDecimal("6.2"))

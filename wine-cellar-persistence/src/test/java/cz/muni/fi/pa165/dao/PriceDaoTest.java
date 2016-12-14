@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -30,17 +30,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     public PriceDao priceDao;
 
-    @Autowired
+    @Inject
     private PackingDao packingDao;
 
-    @Autowired
+    @Inject
     private WineDao wineDao;
 
-
-    @Autowired
+    @Inject
     public MarketingEventDao marketingEventDao;
 
     private Packing packing1;
@@ -58,7 +57,9 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
-            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
+            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." +
+                " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
+                " díky níž je víno pikantní se suchým závěrem.")
             .notes("20,2°ČNM")
             .alcoholVolume(new BigDecimal("12"))
             .residualSugar(new BigDecimal("0.7"))
