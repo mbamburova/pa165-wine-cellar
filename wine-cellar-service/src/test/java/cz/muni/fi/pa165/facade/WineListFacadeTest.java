@@ -5,9 +5,10 @@ import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListDto;
-import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.entity.MarketingEvent;
+import cz.muni.fi.pa165.entity.Wine;
+import cz.muni.fi.pa165.entity.WineList;
 import cz.muni.fi.pa165.service.*;
-import org.joda.time.LocalDateTime;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -17,6 +18,7 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -56,10 +58,10 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
                 .predicateEquivalent("suché")
                 .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
                 .notes("20,0°ČNM")
-                .alcoholVolume(new BigDecimal(10.94))
-                .residualSugar(new BigDecimal(2.8))
-                .acidity(new BigDecimal(7.5))
-                .grapeSugarContent(new BigDecimal(0));
+                .alcoholVolume(new BigDecimal("10.94"))
+                .residualSugar(new BigDecimal("2.8"))
+                .acidity(new BigDecimal("7.5"))
+                .grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
@@ -71,10 +73,10 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
                 .predicateEquivalent("suché")
                 .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
                 .notes("20,2°ČNM")
-                .alcoholVolume(new BigDecimal(12))
-                .residualSugar(new BigDecimal(0.7))
-                .acidity(new BigDecimal(6.1))
-                .grapeSugarContent(new BigDecimal(0));
+                .alcoholVolume(new BigDecimal("12"))
+                .residualSugar(new BigDecimal("0.7"))
+                .acidity(new BigDecimal("6.1"))
+                .grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder svatovavrinecke() {
@@ -86,20 +88,14 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
                 .predicateEquivalent("suché")
                 .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní, svěží kyselinky a příjemného třísla.")
                 .notes("30,2°ČNM")
-                .alcoholVolume(new BigDecimal(12))
-                .residualSugar(new BigDecimal(6.2))
-                .acidity(new BigDecimal(4.6))
-                .grapeSugarContent(new BigDecimal(0));
+                .alcoholVolume(new BigDecimal("12"))
+                .residualSugar(new BigDecimal("6.2"))
+                .acidity(new BigDecimal("4.6"))
+                .grapeSugarContent(new BigDecimal("0"));
     }
 
     @Mock
     private WineListService wineListService;
-
-    @Mock
-    private WineService wineService;
-
-    @Mock
-    private MarketingEventService marketingEventService;
 
     @InjectMocks
     private WineListFacade wineListFacade = new WineListFacadeImpl();
@@ -143,14 +139,14 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
         wineList1 = new WineList();
         wineList1.setName("wine list 1");
         wineList1.setWines(Arrays.asList(veltlinskeZelene, muskatMoravsky));
-        wineList1.setDate(new LocalDateTime(2016,11,25,0,0));
+        wineList1.setDate(LocalDateTime.of(2016,11,25,0,0));
         wineList1.setMarketingEvent(marketingEvent1);
         wineListDto1 = beanMappingService.mapTo(wineList1, WineListDto.class);
 
         wineList2 = new WineList();
         wineList2.setName("wine list 2");
         wineList2.setWines(Arrays.asList(muskatMoravsky, svatovavrinecke));
-        wineList2.setDate(new LocalDateTime(2016,10,25,0,0));
+        wineList2.setDate(LocalDateTime.of(2016,10,25,0,0));
         wineList2.setMarketingEvent(marketingEvent2);
         wineListDto2 = beanMappingService.mapTo(wineList2, WineListDto.class);
     }
@@ -193,8 +189,8 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByDate(){
-        when(wineListService.findWineListByDate(new LocalDateTime(2016,11,25,0,0))).thenReturn(Collections.singletonList(wineList1));
-        assertEquals(wineListFacade.findWineListsByDate(new LocalDateTime(2016,11,25,0,0)).size(), 1);
+        when(wineListService.findWineListByDate(LocalDateTime.of(2016,11,25,0,0))).thenReturn(Collections.singletonList(wineList1));
+        assertEquals(wineListFacade.findWineListsByDate(LocalDateTime.of(2016,11,25,0,0)).size(), 1);
     }
 
     @Test

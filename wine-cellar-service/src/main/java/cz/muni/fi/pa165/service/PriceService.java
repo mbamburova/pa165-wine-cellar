@@ -1,11 +1,12 @@
 package cz.muni.fi.pa165.service;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.List;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
+
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.List;
 
 /**
  * @author Silvia Borzová

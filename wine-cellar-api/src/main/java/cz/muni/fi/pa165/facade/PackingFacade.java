@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 

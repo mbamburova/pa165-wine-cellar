@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.PriceCreateDto;
 import cz.muni.fi.pa165.dto.PriceDto;
 
 import java.math.BigDecimal;

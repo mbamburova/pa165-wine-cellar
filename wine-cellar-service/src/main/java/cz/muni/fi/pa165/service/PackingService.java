@@ -1,10 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.Packing;
-import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
-import org.joda.time.LocalDateTime;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;

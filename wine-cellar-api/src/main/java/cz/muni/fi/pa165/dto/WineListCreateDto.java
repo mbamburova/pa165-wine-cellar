@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class WineListCreateDto {
     private String name;
 
     @NotNull
-    private String date;
+    private LocalDateTime date;
 
     private Long marketingEventId;
 
@@ -27,11 +28,11 @@ public class WineListCreateDto {
         this.name = name;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

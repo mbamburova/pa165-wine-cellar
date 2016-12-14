@@ -16,14 +16,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Michaela Bamburová on 08.11.2016
@@ -303,12 +300,12 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWineByBatch() {
-       /* String batch = "6/15";
+        String batch = "6/15";
 
         when(wineDao.findWineByBatch(batch)).thenReturn(svatovavrinecke);
         assertThat(wineService.findWineByBatch(batch)).isEqualToComparingFieldByField(svatovavrinecke);
 
-        verify(wineDao).findWineByBatch(batch);*/
+        verify(wineDao).findWineByBatch(batch);
     }
 
     @Test

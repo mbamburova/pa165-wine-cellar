@@ -4,9 +4,9 @@
 
     <configuration>
         <copy-by-references>
-            <copy-by-reference>
-                org.joda.time.LocalDateTime
-            </copy-by-reference>
+            <!--<copy-by-reference>-->
+                <!--org.joda.time.LocalDateTime-->
+            <!--</copy-by-reference>-->
             <copy-by-reference>
                 java.util.Currency
             </copy-by-reference>

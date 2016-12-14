@@ -5,8 +5,9 @@ import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
-import cz.muni.fi.pa165.service.*;
-import org.joda.time.LocalDateTime;
+import cz.muni.fi.pa165.service.BeanMappingService;
+import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
+import cz.muni.fi.pa165.service.PriceService;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -16,9 +17,11 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Currency;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -71,9 +74,9 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         
         packing1 = new Packing();
         packing1.setId(1L);
-        packing1.setVolume(new BigDecimal(0.7));
-        packing1.setValidFrom(new LocalDateTime(2014,2,1,0,0));
-        packing1.setValidTo(new LocalDateTime(2015,2,1,0,0));
+        packing1.setVolume(new BigDecimal("0.7"));
+        packing1.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
+        packing1.setValidTo(LocalDateTime.of(2015,2,1,0,0));
         packingDto1 = beanMappingService.mapTo(packing1, PackingDto.class);
         packingCreateDto1 = beanMappingService.mapTo(packing1, PackingCreateDto.class);
 
@@ -83,7 +86,7 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         marketingEventDto1 = beanMappingService.mapTo(marketingEvent1, MarketingEventDto.class);
 
         price1 = new Price();
-        price1.setPrice(new BigDecimal(100));
+        price1.setPrice(new BigDecimal("100"));
         price1.setCurrency(Currency.getInstance("CZK"));
         price1.setPacking(packing1);
         price1.setMarketingEvent(marketingEvent1);
@@ -102,9 +105,9 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         
         packing2 = new Packing();
         packing2.setId(2L);
-        packing2.setVolume(new BigDecimal(0.35));
-        packing2.setValidFrom(new LocalDateTime(2014,2,1,0,0));
-        packing2.setValidTo(new LocalDateTime(2017,2,1,0,0));
+        packing2.setVolume(new BigDecimal("0.35"));
+        packing2.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
+        packing2.setValidTo(LocalDateTime.of(2017,2,1,0,0));
         packingDto2 = beanMappingService.mapTo(packing2, PackingDto.class);
         packingCreateDto2 = beanMappingService.mapTo(packing2, PackingCreateDto.class);
 
@@ -114,7 +117,7 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         marketingEventDto2 = beanMappingService.mapTo(marketingEvent2, MarketingEventDto.class);
 
         price2 = new Price();
-        price2.setPrice(new BigDecimal(4));
+        price2.setPrice(new BigDecimal("4"));
         price2.setCurrency(Currency.getInstance("EUR"));
         price2.setPacking(packing2);
         price2.setMarketingEvent(marketingEvent2);
@@ -177,14 +180,14 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByCurrency() {
-        when(priceService.findPricesByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
-        assertEquals(priceFacade.findPricesByPrice(new BigDecimal(100)).size(), 1);
+        when(priceService.findPricesByPriceAttribute(new BigDecimal("100"))).thenReturn(Collections.singletonList(price1));
+        assertEquals(priceFacade.findPricesByPrice(new BigDecimal("100")).size(), 1);
     }
 
     @Test
     public void findByPrice() {
-        when(priceService.findPricesByPriceAttribute(new BigDecimal(100))).thenReturn(Collections.singletonList(price1));
-        assertEquals(priceFacade.findPricesByPrice(new BigDecimal(100)).size(), 1);
+        when(priceService.findPricesByPriceAttribute(new BigDecimal("100"))).thenReturn(Collections.singletonList(price1));
+        assertEquals(priceFacade.findPricesByPrice(new BigDecimal("100")).size(), 1);
     }
 
 }

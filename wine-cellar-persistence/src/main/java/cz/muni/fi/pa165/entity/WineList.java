@@ -1,12 +1,10 @@
 package cz.muni.fi.pa165.entity;
 
-import org.joda.time.LocalDateTime;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**

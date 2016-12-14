@@ -3,10 +3,9 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.dao.MarketingEventDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ import java.util.List;
 @Service
 public class MarketingEventServiceImpl implements MarketingEventService {
 
-    @Autowired
+    @Inject
     private MarketingEventDao marketingEventDao;
 
     @Override

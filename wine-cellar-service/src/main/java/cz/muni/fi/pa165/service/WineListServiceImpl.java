@@ -5,11 +5,10 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import org.joda.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ import java.util.List;
 @Service
 public class WineListServiceImpl implements WineListService {
 
-    @Autowired
+    @Inject
     private WineListDao wineListDao;
 
     @Override

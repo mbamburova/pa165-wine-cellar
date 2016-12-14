@@ -1,15 +1,16 @@
 package cz.muni.fi.pa165.service;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.List;
 import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.List;
 
 /**
  * @author Silvia Borzová
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PriceServiceImpl implements PriceService {
 
-    @Autowired
+    @Inject
     private PriceDao priceDao;
 
     @Override

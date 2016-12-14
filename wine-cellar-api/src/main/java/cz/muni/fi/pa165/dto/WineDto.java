@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.dto;
 
-import java.math.BigDecimal;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * @author Silvia Borzová

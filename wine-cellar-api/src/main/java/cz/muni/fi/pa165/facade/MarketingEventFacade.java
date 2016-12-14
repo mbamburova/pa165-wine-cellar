@@ -2,8 +2,6 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 
-import java.math.BigDecimal;
-import java.time.Year;
 import java.util.List;
 
 /**

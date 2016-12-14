@@ -7,12 +7,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.testng.Assert;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -36,10 +37,10 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
             .predicateEquivalent("suché")
             .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
             .notes("20,0°ČNM")
-            .alcoholVolume(new BigDecimal(10.94))
-            .residualSugar(new BigDecimal(2.8))
-            .acidity(new BigDecimal(7.5))
-            .grapeSugarContent(new BigDecimal(0));
+            .alcoholVolume(new BigDecimal("10.94"))
+            .residualSugar(new BigDecimal("2.8"))
+            .acidity(new BigDecimal("7.5"))
+            .grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
@@ -51,10 +52,10 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
             .predicateEquivalent("suché")
             .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
             .notes("20,2°ČNM")
-            .alcoholVolume(new BigDecimal(12))
-            .residualSugar(new BigDecimal(0.7))
-            .acidity(new BigDecimal(6.1))
-            .grapeSugarContent(new BigDecimal(0));
+            .alcoholVolume(new BigDecimal("12"))
+            .residualSugar(new BigDecimal("0.7"))
+            .acidity(new BigDecimal("6.1"))
+            .grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder svatovavrinecke() {
@@ -66,10 +67,10 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
             .predicateEquivalent("suché")
             .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní, svěží kyselinky a příjemného třísla.")
             .notes("30,2°ČNM")
-            .alcoholVolume(new BigDecimal(12))
-            .residualSugar(new BigDecimal(6.2))
-            .acidity(new BigDecimal(4.6))
-            .grapeSugarContent(new BigDecimal(0));
+            .alcoholVolume(new BigDecimal("12"))
+            .residualSugar(new BigDecimal("6.2"))
+            .acidity(new BigDecimal("4.6"))
+            .grapeSugarContent(new BigDecimal("0"));
     }
 
     @Test
@@ -96,25 +97,25 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNegativeAlcoholVolume() {
-        Wine svatovavrinecke = svatovavrinecke().alcoholVolume(new BigDecimal(-0.1)).build();
+        Wine svatovavrinecke = svatovavrinecke().alcoholVolume(new BigDecimal("-0.1")).build();
         wineDao.createWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNegativeResidualSugar() {
-        Wine svatovavrinecke = svatovavrinecke().residualSugar(new BigDecimal(-0.1)).build();
+        Wine svatovavrinecke = svatovavrinecke().residualSugar(new BigDecimal("-0.1")).build();
         wineDao.createWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNegativeAcidity() {
-        Wine svatovavrinecke = svatovavrinecke().acidity(new BigDecimal(-0.1)).build();
+        Wine svatovavrinecke = svatovavrinecke().acidity(new BigDecimal("-0.1")).build();
         wineDao.createWine(svatovavrinecke);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
     public void createWithNegativeGrapeSugarContent() {
-        Wine svatovavrinecke = svatovavrinecke().grapeSugarContent(new BigDecimal(-0.1)).build();
+        Wine svatovavrinecke = svatovavrinecke().grapeSugarContent(new BigDecimal("-0.1")).build();
         wineDao.createWine(svatovavrinecke);
     }
 
@@ -152,7 +153,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     public void updateWithNegativeAlcoholVolume() {
         Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
-        svatovavrinecke = svatovavrinecke().alcoholVolume(new BigDecimal(-0.1)).build();
+        svatovavrinecke = svatovavrinecke().alcoholVolume(new BigDecimal("-0.1")).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
@@ -160,7 +161,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     public void updateWithNegativeResidualSugar() {
         Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
-        svatovavrinecke = svatovavrinecke().residualSugar(new BigDecimal(-0.1)).build();
+        svatovavrinecke = svatovavrinecke().residualSugar(new BigDecimal("-0.1")).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
@@ -168,7 +169,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     public void updateWithNegativeAcidity() {
         Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
-        svatovavrinecke = svatovavrinecke().acidity(new BigDecimal(-0.1)).build();
+        svatovavrinecke = svatovavrinecke().acidity(new BigDecimal("-0.1")).build();
         wineDao.updateWine(svatovavrinecke);
     }
 
@@ -176,7 +177,7 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
     public void updateWithNegativeGrapeSugarContent() {
         Wine svatovavrinecke = svatovavrinecke().build();
         wineDao.createWine(svatovavrinecke);
-        svatovavrinecke = svatovavrinecke().grapeSugarContent(new BigDecimal(-0.1)).build();
+        svatovavrinecke = svatovavrinecke().grapeSugarContent(new BigDecimal("-0.1")).build();
         wineDao.updateWine(svatovavrinecke);
     }
     
@@ -224,10 +225,10 @@ public class WineDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(veltlinskeZelene().build());
         wineDao.createWine(muskatMoravsky().build());
         wineDao.createWine(svatovavrinecke().build());
-        List<Wine> found = wineDao.findWinesByAlcoholVolume(new BigDecimal(11), new BigDecimal(13));
+        List<Wine> found = wineDao.findWinesByAlcoholVolume(new BigDecimal("11"), new BigDecimal("13"));
         Assert.assertEquals(found.size(), 2);
-        Assert.assertEquals(found.get(0).getAlcoholVolume(), new BigDecimal(12));
-        Assert.assertEquals(found.get(1).getAlcoholVolume(), new BigDecimal(12));
+        Assert.assertEquals(found.get(0).getAlcoholVolume(), new BigDecimal("12"));
+        Assert.assertEquals(found.get(1).getAlcoholVolume(), new BigDecimal("12"));
     }
 
     @Test

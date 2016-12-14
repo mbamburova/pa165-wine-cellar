@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.dto;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Currency;
 

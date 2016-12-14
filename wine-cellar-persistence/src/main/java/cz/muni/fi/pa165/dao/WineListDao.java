@@ -2,8 +2,8 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.WineList;
-import org.joda.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**

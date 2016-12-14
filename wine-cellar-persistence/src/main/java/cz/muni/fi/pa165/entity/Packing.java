@@ -1,10 +1,10 @@
 package cz.muni.fi.pa165.entity;
 
-import org.joda.time.LocalDateTime;
-import java.math.BigDecimal;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * @author Silvia Borzová

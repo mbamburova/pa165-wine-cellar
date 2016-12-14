@@ -4,9 +4,6 @@ import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.PriceFacade;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +27,7 @@ import java.util.List;
  * @version 2016.12.11
  */
 @Controller
-@RequestMapping("/prices")
+@RequestMapping("pa165/prices")
 public class PriceController {
 
     @Inject
@@ -47,7 +44,6 @@ public class PriceController {
         List<PriceCreateDto> prices = new ArrayList<>();
         for (PriceDto priceDto : priceFacade.findAllPrices()) {
             PriceCreateDto priceCreateDto = new PriceCreateDto();
-            priceCreateDto.setId(priceDto.getId());
             priceCreateDto.setPrice(priceDto.getPrice());
             priceCreateDto.setCurrency(priceDto.getCurrency());
             priceCreateDto.setPackingId(priceDto.getPacking().getId());
@@ -69,15 +65,14 @@ public class PriceController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("priceCreate") PriceCreateDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        //log.debug("create(productCreate={})", formBean);
-        //in case of validation error forward back to the the form
+
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                //      log.trace("ObjectError: {}", ge);
+
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                //    log.trace("FieldError: {}", fe);
+
             }
             return "prices/new";
         }
@@ -105,7 +100,6 @@ public class PriceController {
     public String update(@PathVariable long id, Model model) {
         PriceDto priceDto = priceFacade.findPriceById(id);
         PriceCreateDto priceCreateDto = new PriceCreateDto();
-        priceCreateDto.setId(priceDto.getId());
         priceCreateDto.setPrice(priceDto.getPrice());
         priceCreateDto.setCurrency(priceDto.getCurrency());
         priceCreateDto.setPackingId(priceDto.getPacking().getId());
@@ -121,11 +115,11 @@ public class PriceController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                //      log.trace("ObjectError: {}", ge);
+
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                //    log.trace("FieldError: {}", fe);
+
             }
             return "prices/update";
         }
@@ -153,11 +147,9 @@ public class PriceController {
         List<PackingCreateDto> packings = new ArrayList<>();
         for (PackingDto packingDto : packingFacade.findAllPackings()) {
             PackingCreateDto packingCreateDto = new PackingCreateDto();
-            packingCreateDto.setId(packingDto.getId());
             packingCreateDto.setVolume(packingDto.getVolume());
-            DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd.mm.yyyy");
-            packingCreateDto.setValidFrom(packingDto.getValidFrom().toString(dateTimeFormatter));
-            packingCreateDto.setValidTo(packingDto.getValidTo().toString(dateTimeFormatter));
+            packingCreateDto.setValidFrom(packingDto.getValidFrom());
+            packingCreateDto.setValidTo(packingDto.getValidTo());
             packingCreateDto.setWineId(packingDto.getWine().getId());
             packings.add(packingCreateDto);
         }

@@ -1,16 +1,12 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.PackingDao;
-import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.entity.Packing;
-import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import org.joda.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,7 +17,7 @@ import java.util.List;
 @Service
 public class PackingServiceImpl implements PackingService {
 
-    @Autowired
+    @Inject
     private PackingDao packingDao;
 
     @Override

@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.controller;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +22,7 @@ import javax.validation.Valid;
  * @version 2016.12.11
  */
 @Controller
-@RequestMapping("/marketingevents")
+@RequestMapping("pa165/marketingevents")
 public class MarketingEventController {
 
     @Inject
@@ -44,21 +43,20 @@ public class MarketingEventController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-        //log.debug("create(productCreate={})", formBean);
-        //in case of validation error forward back to the the form
+
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                //      log.trace("ObjectError: {}", ge);
+
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                //    log.trace("FieldError: {}", fe);
+
             }
             return "marketingevents/new";
         }
-        //create product
+
         marketingEventFacade.createMarketingEvent(formBean);
-        //report success
+
         redirectAttributes.addFlashAttribute("alert_success", "Marketing Event " + formBean.getDescription() + " was created");
         return "redirect:" + uriBuilder.path("/marketingevents/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
@@ -83,17 +81,17 @@ public class MarketingEventController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                //      log.trace("ObjectError: {}", ge);
+
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                //    log.trace("FieldError: {}", fe);
+
             }
             return "marketingevents/update";
         }
-        //create product
+
         marketingEventFacade.updateMarketingEvent(formBean);
-        //report success
+
         redirectAttributes.addFlashAttribute("alert_success", "Marketing Event " + formBean.getDescription() + " was updated");
         return "redirect:" + uriBuilder.path("/marketingevents/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
