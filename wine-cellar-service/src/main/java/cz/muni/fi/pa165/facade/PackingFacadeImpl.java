@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
@@ -29,7 +30,7 @@ public class PackingFacadeImpl implements PackingFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public void createPacking(PackingDto packingDto) {
+    public void createPacking(PackingCreateDto packingDto) {
         Packing packing = beanMappingService.mapTo(packingDto, Packing.class);
         packingService.createPacking(packing);
     }

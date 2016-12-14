@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.Year;
 import java.util.List;
 
 /**
@@ -73,7 +74,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWinesByVintage(int vintage) {
+    public List<Wine> findWinesByVintage(Year vintage) {
         try {
             return wineDao.findWinesByVintage(vintage);
         } catch(Exception e) {
@@ -145,7 +146,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWinesBetweenYears(int from, int to) {
+    public List<Wine> findWinesBetweenYears(Year from, Year to) {
         try {
             return wineDao.findWinesBetweenYears(from, to);
         } catch(Exception e) {

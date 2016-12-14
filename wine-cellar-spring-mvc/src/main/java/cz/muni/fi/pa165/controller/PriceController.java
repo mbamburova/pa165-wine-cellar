@@ -67,9 +67,6 @@ public class PriceController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-
-            }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
 
@@ -111,7 +108,7 @@ public class PriceController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("priceUpdate") PriceCreateDto formBean, BindingResult bindingResult,
+    public String update(@Valid @ModelAttribute("priceUpdate") PriceDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -123,16 +120,9 @@ public class PriceController {
             }
             return "prices/update";
         }
-        PriceDto priceDto = new PriceDto();
-        priceDto.setId(formBean.getId());
-        priceDto.setPrice(formBean.getPrice());
-        priceDto.setCurrency(formBean.getCurrency());
-        priceDto.setPacking(packingFacade.findPackingById(formBean.getPackingId()));
-        if (formBean.getMarketingEventId() != null) {
-            priceDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
-        }
-        priceFacade.updatePrice(priceDto);
-        //report success
+
+        priceFacade.updatePrice(formBean);
+
         redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPackingId() + " was updated");
         return "redirect:" + uriBuilder.path("/prices/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }

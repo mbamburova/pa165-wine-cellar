@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.Currency;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
             .name("Muškát moravský")
-            .vintage(2015)
+            .vintage(Year.of(2015))
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")

@@ -21,6 +21,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -69,7 +70,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltl?nske zelen?")
-                .vintage(2014)
+                .vintage(Year.of(2014))
                 .batch("10/14")
                 .predicate("kabinetn? v?no")
                 .predicateEquivalent("such?")
@@ -85,7 +86,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
                 .name("Mu?k?t moravsk?")
-                .vintage(2015)
+                .vintage(Year.of(2015))
                 .batch("1/14")
                 .predicate("kabinetn? v?no")
                 .predicateEquivalent("such?")

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165;
 import cz.muni.fi.pa165.entity.Wine;
 
 import java.math.BigDecimal;
+import java.time.Year;
 
 /**
  * @author Silvia Borzová
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 public class WineBuilder {
 
     private String name;
-    private int vintage;
+    private Year vintage;
     private String batch;
     private String predicate;
     private String predicateEquivalent;
@@ -27,7 +28,7 @@ public class WineBuilder {
         return this;
     }
 
-    public WineBuilder vintage(int vintage) {
+    public WineBuilder vintage(Year vintage) {
         this.vintage = vintage;
         return this;
     }

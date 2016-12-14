@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.facade;
 import cz.muni.fi.pa165.dto.WineDto;
 
 import java.math.BigDecimal;
+import java.time.Year;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public interface WineFacade {
     WineDto findWineById(Long id);
     List<WineDto> findAllWines();
     List<WineDto> findWinesByName(String name);
-    List<WineDto> findWinesByVintage(int vintage);
+    List<WineDto> findWinesByVintage(Year vintage);
     WineDto findWineByBatch(String batch);
     List<WineDto> findWinesByPredicate(String predicate);
     List<WineDto> findWinesByPredicateEquivalent(String predicateEquivalent);
@@ -29,5 +30,5 @@ public interface WineFacade {
     List<WineDto> findWinesByAcidity(BigDecimal fromAcidity, BigDecimal toAcidity);
     List<WineDto> findWinesByGrapeSugarContent(BigDecimal fromGrapeSugarContent, BigDecimal toGrapeSugarContent);
 
-    List<WineDto> findWinesBetweenYears(int from, int to);
+    List<WineDto> findWinesBetweenYears(Year from, Year to);
 }

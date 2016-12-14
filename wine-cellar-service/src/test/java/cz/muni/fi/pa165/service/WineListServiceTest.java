@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltlínske zelené")
-                .vintage(2014)
+                .vintage(Year.of(2014))
                 .batch("10/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
@@ -72,7 +73,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
                 .name("Muškát moravský")
-                .vintage(2015)
+                .vintage(Year.of(2015))
                 .batch("1/14")
                 .predicate("kabinetní víno")
                 .predicateEquivalent("suché")
@@ -87,7 +88,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder svatovavrinecke() {
         return new WineBuilder()
                 .name("Svatovavřinecké")
-                .vintage(2015)
+                .vintage(Year.of(2015))
                 .batch("6/15")
                 .predicate("pozdní sběr")
                 .predicateEquivalent("suché")

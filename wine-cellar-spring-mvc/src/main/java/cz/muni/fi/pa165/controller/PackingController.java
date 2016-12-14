@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,22 +67,14 @@ public class PackingController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
 
-            }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-
             }
             return "packings/new";
         }
-        PackingDto packingDto = new PackingDto();
-        packingDto.setVolume(formBean.getVolume());
 
-        packingDto.setValidFrom(formBean.getValidFrom()));
-        packingDto.setValidTo(formBean.getValidTo()));
-        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
-        packingFacade.createPacking(packingDto);
+        packingFacade.createPacking(formBean);
         redirectAttributes.addFlashAttribute("alert_success", "Packing from " + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine " + packingDto.getWine().getName() + " was created");
         return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
@@ -101,37 +91,24 @@ public class PackingController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         PackingDto packingDto = packingFacade.findPackingById(id);
-        PackingCreateDto packingCreateDto = new PackingCreateDto();
-        packingCreateDto.setVolume(packingDto.getVolume());
-        packingCreateDto.setValidFrom(packingDto.getValidFrom());
-        packingCreateDto.setValidTo(packingDto.getValidTo());
-        packingCreateDto.setWineId(packingDto.getWine().getId());
-        model.addAttribute("packingUpdate", packingCreateDto);
+        packingFacade.updatePacking(packingDto);
+
+        model.addAttribute("packingUpdate", packingDto);
         return "packings/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute("packingUpdate") PackingDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                //      log.trace("ObjectError: {}", ge);
-            }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                //    log.trace("FieldError: {}", fe);
             }
             return "packings/update";
         }
-        //create product
-        PackingDto packingDto = new PackingDto();
-        packingDto.setId(formBean.getId());
-        packingDto.setVolume(formBean.getVolume());
-        packingDto.setValidFrom(LocalDateTime.parse(formBean.getValidFrom());
-        packingDto.setValidTo(LocalDateTime.parse(formBean.getValidTo());
-        packingDto.setWine(wineFacade.findWineById(formBean.getWineId()));
-        packingFacade.updatePacking(packingDto);
-        //report success
+        packingFacade.updatePacking(formBean);
+
         redirectAttributes.addFlashAttribute("alert_success", "Packing from " + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine " + packingDto.getWine().getName() + " was updated");
         return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }

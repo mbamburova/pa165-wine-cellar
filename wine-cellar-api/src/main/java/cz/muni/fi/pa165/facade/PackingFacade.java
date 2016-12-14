@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.PackingCreateDto;
 import cz.muni.fi.pa165.dto.PackingDto;
 import cz.muni.fi.pa165.dto.WineDto;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 public interface PackingFacade {
 
-    void createPacking(PackingDto p);
+    void createPacking(PackingCreateDto p);
     void updatePacking(PackingDto p);
     void deletePacking(PackingDto p);
   //  boolean isPackingValid(PackingDto p);
