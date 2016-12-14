@@ -6,7 +6,6 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.PriceService;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
@@ -55,14 +54,14 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
     private PriceService priceService;
     
     @InjectMocks
-    private PriceFacade priceFacade = new PriceFacadeImpl();
+    private PriceFacadeImpl priceFacade;
 
     @Captor
     private ArgumentCaptor<Price> priceArgumentCaptor;
     
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+    private BeanMappingService beanMappingService;
     
     @BeforeClass
     public void setUpMock() {

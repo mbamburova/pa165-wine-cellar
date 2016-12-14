@@ -4,8 +4,7 @@ import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
-import cz.muni.fi.pa165.service.MarketingEventService;
+import cz.muni.fi.pa165.service.MarketingEventServiceImpl;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -34,15 +33,14 @@ public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
     private MarketingEventDto eventDto1;
 
     @Mock
-    private MarketingEventService marketingEventService;
+    private MarketingEventServiceImpl marketingEventService;
 
     @InjectMocks
-    private MarketingEventFacade marketingEventFacade = new MarketingEventFacadeImpl();
+    private MarketingEventFacadeImpl marketingEventFacade;
 
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
-
+    private BeanMappingService beanMappingService;
     @Captor
     private ArgumentCaptor<MarketingEvent> marketingEventArgumentCaptor;
 

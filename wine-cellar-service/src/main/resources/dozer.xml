@@ -4,11 +4,14 @@
 
     <configuration>
         <copy-by-references>
-            <!--<copy-by-reference>-->
-                <!--org.joda.time.LocalDateTime-->
-            <!--</copy-by-reference>-->
+            <copy-by-reference>
+                java.time.LocalDateTime
+            </copy-by-reference>
             <copy-by-reference>
                 java.util.Currency
+            </copy-by-reference>
+            <copy-by-reference>
+                java.time.Year
             </copy-by-reference>
         </copy-by-references>
     </configuration>

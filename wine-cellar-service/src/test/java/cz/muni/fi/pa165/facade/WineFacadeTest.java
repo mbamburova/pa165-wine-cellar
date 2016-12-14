@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Wine;
-import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.WineService;
 import org.mockito.*;
@@ -70,11 +69,11 @@ public class WineFacadeTest extends AbstractTestNGSpringContextTests {
     private WineService wineService;
 
     @InjectMocks
-    private WineFacade wineFacade = new WineFacadeImpl();
+    private WineFacadeImpl wineFacade;
     
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+    private BeanMappingServiceImpl beanMappingService;
 
     @Captor
     private ArgumentCaptor<Wine> wineArgumentCaptor;
