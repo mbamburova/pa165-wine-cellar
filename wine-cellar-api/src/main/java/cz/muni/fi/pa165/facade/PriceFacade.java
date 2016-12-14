@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface PriceFacade {
 
-    void createPrice(PriceDto price);
+    Long createPrice(PriceDto price);
     void updatePrice(PriceDto price);
-    void deletePrice(PriceDto price);
+    void deletePrice(Long id);
 
     List<PriceDto> findAllPrices();
     PriceDto findPriceById(Long priceId);

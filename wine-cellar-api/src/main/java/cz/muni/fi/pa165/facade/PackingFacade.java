@@ -14,9 +14,9 @@ import java.util.List;
 
 public interface PackingFacade {
 
-    void createPacking(PackingCreateDto p);
+    Long createPacking(PackingCreateDto p);
     void updatePacking(PackingDto p);
-    void deletePacking(PackingDto p);
+    void deletePacking(Long packingId);
   //  boolean isPackingValid(PackingDto p);
 
     PackingDto findPackingById(Long id);

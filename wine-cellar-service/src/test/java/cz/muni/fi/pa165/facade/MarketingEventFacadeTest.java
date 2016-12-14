@@ -70,7 +70,7 @@ public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void delete() {
-        marketingEventFacade.deleteMarketingEvent(eventDto1);
+        marketingEventFacade.deleteMarketingEvent(eventDto1.getId());
         verify(marketingEventService).deleteMarketingEvent(marketingEventArgumentCaptor.capture());
     }
 

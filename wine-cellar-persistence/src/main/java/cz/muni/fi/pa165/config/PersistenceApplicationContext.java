@@ -47,6 +47,7 @@ public class PersistenceApplicationContext {
         jpaFactoryBean.setDataSource(db());
         jpaFactoryBean.setLoadTimeWeaver(instrumentationLoadTimeWeaver());
         jpaFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        jpaFactoryBean.setPackagesToScan("cz.muni.fi.pa165.converters");
         return jpaFactoryBean;
     }
 

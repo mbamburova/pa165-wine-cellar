@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
+import cz.muni.fi.pa165.dao.MarketingEventDao;
+import cz.muni.fi.pa165.dao.WineDao;
 import cz.muni.fi.pa165.dao.WineListDao;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
@@ -42,6 +44,13 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private WineListDao wineListDao;
+
+    @Mock
+    private WineDao wineDao;
+
+    @Mock
+    private MarketingEventDao marketingEventDao;
+
 
     @Inject
     @InjectMocks

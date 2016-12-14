@@ -100,7 +100,7 @@ public class WineFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void delete() {
-        wineFacade.deleteWine(veltlinskeZeleneDto);
+        wineFacade.deleteWine(veltlinskeZeleneDto.getId());
         verify(wineService).deleteWine(wineArgumentCaptor.capture());
     }
 

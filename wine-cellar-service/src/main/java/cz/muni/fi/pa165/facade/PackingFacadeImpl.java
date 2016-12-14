@@ -30,9 +30,10 @@ public class PackingFacadeImpl implements PackingFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public void createPacking(PackingCreateDto packingDto) {
+    public Long createPacking(PackingCreateDto packingDto) {
         Packing packing = beanMappingService.mapTo(packingDto, Packing.class);
         packingService.createPacking(packing);
+        return packing.getId();
     }
 
     @Override
@@ -42,15 +43,10 @@ public class PackingFacadeImpl implements PackingFacade {
     }
 
     @Override
-    public void deletePacking(PackingDto packingDto) {
-        packingService.deletePacking(new Packing(packingDto.getId()));
+    public void deletePacking(Long packingId) {
+        Packing packing = packingService.findPackingById(packingId);
+        packingService.deletePacking(packing);
     }
-
-//    @Override
-//    public boolean isPackingValid(PackingDto p) {
-//        Packing packing = beanMappingService.mapTo(p, Packing.class);
-//        return packingService.isPackingValid(packing);
-//    }
 
     @Override
     public PackingDto findPackingById(Long id) {

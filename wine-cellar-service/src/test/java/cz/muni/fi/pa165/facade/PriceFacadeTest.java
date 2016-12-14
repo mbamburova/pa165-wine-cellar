@@ -150,7 +150,7 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void deletePrice() {
-        priceFacade.deletePrice(priceDto1);
+        priceFacade.deletePrice(priceDto1.getId());
         verify(priceService).deletePrice(priceArgumentCaptor.capture());
     }
 
