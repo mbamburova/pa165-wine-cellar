@@ -8,7 +8,6 @@ import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.WineService;
 import org.mockito.*;
@@ -47,36 +46,6 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     private WineDto veltlinskeZeleneDto;
     private WineDto muskatMoravskyDto;
 
-    private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-                .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
-                .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-                .notes("20,0°ČNM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
-    }
-
-    private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-                .name("Muškát moravský")
-                .vintage(Year.of(2015))
-                .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
-                .notes("20,2°ČNM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
-    }
-
     @Mock
     private PackingService packingService;
 
@@ -84,18 +53,48 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     private WineService wineService;
 
     @InjectMocks
-    private PackingFacade packingFacade = new PackingFacadeImpl();
+    private PackingFacadeImpl packingFacade;
 
     @Captor
     private ArgumentCaptor<Packing> packingArgumentCaptor;
 
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+    private BeanMappingService beanMappingService;
 
     @BeforeClass
     public void initMocks(){
         MockitoAnnotations.initMocks(this);
+    }
+
+    private WineBuilder veltlinskeZelene() {
+        return new WineBuilder()
+            .name("Veltlínske zelené")
+            .vintage(Year.of(2014))
+            .batch("10/14")
+            .predicate("kabinetní víno")
+            .predicateEquivalent("suché")
+            .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
+            .notes("20,0°ČNM")
+            .alcoholVolume(new BigDecimal("10.94"))
+            .residualSugar(new BigDecimal("2.8"))
+            .acidity(new BigDecimal("7.5"))
+            .grapeSugarContent(new BigDecimal("0"));
+    }
+
+    private WineBuilder muskatMoravsky() {
+        return new WineBuilder()
+            .name("Muškát moravský")
+            .vintage(Year.of(2015))
+            .batch("1/14")
+            .predicate("kabinetní víno")
+            .predicateEquivalent("suché")
+            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
+            .notes("20,2°ČNM")
+            .alcoholVolume(new BigDecimal("12"))
+            .residualSugar(new BigDecimal("0.7"))
+            .acidity(new BigDecimal("6.1"))
+            .grapeSugarContent(new BigDecimal("0"));
     }
     
     @BeforeMethod

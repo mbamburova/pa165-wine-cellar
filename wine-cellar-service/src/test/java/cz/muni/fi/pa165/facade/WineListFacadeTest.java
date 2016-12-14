@@ -49,7 +49,6 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
     private MarketingEvent marketingEvent2;
     private MarketingEventDto marketingEventDto1;
 
-
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltlínske zelené")
@@ -106,7 +105,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+    private BeanMappingService beanMappingService;
 
     @BeforeClass
     public void initMocks(){
