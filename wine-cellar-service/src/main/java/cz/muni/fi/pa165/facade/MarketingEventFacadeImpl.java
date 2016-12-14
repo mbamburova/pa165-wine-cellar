@@ -26,19 +26,20 @@ public class MarketingEventFacadeImpl implements MarketingEventFacade {
     private MarketingEventService marketingEventService;
 
     @Override
-    public void createMarketingEvent(MarketingEventDto marketingEventDto) {
+    public Long createMarketingEvent(MarketingEventDto marketingEventDto) {
 
         if (marketingEventDto == null) {
             throw new IllegalArgumentException("marketingEvent is null!");
         }
         MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
         marketingEventService.createMarketingEvent(mappedMarketingEvent);
+        return mappedMarketingEvent.getId();
     }
 
     @Override
-    public void deleteMarketingEvent(MarketingEventDto marketingEventDto) {
-        MarketingEvent mappedMarketingEvent = beanMappingService.mapTo(marketingEventDto, MarketingEvent.class);
-        marketingEventService.deleteMarketingEvent(mappedMarketingEvent);
+    public void deleteMarketingEvent(Long marketingEventId) {
+        MarketingEvent event = marketingEventService.findMarketingEventById(marketingEventId);
+        marketingEventService.deleteMarketingEvent(event);
     }
 
     @Override

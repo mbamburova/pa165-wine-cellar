@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface MarketingEventFacade {
 
-    void createMarketingEvent(MarketingEventDto marketingEvent);
-    void deleteMarketingEvent(MarketingEventDto marketingEvent);
+    Long createMarketingEvent(MarketingEventDto marketingEvent);
+    void deleteMarketingEvent(Long id);
     void updateMarketingEvent(MarketingEventDto marketingEvent);
 
     List<MarketingEventDto> findAllMarketingEvents();

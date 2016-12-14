@@ -32,9 +32,10 @@ public class PriceFacadeImpl implements PriceFacade {
     private PriceService priceService;
 
     @Override
-    public void createPrice(PriceDto priceDto) {
+    public Long createPrice(PriceDto priceDto) {
         Price price = beanMappingService.mapTo(priceDto, Price.class);
         priceService.createPrice(price);
+        return price.getId();
     }
 
     @Override
@@ -44,8 +45,9 @@ public class PriceFacadeImpl implements PriceFacade {
     }
 
     @Override
-    public void deletePrice(PriceDto priceDto) {
-        priceService.deletePrice(new Price(priceDto.getId()));
+    public void deletePrice(Long priceId) {
+        Price price = priceService.findPriceById(priceId);
+        priceService.deletePrice(price);
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface WineFacade {
 
     void updateWine(WineDto wineDto);
 
-    void deleteWine(WineDto wineDto);
+    void deleteWine(Long wineId);
 
     WineDto findWineById(Long id);
     List<WineDto> findAllWines();

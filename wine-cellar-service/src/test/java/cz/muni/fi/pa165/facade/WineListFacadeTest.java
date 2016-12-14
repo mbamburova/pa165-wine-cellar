@@ -166,7 +166,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void delete() {
-        wineListFacade.deleteWineList(wineListDto1);
+        wineListFacade.deleteWineList(wineListDto1.getId());
         verify(wineListService).deleteWineList(wineListArgumentCaptor.capture());
     }
 

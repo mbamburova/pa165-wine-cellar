@@ -34,7 +34,7 @@ public class WineListFacadeImpl implements WineListFacade {
     private MarketingEventService marketingEventService;
 
     @Override
-    public void createWineList(WineListDto wineListDto) {
+    public Long createWineList(WineListDto wineListDto) {
         if (wineListDto == null) {
             throw new IllegalArgumentException("WineListDto is null!");
         }
@@ -47,18 +47,12 @@ public class WineListFacadeImpl implements WineListFacade {
             wineList.setMarketingEvent(beanMappingService.mapTo(wineListDto.getMarketingEvent(), MarketingEvent.class));
         }
         wineListService.createWineList(wineList);
+        return wineList.getId();
     }
 
     @Override
-    public void deleteWineList(WineListDto wineListDto) {
-        WineList wineList = new WineList();
-        wineList.setId(wineListDto.getId());
-        wineList.setName(wineListDto.getName());
-        wineList.setDate(wineListDto.getDate());
-        wineList.setWines(beanMappingService.mapToCollection(wineListDto.getWines(), Wine.class));
-        if (wineListDto.getMarketingEvent() != null) {
-            wineList.setMarketingEvent(beanMappingService.mapTo(wineListDto.getMarketingEvent(), MarketingEvent.class));
-        }
+    public void deleteWineList(Long wineListId) {
+        WineList wineList = wineListService.findWineListById(wineListId);
         wineListService.deleteWineList(wineList);
     }
 

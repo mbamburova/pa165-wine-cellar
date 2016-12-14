@@ -57,9 +57,9 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public void deleteWine(WineDto wineDto) {
-        Wine mappedWine = beanMappingService.mapTo(wineDto, Wine.class);
-        wineService.deleteWine(mappedWine);
+    public void deleteWine(Long wineId) {
+        Wine wine = wineService.findWineById(wineId);
+         wineService.deleteWine(wine);
     }
 
     @Override

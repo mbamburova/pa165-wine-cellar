@@ -140,7 +140,7 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
 
     @Test
     public void delete() {
-        packingFacade.deletePacking(packingDto1);
+        packingFacade.deletePacking(packingDto1.getId());
         verify(packingService).deletePacking(packingArgumentCaptor.capture());
     }
 
