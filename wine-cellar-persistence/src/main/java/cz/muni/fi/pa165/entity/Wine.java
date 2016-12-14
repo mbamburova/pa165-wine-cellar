@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
+import cz.muni.fi.pa165.converters.YearConverter;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -23,7 +25,8 @@ public class Wine {
     private String name;
 
     @NotNull
-    private int vintage;
+    @Convert(converter = YearConverter.class)
+    private Year vintage;
 
     @NotNull
     private String batch;
@@ -74,11 +77,11 @@ public class Wine {
         this.name = name;
     }
 
-    public int getVintage() {
+    public Year getVintage() {
         return vintage;
     }
 
-    public void setVintage(int vintage) {
+    public void setVintage(Year vintage) {
         this.vintage = vintage;
     }
 

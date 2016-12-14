@@ -8,22 +8,20 @@ import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Michaela Bamburová on 08.11.2016
@@ -34,7 +32,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private WineDao wineDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private WineService wineService;
 
@@ -45,7 +43,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
             .name("Veltlínske zelené")
-            .vintage(2014)
+            .vintage(Year.of(2014))
             .batch("10/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
@@ -61,7 +59,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
             .name("Muškát moravský")
-            .vintage(2015)
+            .vintage(Year.of(2015))
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
@@ -78,7 +76,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder svatovavrinecke() {
         return new WineBuilder()
             .name("Svatovavřinecké")
-            .vintage(2015)
+            .vintage(Year.of(2015))
             .batch("6/15")
             .predicate("pozdní sběr")
             .predicateEquivalent("suché")
@@ -288,7 +286,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWinesByVintage() {
-        int year = 2015;
+        Year year = Year.of(2015);
 
         List<Wine> expectedWines = new ArrayList<>();
 
@@ -303,12 +301,12 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWineByBatch() {
-       /* String batch = "6/15";
+        String batch = "6/15";
 
         when(wineDao.findWineByBatch(batch)).thenReturn(svatovavrinecke);
         assertThat(wineService.findWineByBatch(batch)).isEqualToComparingFieldByField(svatovavrinecke);
 
-        verify(wineDao).findWineByBatch(batch);*/
+        verify(wineDao).findWineByBatch(batch);
     }
 
     @Test
@@ -403,8 +401,8 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWinesBetweenYears() {
-        int from = 2014;
-        int to = 2016;
+        Year from = Year.of(2014);
+        Year to = Year.of(2016);
 
         List<Wine> expectedWines = new ArrayList<>();
         expectedWines.add(veltlinskeZelene);

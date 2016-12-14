@@ -2,14 +2,11 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.PriceCreateDto;
 import cz.muni.fi.pa165.dto.PriceDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.MarketingEventService;
-import cz.muni.fi.pa165.service.PackingService;
 import cz.muni.fi.pa165.service.PriceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

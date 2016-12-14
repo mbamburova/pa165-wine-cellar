@@ -1,19 +1,14 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.dao.PackingDao;
-import cz.muni.fi.pa165.dao.PriceDao;
 import cz.muni.fi.pa165.dao.WineDao;
-import cz.muni.fi.pa165.entity.Packing;
-import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Tomas Gordian on 11/6/2016.
@@ -21,10 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class WineServiceImpl implements WineService {
 
-    @Autowired
+    @Inject
     private WineDao wineDao;
-    private PackingDao packingDao;
-    private PriceDao priceDao;
 
     @Override
     public void createWine(Wine wine) {
@@ -81,7 +74,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWinesByVintage(int vintage) {
+    public List<Wine> findWinesByVintage(Year vintage) {
         try {
             return wineDao.findWinesByVintage(vintage);
         } catch(Exception e) {
@@ -153,7 +146,7 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> findWinesBetweenYears(int from, int to) {
+    public List<Wine> findWinesBetweenYears(Year from, Year to) {
         try {
             return wineDao.findWinesBetweenYears(from, to);
         } catch(Exception e) {

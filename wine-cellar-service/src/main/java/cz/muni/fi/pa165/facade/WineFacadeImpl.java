@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import java.math.BigDecimal;
+import java.time.Year;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public List<WineDto> findWinesByVintage(int vintage) {
+    public List<WineDto> findWinesByVintage(Year vintage) {
         if (wineService.findWinesByVintage(vintage) == null) {
             throw new NoResultException();
         }
@@ -134,7 +135,7 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public List<WineDto> findWinesBetweenYears(int from, int to) {
+    public List<WineDto> findWinesBetweenYears(Year from, Year to) {
         if (wineService.findWinesBetweenYears(from, to) == null) {
             throw new NoResultException();
         }

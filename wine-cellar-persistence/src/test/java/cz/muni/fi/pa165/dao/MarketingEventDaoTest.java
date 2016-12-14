@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.config.PersistenceApplicationContext;
 import cz.muni.fi.pa165.entity.MarketingEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -11,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import javax.inject.Inject;
 
 /**
  * @author Silvia Borzová
@@ -22,7 +23,7 @@ import org.testng.annotations.Test;
 @Transactional
 public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     private MarketingEventDao marketingEventDao;
 
     private MarketingEvent marketingEvent1;

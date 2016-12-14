@@ -2,9 +2,6 @@ package cz.muni.fi.pa165.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Tomas Gordian on 10/30/2016.
  */

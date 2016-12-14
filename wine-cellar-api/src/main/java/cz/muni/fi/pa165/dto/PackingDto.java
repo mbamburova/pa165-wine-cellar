@@ -1,10 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
-import org.joda.time.LocalDateTime;
-
 import java.math.BigDecimal;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * @author Michaela Bamburová on 25.10.2016.

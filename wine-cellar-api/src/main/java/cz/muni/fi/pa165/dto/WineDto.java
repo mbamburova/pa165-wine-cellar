@@ -1,10 +1,10 @@
 package cz.muni.fi.pa165.dto;
 
-import java.math.BigDecimal;
-import java.time.Year;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.Year;
 
 /**
  * @author Silvia Borzová
@@ -18,7 +18,7 @@ public class WineDto {
     private String name;
 
     @NotNull
-    private int vintage;
+    private Year vintage;
 
     @NotNull
     private String batch;
@@ -63,11 +63,11 @@ public class WineDto {
         this.name = name;
     }
 
-    public int getVintage() {
+    public Year getVintage() {
         return vintage;
     }
 
-    public void setVintage(int vintage) {
+    public void setVintage(Year vintage) {
         this.vintage = vintage;
     }
 

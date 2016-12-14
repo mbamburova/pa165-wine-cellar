@@ -1,9 +1,8 @@
 package cz.muni.fi.pa165.dto;
 
-import org.joda.time.LocalDateTime;
-
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,19 +10,15 @@ import java.util.List;
  */
 public class WineListCreateDto {
 
-    private Long id;
+    @NotNull
     private String name;
-    private String date;
+
+    @NotNull
+    private LocalDateTime date;
+
     private Long marketingEventId;
+
     private List<Long> winesIds = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -33,11 +28,11 @@ public class WineListCreateDto {
         this.name = name;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -53,18 +48,9 @@ public class WineListCreateDto {
         return winesIds;
     }
 
-    public void setWinesIds(List<Long> wines) {
-        this.winesIds = wines;
-    }
-
     public void addWine(Long wine) {
         this.winesIds.add(wine);
     }
-
-    public void removeWine(Long wine) {
-        this.winesIds.remove(wine);
-    }
-
 
     @Override
     public boolean equals(Object o) {

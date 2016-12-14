@@ -5,8 +5,6 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
-import org.joda.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -14,12 +12,15 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Currency;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Michaela Bamburová on 25.10.2016.
@@ -29,17 +30,16 @@ import java.util.List;
 @Transactional
 public class PriceDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     public PriceDao priceDao;
 
-    @Autowired
+    @Inject
     private PackingDao packingDao;
 
-    @Autowired
+    @Inject
     private WineDao wineDao;
 
-
-    @Autowired
+    @Inject
     public MarketingEventDao marketingEventDao;
 
     private Packing packing1;
@@ -53,16 +53,18 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
             .name("Muškát moravský")
-            .vintage(2015)
+            .vintage(Year.of(2015))
             .batch("1/14")
             .predicate("kabinetní víno")
             .predicateEquivalent("suché")
-            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
+            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." +
+                " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
+                " díky níž je víno pikantní se suchým závěrem.")
             .notes("20,2°ČNM")
-            .alcoholVolume(new BigDecimal(12))
-            .residualSugar(new BigDecimal(0.7))
-            .acidity(new BigDecimal(6.1))
-            .grapeSugarContent(new BigDecimal(0));
+            .alcoholVolume(new BigDecimal("12"))
+            .residualSugar(new BigDecimal("0.7"))
+            .acidity(new BigDecimal("6.1"))
+            .grapeSugarContent(new BigDecimal("0"));
     }
 
     @BeforeMethod
@@ -71,8 +73,8 @@ public class PriceDaoTest extends AbstractTestNGSpringContextTests {
         wineDao.createWine(muskatMoravsky);
 
         packing1 = new Packing();
-        packing1.setValidFrom(new LocalDateTime(2015,2,1,0,0));
-        packing1.setValidTo(new LocalDateTime(2016,2,1,0,0));
+        packing1.setValidFrom(LocalDateTime.of(2015,2,1,0,0));
+        packing1.setValidTo(LocalDateTime.of(2016,2,1,0,0));
         packing1.setVolume(new BigDecimal("1"));
         packing1.setWine(muskatMoravsky);
 

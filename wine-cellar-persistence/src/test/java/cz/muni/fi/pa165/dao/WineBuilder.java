@@ -12,7 +12,7 @@ import java.time.Year;
 public class WineBuilder {
 
     private String name;
-    private int vintage;
+    private Year vintage;
     private String batch;
     private String predicate;
     private String predicateEquivalent;
@@ -28,7 +28,7 @@ public class WineBuilder {
         return this;
     }
     
-    public WineBuilder vintage(int vintage) {
+    public WineBuilder vintage(Year vintage) {
         this.vintage = vintage;
         return this;
     }

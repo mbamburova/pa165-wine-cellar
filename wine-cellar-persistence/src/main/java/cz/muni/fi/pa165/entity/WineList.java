@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.entity;
 
-import org.joda.time.LocalDateTime;
+import cz.muni.fi.pa165.converters.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +24,7 @@ public class WineList {
     private String name;
 
     @NotNull
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.MERGE)

@@ -6,12 +6,13 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
     @Mock
     private MarketingEventDao marketingEventDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private MarketingEventService marketingEventService;
 

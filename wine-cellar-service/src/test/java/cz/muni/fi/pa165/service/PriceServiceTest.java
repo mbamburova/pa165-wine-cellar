@@ -9,26 +9,26 @@ import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
 import cz.muni.fi.pa165.entity.Wine;
-import org.joda.time.LocalDateTime;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Tomas Gordian on 11/25/2016.
  */
@@ -44,7 +44,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private WineDto wineDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private PriceService priceService;
 
@@ -70,7 +70,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder veltlinskeZelene() {
         return new WineBuilder()
                 .name("Veltl?nske zelen?")
-                .vintage(2014)
+                .vintage(Year.of(2014))
                 .batch("10/14")
                 .predicate("kabinetn? v?no")
                 .predicateEquivalent("such?")
@@ -86,7 +86,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private WineBuilder muskatMoravsky() {
         return new WineBuilder()
                 .name("Mu?k?t moravsk?")
-                .vintage(2015)
+                .vintage(Year.of(2015))
                 .batch("1/14")
                 .predicate("kabinetn? v?no")
                 .predicateEquivalent("such?")
@@ -121,15 +121,15 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
         packing1 = new Packing();
         packing1.setVolume(new BigDecimal("0.75"));
         packing1.setWine(veltlinskeZelene);
-        packing1.setValidFrom(new LocalDateTime(2016,10,10,0,0));
+        packing1.setValidFrom(LocalDateTime.of(2016,10,10,0,0));
         packing1.setValidTo(null);
         packingService.createPacking(packing1);
 
         packing2 = new Packing();
         packing2.setVolume(new BigDecimal("0.75"));
         packing2.setWine(muskatMoravsky);
-        packing2.setValidFrom(new LocalDateTime(2014,8,5,0,0));
-        packing2.setValidTo(new LocalDateTime(2015,12,11,0,0));
+        packing2.setValidFrom(LocalDateTime.of(2014,8,5,0,0));
+        packing2.setValidTo(LocalDateTime.of(2015,12,11,0,0));
         packingService.createPacking(packing2);
 
         price1 = new Price();
