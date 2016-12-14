@@ -29,7 +29,6 @@ import java.util.List;
  * @author MarekScholtz
  * @version 2016.12.11
  */
-@Component
 @Controller
 @RequestMapping("/prices")
 public class PriceController {

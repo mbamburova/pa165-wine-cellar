@@ -30,7 +30,7 @@ import java.util.List;
  * @author MarekScholtz
  * @version 2016.12.10
  */
-@Component
+
 @Controller
 @RequestMapping("/packings")
 public class PackingController {

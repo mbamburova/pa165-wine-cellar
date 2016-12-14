@@ -9,8 +9,6 @@ import java.math.BigDecimal;
  */
 public class PackingCreateDto {
 
-    private Long id;
-
     @NotNull
     @Min(0)
     private BigDecimal volume;
@@ -58,14 +56,6 @@ public class PackingCreateDto {
         this.wineId = wineId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "PackingCreateDto{" + "volume=" + volume + "," +
@@ -93,6 +83,4 @@ public class PackingCreateDto {
         result = 31 * result + getWineId().hashCode();
         return result;
     }
-
-
 }

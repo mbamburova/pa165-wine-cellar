@@ -22,7 +22,6 @@ import javax.validation.Valid;
  * @author MarekScholtz
  * @version 2016.12.11
  */
-@Component
 @Controller
 @RequestMapping("/marketingevents")
 public class MarketingEventController {

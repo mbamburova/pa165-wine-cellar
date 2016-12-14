@@ -19,7 +19,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +39,9 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private PackingDao packingDao;
 
-    @Mock
-    private WineDto wineDao;
-
     @Autowired
     @InjectMocks
     private PackingService packingService;
-
-    @Autowired
-    @InjectMocks
-    private WineService wineService;
 
     private Packing packing1;
     private Packing packing2;

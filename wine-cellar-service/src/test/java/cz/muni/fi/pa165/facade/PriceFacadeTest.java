@@ -50,15 +50,6 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private PriceService priceService;
-
-    @Mock
-    private PackingService packingService;
-
-    @Mock
-    private WineService wineService;
-
-    @Mock
-    private MarketingEventService marketingEventService;
     
     @InjectMocks
     private PriceFacade priceFacade = new PriceFacadeImpl();
@@ -85,20 +76,24 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         packing1.setValidTo(new LocalDateTime(2015,2,1,0,0));
         packingDto1 = beanMappingService.mapTo(packing1, PackingDto.class);
         packingCreateDto1 = beanMappingService.mapTo(packing1, PackingCreateDto.class);
+
         marketingEvent1 = new MarketingEvent();
         marketingEvent1.setId(1L);
         marketingEvent1.setDescription("marketing event 1");
         marketingEventDto1 = beanMappingService.mapTo(marketingEvent1, MarketingEventDto.class);
+
         price1 = new Price();
         price1.setPrice(new BigDecimal(100));
         price1.setCurrency(Currency.getInstance("CZK"));
         price1.setPacking(packing1);
         price1.setMarketingEvent(marketingEvent1);
+
         priceDto1 = new PriceDto();
         priceDto1.setPrice(price1.getPrice());
         priceDto1.setCurrency(price1.getCurrency());
         priceDto1.setPacking(beanMappingService.mapTo(price1.getPacking(), PackingDto.class));
         priceDto1.setMarketingEvent(marketingEventDto1);
+
         priceCreateDto1 = new PriceCreateDto();
         priceCreateDto1.setPrice(price1.getPrice());
         priceCreateDto1.setCurrency(price1.getCurrency());
@@ -112,20 +107,24 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         packing2.setValidTo(new LocalDateTime(2017,2,1,0,0));
         packingDto2 = beanMappingService.mapTo(packing2, PackingDto.class);
         packingCreateDto2 = beanMappingService.mapTo(packing2, PackingCreateDto.class);
+
         marketingEvent2 = new MarketingEvent();
         marketingEvent2.setId(2L);
         marketingEvent2.setDescription("marketing event 2");
         marketingEventDto2 = beanMappingService.mapTo(marketingEvent2, MarketingEventDto.class);
+
         price2 = new Price();
         price2.setPrice(new BigDecimal(4));
         price2.setCurrency(Currency.getInstance("EUR"));
         price2.setPacking(packing2);
         price2.setMarketingEvent(marketingEvent2);
+
         priceDto2 = new PriceDto();
         priceDto2.setPrice(price2.getPrice());
         priceDto2.setCurrency(price2.getCurrency());
         priceDto2.setPacking(beanMappingService.mapTo(price2.getPacking(), PackingDto.class));
         priceDto2.setMarketingEvent(marketingEventDto2);
+
         priceCreateDto2 = new PriceCreateDto();
         priceCreateDto2.setPrice(price2.getPrice());
         priceCreateDto2.setCurrency(price2.getCurrency());
