@@ -59,8 +59,8 @@ public class PackingFacadeImpl implements PackingFacade {
         if (id == null){
             throw new IllegalArgumentException("Packing ID cannot be null");
         }
-        Packing packing = packingService.findPackingById(id);
-        packingService.deletePacking(packing);
+
+        packingService.deletePacking(packingService.findPackingById(id));
     }
 
     @Override
@@ -69,20 +69,13 @@ public class PackingFacadeImpl implements PackingFacade {
             throw new IllegalArgumentException("Packing ID cannot be null");
         }
         Packing packing = packingService.findPackingById(id);
-        PackingDto packingDto = beanMappingService.mapTo(packing,PackingDto.class);
-        packingDto.setWine(beanMappingService.mapTo(packing.getWine(), WineDto.class));
-        
-        return packingDto;
+        return beanMappingService.mapTo(packing,PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findAllPackings() {
-        List<PackingDto> packings = beanMappingService.mapToCollection(packingService.findAllPackings(),
+        return beanMappingService.mapToCollection(packingService.findAllPackings(),
                 PackingDto.class);
-        for (PackingDto packing : packings){
-            packing.setWine(beanMappingService.mapTo(packing.getWine(), WineDto.class));
-        }
-        return packings;
     }
 
     @Override
@@ -90,12 +83,8 @@ public class PackingFacadeImpl implements PackingFacade {
         if (volume == null){
             throw new IllegalArgumentException("Volume cannot be null");
         }
-        List<PackingDto> packings = beanMappingService.mapToCollection(packingService.findPackingsByVolume(volume), 
+        return beanMappingService.mapToCollection(packingService.findPackingsByVolume(volume),
                 PackingDto.class);
-        for (PackingDto packing : packings){
-            packing.setWine(beanMappingService.mapTo(packing.getWine(), WineDto.class));
-        }
-        return packings;
     }
 
     @Override
@@ -104,11 +93,7 @@ public class PackingFacadeImpl implements PackingFacade {
             throw new IllegalArgumentException("WineDTO cannot be null");
         }
         Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
-        List<PackingDto> packings = beanMappingService.mapToCollection(packingService.findPackingsByWine(wine),
+        return beanMappingService.mapToCollection(packingService.findPackingsByWine(wine),
                 PackingDto.class);
-        for (PackingDto packing : packings){
-            packing.setWine(beanMappingService.mapTo(packing.getWine(), WineDto.class));
-        }
-        return packings;
     }
 }

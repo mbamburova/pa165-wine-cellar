@@ -135,7 +135,7 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     @Test
     public void update() {
         packingFacade.updatePacking(packingDto1);
-        verify(packingService).deletePacking(packingArgumentCaptor.capture());
+        verify(packingService).updatePacking(packingArgumentCaptor.capture());
     }
 
     @Test
