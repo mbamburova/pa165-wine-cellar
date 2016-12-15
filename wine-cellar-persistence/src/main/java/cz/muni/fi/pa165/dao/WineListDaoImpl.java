@@ -44,37 +44,26 @@ public class WineListDaoImpl implements WineListDao {
 
     @Override
     public List<WineList> findAllWineLists() {
-        return Collections.unmodifiableList(
-                entityManager.createQuery("SELECT wl FROM WineList wl", WineList.class).getResultList());
+        return entityManager.createQuery("SELECT wl FROM WineList wl", WineList.class).getResultList();
     }
 
     @Override
     public List<WineList> findWineListsByDate(LocalDateTime date) {
-        return Collections.unmodifiableList(
-            entityManager.createQuery("SELECT wl FROM WineList wl WHERE date = :date", WineList.class).setParameter("date", date).getResultList());
-
+        return entityManager.createQuery("SELECT wl FROM WineList wl WHERE date = :date", WineList.class).setParameter("date", date).getResultList();
     }
 
     @Override
     public List<WineList> findWineListsByName(String name) {
-        try {
             return entityManager
                     .createQuery("SELECT wl FROM WineList wl WHERE wl.name = :name",
                             WineList.class).setParameter("name", name)
                     .getResultList();
-        } catch (NoResultException nrf) {
-            return new ArrayList<>();
-        }
     }
 
     @Override
     public List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent) {
-        try {
             return entityManager
                     .createQuery("SELECT wl FROM WineList wl WHERE MARKETING_EVENT_ID = :marketingEventId", WineList.class).setParameter("marketingEventId", marketingEvent.getId())
                     .getResultList();
-        } catch (NoResultException nrf) {
-            return new ArrayList<>();
-        }
     }
 }

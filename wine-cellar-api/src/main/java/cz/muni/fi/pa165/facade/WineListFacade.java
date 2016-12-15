@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.WineListCreateDto;
 import cz.muni.fi.pa165.dto.WineListDto;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface WineListFacade {
 
-    Long createWineList(WineListDto wineList);
+    Long createWineList(WineListCreateDto wineList);
     void deleteWineList(Long wineListId);
     void updateWineList(WineListDto wineList);
 

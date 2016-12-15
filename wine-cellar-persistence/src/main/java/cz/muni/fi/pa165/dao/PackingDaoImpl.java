@@ -45,30 +45,24 @@ public class PackingDaoImpl implements PackingDao {
     public List<Packing> findPackingsByVolume(BigDecimal volume) {
         if (volume == null)
             throw new IllegalArgumentException("Cannot search for null volume");
-        try {
-            return em
+
+        return em
                 .createQuery("SELECT p FROM Packing p WHERE p.volume = :volume",
                     Packing.class).setParameter("volume", volume)
                 .getResultList();
-        } catch (NoResultException nrf) {
-            return new ArrayList<>();
-        }
     }
 
     @Override
     public List<Packing> findAllPackings() {
-        return Collections.unmodifiableList(em.createQuery("SELECT p FROM Packing p", Packing.class).getResultList());
+        return em.createQuery("SELECT p FROM Packing p", Packing.class).getResultList();
     }
 
     @Override
     public List<Packing> findPackingsByWine(Wine wine) {
         if (wine == null)
             throw new IllegalArgumentException("Cannot search for null wine");
-        try {
-            return em.createQuery("select p from Packing p where p.wine = :wine",
+
+        return em.createQuery("select p from Packing p where p.wine = :wine",
                 Packing.class).setParameter("wine", wine).getResultList();
-        } catch (NoResultException nrf) {
-            return new ArrayList<>();
-        }
     }
 }

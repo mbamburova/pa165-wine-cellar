@@ -104,6 +104,7 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         veltlinskeZelene.setId(1l);
         veltlinskeZeleneDto = beanMappingService.mapTo(veltlinskeZelene, WineDto.class);
         packing1 = new Packing();
+        packing1.setId(10L);
         packing1.setVolume(new BigDecimal("0.7"));
         packing1.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
         packing1.setValidTo(LocalDateTime.of(2015,2,1,0,0));
