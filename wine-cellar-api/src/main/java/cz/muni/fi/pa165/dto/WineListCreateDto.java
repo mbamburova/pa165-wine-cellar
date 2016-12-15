@@ -48,6 +48,10 @@ public class WineListCreateDto {
         return winesIds;
     }
 
+    public void setWinesIds(List<Long> winesIds) {
+        this.winesIds = winesIds;
+    }
+
     public void addWine(Long wine) {
         this.winesIds.add(wine);
     }

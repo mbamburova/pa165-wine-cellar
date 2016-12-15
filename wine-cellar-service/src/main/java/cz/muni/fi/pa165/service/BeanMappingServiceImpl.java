@@ -43,8 +43,7 @@ public class BeanMappingServiceImpl implements BeanMappingService {
     @Override
     public <T> List<T> mapToCollection(Collection<?> objectsToMap, Class<T> classToMapTo) {
         List<T> mappedObjects = new ArrayList<>();
-        for (Object object : objectsToMap)
-        {
+        for (Object object : objectsToMap){
             mappedObjects.add(mapper.map(object, classToMapTo));
         }
         return mappedObjects;
@@ -54,8 +53,7 @@ public class BeanMappingServiceImpl implements BeanMappingService {
     public <T> List<T> mapToCollectionEnforceID(Collection<?> objectsToMap, Class<T> classToMapTo) {
 
         List<T> mappedObjects = new ArrayList<>();
-        for (Object object : objectsToMap)
-        {
+        for (Object object : objectsToMap) {
             T mappedObjectWithId = (T) mapToDTOWithID(object);
             if(mappedObjectWithId != null) {
                 mappedObjects.add(mappedObjectWithId);
@@ -110,7 +108,6 @@ public class BeanMappingServiceImpl implements BeanMappingService {
             mappedWineList.setId(wineListToMap.getId());
             return mappedWineList;
         }
-
         return null;
     }
 }
