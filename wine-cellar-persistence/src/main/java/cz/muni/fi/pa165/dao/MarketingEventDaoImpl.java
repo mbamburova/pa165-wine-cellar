@@ -40,7 +40,6 @@ public class MarketingEventDaoImpl implements MarketingEventDao {
 
     @Override
     public List<MarketingEvent> findAllMarketingEvents() {
-        return Collections.unmodifiableList(
-                entityManager.createQuery("SELECT me FROM MarketingEvent me", MarketingEvent.class).getResultList());
+        return entityManager.createQuery("SELECT me FROM MarketingEvent me", MarketingEvent.class).getResultList();
     }
 }
