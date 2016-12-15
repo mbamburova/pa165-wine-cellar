@@ -53,6 +53,8 @@
         <module>wine-cellar-persistence</module>
         <module>wine-cellar-service</module>
         <module>wine-cellar-spring-mvc</module>
+        <module>wine-cellar-rest</module>
+        <module>wine-cellar-sample-data</module>
     </modules>
 
 </project>
