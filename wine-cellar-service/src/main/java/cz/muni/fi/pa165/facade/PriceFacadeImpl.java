@@ -42,6 +42,9 @@ public class PriceFacadeImpl implements PriceFacade {
 
     @Override
     public Long createPrice(PriceCreateDto priceDto) {
+        if (priceDto == null) {
+            throw new IllegalArgumentException("PriceDto cannot be null");
+        }
         Price price = beanMappingService.mapTo(priceDto, Price.class);
         price.setMarketingEvent(marketingEventService.findMarketingEventById(priceDto.getMarketingEventId()));
         price.setPacking(packingService.findPackingById(priceDto.getPackingId()));
@@ -51,6 +54,9 @@ public class PriceFacadeImpl implements PriceFacade {
 
     @Override
     public void updatePrice(PriceDto priceDto) {
+        if (priceDto == null) {
+            throw new IllegalArgumentException("PriceDto cannot be null");
+        }
         Price price = beanMappingService.mapTo(priceDto, Price.class);
         price.setMarketingEvent(marketingEventService.findMarketingEventById(priceDto.getMarketingEvent().getId()));
         price.setPacking(packingService.findPackingById(priceDto.getPacking().getId()));
@@ -59,22 +65,16 @@ public class PriceFacadeImpl implements PriceFacade {
 
     @Override
     public void deletePrice(Long priceId) {
+        if (priceId == null) {
+            throw new IllegalArgumentException("Price ID cannot be null");
+        }
         Price price = priceService.findPriceById(priceId);
         priceService.deletePrice(price);
     }
 
     @Override
     public List<PriceDto> findAllPrices() {
-        List<PriceDto> priceDtos = new ArrayList<>();
-
-        for(Price price : priceService.findAllPrices()){
-            PriceDto priceDto = beanMappingService.mapTo(price, PriceDto.class);
-            priceDto.setMarketingEvent((beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class)));
-            priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
-
-            priceDtos.add(priceDto);
-        }
-        return priceDtos;
+        return beanMappingService.mapToCollection(priceService.findAllPrices(), PriceDto.class);
     }
 
     @Override
@@ -86,12 +86,7 @@ public class PriceFacadeImpl implements PriceFacade {
         if (price == null) {
             throw new EntityNotFoundException("Price was not found by ID.");
         }
-        PriceDto priceDto = beanMappingService.mapTo(price, PriceDto.class);
-        priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
-        if (price.getMarketingEvent() != null) {
-            priceDto.setMarketingEvent(beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class));
-        }
-        return priceDto;
+        return beanMappingService.mapTo(price, PriceDto.class);
     }
 
     @Override
@@ -112,11 +107,7 @@ public class PriceFacadeImpl implements PriceFacade {
         List<PriceDto> priceDtos = new ArrayList<>();
 
         for(Price price : priceService.findPricesByPacking(mappedPacking)){
-            PriceDto priceDto = beanMappingService.mapTo(price, PriceDto.class);
-            priceDto.setMarketingEvent((beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class)));
-            priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
-
-            priceDtos.add(priceDto);
+            priceDtos.add(beanMappingService.mapTo(price, PriceDto.class));
         }
         return priceDtos;
     }
@@ -128,11 +119,7 @@ public class PriceFacadeImpl implements PriceFacade {
         }
         List<PriceDto> priceDtos = new ArrayList<>();
         for(Price price : priceService.findPricesByCurrency(currency)){
-            PriceDto priceDto = beanMappingService.mapTo(price, PriceDto.class);
-            priceDto.setMarketingEvent((beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class)));
-            priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
-
-            priceDtos.add(priceDto);
+            priceDtos.add(beanMappingService.mapTo(price, PriceDto.class));
         }
         return priceDtos;
     }
@@ -144,11 +131,7 @@ public class PriceFacadeImpl implements PriceFacade {
         }
         List<PriceDto> priceDtos = new ArrayList<>();
         for(Price price : priceService.findPricesByPriceAttribute(value)){
-            PriceDto priceDto = beanMappingService.mapTo(price, PriceDto.class);
-            priceDto.setMarketingEvent((beanMappingService.mapTo(price.getMarketingEvent(), MarketingEventDto.class)));
-            priceDto.setPacking(beanMappingService.mapTo(price.getPacking(), PackingDto.class));
-
-            priceDtos.add(priceDto);
+            priceDtos.add(beanMappingService.mapTo(price, PriceDto.class));
         }
         return priceDtos;
     }

@@ -11,7 +11,8 @@ import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventServiceImpl;
-import cz.muni.fi.pa165.service.WineListService;
+import cz.muni.fi.pa165.service.WineListServiceImpl;
+import cz.muni.fi.pa165.service.WineServiceImpl;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -86,7 +87,10 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
 
 
     @Mock
-    private WineListService wineListService;
+    private WineListServiceImpl wineListService;
+
+    @Mock
+    private WineServiceImpl wineService;
 
     @Mock
     private MarketingEventServiceImpl marketingEventService;
@@ -123,6 +127,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
         marketingEventDto1 = beanMappingService.mapTo(marketingEvent1, MarketingEventDto.class);
 
         wineList1 = new WineList();
+        wineList1.setId(1L);
         wineList1.setName("wine list 1");
         wineList1.setWines(Arrays.asList(veltlinskeZelene, muskatMoravsky));
         wineList1.setDate(LocalDateTime.of(2016,11,25,0,0));
@@ -134,10 +139,12 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
         wineListCreateDto1.setWinesIds(Arrays.asList(veltlinskeZelene.getId(), muskatMoravsky.getId()));
 
         wineListDto1 = beanMappingService.mapTo(wineList1, WineListDto.class);
+        wineListDto1.setId(1L);
         wineListDto1.setMarketingEvent(marketingEventDto1);
         wineListDto1.setWines(Arrays.asList(veltlinskeZeleneDto, muskatMoravskyDto));
 
         wineList2 = new WineList();
+        wineList2.setId(2L);
         wineList2.setName("wine list 2");
         wineList2.setWines(Arrays.asList(muskatMoravsky));
         wineList2.setDate(LocalDateTime.of(2016,10,25,0,0));
@@ -149,6 +156,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
         wineListCreateDto2.setWinesIds(Arrays.asList(muskatMoravsky.getId()));
 
         wineListDto2 = beanMappingService.mapTo(wineList2, WineListDto.class);
+        wineListDto2.setId(2L);
         wineListDto2.setMarketingEvent(marketingEventDto1);
         wineListDto2.setWines(Arrays.asList(muskatMoravskyDto));
     }
@@ -174,7 +182,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findById() {
         when(wineListService.findWineListById(1L)).thenReturn(wineList1);
-        assertThat(wineListFacade.findWineListById(1L)).isEqualTo(wineList1);
+        assertThat(wineListFacade.findWineListById(1L)).isEqualTo(wineListDto1);
     }
 
     @Test

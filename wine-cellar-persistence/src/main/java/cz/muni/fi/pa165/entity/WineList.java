@@ -68,7 +68,7 @@ public class WineList {
     }
 
     public List<Wine> getWines() {
-        return Collections.unmodifiableList(wines);
+        return wines;
     }
 
     public void setWines(List<Wine> wines) {
