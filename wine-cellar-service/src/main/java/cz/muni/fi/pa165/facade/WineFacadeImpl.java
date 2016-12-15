@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.List;
@@ -30,7 +29,7 @@ public class WineFacadeImpl implements WineFacade {
     @Override
     public Long createWine(WineDto wineDto) {
         if (wineDto == null) {
-            throw new IllegalArgumentException("wineDto is null");
+            throw new IllegalArgumentException("WineDTO cannot be null");
         }
         Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
         wineService.createWine(wine);
@@ -44,6 +43,9 @@ public class WineFacadeImpl implements WineFacade {
 
     @Override
     public void updateWine(WineDto wineDto) {
+        if (wineDto == null) {
+            throw new IllegalArgumentException("WineDTO cannot be null");
+        }
         Wine mappedWine = beanMappingService.mapTo(wineDto, Wine.class);
         wineService.updateWine(mappedWine);
     }
@@ -51,7 +53,7 @@ public class WineFacadeImpl implements WineFacade {
     @Override
     public WineDto findWineById(Long id) {
         if (wineService.findWineById(id) == null) {
-            throw new NoResultException();
+            throw new IllegalArgumentException("Wine ID cannot be null");
         }
         return beanMappingService.mapTo(wineService.findWineById(id), WineDto.class);
     }
@@ -59,85 +61,100 @@ public class WineFacadeImpl implements WineFacade {
     @Override
     public void deleteWine(Long wineId) {
         Wine wine = wineService.findWineById(wineId);
-         wineService.deleteWine(wine);
+        wineService.deleteWine(wine);
     }
 
     @Override
     public List<WineDto> findWinesByName(String name) {
-        if (wineService.findWinesByName(name) == null) {
-            throw new NoResultException();
+        if (name == null) {
+            throw new IllegalArgumentException("Wine name cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByName(name), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByVintage(Year vintage) {
-        if (wineService.findWinesByVintage(vintage) == null) {
-            throw new NoResultException();
+        if (vintage == null) {
+            throw new IllegalArgumentException("Wine vintage cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByVintage(vintage), WineDto.class);
     }
 
     @Override
     public WineDto findWineByBatch(String batch) {
-        if (wineService.findWineByBatch(batch) == null) {
-            throw new NoResultException();
+        if (batch == null) {
+            throw new IllegalArgumentException("Wine batch cannot be null");
         }
         return beanMappingService.mapTo(wineService.findWineByBatch(batch), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByPredicate(String predicate) {
-        if (wineService.findWinesByPredicate(predicate) == null) {
-            throw new NoResultException();
+        if (predicate == null) {
+            throw new IllegalArgumentException("Wine predicate cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByPredicate(predicate), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByPredicateEquivalent(String predicateEquivalent) {
-        if (wineService.findWinesByPredicateEquivalent(predicateEquivalent) == null) {
-            throw new NoResultException();
+        if (predicateEquivalent == null) {
+            throw new IllegalArgumentException("Wine predicate equivalent cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByPredicateEquivalent(predicateEquivalent), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByAlcoholVolume(BigDecimal fromAlcoholVolume, BigDecimal toAlcoholVolume) {
-        if (wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume) == null) {
-            throw new NoResultException();
+        if (fromAlcoholVolume == null) {
+            throw new IllegalArgumentException("Wine fromAlcoholVolume cannot be null");
+        }
+        if (toAlcoholVolume == null) {
+            throw new IllegalArgumentException("Wine toAlcoholVolume cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByAlcoholVolume(fromAlcoholVolume, toAlcoholVolume), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByResidualSugar(BigDecimal fromResidualSugar, BigDecimal toResidualSugar) {
-        if (wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar) == null) {
-            throw new NoResultException();
+        if (fromResidualSugar == null) {
+            throw new IllegalArgumentException("Wine fromResidualSugar cannot be null");
+        }
+        if (toResidualSugar == null) {
+            throw new IllegalArgumentException("Wine toResidualSugar cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByResidualSugar(fromResidualSugar, toResidualSugar), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByAcidity(BigDecimal fromAcidity, BigDecimal toAcidity) {
-        if (wineService.findWinesByAcidity(fromAcidity, toAcidity) == null) {
-            throw new NoResultException();
+        if (fromAcidity == null) {
+            throw new IllegalArgumentException("Wine fromAcidity cannot be null");
+        }
+        if (toAcidity == null) {
+            throw new IllegalArgumentException("Wine toAcidity cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByAcidity(fromAcidity, toAcidity), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesByGrapeSugarContent(BigDecimal fromGrapeSugarContent, BigDecimal toGrapeSugarContent) {
-        if (wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent) == null) {
-            throw new NoResultException();
+        if (fromGrapeSugarContent == null) {
+            throw new IllegalArgumentException("Wine fromGrapeSugarContent cannot be null");
+        }
+        if (toGrapeSugarContent == null) {
+            throw new IllegalArgumentException("Wine toGrapeSugarContent cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesByGrapeSugarContent(fromGrapeSugarContent, toGrapeSugarContent), WineDto.class);
     }
 
     @Override
     public List<WineDto> findWinesBetweenYears(Year from, Year to) {
-        if (wineService.findWinesBetweenYears(from, to) == null) {
-            throw new NoResultException();
+        if (from == null) {
+            throw new IllegalArgumentException("Wine fromYear cannot be null");
+        }
+        if (to == null) {
+            throw new IllegalArgumentException("Wine toYear cannot be null");
         }
         return beanMappingService.mapToCollection(wineService.findWinesBetweenYears(from, to), WineDto.class);
     }

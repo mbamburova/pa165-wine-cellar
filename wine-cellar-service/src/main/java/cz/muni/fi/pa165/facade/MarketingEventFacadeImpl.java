@@ -27,7 +27,6 @@ public class MarketingEventFacadeImpl implements MarketingEventFacade {
 
     @Override
     public Long createMarketingEvent(MarketingEventDto marketingEventDto) {
-
         if (marketingEventDto == null) {
             throw new IllegalArgumentException("marketingEvent is null!");
         }
