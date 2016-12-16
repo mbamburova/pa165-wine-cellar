@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.facade;
 
+import cz.muni.fi.pa165.dto.WineCreateDto;
 import cz.muni.fi.pa165.dto.WineDto;
+import cz.muni.fi.pa165.dto.WineUpdateDto;
 
 import java.math.BigDecimal;
 import java.time.Year;
@@ -12,9 +14,9 @@ import java.util.List;
  */
 public interface WineFacade {
 
-    Long createWine(WineDto wineDto);
+    Long createWine(WineCreateDto wineDto);
 
-    void updateWine(WineDto wineDto);
+    void updateWine(WineUpdateDto wineDto);
 
     void deleteWine(Long wineId);
 
@@ -31,4 +33,5 @@ public interface WineFacade {
     List<WineDto> findWinesByGrapeSugarContent(BigDecimal fromGrapeSugarContent, BigDecimal toGrapeSugarContent);
 
     List<WineDto> findWinesBetweenYears(Year from, Year to);
+    WineUpdateDto toWineUpdateDto(WineDto wineDto);
 }
