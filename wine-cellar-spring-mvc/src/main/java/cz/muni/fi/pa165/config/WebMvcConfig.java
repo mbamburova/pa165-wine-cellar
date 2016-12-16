@@ -38,7 +38,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/pa165").setViewName("index");
+        registry.addViewController("/").setViewName("index");
     }
 
     @Bean
