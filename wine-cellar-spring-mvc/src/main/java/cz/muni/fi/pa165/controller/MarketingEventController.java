@@ -21,7 +21,7 @@ import javax.validation.Valid;
  * @version 2016.12.11
  */
 @Controller
-@RequestMapping("pa165/marketingevents")
+@RequestMapping("/marketingevents")
 public class MarketingEventController {
 
     @Inject

@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("pa165/packings")
+@RequestMapping("/packings")
 public class PackingController {
 
     @Inject

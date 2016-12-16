@@ -23,10 +23,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * @author Tomas Gordian on 11/6/2016.
+ * @author Silvia Borzova
+ *          16/12/2016.
  */
 @Controller
-@RequestMapping("pa165/winelists")
+@RequestMapping("/winelists")
 public class WineListController {
 
     @Inject

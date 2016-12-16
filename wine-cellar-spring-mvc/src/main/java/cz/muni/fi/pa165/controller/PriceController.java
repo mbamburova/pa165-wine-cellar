@@ -27,7 +27,7 @@ import java.util.List;
  * @version 2016.12.11
  */
 @Controller
-@RequestMapping("pa165/prices")
+@RequestMapping("/prices")
 public class PriceController {
 
     @Inject
