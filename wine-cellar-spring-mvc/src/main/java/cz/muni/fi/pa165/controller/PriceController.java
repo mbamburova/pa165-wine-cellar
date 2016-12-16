@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.PriceCreateDto;
+import cz.muni.fi.pa165.dto.PriceDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.PriceFacade;
@@ -17,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,17 +41,7 @@ public class PriceController {
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        List<PriceCreateDto> prices = new ArrayList<>();
-        for (PriceDto priceDto : priceFacade.findAllPrices()) {
-            PriceCreateDto priceCreateDto = new PriceCreateDto();
-            priceCreateDto.setPrice(priceDto.getPrice());
-            priceCreateDto.setCurrency(priceDto.getCurrency());
-            priceCreateDto.setPackingId(priceDto.getPacking().getId());
-            if (priceDto.getMarketingEvent() != null){
-                priceCreateDto.setMarketingEventId(priceDto.getMarketingEvent().getId());
-            }
-            prices.add(priceCreateDto);
-        }
+        List<PriceDto> prices = priceFacade.findAllPrices();
         model.addAttribute("prices", prices);
         return "prices/index";
     }
