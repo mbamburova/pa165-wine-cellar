@@ -1,4 +1,5 @@
-# FI-MUNI-PA165 Wine cellar
+# FI-MUNI-PA165 Wine cellar 
+[![Build Status](https://travis-ci.org/mbamburova/pa165-wine-cellar.svg?branch=master)](https://travis-ci.org/mbamburova/pa165-wine-cellar)
 
 The school project for Java EE seminar.
 
