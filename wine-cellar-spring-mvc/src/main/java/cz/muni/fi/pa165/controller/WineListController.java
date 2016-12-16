@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +64,7 @@ public class WineListController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
-        wineListFacade.deleteWineList(wineListDto);
+        wineListFacade.deleteWineList(id);
         redirectAttributes.addFlashAttribute("alert_success", "WineList \"" + wineListDto.getName() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/winelists/index").toUriString();
     }
@@ -75,31 +74,15 @@ public class WineListController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-
-            }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-
             }
             return "winelists/new";
         }
-
-        WineListDto wineListDto = new WineListDto();
-
-        wineListDto.setDate(formBean.getDate());
-
-        for (Long wineId : formBean.getWinesIds()) {
-            wineListDto.addWine(wineFacade.findWineById(wineId));
-        }
-        if(formBean.getMarketingEventId() != null) {
-            wineListDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
-        }
-        wineListDto.setName(formBean.getName());
-        wineListFacade.createWineList(wineListDto);
+        Long id = wineListFacade.createWineList(formBean);
 
         redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getName() + " was created");
-        return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(formBean.getId()).encode().toUriString();
+        return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(id).encode().toUriString();
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
@@ -112,49 +95,21 @@ public class WineListController {
     public String update(@PathVariable long id, Model model) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
 
-        WineListCreateDto wineListCreateDto = new WineListCreateDto();
-        wineListCreateDto.setName(wineListDto.getName());
-        //wineListCreateDto.setDate(wineListDto.getDate());
-
-        wineListCreateDto.setDate((wineListDto.getDate()));
-
-        if(wineListDto.getMarketingEvent() != null) {
-            wineListCreateDto.setMarketingEventId(wineListDto.getMarketingEvent().getId());
-        }
-        for (WineDto wineDto : wineListDto.getWines()) {
-            wineListCreateDto.addWine(wineDto.getId());
-        }
-
-        model.addAttribute("wineListUpdate", wineListCreateDto);
+        model.addAttribute("wineListUpdate", wineListDto);
         return "winelists/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("wineListUpdate") WineListCreateDto formBean, BindingResult bindingResult,
+    public String update(@Valid @ModelAttribute("wineListUpdate") WineListDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
+        for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
             return "winelists/update";
         }
+        wineListFacade.updateWineList(formBean);
 
-        WineListDto wineListDto = new WineListDto();
-        wineListDto.setId(formBean.getId());
-
-        wineListDto.setDate(formBean.getDate());
-
-        for (Long wineId : formBean.getWinesIds()) {
-            wineListDto.addWine(wineFacade.findWineById(wineId));
-        }
-        wineListDto.setMarketingEvent(marketingEventFacade.findMarketingEventById(formBean.getMarketingEventId()));
-        wineListDto.setName(formBean.getName());
-
-        wineListFacade.updateWineList(wineListDto);
-        //report success
         redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getName() + " was updated");
         return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }

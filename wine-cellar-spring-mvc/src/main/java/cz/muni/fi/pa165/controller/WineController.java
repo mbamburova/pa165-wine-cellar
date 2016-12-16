@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,37 +29,10 @@ public class WineController {
     public String index(Model model, @RequestParam(value = "name", required = false) String title,
                                      @RequestParam(value = "vintage", required = false)String vintage) {
 
-        List<WineDto> wines = new ArrayList<>();
-
-        if(!(("").equals(title)) && title != null) {
-            wines.addAll(wineFacade.findWinesByName(title));
-        } else {
-            wines.addAll(wineFacade.findAllWines());
-        }
-
-        if(!(("").equals(vintage)) && vintage!=null) {
-            wines = removeWines(wines,"vintage",vintage);
-        }
+        List<WineDto> wines = wineFacade.findAllWines();
 
         model.addAttribute("wines", wines);
         return "wines/index";
-    }
-
-    public List<WineDto> removeWines(List<WineDto> wines, String atribute, String value) {
-
-        List<WineDto> removedWines = new ArrayList<>();
-        removedWines.addAll(wines);
-
-        if(atribute.equals("vintage")) {
-
-            for(WineDto wine : wines) {
-                if(wine.getVintage() != Integer.valueOf(value)) {
-                    removedWines.remove(wine);
-                }
-            }
-        }
-
-        return removedWines;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -72,7 +44,7 @@ public class WineController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wineDto = wineFacade.findWineById(id);
-        wineFacade.deleteWine(wineDto);
+        wineFacade.deleteWine(id);
         redirectAttributes.addFlashAttribute("alert_success", "Wine \"" + wineDto.getName() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
@@ -82,12 +54,8 @@ public class WineController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
+           for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-
             }
             return "wines/new";
         }

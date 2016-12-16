@@ -18,7 +18,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,15 +37,8 @@ public class PackingController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        List<PackingCreateDto> packings = new ArrayList<>();
-        for (PackingDto packingDto : packingFacade.findAllPackings()) {
-            PackingCreateDto packingCreateDto = new PackingCreateDto();
-            packingCreateDto.setVolume(packingDto.getVolume());
-            packingCreateDto.setValidFrom(packingDto.getValidFrom());
-            packingCreateDto.setValidTo(packingDto.getValidTo());
-            packingCreateDto.setWineId(packingDto.getWine().getId());
-            packings.add(packingCreateDto);
-        }
+        List<PackingDto> packings = packingFacade.findAllPackings();
+
         model.addAttribute("packings", packings);
         return "packings/index";
     }
@@ -74,17 +66,19 @@ public class PackingController {
             return "packings/new";
         }
 
-        packingFacade.createPacking(formBean);
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + formBean.getValidFrom() + " to " + formBean.getValidTo() + " for wine " + packingDto.getWine().getName() + " was created");
-        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
+        Long id = packingFacade.createPacking(formBean);
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + formBean.getValidFrom() + " to " +
+            formBean.getValidTo() + " for wine " + formBean.getWineId() + " was created");
+        return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(id).encode().toUriString();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         PackingDto packingDto = packingFacade.findPackingById(id);
-        packingFacade.deletePacking(packingDto);
+        packingFacade.deletePacking(id);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine " + packingDto.getWine().getName() + " was deleted.");
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + packingDto.getValidFrom() + " to " +
+            packingDto.getValidTo() + " for wine " + packingDto.getWine().getName() + " was deleted.");
         return "redirect:" + uriBuilder.path("/packings/index").toUriString();
     }
 
@@ -109,7 +103,8 @@ public class PackingController {
         }
         packingFacade.updatePacking(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + packingDto.getValidFrom() + " to " + packingDto.getValidTo() + " for wine " + packingDto.getWine().getName() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "Packing from " + formBean.getValidFrom() + " to " + formBean.getValidTo()
+            + " for wine " + formBean.getWine().getName() + " was updated");
         return "redirect:" + uriBuilder.path("/packings/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 

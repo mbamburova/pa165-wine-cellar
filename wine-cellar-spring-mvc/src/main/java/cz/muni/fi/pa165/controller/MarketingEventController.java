@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,9 +44,6 @@ public class MarketingEventController {
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-
-            }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
 
@@ -64,7 +60,7 @@ public class MarketingEventController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         MarketingEventDto marketingEventDto = marketingEventFacade.findMarketingEventById(id);
-        marketingEventFacade.deleteMarketingEvent(marketingEventDto);
+        marketingEventFacade.deleteMarketingEvent(id);
         redirectAttributes.addFlashAttribute("alert_success", "Marketing Event \"" + marketingEventDto.getDescription() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/marketingevents/index").toUriString();
     }
@@ -80,10 +76,7 @@ public class MarketingEventController {
     public String update(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
-            for (ObjectError ge : bindingResult.getGlobalErrors()) {
-
-            }
-            for (FieldError fe : bindingResult.getFieldErrors()) {
+             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
 
             }
