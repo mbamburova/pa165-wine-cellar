@@ -19,7 +19,7 @@ import java.util.List;
  * @author Tomas Gordian on 11/6/2016.
  */
 @Controller
-@RequestMapping("pa165/wines")
+@RequestMapping("/wines")
 public class WineController {
 
     @Inject
@@ -59,6 +59,7 @@ public class WineController {
             }
             return "wines/new";
         }
+
 
         Long id = wineFacade.createWine(formBean);
 

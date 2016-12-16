@@ -18,21 +18,14 @@
     <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${wineListView.id}"
                modelAttribute="wineListView" cssClass="form-horizontal">
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th class="text-center"><fmt:message key="number"/></th>
                 <th class="text-center"><fmt:message key="wine.name"/></th>
                 <th class="text-center"><fmt:message key="wine.vintage"/></th>
-                <th class="text-center"><fmt:message key="wine.batch"/></th>
                 <th class="text-center"><fmt:message key="wine.predicate"/></th>
-                <th class="text-center"><fmt:message key="wine.predicateEquivalent"/></th>
-                <th class="text-center"><fmt:message key="wine.description"/></th>
-                <th class="text-center"><fmt:message key="wine.notes"/></th>
                 <th class="text-center"><fmt:message key="wine.alcoholVolume"/></th>
-                <th class="text-center"><fmt:message key="wine.residualSugar"/></th>
-                <th class="text-center"><fmt:message key="wine.acidity"/></th>
-                <th class="text-center"><fmt:message key="wine.grapeSugarContent"/></th>
             </tr>
         </thead>
         <tbody>
@@ -42,20 +35,12 @@
                     <td class="col-xs-3 text-center">${count}.</td>
                     <td class="col-xs-3 text-center"><c:out value="${wine.name}"/></td>
                     <td class="col-xs-3 text-center"><c:out value="${wine.vintage}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.batch}"/></td>
                     <td class="col-xs-3 text-center"><c:out value="${wine.predicate}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.predicateEquivalent}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.description}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.notes}"/></td>
                     <td class="col-xs-3 text-center"><c:out value="${wine.alcoholVolume}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.residualSugar}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.acidity}"/></td>
-                    <td class="col-xs-3 text-center"><c:out value="${wine.grapeSugarContent}"/></td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-
     </form:form>
 
 </jsp:attribute>

@@ -36,18 +36,19 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><f:message key="navigation.admin"/><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><my:a href="/wines/index"><f:message key="navigation.admin.wines"/></my:a></li>
-                        <li><my:a href="/winelists/index"><f:message key="navigation.admin.winelists"/></my:a></li>
-                        <li><my:a href="/packings/index"><f:message key="navigation.admin.packings"/></my:a></li>
-                        <li><my:a href="/prices/index"><f:message key="navigation.admin.prices"/></my:a></li>
-                        <li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>
-                    </ul>
-                </li>
+                <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
+                <li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>
+                <%--<li class="dropdown">--%>
+                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><f:message key="navigation.admin"/><b class="caret"></b></a>--%>
+                    <%--<ul class="dropdown-menu">--%>
+                        <%--<li><my:a href="/wines/index"><f:message key="navigation.admin.wines"/></my:a></li>--%>
+                        <%--<li><my:a href="/winelists/index"><f:message key="navigation.admin.winelists"/></my:a></li>--%>
+                        <%--<li><my:a href="/packings/index"><f:message key="navigation.admin.packings"/></my:a></li>--%>
+                        <%--<li><my:a href="/prices/index"><f:message key="navigation.admin.prices"/></my:a></li>--%>
+                        <%--<li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>--%>
+                    <%--</ul>--%>
+                <%--</li>--%>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
