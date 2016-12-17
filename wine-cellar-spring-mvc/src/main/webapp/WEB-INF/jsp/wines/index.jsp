@@ -16,26 +16,24 @@
 
     <div class="jumbotron">
         <h1><fmt:message key="Wines"/></h1>
-        <%--<p class="lead"><fmt:message key="songs.subheading"/></p>--%>
-        <%--<p><fmt:message key="songs.search_intro_text"/></p>--%>
 
-        <form:form method="GET"
-                   action="${pageContext.request.contextPath}/wines/index"
-                   acceptCharset=""
-                   cssClass="form-inline">
+        <%--<form:form method="GET"--%>
+                   <%--action="${pageContext.request.contextPath}/wines/index"--%>
+                   <%--acceptCharset=""--%>
+                   <%--cssClass="form-inline">--%>
 
                 <fmt:message key="nameHolder" var="wineHolder"/>
-                <input name="name" value="${wine.name}" class="form-control" autocomplete="off" placeholder="${wineHolder}"/>
+                <%--<input name="name" value="${wine.name}" class="form-control" autocomplete="off" placeholder="${wineHolder}"/>--%>
 
-                <select name="vintage" class="form-control">
-                    <option value="" display ${empty wine.vintage ? ' selected' : ''}><fmt:message key="vintageHolder"/></option>
-                    <c:forEach items="${wines}" var="wine">
-                        <option value="${wine.vintage}">${wine.vintage}</option>
-                    </c:forEach>
-                </select>
+                <%--<select name="vintage" class="form-control">--%>
+                    <%--<option value="" display ${empty wine.vintage ? ' selected' : ''}><fmt:message key="vintageHolder"/></option>--%>
+                    <%--<c:forEach items="${wines}" var="wine">--%>
+                        <%--<option value="${wine.vintage}">${wine.vintage}</option>--%>
+                    <%--</c:forEach>--%>
+                <%--</select>--%>
 
-            <button class="btn btn-primary search-btn" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;<fmt:message key="search"/></button>
-            </form:form>
+            <%--<button class="btn btn-primary search-btn" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;<fmt:message key="search"/></button>--%>
+            <%--</form:form>--%>
 
             <p align="right">
                 <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/new" role="button">
@@ -52,7 +50,6 @@
                 <th class="text-center"><fmt:message key="wine.name"/></th>
                 <th class="text-center"><fmt:message key="wine.vintage"/></th>
                 <th class="text-center"><fmt:message key="wine.predicate"/></th>
-                <th class="text-center"><fmt:message key="wine.alcoholVolume"/></th>
                 <th class="text-center"><fmt:message key="detail"/></th>
                 <th class="text-center"><fmt:message key="edit"/></th>
                 <th class="text-center"><fmt:message key="delete"/></th>
@@ -67,7 +64,6 @@
                 <td class="col-xs-3 text-center"><c:out value="${wine.name}"/></td>
                 <td class="col-xs-3 text-center"><c:out value="${wine.vintage}"/></td>
                 <td class="col-xs-3 text-center"><c:out value="${wine.predicate}"/></td>
-                <td class="col-xs-3 text-center"><c:out value="${wine.alcoholVolume}"/></td>
 
                 <form:form method="get" action="${pageContext.request.contextPath}/wines/detail/${wine.id}" cssClass="form-horizontal">
                     <td class="col-xs-1 text-center">

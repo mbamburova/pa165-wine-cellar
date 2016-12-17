@@ -105,5 +105,54 @@
             <br/>
     </form:form>
 
+    <h1><fmt:message key="priceList"/></h1>
+    <br/>
+    <br/>
+
+      <p align="right">
+          <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new" role="button">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              <fmt:message key="createPricePacking"/>
+          </a>
+      </p>
+
+     <table class="table col-md-3">
+         <thead>
+         <tr>
+             <th><fmt:message key="price.price"/></th>
+             <th><fmt:message key="packing.volume"/></th>
+             <th><fmt:message key="packing.validFrom"/></th>
+             <th><fmt:message key="packing.validTo"/></th>
+         </tr>
+         </thead>
+         <tbody>
+         <c:forEach items="${pricePackings}" var="item">
+                    <tr>
+                        <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
+                        <td><c:out value="${item.packingDto.volume}"/></td>
+                        <td><c:out value="${item.packingDto.validFrom}"/></td>
+                        <td><c:out value="${item.packingDto.validTo}"/></td>
+                        <form:form method="get" action="${pageContext.request.contextPath}/wines/update/PricePacking${item.id}" cssClass="form-horizontal">
+                            <td class="col-xs-1 text-center">
+                                <button class="btn btn-default" type="submit">
+                                    <span class="sr-only"><fmt:message key="edit"/></span>
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </form:form>
+
+                        <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${item.id}" cssClass="form-horizontal">
+                            <td class="col-xs-1 text-center">
+                                <button class="btn btn-default" type="submit">
+                                    <span class="sr-only"><fmt:message key="remove"/></span>
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </form:form>
+                    </tr>
+                </c:forEach>
+         </tbody>
+     </table>
+
 </jsp:attribute>
 </my:template>

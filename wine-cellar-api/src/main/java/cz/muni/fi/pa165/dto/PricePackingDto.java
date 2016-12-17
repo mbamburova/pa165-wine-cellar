@@ -9,7 +9,6 @@ public class PricePackingDto {
 
     private PackingDto packingDto;
 
-
     public PriceDto getPriceDto() {
         return priceDto;
     }

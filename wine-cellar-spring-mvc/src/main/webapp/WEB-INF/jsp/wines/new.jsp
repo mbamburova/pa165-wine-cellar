@@ -98,7 +98,7 @@
                     <form:errors path="grapeSugarContent" cssClass="help-block"/>
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit">Create wine</button>
+            <button class="btn btn-primary" type="submit">Save</button>
             <br/>
             <br/>
         </form:form>

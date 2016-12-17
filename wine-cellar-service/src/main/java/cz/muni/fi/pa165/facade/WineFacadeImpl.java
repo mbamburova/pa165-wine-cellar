@@ -199,6 +199,7 @@ public class WineFacadeImpl implements WineFacade {
 
     private Wine mappedWine(WineUpdateDto wineDto) {
         Wine wine = new Wine();
+        wine.setId(wineDto.getId());
         wine.setVintage(Year.of(wineDto.getVintage()));
         wine.setAcidity(wineDto.getAcidity());
         wine.setAlcoholVolume(wineDto.getAlcoholVolume());

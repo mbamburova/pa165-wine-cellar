@@ -4,6 +4,9 @@ import cz.muni.fi.pa165.dto.WineCreateDto;
 import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListDto;
 import cz.muni.fi.pa165.dto.WineUpdateDto;
+import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.facade.PackingFacade;
+import cz.muni.fi.pa165.facade.PriceFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,12 @@ public class WineController {
     private WineFacade wineFacade;
 
     @Inject
+    private PackingFacade packingFacade;
+
+    @Inject
+    private PriceFacade priceFacade;
+
+    @Inject
     private WineListFacade wineListFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -52,8 +61,35 @@ public class WineController {
         return "wines/new";
     }
 
+    @RequestMapping(value = "/newPricePacking", method = RequestMethod.GET)
+    public String newPackingPrice(Model model){
+        model.addAttribute("pricePacking", new PricePackingDto());
+        return "wines/newPricePacking";
+    }
+
+    @RequestMapping(value = "/newPricePacking", method = RequestMethod.POST)
+    public String newPackingPrice(@Valid @ModelAttribute("packingPrice") PricePackingDto formBean, BindingResult bindingResult,
+                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+            }
+            return "wines/newPricePacking";
+        }
+//        packingFacade.createPacking()
+//
+//
+//
+//        redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getName() + " was created");
+//        return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand(id).encode().toUriString();
+
+        return null;
+
+    }
+
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wineDto = wineFacade.findWineById(id);
         wineFacade.deleteWine(id);
         redirectAttributes.addFlashAttribute("alert_success", "Wine \"" + wineDto.getName() + "\" was deleted.");
@@ -71,6 +107,7 @@ public class WineController {
             model.addAttribute("vintageValues", vintageValues());
             return "wines/new";
         }
+
         Long id = wineFacade.createWine(formBean);
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getName() + " was created");
@@ -82,20 +119,31 @@ public class WineController {
         WineDto wineDto = wineFacade.findWineById(id);
         WineUpdateDto toUpdate = wineFacade.toWineUpdateDto(wineDto);
 
+        List<PricePackingDto> pricePackingDtos = new ArrayList<>();
+
+        for (PackingDto packingDto : packingFacade.findPackingsByWine(wineFacade.findWineById(id))){
+            for (PriceDto priceDto : priceFacade.findPricesByPacking(packingDto)){
+                PricePackingDto pricePackingDto = new PricePackingDto();
+                pricePackingDto.setPackingDto(packingDto);
+                pricePackingDto.setPriceDto(priceDto);
+                pricePackingDtos.add(pricePackingDto);
+            }
+        }
+
+        model.addAttribute("pricePackings", pricePackingDtos);
         model.addAttribute("vintageValues", vintageValues());
         model.addAttribute("wineUpdate", toUpdate);
         return "wines/update";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute("wineUpdate") WineUpdateDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
-            model.addAttribute("vintageValues", vintageValues());
-            return "redirect:" + uriBuilder.path("/wines/update").buildAndExpand(formBean.getId()).encode().toUriString();
+            return "wines/update";
         }
 
         wineFacade.updateWine(formBean);
@@ -111,6 +159,25 @@ public class WineController {
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand(id).encode().toUriString();
+    }
+
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    public String detail(@PathVariable long id, Model model) {
+
+        List<PricePackingDto> pricePackingDtos = new ArrayList<>();
+
+        for (PackingDto packingDto : packingFacade.findPackingsByWine(wineFacade.findWineById(id))){
+            for (PriceDto priceDto : priceFacade.findPricesByPacking(packingDto)){
+                PricePackingDto pricePackingDto = new PricePackingDto();
+                pricePackingDto.setPackingDto(packingDto);
+                pricePackingDto.setPriceDto(priceDto);
+                pricePackingDtos.add(pricePackingDto);
+            }
+        }
+
+        model.addAttribute("wine", wineFacade.findWineById(id));
+        model.addAttribute("pricePackings", pricePackingDtos);
+        return "wines/detail";
     }
 
     @ModelAttribute("vintageValues")
