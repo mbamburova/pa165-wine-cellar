@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165;
 
-import cz.muni.fi.pa165.SampleDataLoadingFacade;
-import cz.muni.fi.pa165.SampleDataLoadingFacadeImpl;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

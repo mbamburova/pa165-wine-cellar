@@ -115,5 +115,11 @@
             <artifactId>spring-tx</artifactId>
             <version>4.3.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.sonatype.sisu</groupId>
+            <artifactId>sisu-inject-bean</artifactId>
+            <version>1.4.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

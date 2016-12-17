@@ -5,13 +5,13 @@ import cz.muni.fi.pa165.dto.WineListDto;
 import cz.muni.fi.pa165.exceptions.ResourceAlreadyExistingException;
 import cz.muni.fi.pa165.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.exceptions.ResourceNotModifiedException;
-import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
 import cz.muni.fi.pa165.rest.ApiUris;
-import java.util.List;
-import javax.inject.Inject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author MarekScholtz
@@ -23,9 +23,6 @@ public class WineListController {
 
     @Inject
     private WineListFacade wineListFacade;
-
-    @Inject
-    private WineFacade wineFacade;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<WineListDto> getAlbums(@RequestParam(value = "name", required = false) String name) {
@@ -61,11 +58,6 @@ public class WineListController {
     public final WineListDto updateWineList(@PathVariable("id") long id, @RequestBody WineListDto editedWineList) throws Exception {
 
         try {
-            WineListDto wineList = wineListFacade.findWineListById(id);
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
-        }
-        try {
             editedWineList.setId(id);
             wineListFacade.updateWineList(editedWineList);
         } catch(Exception ex){
@@ -76,7 +68,7 @@ public class WineListController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public final void removeAlbum(@PathVariable("id") long id) throws Exception {
+    public final void removeWineList(@PathVariable("id") long id) throws Exception {
         try {
             wineListFacade.deleteWineList(id);
         } catch (Exception ex) {
