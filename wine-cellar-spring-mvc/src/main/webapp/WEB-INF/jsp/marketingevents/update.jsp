@@ -18,9 +18,9 @@
         <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/update/${marketingEventUpdate.id}"
                    modelAttribute="marketingEventUpdate" cssClass="form-horizontal">
 
-            <div class="form-group ${description_error?'has-error':''}">
+            <div class="col-md-12 com-md-offset-2 form-group ${description_error?'has-error':''}">
                 <form:label path="description" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent.description"/></form:label>
-                <div class="col-sm-10">
+                <div class="col-sm-4">
                     <form:input path="description" cssClass="form-control"/>
                     <form:errors path="description" cssClass="help-block"/>
                 </div>
