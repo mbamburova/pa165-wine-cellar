@@ -15,7 +15,7 @@ public class PriceCreateDto {
     @NotNull
     private Currency currency;
 
-    @NotNull
+    //@NotNull
     private Long packingId;
 
     private Long marketingEventId;
