@@ -5,6 +5,7 @@
   Time: 14:29
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,7 +19,7 @@
 
        <div class="row">
           <div class="row">
-              <table class="col-md-3"></table>
+              <table class="table col-md-3">
               <tbody>
               <tr>
                   <td><b><fmt:message key="wine.predicate"/>: </b></td>
@@ -57,6 +58,7 @@
                   <td><c:out value="${wine.notes}" /></td>
               </tr>
               </tbody>
+              </table>
           </div>
 
           <div>
@@ -72,10 +74,10 @@
               <tbody>
                 <c:forEach items="${pricePackings}" var="item">
                     <tr>
-                        <td><c:out value="${item.price}"/></td>
-                        <td><c:out value="${item.volume}"/></td>
-                        <td><c:out value="${item.validFrom}"/></td>
-                        <td><c:out value="${item.validTo}"/></td>
+                        <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
+                        <td><c:out value="${item.packingDto.volume}"/></td>
+                        <td><c:out value="${item.packingDto.validFrom}"/></td>
+                        <td><c:out value="${item.packingDto.validTo}"/></td>
                     </tr>
                 </c:forEach>
               </tbody>

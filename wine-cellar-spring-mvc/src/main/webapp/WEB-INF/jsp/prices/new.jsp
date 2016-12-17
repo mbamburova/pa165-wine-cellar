@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: MarekScholtz
+  User: Tomas Gordian
   Date: 10.12.2016
   Time: 19:25
   To change this template use File | Settings | File Templates.
@@ -12,47 +12,57 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:template title="New Price">
+<my:template title="Create packing with price">
 <jsp:attribute name="body">
 
     <form:form method="post" action="${pageContext.request.contextPath}/prices/create"
-               modelAttribute="priceCreate" cssClass="form-horizontal">
+               modelAttribute="pricePacking" cssClass="form-horizontal">
         <div class="container">
-            <div class="form-group ${price_error?'has-error':''}">
-                <form:label path="price" cssClass="col-sm-2 control-label">Price</form:label>
-                <div class="col-sm-10">
-                    <form:input path="price" cssClass="form-control"/>
-                    <form:errors path="price" cssClass="help-block"/>
+            <div class="col-md-12 com-md-offset-2 form-group ${volume_error?'has-error':''}">
+                <form:label path="packingDto.volume" cssClass="col-sm-2 control-label"><fmt:message key="packing.volume"/></form:label>
+                <div class="col-sm-4">
+                    <form:input path="packingDto.volume" cssClass="form-control" required="true"/>
+                    <form:errors path="packingDto.volume" cssClass="help-block"/>
+                </div>
+            </div>
+            <div class="col-md-12 com-md-offset-2 form-group ${price_error?'has-error':''}">
+                <form:label path="priceDto.price" cssClass="col-sm-2 control-label"><fmt:message key="price.price"/></form:label>
+                <div class="col-sm-4">
+                    <form:input path="priceDto.price" cssClass="form-control" required="true"/>
+                    <form:errors path="priceDto.price" cssClass="help-block"/>
+                </div>
+            </div>
+            <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
+                <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label"><fmt:message key="packing.validFrom"/></form:label>
+                <div class="col-sm-4">
+                    <form:input path="packingDto.validFrom" cssClass="form-control" required="true"/>
+                    <form:errors path="packingDto.validFrom" cssClass="help-block"/>
+                </div>
+            </div>
+            <div class="col-md-12 com-md-offset-2 form-group ${validTo_error?'has-error':''}">
+                <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label"><fmt:message key="packing.validTo"/></form:label>
+                <div class="col-sm-4">
+                    <form:input path="packingDto.validTo" cssClass="form-control"/>
+                    <form:errors path="packingDto.validTo" cssClass="help-block"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <form:label path="currency" cssClass="col-sm-2 control-label">currency</form:label>
-                <div class="col-sm-10">
-                <form:select path="currency" cssClass="form-control">
+                <form:label path="priceDto.currency" cssClass="col-sm-2 control-label"><fmt:message key="price.currency"/></form:label>
+                <div class="col-sm-4">
+                <form:select path="priceDto.currency" cssClass="form-control">
                     <c:forEach items="${currencies}" var="c">
                         <form:option value="${c}">${c}</form:option>
                     </c:forEach>
                 </form:select>
-                    <form:errors path="currency" cssClass="error"/>
+                    <form:errors path="priceDto.currency" cssClass="error"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <form:label path="packingId" cssClass="col-sm-2 control-label">Packing</form:label>
+                <form:label path="priceDto.marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
                 <div class="col-sm-10">
-                <form:select path="packingId" cssClass="form-control">
-                    <c:forEach items="${packings}" var="packing">
-                        <form:option value="${packing.id}">${packing.volume}&nbspfrom&nbsp${packing.validFrom}&nbspto&nbsp${packing.validTo}</form:option>
-                    </c:forEach>
-                </form:select>
-                    <p class="help-block"><form:errors path="packingId" cssClass="error"/></p>
-                </div>
-            </div>
-            <div class="form-group">
-                <form:label path="marketingEventId" cssClass="col-sm-2 control-label">Marketing Event</form:label>
-                <div class="col-sm-10">
-                <form:select path="marketingEventId" cssClass="form-control">
+                <form:select path="priceDto.marketingEventId" cssClass="form-control">
                     <c:forEach items="${marketingevents}" var="marketingevent">
                         <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
                     </c:forEach>
@@ -61,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Create prices</button>
+        <button class="btn btn-primary" type="submit"><fmt:message key="save"/></button>
     </form:form>
 
 </jsp:attribute>

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.controller;
 import cz.muni.fi.pa165.dto.MarketingEventDto;
 import cz.muni.fi.pa165.dto.PriceCreateDto;
 import cz.muni.fi.pa165.dto.PriceDto;
+import cz.muni.fi.pa165.dto.PricePackingDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.PriceFacade;
@@ -23,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author MarekScholtz
+ * @author Tomas Gordian
  * @version 2016.12.11
  */
 @Controller
@@ -38,17 +39,12 @@ public class PriceController {
     
     @Inject
     private MarketingEventFacade marketingEventFacade;
-    
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(Model model) {
-        List<PriceDto> prices = priceFacade.findAllPrices();
-        model.addAttribute("prices", prices);
-        return "prices/index";
-    }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newCategory(Model model) {
-        model.addAttribute("priceCreate", new PriceCreateDto());
+    public String newPrice(Model model) {
+        model.addAttribute("pricePacking", new PricePackingDto());
+        model.addAttribute("currencies");
+        model.addAttribute("marketingevents");
         return "prices/new";
     }
 
