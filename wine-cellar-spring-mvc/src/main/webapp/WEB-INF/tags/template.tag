@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}"><f:message key="navigation.project"/></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><f:message key="navigation.project"/></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -49,6 +49,11 @@
                         <%--<li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>--%>
                     <%--</ul>--%>
                 <%--</li>--%>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -98,7 +103,7 @@
 
     <!-- footer -->
     <footer class="footer">
-        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Borsuk, Bulimička, Kýblik, Retard z východu</p>
+        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;</p>
     </footer>
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->

@@ -31,17 +31,17 @@ public class WineList {
     @NotNull
     private String name;
 
-    @NotNull
-    @Convert(converter = LocalDateTimeConverter.class)
+   // @NotNull
+   // @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime date;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "WINELIST_WINE",
             joinColumns = { @JoinColumn(name = "WINELIST_ID") },
             inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
     private List<Wine> wines = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private MarketingEvent marketingEvent;
 
     public WineList(Long id) {

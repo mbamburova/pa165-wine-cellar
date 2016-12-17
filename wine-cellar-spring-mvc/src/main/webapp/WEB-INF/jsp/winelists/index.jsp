@@ -13,17 +13,17 @@
 
 <my:template title="Winelists">
 <jsp:attribute name="body">
-
+    <br />
     <my:a href="/winelists/new" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         New wineList
     </my:a>
-
+    <br />
     <table class="table">
         <thead>
             <tr>
                 <th class="text-center"><fmt:message key="number"/></th>
-                <th class="text-center"><fmt:message key="name"/></th>
+                <th class="text-center"><fmt:message key="winelist.name"/></th>
                 <th class="text-center"><fmt:message key="winelist.date"/></th>
                 <th class="text-center"><fmt:message key="winelist.marketingevent"/></th>
                 <th class="text-center"><fmt:message key="edit"/></th>

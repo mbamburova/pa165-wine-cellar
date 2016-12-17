@@ -35,7 +35,7 @@ public class MarketingEventDto {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return getId() != null ? getId().hashCode() : 0;
     }
 
 }

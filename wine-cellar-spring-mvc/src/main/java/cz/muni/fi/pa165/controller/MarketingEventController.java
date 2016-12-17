@@ -78,7 +78,6 @@ public class MarketingEventController {
         if (bindingResult.hasErrors()) {
              for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-
             }
             return "marketingevents/update";
         }

@@ -56,6 +56,7 @@
                 <th class="text-center"><fmt:message key="detail"/></th>
                 <th class="text-center"><fmt:message key="edit"/></th>
                 <th class="text-center"><fmt:message key="delete"/></th>
+                <th class="text-center"><fmt:message key="addToWineList"/></th>
             </tr>
         </thead>
         <tbody>
@@ -93,6 +94,21 @@
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                     </td>
+                </form:form>
+
+                <form:form method="get" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
+                <td class="col-xs-1 text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <c:forEach items="${wineLists}" var="winelist" >
+                                <li> <form:option value="${winelist.id}">${winelist.description}</form:option></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </td>
                 </form:form>
             </tr>
             </c:forEach>

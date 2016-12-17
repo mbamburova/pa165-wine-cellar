@@ -52,16 +52,6 @@ public class WineListController {
         return "winelists/new";
     }
 
-    @ModelAttribute("wines")
-    public List<WineDto> wineListWines() {
-        return wineFacade.findAllWines();
-    }
-
-    @ModelAttribute("marketingEvents")
-    public List<MarketingEventDto> marketingEvents() {
-        return marketingEventFacade.findAllMarketingEvents();
-    }
-
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
@@ -103,9 +93,10 @@ public class WineListController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@Valid @ModelAttribute("wineListUpdate") WineListDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+
         if (bindingResult.hasErrors()) {
-        for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                    model.addAttribute(fe.getField() + "_error", true);
             }
             return "winelists/update";
         }
@@ -113,5 +104,15 @@ public class WineListController {
 
         redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getName() + " was updated");
         return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(formBean.getId()).encode().toUriString();
+    }
+
+    @ModelAttribute("wines")
+    public List<WineDto> wineListWines() {
+        return wineFacade.findAllWines();
+    }
+
+    @ModelAttribute("marketingEvents")
+    public List<MarketingEventDto> marketingEvents() {
+        return marketingEventFacade.findAllMarketingEvents();
     }
 }
