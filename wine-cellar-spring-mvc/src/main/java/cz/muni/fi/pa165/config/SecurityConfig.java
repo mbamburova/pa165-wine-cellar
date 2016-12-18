@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Inject
     private AuthenticationConfig authenticationConfig;
@@ -28,24 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/wines/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/loan/create/**").access("hasAnyRole('ROLE_USER')")
-//                .antMatchers("/book/create/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/book/edit/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/book/delete/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/category/create/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/category/edit/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/category/delete/**").access("hasAnyRole('ROLE_ADMIN')")
-//                .antMatchers("/book/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-//                .antMatchers("/category/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-//                .antMatchers("/loan/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-//                .antMatchers("/user/detail").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-//                .antMatchers("/user/**").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/marketingevents/**").access("hasAnyRole('ROLE_ADMIN')")
                 .and()
                 .formLogin()
                 .loginPage("/login").loginProcessingUrl("/j_spring_security_check")
                 .failureUrl("/login?error=invalidLoginAttempt")
-                .usernameParameter("user").passwordParameter("pass")
+                .usernameParameter("user").passwordParameter("password")
                 .and()
                 .logout().logoutSuccessUrl("/")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

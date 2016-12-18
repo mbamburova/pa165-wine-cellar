@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.dto;
 
+import java.util.Objects;
 import cz.muni.fi.pa165.enums.UserRole;
 
 /**
@@ -22,6 +23,13 @@ public class UserCreateDto {
         this.userRole = UserRole.MEMBER;
     }
 
+    public UserCreateDto(String email, String firstName, String lastName, UserRole userRole) {
+        this();
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userRole = userRole;
+    }
 
     public Long getId() {
         return id;
@@ -64,18 +72,20 @@ public class UserCreateDto {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserCreateDto)) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof UserDto)) return false;
 
-        UserCreateDto user = (UserCreateDto) o;
+        UserDto other = (UserDto) obj;
 
-        return getId() != null && getId().equals(user.getId());
+        return getEmail() != null ? this.getEmail().equals(other.getEmail()) : other.getEmail() == null;
     }
 
     @Override
     public int hashCode() {
-        return getId() != null ? getId().hashCode() : 0;
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.getEmail());
+        return hash;
     }
 
 }

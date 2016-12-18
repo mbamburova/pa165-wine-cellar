@@ -24,8 +24,8 @@ public class UserDto {
         this.userRole = UserRole.MEMBER;
     }
 
-    public UserDto(Long id, String passwordHash, String email, String firstName, String lastName, UserRole userRole) {
-        this.id = id;
+    public UserDto(String passwordHash, String email, String firstName, String lastName, UserRole userRole) {
+        this();
         this.passwordHash = passwordHash;
         this.email = email;
         this.firstName = firstName;
