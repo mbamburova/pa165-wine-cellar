@@ -47,17 +47,9 @@
             <ul class="nav navbar-nav">
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
                 <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
-                <li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>
-                <%--<li class="dropdown">--%>
-                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><f:message key="navigation.admin"/><b class="caret"></b></a>--%>
-                    <%--<ul class="dropdown-menu">--%>
-                        <%--<li><my:a href="/wines/index"><f:message key="navigation.admin.wines"/></my:a></li>--%>
-                        <%--<li><my:a href="/winelists/index"><f:message key="navigation.admin.winelists"/></my:a></li>--%>
-                        <%--<li><my:a href="/packings/index"><f:message key="navigation.admin.packings"/></my:a></li>--%>
-                        <%--<li><my:a href="/prices/index"><f:message key="navigation.admin.prices"/></my:a></li>--%>
-                        <%--<li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>--%>
-                    <%--</ul>--%>
-                <%--</li>--%>
+                <c:if test="${user.isAdmin()}">
+                    <li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>
+                </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:choose>
@@ -116,9 +108,6 @@
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->
 
-<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"--%>
-        <%--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"--%>
-        <%--crossorigin="anonymous"></script>--%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
