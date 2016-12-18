@@ -61,68 +61,68 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         wineService.createWine(muskatMoravsky);
         wineService.createWine(svatovavrinecke);
 
-        MarketingEvent silvester = marketingEvent("silvester");
-        MarketingEvent narodeniny = marketingEvent("narodeniny");
-        MarketingEvent betatest = marketingEvent("betatest");
-
-        marketingEventService.createMarketingEvent(silvester);
-        marketingEventService.createMarketingEvent(narodeniny);
-        marketingEventService.createMarketingEvent(betatest);
-
-        WineList wineList1 = wineList("winelist1", LocalDateTime.of(2016,12,31,22,0),
-            Arrays.asList(veltlinskeZelene, muskatMoravsky, svatovavrinecke), silvester);
-        WineList wineList2 = wineList("winelist2", LocalDateTime.of(2017,1,25,0,0),
-            Arrays.asList(veltlinskeZelene, svatovavrinecke), narodeniny);
-        WineList wineList3 = wineList("winelist3", LocalDateTime.of(2017,2,10,20,0),
-            Arrays.asList(veltlinskeZelene, muskatMoravsky), betatest);
-
-        wineListService.createWineList(wineList1);
-        wineListService.createWineList(wineList2);
-        wineListService.createWineList(wineList3);
-
-        Packing veltlinskeZelene35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017,1,1,0,0),
-            null, veltlinskeZelene);
-        Packing veltlinskeZelene70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017,1,1,0,0),
-            LocalDateTime.of(2017,1,31,0,0), veltlinskeZelene);
-        Packing muskatMoravsky35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017,1,1,0,0),
-            null, muskatMoravsky);
-        Packing muskatMoravsky70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017,1,1,0,0),
-            LocalDateTime.of(2017,1,31,0,0), muskatMoravsky);
-        Packing svatovavrinecke35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017,1,1,0,0),
-            null, svatovavrinecke);
-        Packing svatovavrinecke70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017,1,1,0,0),
-            LocalDateTime.of(2017,1,31,0,0), svatovavrinecke);
-
-        packingService.createPacking(veltlinskeZelene35);
-        packingService.createPacking(veltlinskeZelene70);
-        packingService.createPacking(muskatMoravsky35);
-        packingService.createPacking(muskatMoravsky70);
-        packingService.createPacking(svatovavrinecke35);
-        packingService.createPacking(svatovavrinecke70);
-
-        Price veltlinskeZelene35CZK = price(new BigDecimal("50"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene35);
-        Price veltlinskeZelene70CZK = price(new BigDecimal("100"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene70);
-        Price veltlinskeZelene70EUR = price(new BigDecimal("2"), Currency.getInstance("EUR"), narodeniny, veltlinskeZelene70);
-
-        Price muskatMoravsky35CZK = price(new BigDecimal("55"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky35);
-        Price muskatMoravsky70CZK = price(new BigDecimal("110"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky70);
-        Price muskatMoravsky70EUR = price(new BigDecimal("3"), Currency.getInstance("EUR"), narodeniny, muskatMoravsky70);
-
-        Price svatovavrinecke35CZK = price(new BigDecimal("45"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke35);
-        Price svatovavrinecke70CZK = price(new BigDecimal("90"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke70);
-        Price svatovavrinecke70EUR = price(new BigDecimal("2.5"), Currency.getInstance("EUR"), narodeniny, svatovavrinecke70);
-
-        priceService.createPrice(veltlinskeZelene35CZK);
-        priceService.createPrice(veltlinskeZelene70CZK);
-        priceService.createPrice(veltlinskeZelene70EUR);
-
-        priceService.createPrice(muskatMoravsky35CZK);
-        priceService.createPrice(muskatMoravsky70CZK);
-        priceService.createPrice(muskatMoravsky70EUR);
-
-        priceService.createPrice(svatovavrinecke35CZK);
-        priceService.createPrice(svatovavrinecke70CZK);
-        priceService.createPrice(svatovavrinecke70EUR);
+//        MarketingEvent silvester = marketingEvent("silvester");
+//        MarketingEvent narodeniny = marketingEvent("narodeniny");
+//        MarketingEvent betatest = marketingEvent("betatest");
+//
+//        marketingEventService.createMarketingEvent(silvester);
+//        marketingEventService.createMarketingEvent(narodeniny);
+//        marketingEventService.createMarketingEvent(betatest);
+//
+//        WineList wineList1 = wineList("winelist1", LocalDateTime.of(2016,12,31,22,0),
+//            Arrays.asList(veltlinskeZelene, muskatMoravsky, svatovavrinecke), silvester);
+//        WineList wineList2 = wineList("winelist2", LocalDateTime.of(2017,1,25,0,0),
+//            Arrays.asList(veltlinskeZelene, svatovavrinecke), narodeniny);
+//        WineList wineList3 = wineList("winelist3", LocalDateTime.of(2017,2,10,20,0),
+//            Arrays.asList(veltlinskeZelene, muskatMoravsky), betatest);
+//
+//        wineListService.createWineList(wineList1);
+//        wineListService.createWineList(wineList2);
+//        wineListService.createWineList(wineList3);
+//
+//        Packing veltlinskeZelene35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017,1,1,0,0),
+//            null, veltlinskeZelene);
+//        Packing veltlinskeZelene70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017,1,1,0,0),
+//            LocalDateTime.of(2017,1,31,0,0), veltlinskeZelene);
+//        Packing muskatMoravsky35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017,1,1,0,0),
+//            null, muskatMoravsky);
+//        Packing muskatMoravsky70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017,1,1,0,0),
+//            LocalDateTime.of(2017,1,31,0,0), muskatMoravsky);
+//        Packing svatovavrinecke35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017,1,1,0,0),
+//            null, svatovavrinecke);
+//        Packing svatovavrinecke70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017,1,1,0,0),
+//            LocalDateTime.of(2017,1,31,0,0), svatovavrinecke);
+//
+//        packingService.createPacking(veltlinskeZelene35);
+//        packingService.createPacking(veltlinskeZelene70);
+//        packingService.createPacking(muskatMoravsky35);
+//        packingService.createPacking(muskatMoravsky70);
+//        packingService.createPacking(svatovavrinecke35);
+//        packingService.createPacking(svatovavrinecke70);
+//
+//        Price veltlinskeZelene35CZK = price(new BigDecimal("50"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene35);
+//        Price veltlinskeZelene70CZK = price(new BigDecimal("100"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene70);
+//        Price veltlinskeZelene70EUR = price(new BigDecimal("2"), Currency.getInstance("EUR"), narodeniny, veltlinskeZelene70);
+//
+//        Price muskatMoravsky35CZK = price(new BigDecimal("55"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky35);
+//        Price muskatMoravsky70CZK = price(new BigDecimal("110"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky70);
+//        Price muskatMoravsky70EUR = price(new BigDecimal("3"), Currency.getInstance("EUR"), narodeniny, muskatMoravsky70);
+//
+//        Price svatovavrinecke35CZK = price(new BigDecimal("45"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke35);
+//        Price svatovavrinecke70CZK = price(new BigDecimal("90"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke70);
+//        Price svatovavrinecke70EUR = price(new BigDecimal("2.5"), Currency.getInstance("EUR"), narodeniny, svatovavrinecke70);
+//
+//        priceService.createPrice(veltlinskeZelene35CZK);
+//        priceService.createPrice(veltlinskeZelene70CZK);
+//        priceService.createPrice(veltlinskeZelene70EUR);
+//
+//        priceService.createPrice(muskatMoravsky35CZK);
+//        priceService.createPrice(muskatMoravsky70CZK);
+//        priceService.createPrice(muskatMoravsky70EUR);
+//
+//        priceService.createPrice(svatovavrinecke35CZK);
+//        priceService.createPrice(svatovavrinecke70CZK);
+//        priceService.createPrice(svatovavrinecke70EUR);
 
     }
 

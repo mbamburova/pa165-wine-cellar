@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @EnableWebMvc
 @Configuration
-@Import({ServiceConfiguration.class})
+@Import({ServiceConfiguration.class, WineCellarSampleDataConfig.class})
 @ComponentScan(basePackages = "cz.muni.fi.pa165.controller")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 

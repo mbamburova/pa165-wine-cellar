@@ -51,14 +51,23 @@ public class Wine {
     @DecimalMin("0.0")
     private BigDecimal grapeSugarContent;
 
-//    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "wines")
-//    private List<WineList> wineLists = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "wines")
+    private List<WineList> wineLists = new ArrayList<>();
 
     public Wine(Long id) {
         this.id = id;
     }
 
+    public List<WineList> getWineLists() {
+        return wineLists;
+    }
+
+    public void setWineLists(List<WineList> wineLists) {
+        this.wineLists = wineLists;
+    }
+
     public Wine() {
+
     }
 
     public Long getId() {
