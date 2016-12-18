@@ -13,11 +13,8 @@ import cz.muni.fi.pa165.enums.UserRole;
 public interface UserFacade {
 
     Long registerUser(UserCreateDto user, String unencryptedPassword);
-    void updateUser(UserDto user);
-    void deleteUser(Long id);
     UserDto findUserById(Long id);
     UserDto findUserByEmail(String email);
-    List<UserDto> findAllUsers();
     UserRole userRole(UserDto user);
     boolean authenticateUser(UserAuthDto user);
     boolean isAdmin(UserDto u);

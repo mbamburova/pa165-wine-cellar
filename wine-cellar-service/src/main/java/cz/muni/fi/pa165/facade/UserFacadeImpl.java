@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import cz.muni.fi.pa165.dto.UserAuthDto;
 import cz.muni.fi.pa165.dto.UserCreateDto;
 import cz.muni.fi.pa165.dto.UserDto;
+import cz.muni.fi.pa165.entity.User;
 import cz.muni.fi.pa165.enums.UserRole;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.UserService;
@@ -27,46 +28,83 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public Long registerUser(UserCreateDto user, String unencryptedPassword) {
-        return null;
+
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+
+        if (unencryptedPassword == null || unencryptedPassword.isEmpty()) {
+            throw new IllegalArgumentException("Unencrypted password cannot be null nor empty.");
+        }
+        User userEntity = beanMappingService.mapTo(user, User.class);
+        userService.registerUser(userEntity, unencryptedPassword);
+        return userEntity.getId();
     }
 
-    @Override
-    public void updateUser(UserDto user) {
-
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-
-    }
 
     @Override
     public UserDto findUserById(Long id) {
-        return null;
+
+        if (id == null) {
+            throw new IllegalArgumentException("User id cannot be null.");
+        }
+
+        User user = userService.findUserById(id);
+
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        return beanMappingService.mapTo(user, UserDto.class);
     }
 
     @Override
     public UserDto findUserByEmail(String email) {
-        return null;
+
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null.");
+        }
+
+        User user = userService.findUserByEmail(email);
+
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        return beanMappingService.mapTo(user, UserDto.class);
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        return null;
+    public UserRole userRole(UserDto user)
+    {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+        User userEntity = beanMappingService.mapTo(user, User.class);
+
+        if (userService.findUserById(userEntity.getId()) == null) {
+            throw new IllegalArgumentException("User not found during getting user role.");
+        }
+
+        return userService.userRole(userEntity);
     }
 
     @Override
-    public UserRole userRole(UserDto user) {
-        return null;
-    }
+    public boolean authenticateUser(UserAuthDto userAuth) {
 
-    @Override
-    public boolean authenticateUser(UserAuthDto user) {
-        return false;
+        if (userAuth == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+        User user = userService.findUserById(userAuth.getUserId());
+        if (user == null) {
+            throw new IllegalArgumentException("User not found during authenticate.");
+        }
+
+        return userService.authenticateUser(user, userAuth.getPassword());
     }
 
     @Override
     public boolean isAdmin(UserDto u) {
-        return false;
+        return userService.isAdmin(beanMappingService.mapTo(u, User.class));
     }
+
 }

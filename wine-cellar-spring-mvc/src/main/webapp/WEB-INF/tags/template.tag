@@ -60,7 +60,14 @@
                 <%--</li>--%>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><my:a href="/login/index"><span class="glyphicon glyphicon-log-in"></span> Login</my:a></li>
+                <c:choose>
+                    <c:when test="${not empty pageContext.request.remoteUser}">
+                        <li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-in"></span><f:message key="logout"/></a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="${pageContext.request.contextPath}/login"><span class="glyphicon glyphicon-log-in"></span><f:message key="login"/></a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

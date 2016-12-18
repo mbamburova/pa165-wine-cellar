@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-@RequestMapping("/login")
 public class LoginController {
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("user", new UserAuthDto());
-        return "login/index";
+        return "index";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)

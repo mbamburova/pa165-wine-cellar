@@ -38,29 +38,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public User updateUser(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User can not be null");
-        }
-        try {
-            return userDao.updateUser(user);
-        } catch (Exception e) {
-            throw new WineCellarDataAccessException("Cannot update user", e);
-        }
-    }
-
-    @Override
-    public void deleteUser(User user) {
-        if (user == null){
-            throw new IllegalArgumentException("User can not be null");
-        }
-        try {
-            userDao.deleteUser(user);
-        }catch (Exception e){
-            throw new WineCellarDataAccessException("Cannot delete user", e);
-        }
-    }
 
     @Override
     public User findUserById(Long id) {
@@ -83,15 +60,6 @@ public class UserServiceImpl implements UserService {
             return userDao.findUserByEmail(email);
         }catch (Exception e){
             throw new WineCellarDataAccessException("Cannot find user by email", e);
-        }
-    }
-
-    @Override
-    public List<User> findAllUsers() {
-        try {
-            return userDao.findAllUsers();
-        }catch (Exception e){
-            throw new WineCellarDataAccessException("Cannot find all users", e);
         }
     }
 

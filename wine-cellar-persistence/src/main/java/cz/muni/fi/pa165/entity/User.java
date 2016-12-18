@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.entity;
 
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -99,18 +100,20 @@ public class User {
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
 
-        User user = (User) o;
+        User other = (User) obj;
 
-        return getId() != null && getId().equals(user.getId());
+        return getEmail() != null ? this.getEmail().equals(other.getEmail()) : other.getEmail() == null;
     }
 
     @Override
     public int hashCode() {
-        return getId() != null ? getId().hashCode() : 0;
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.getEmail());
+        return hash;
     }
 
 }

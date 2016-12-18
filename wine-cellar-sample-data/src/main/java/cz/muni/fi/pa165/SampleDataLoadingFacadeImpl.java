@@ -68,6 +68,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         User user = user("User", "User", "user@wines.com",UserRole.MEMBER, "user123");
         User admin = user("Admin", "Admin", "admin@wines.com", UserRole.ADMIN, "admin123");
 
+//        userService.registerUser(user, "user123");
+//        userService.registerUser(admin, "admin123");
 
 //        MarketingEvent silvester = marketingEvent("silvester");
 //        MarketingEvent narodeniny = marketingEvent("narodeniny");
