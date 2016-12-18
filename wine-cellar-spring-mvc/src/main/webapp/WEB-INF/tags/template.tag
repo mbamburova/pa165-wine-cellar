@@ -51,9 +51,7 @@
                 <%--</li>--%>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                </li>
+                <li><my:a href="/login/index"><span class="glyphicon glyphicon-log-in"></span> Login</my:a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
