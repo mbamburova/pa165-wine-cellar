@@ -51,8 +51,8 @@ public class Wine {
     @DecimalMin("0.0")
     private BigDecimal grapeSugarContent;
 
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "wines")
-    private List<WineList> wineLists = new ArrayList<>();
+//    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "wines")
+//    private List<WineList> wineLists = new ArrayList<>();
 
     public Wine(Long id) {
         this.id = id;
