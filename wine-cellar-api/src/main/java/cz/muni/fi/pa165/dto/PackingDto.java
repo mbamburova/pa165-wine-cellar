@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,8 +14,10 @@ public class PackingDto {
 
     private BigDecimal volume;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime validFrom;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime validTo;
 
     private WineDto wine;
