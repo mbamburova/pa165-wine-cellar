@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="col-md-12 com-md-offset-2 form-group">
                 <form:label path="priceDto.currency" cssClass="col-sm-2 control-label"><fmt:message key="price.currency"/></form:label>
                 <div class="col-sm-4">
                 <form:select path="priceDto.currency" cssClass="form-control">
@@ -59,15 +59,15 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="col-md-12 com-md-offset-2 form-group ">
                 <form:label path="priceDto.marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
-                <div class="col-sm-10">
+                <div class="col-sm-4">
                 <form:select path="priceDto.marketingEventId" cssClass="form-control">
                     <c:forEach items="${marketingevents}" var="marketingevent">
                         <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
                     </c:forEach>
                 </form:select>
-                    <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
+                <p class="help-block"><form:errors path="priceDto.marketingEventId" cssClass="error"/></p>
                 </div>
             </div>
         </div>

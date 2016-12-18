@@ -98,11 +98,11 @@
                         <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <c:forEach items="${wineLists}" var="winelist" >
-                                <li> <form:option value="${winelist.id}">${winelist.description}</form:option></li>
-                            </c:forEach>
-                        </ul>
+                        <%--<ul class="dropdown-menu" role="menu">--%>
+                            <%--<c:forEach items="${wineLists}" var="winelist" >--%>
+                                <%--<li> <form:option value="${winelist.id}">${winelist.description}</form:option></li>--%>
+                            <%--</c:forEach>--%>
+                        <%--</ul>--%>
                     </div>
                 </td>
                 </form:form>

@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.PriceCreateDto;
-import cz.muni.fi.pa165.dto.PriceDto;
-import cz.muni.fi.pa165.dto.PricePackingDto;
+import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.PriceFacade;
@@ -42,14 +39,14 @@ public class PriceController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newPrice(Model model) {
-        model.addAttribute("pricePacking", new PricePackingDto());
+        model.addAttribute("pricePacking", new PricePackingCreateDto());
         model.addAttribute("currencies");
         model.addAttribute("marketingevents");
         return "prices/new";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("priceCreate") PriceCreateDto formBean, BindingResult bindingResult,
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public String create(@Valid @ModelAttribute("pricePacking") PricePackingCreateDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
@@ -58,9 +55,9 @@ public class PriceController {
             }
             return "prices/new";
         }
-        Long id = priceFacade.createPrice(formBean);
-        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPackingId() + " was created");
-        return "redirect:" + uriBuilder.path("/prices/index").buildAndExpand(id).encode().toUriString();
+//        Long id = priceFacade.createPrice(formBean);
+//        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPackingId() + " was created");
+        return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand().encode().toUriString();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
