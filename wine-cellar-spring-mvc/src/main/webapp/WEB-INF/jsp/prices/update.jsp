@@ -13,6 +13,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <own:template title="Update Price">
+     <jsp:attribute name="scripts">
+        <script>
+            $(function () {
+                $("#datepickerFrom").datepicker({ dateFormat: 'MM/dd/yyyy' }).val();
+            });
+        </script>
+        <script>
+            $(function () {
+                $("#datepickerTo").datepicker({ dateFormat: 'MM/dd/yyyy' }).val();
+            });
+        </script>
+    </jsp:attribute>
+
     <jsp:attribute name="body">
         <form:form method="post" action="${pageContext.request.contextPath}/prices/update/${priceUpdate.id}"
                        modelAttribute="priceUpdate" cssClass="form-horizontal">
@@ -25,36 +38,51 @@
                     </div>
                 </div>
 
+                <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
+                    <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
+                    <div class="col-sm-4">
+                        <form:input path="packingDto.validFrom" id="datepickerFrom" cssClass="form-control"/>
+                        <form:errors path="packingDto.validFrom" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="col-md-12 com-md-offset-2 form-group ${validTo_error?'has-error':''}">
+                    <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
+                    <div class="col-sm-4">
+                        <form:input path="packingDto.validTo" id="datepickerTo" cssClass="form-control"/>
+                        <form:errors path="packingDto.validTo" cssClass="help-block"/>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <form:label path="currency" cssClass="col-sm-2 control-label">currency</form:label>
                     <div class="col-sm-10">
-                    <form:select path="currency" cssClass="form-control">
-                        <c:forEach items="${currencies}" var="c">
-                            <form:option value="${c}">${c}</form:option>
-                        </c:forEach>
-                    </form:select>
+                        <form:select path="currency" cssClass="form-control">
+                            <c:forEach items="${currencies}" var="c">
+                                <form:option value="${c}">${c}</form:option>
+                            </c:forEach>
+                        </form:select>
                         <form:errors path="currency" cssClass="error"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <form:label path="packingId" cssClass="col-sm-2 control-label">Packing</form:label>
                     <div class="col-sm-10">
-                <form:select path="packingId" cssClass="form-control">
-                    <c:forEach items="${packings}" var="packing">
-                        <form:option value="${packing.id}">${packing.volume}&nbspfrom&nbsp${packing.validFrom}&nbspto&nbsp${packing.validTo}</form:option>
-                    </c:forEach>
-                </form:select>
+                        <form:select path="packingId" cssClass="form-control">
+                            <c:forEach items="${packings}" var="packing">
+                                <form:option value="${packing.id}">${packing.volume}&nbspfrom&nbsp${packing.validFrom}&nbspto&nbsp${packing.validTo}</form:option>
+                            </c:forEach>
+                        </form:select>
                         <p class="help-block"><form:errors path="packingId" cssClass="error"/></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <form:label path="marketingEventId" cssClass="col-sm-2 control-label">Marketing Event</form:label>
                     <div class="col-sm-10">
-                    <form:select path="marketingEventId" cssClass="form-control">
-                        <c:forEach items="${marketingevents}" var="marketingevent">
-                            <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
-                        </c:forEach>
-                    </form:select>
+                        <form:select path="marketingEventId" cssClass="form-control">
+                            <c:forEach items="${marketingevents}" var="marketingevent">
+                                <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
+                            </c:forEach>
+                        </form:select>
                         <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
                     </div>
                 </div>

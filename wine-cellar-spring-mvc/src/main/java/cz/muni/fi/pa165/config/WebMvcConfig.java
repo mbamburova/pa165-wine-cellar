@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.config;
 
-import javax.validation.Validator;
 import cz.muni.fi.pa165.WineCellarSampleDataConfig;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +14,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.format.FormatterRegistry;
+import cz.muni.fi.pa165.converters.DateConverter;
+
+import javax.validation.Validator;
 
 /**
  * @author MarekScholtz
@@ -56,4 +59,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new LocalValidatorFactoryBean();
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new DateConverter());
+    }
 }

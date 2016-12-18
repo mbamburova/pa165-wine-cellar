@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,8 +17,10 @@ public class PackingCreateDto {
     private BigDecimal volume;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime validFrom;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime validTo;
 
     @NotNull

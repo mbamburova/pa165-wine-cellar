@@ -11,12 +11,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time"  %>
 
 <my:template title="Create Winelist">
 <jsp:attribute name="scripts">
     <script>
         $(function () {
-            $("#datepicker").datepicker({ dateFormat: 'dd.mm.yy' }).val();
+            $("#datepicker").datepicker({ format: 'MM/dd/yyyy' }).val();
         });
     </script>
 </jsp:attribute>
@@ -33,22 +34,23 @@
                 <form:errors path="name" cssClass="help-block"/>
             </div>
         </div>
-        <%--<div class="form-group ${date_error?'has-error':''}">--%>
-            <%--<form:label path="date" cssClass="col-sm-2 control-label">Date</form:label>--%>
-            <%--<div class="col-sm-10">--%>
-                <%--<form:input path="date" id="datepicker" cssClass="form-control"/>--%>
-                <%--<form:errors path="date" cssClass="help-block"/>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <div class="col-md-12 com-md-offset-2 form-group>
-            <form:label path="marketingEventId" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
+
+        <div class="col-md-12 com-md-offset-2 form-group ${date_error?'has-error':''}">
+            <form:label path="date" cssClass="col-sm-2 control-label">Date</form:label>
             <div class="col-sm-4">
-                <form:select path="marketingEventId" cssClass="form-control">
-                    <option value="" display ${empty marketingEvent.id ? ' selected' : ''}><fmt:message key="selectEvent"/></option>
-                    <c:forEach items="${marketingEvents}" var="marketingEvent">
-                        <form:option value="${marketingEvent.id}">${marketingEvent.description}</form:option>
-                    </c:forEach>
-                </form:select>
+                <form:input path="date" id="datepicker" cssClass="form-control"/>
+                <form:errors path="date" cssClass="help-block"/>
+            </div>
+        </div>
+
+        <div class="col-md-12 com-md-offset-2 form-group ">
+            <form:label path="marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
+            <div class="col-sm-4">
+                    <form:select path="marketingEventId" cssClass="form-control">
+                        <c:forEach items="${marketingevents}" var="marketingevent">
+                            <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
+                        </c:forEach>
+                    </form:select>
                 <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
             </div>
         </div>

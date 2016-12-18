@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.converters.LocalDateTimeConverter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -24,9 +25,11 @@ public class Packing {
     private BigDecimal volume;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime validFrom;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime validTo;
 
