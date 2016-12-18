@@ -13,14 +13,13 @@
         <p class="lead">It's high time to get drunk from wine!</p>
     </div>
 
+    <div>
     <c:choose>
-        <c:when test="${not empty pageContext.request.remoteUser}">
-            <div>
+             <c:when test="${not empty pageContext.request.remoteUser}">
                 <h2>Thanks for coming back!</h2>
-            </div>
-        </c:when>
-
+            </c:when>
         <c:otherwise>
+                <div>
                 <form:form method="POST" action="j_spring_security_check" cssClass="form-horizontal">
                     <c:if test="${not empty param.error}">
                         <div class="alert alert-danger" role="alert">
@@ -46,12 +45,21 @@
                         <button class="btn btn-primary" type="submit"><fmt:message key="login"/></button>
                     </div>
                 </form:form>
+                </div>
         </c:otherwise>
     </c:choose>
-    </jsp:attribute>
+    </div>
 
+    <div>
+        <h3>Admin</h3>
+        <p>Login: admin@wines.com</p>
+        <p>Password: admin123</p>
+    <br/>
+        <h3>User</h3>
+        <p>Login: user@wines.com</p>
+        <p>Password: user123</p>
+    </div>
 
-
-
+ </jsp:attribute>
 </my:template>
 

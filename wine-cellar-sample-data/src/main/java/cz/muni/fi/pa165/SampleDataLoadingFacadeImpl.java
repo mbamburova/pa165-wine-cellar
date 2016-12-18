@@ -68,16 +68,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         User user = user("User", "User", "user@wines.com",UserRole.MEMBER, "user123");
         User admin = user("Admin", "Admin", "admin@wines.com", UserRole.ADMIN, "admin123");
 
-//        userService.registerUser(user, "user123");
-//        userService.registerUser(admin, "admin123");
+        MarketingEvent silvester = marketingEvent("silvester");
+        MarketingEvent narodeniny = marketingEvent("narodeniny");
+        MarketingEvent betatest = marketingEvent("betatest");
 
-//        MarketingEvent silvester = marketingEvent("silvester");
-//        MarketingEvent narodeniny = marketingEvent("narodeniny");
-//        MarketingEvent betatest = marketingEvent("betatest");
-//
-//        marketingEventService.createMarketingEvent(silvester);
-//        marketingEventService.createMarketingEvent(narodeniny);
-//        marketingEventService.createMarketingEvent(betatest);
+        marketingEventService.createMarketingEvent(silvester);
+        marketingEventService.createMarketingEvent(narodeniny);
+        marketingEventService.createMarketingEvent(betatest);
 //
 //        WineList wineList1 = wineList("winelist1", LocalDateTime.of(2016,12,31,22,0),
 //            Arrays.asList(veltlinskeZelene, muskatMoravsky, svatovavrinecke), silvester);
