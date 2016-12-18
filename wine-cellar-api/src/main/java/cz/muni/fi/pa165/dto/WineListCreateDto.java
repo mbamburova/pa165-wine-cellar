@@ -13,7 +13,7 @@ public class WineListCreateDto {
     @NotNull
     private String name;
 
-   // @NotNull
+    @NotNull
     private LocalDateTime date;
 
     private Long marketingEventId;

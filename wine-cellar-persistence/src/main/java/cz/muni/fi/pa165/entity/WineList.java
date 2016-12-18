@@ -1,20 +1,12 @@
 package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.converters.LocalDateTimeConverter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
-
 import java.util.List;
 
 /**
@@ -31,8 +23,9 @@ public class WineList {
     @NotNull
     private String name;
 
-   // @NotNull
-   // @Convert(converter = LocalDateTimeConverter.class)
+    @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.ALL)

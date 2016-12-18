@@ -13,13 +13,13 @@
 <my:template>
    <jsp:attribute name="body">
        <div class="jumbotron">
-           <h3><c:out value="${wine.name}"/></h3>
-           <h5><c:out value="${wine.vintage}"/></h5>
+           <h2><c:out value="${wine.name}"/></h2>
+           <h4><c:out value="${wine.vintage}"/></h4>
        </div>
 
        <div class="row">
           <div class="row">
-              <table class="table col-md-3">
+              <table class="table col-md-4">
               <tbody>
               <tr>
                   <td><b><fmt:message key="wine.predicate"/>: </b></td>
@@ -60,29 +60,39 @@
               </tbody>
               </table>
           </div>
+          <br/>
 
-          <div>
-              <table class="col-md-3">
-              <thead>
-                    <tr>
-                        <th><fmt:message key="price.price"/></th>
-                        <th><fmt:message key="packing.volume"/></th>
-                        <th><fmt:message key="packing.validFrom"/></th>
-                        <th><fmt:message key="packing.validTo"/></th>
-                    </tr>
-              </thead>
-              <tbody>
-                <c:forEach items="${pricePackings}" var="item">
-                    <tr>
-                        <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
-                        <td><c:out value="${item.packingDto.volume}"/></td>
-                        <td><c:out value="${item.packingDto.validFrom}"/></td>
-                        <td><c:out value="${item.packingDto.validTo}"/></td>
-                    </tr>
-                </c:forEach>
-              </tbody>
-              </table>
-          </div>
-       </div>
+           <c:choose>
+               <c:when test="${empty pricePackings}">
+                   <h4>The price for this wine hasn't been assinged yet.</h4>
+                   <br />
+               </c:when>
+               <c:otherwise>
+                   <div>
+                       <table class="col-md-4">
+                           <thead>
+                           <tr>
+                               <th><fmt:message key="price.price"/></th>
+                               <th><fmt:message key="packing.volume"/></th>
+                               <th><fmt:message key="packing.validFrom"/></th>
+                               <th><fmt:message key="packing.validTo"/></th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                                <c:forEach items="${pricePackings}" var="item">
+                                    <tr>
+                                        <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
+                                        <td><c:out value="${item.packingDto.volume}"/></td>
+                                        <td><c:out value="${item.packingDto.validFrom}"/></td>
+                                        <td><c:out value="${item.packingDto.validTo}"/></td>
+                                    </tr>
+                                </c:forEach>
+                           </tbody>
+                       </table>
+                   </div>
+                   <br />
+               </c:otherwise>
+           </c:choose>
+
    </jsp:attribute>
 </my:template>

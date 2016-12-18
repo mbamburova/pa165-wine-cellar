@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +13,14 @@ import java.util.List;
 public class WineListDto {
 
     private Long id;
+
     private String name;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime date;
+
     private MarketingEventDto marketingEvent;
+
     private List<WineDto> wines = new ArrayList<>();
 
     public Long getId() {

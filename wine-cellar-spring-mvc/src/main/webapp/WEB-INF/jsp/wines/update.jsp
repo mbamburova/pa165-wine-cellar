@@ -105,16 +105,15 @@
             <br/>
     </form:form>
 
-    <h1><fmt:message key="priceList"/></h1>
+    <h3><fmt:message key="priceList"/></h3>
     <br/>
-    <br/>
-
-      <p align="right">
-          <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new" role="button">
+      <p align="left">
+          <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new" role="button">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               <fmt:message key="createPricePacking"/>
           </a>
       </p>
+    <br/>
 
      <table class="table col-md-3">
          <thead>
