@@ -11,10 +11,6 @@
     <div class="jumbotron">
         <h1>Welcome to Wine Cellar!</h1>
         <p class="lead">It's high time to get drunk from wine!</p>
-        <%--<p><a class="btn btn-lg btn-success" href="winelists/index"--%>
-              <%--role="button">Tasting Ticket</a></p>--%>
-        <%--<p><a class="btn btn-lg btn-success" href="wines/index"--%>
-              <%--role="button">Complete offer</a></p>--%>
     </div>
 
 </jsp:attribute>

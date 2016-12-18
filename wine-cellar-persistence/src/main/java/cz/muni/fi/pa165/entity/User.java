@@ -1,0 +1,116 @@
+package cz.muni.fi.pa165.entity;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import cz.muni.fi.pa165.enums.UserRole;
+
+/**
+ * @author Silvia Borzová
+ *         18/12/2016
+ */
+@Entity
+@Table(name = "Users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    private String passwordHash;
+
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.+[a-zA-Z]{2,}$")
+    @Column(unique = true)
+    private String email;
+
+    @NotNull
+    private String firstName;
+
+    @NotNull
+    private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole = UserRole.MEMBER;
+
+    public User() {
+    }
+
+    public User(String passwordHash, String email, String firstName, String lastName, UserRole userRole) {
+        this.passwordHash = passwordHash;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userRole = userRole;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public boolean isAdmin() {
+        return getUserRole() == UserRole.ADMIN;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return getId() != null && getId().equals(user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
+
+}

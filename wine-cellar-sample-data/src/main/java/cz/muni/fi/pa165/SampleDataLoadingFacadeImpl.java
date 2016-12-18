@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165;
 
 import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.enums.UserRole;
 import cz.muni.fi.pa165.service.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,9 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Inject
     private PriceService priceService;
 
+    @Inject
+    private UserService userService;
+
     @Override
     public void loadSampleData() throws IOException {
 
@@ -60,6 +64,10 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         wineService.createWine(veltlinskeZelene);
         wineService.createWine(muskatMoravsky);
         wineService.createWine(svatovavrinecke);
+
+        User user = user("User", "User", "user@wines.com",UserRole.MEMBER, "user123");
+        User admin = user("Admin", "Admin", "admin@wines.com", UserRole.ADMIN, "admin123");
+
 
 //        MarketingEvent silvester = marketingEvent("silvester");
 //        MarketingEvent narodeniny = marketingEvent("narodeniny");
@@ -176,5 +184,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         price.setMarketingEvent(marketingEvent);
         price.setPacking(packing);
         return price;
+    }
+
+    private User user(String name, String surname, String email, UserRole role, String password) {
+        User user = new User();
+        user.setFirstName(name);
+        user.setLastName(surname);
+        user.setEmail(email);
+        user.setUserRole(role);
+        userService.registerUser(user, password);
+        return user;
     }
 }
