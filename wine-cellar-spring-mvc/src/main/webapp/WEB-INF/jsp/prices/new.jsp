@@ -30,11 +30,11 @@
 
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/prices/create"
+        <form:form method="post" action="${pageContext.request.contextPath}/prices/new"
                    modelAttribute="pricePacking" cssClass="form-horizontal">
             <div class="container">
                 <div class="col-md-12 com-md-offset-2 form-group ${volume_error?'has-error':''}">
-                    <form:label path="packingDto.volume" cssClass="col-sm-2 control-label"><fmt:message key="packing.volume"/></form:label>
+                    <form:label path="packingDto.volume" cssClass="col-sm-2 control-label"><fmt:message key="packing.volume"/> in liters</form:label>
                     <div class="col-sm-4">
                         <form:input path="packingDto.volume" cssClass="form-control" required="true"/>
                         <form:errors path="packingDto.volume" cssClass="help-block"/>
@@ -86,8 +86,8 @@
                     </div>
                 </div>
             </div>
+            <form:hidden path="packingDto.wineId"/>
             <button class="btn btn-primary" type="submit"><fmt:message key="save"/></button>
         </form:form>
-
     </jsp:attribute>
 </my:template>

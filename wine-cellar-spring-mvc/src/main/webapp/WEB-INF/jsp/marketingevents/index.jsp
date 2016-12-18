@@ -12,52 +12,65 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:template title="Marketing Events">
-<jsp:attribute name="body">
+    <jsp:attribute name="body">
+        <c:choose>
+              <c:when test="${empty winelists}">
+                   <h4>There are no marketing events.</h4>
+                   <br />
+              <%--<c:if test="${user.isAdmin()}">--%>
+                    <my:a href="/marketingevents/new" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    New event
+                    </my:a>
+              <%--</c:if>--%>
+               </c:when>
+               <c:otherwise>
+                <%--<c:if test="${user.isAdmin()}">--%>
+                        <my:a href="/marketingevents/new" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            New event
+                       </my:a>
+                <%--</c:if>--%>
 
-    <my:a href="/marketingevents/new" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        New Marketing Event
-    </my:a>
-    <br/>
+                   <table class="table">
+                       <thead>
+                       <tr>
+                           <th class="text-center"><fmt:message key="number"/></th>
+                           <th class="text-center"><fmt:message key="marketingevent.description"/></th>
+                           <th class="text-center"><fmt:message key="edit"/></th>
+                           <th class="text-center"><fmt:message key="delete"/></th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <c:forEach items="${marketingevents}" var="marketingevent">
+                            <c:set var="count" value="${count + 1}" scope="page"/>
+                            <tr>
+                                <td>${count}.</td>
+                                <td class="col-xs-3 text-center"><c:out value="${marketingevent.description}"/></td>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="text-center"><fmt:message key="number"/></th>
-            <th class="text-center"><fmt:message key="marketingevent.description"/></th>
-            <th class="text-center"><fmt:message key="edit"/></th>
-            <th class="text-center"><fmt:message key="delete"/></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${marketingevents}" var="marketingevent">
-        <c:set var="count" value="${count + 1}" scope="page"/>
-    <tr>
-        <td>${count}.</td>
-        <td class="col-xs-3 text-center"><c:out value="${marketingevent.description}"/></td>
+                                <form:form method="get" action="${pageContext.request.contextPath}/marketingevents/update/${marketingevent.id}" cssClass="form-horizontal">
+                                    <td class="col-xs-1 text-center">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="sr-only"><fmt:message key="edit"/></span>
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </form:form>
 
-        <form:form method="get" action="${pageContext.request.contextPath}/marketingevents/update/${marketingevent.id}" cssClass="form-horizontal">
-                <td class="col-xs-1 text-center">
-                    <button class="btn btn-default" type="submit">
-                        <span class="sr-only"><fmt:message key="edit"/></span>
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </button>
-                </td>
-            </form:form>
-
-        <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/delete/${marketingevent.id}" cssClass="form-horizontal">
-                <td class="col-xs-1 text-center">
-                    <button class="btn btn-default" type="submit">
-                        <span class="sr-only"><fmt:message key="delete"/></span>
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                </td>
-            </form:form>
-    </tr>
-    </c:forEach>
-        </tbody>
-    </table>
-
-
-</jsp:attribute>
+                                <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/delete/${marketingevent.id}" cssClass="form-horizontal">
+                                    <td class="col-xs-1 text-center">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="sr-only"><fmt:message key="delete"/></span>
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </form:form>
+                            </tr>
+                        </c:forEach>
+                       </tbody>
+                   </table>
+               </c:otherwise>
+        </c:choose>
+        <br/>
+    </jsp:attribute>
 </my:template>

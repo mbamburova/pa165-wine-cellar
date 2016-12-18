@@ -12,93 +12,94 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:template>
-<jsp:attribute name="body">
+    <jsp:attribute name="body">
 
-    <div class="jumbotron">
-        <h1><fmt:message key="Wines"/></h1>
-        <fmt:message key="nameHolder" var="wineHolder"/>
-        <c:if test="${user.isAdmin()}">
-            <p align="right">
-                <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/new" role="button">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    <fmt:message key="create_new"/>
-                </a>
-            </p>
-        </c:if>
-    </div>
+        <div class="jumbotron">
+            <h1><fmt:message key="Wines"/></h1>
+            <fmt:message key="nameHolder" var="wineHolder"/>
+            <c:if test="${user.isAdmin()}">
+                <p align="right">
+                    <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/new" role="button">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <fmt:message key="create_new"/>
+                    </a>
+                </p>
+            </c:if>
+        </div>
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="text-center"><fmt:message key="number"/></th>
-                <th class="text-center"><fmt:message key="wine.name"/></th>
-                <th class="text-center"><fmt:message key="wine.vintage"/></th>
-                <th class="text-center"><fmt:message key="wine.predicate"/></th>
-                <th class="text-center"><fmt:message key="detail"/></th>
-                <%--<c:if test="${user.isAdmin()}">--%>
-                    <th class="text-center"><fmt:message key="edit"/></th>
-                    <th class="text-center"><fmt:message key="delete"/></th>
-                    <th class="text-center"><fmt:message key="addToWineList"/></th>
-                <%--</c:if>--%>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${wines}" var="wine">
-            <c:set var="count" value="${count + 1}" scope="page"/>
-            <tr>
-                <td class="col-xs-3 text-center">${count}.</td>
-                <td class="col-xs-3 text-center"><c:out value="${wine.name}"/></td>
-                <td class="col-xs-3 text-center"><c:out value="${wine.vintage}"/></td>
-                <td class="col-xs-3 text-center"><c:out value="${wine.predicate}"/></td>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-left"><fmt:message key="number"/></th>
+                    <th class="text-left"><fmt:message key="wine.name"/></th>
+                    <th class="text-left"><fmt:message key="wine.vintage"/></th>
+                    <th class="text-left"><fmt:message key="wine.predicate"/></th>
+                    <th class="text-left"><fmt:message key="detail"/></th>
+                    <%--<c:if test="${user.isAdmin()}">--%>
+                        <th class="text-left"><fmt:message key="edit"/></th>
+                        <th class="text-left"><fmt:message key="delete"/></th>
+                        <th class="text-left"><fmt:message key="addToWineList"/></th>
+                    <%--</c:if>--%>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${wines}" var="wine">
+                <c:set var="count" value="${count + 1}" scope="page"/>
+                <tr>
+                    <td class="col-xs-3 text-left">${count}.</td>
+                    <td class="col-xs-3 text-left"><c:out value="${wine.name}"/></td>
+                    <td class="col-xs-3 text-left"><c:out value="${wine.vintage}"/></td>
+                    <td class="col-xs-3 text-left"><c:out value="${wine.predicate}"/></td>
 
-                <form:form method="get" action="${pageContext.request.contextPath}/wines/detail/${wine.id}" cssClass="form-horizontal">
-                    <td class="col-xs-1 text-center">
-                        <button class="btn btn-default" type="submit">
-                            <span class="sr-only"><fmt:message key="detail"/></span>
-                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                </form:form>
-
-                <%--<c:if test="${user.isAdmin()}">--%>
-                    <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
+                    <form:form method="get" action="${pageContext.request.contextPath}/wines/detail/${wine.id}" cssClass="form-horizontal">
                         <td class="col-xs-1 text-center">
                             <button class="btn btn-default" type="submit">
-                                <span class="sr-only"><fmt:message key="edit"/></span>
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                <span class="sr-only"><fmt:message key="detail"/></span>
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                             </button>
                         </td>
                     </form:form>
 
-                    <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${wine.id}" cssClass="form-horizontal">
-                        <td class="col-xs-1 text-center">
-                            <button class="btn btn-default" type="submit">
-                                <span class="sr-only"><fmt:message key="remove"/></span>
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </button>
-                        </td>
-                    </form:form>
-
-                    <form:form method="get" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
-                        <td class="col-xs-1 text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
+                    <%--<c:if test="${user.isAdmin()}">--%>
+                        <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
+                            <td class="col-xs-1 text-center">
+                                <button class="btn btn-default" type="submit">
+                                    <span class="sr-only"><fmt:message key="edit"/></span>
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 </button>
-                                    <%--<ul class="dropdown-menu" role="menu">--%>
-                                    <%--<c:forEach items="${wineLists}" var="winelist" >--%>
-                                    <%--<li> <form:option value="${winelist.id}">${winelist.description}</form:option></li>--%>
-                                    <%--</c:forEach>--%>
-                                    <%--</ul>--%>
-                            </div>
-                        </td>
-                    </form:form>
-                <%--</c:if>--%>
+                            </td>
+                        </form:form>
 
-            </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+                        <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${wine.id}" cssClass="form-horizontal">
+                            <td class="col-xs-1 text-center">
+                                <button class="btn btn-default" type="submit">
+                                    <span class="sr-only"><fmt:message key="remove"/></span>
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </form:form>
 
-</jsp:attribute>
+                        <form:form method="post" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
+                            <td class="col-xs-1 text-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
+                                    </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <c:forEach items="${wineLists}" var="winelist" >
+                                                <form:form method="post" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
+                                                     <li><input type="button" onclick="location.href='${pageContext.request.contextPath}/wines/'"> value="${winelist.id}">${winelist.description}</li>
+                                                    <c:set var="listId" value="${winelist.id}"/>
+                                                </form:form>
+                                            </c:forEach>
+                                        </ul>
+                                </div>
+                            </td>
+                        </form:form>
+                    <%--</c:if>--%>
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </jsp:attribute>
 </my:template>
