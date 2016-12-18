@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.PackingFacade;
 import cz.muni.fi.pa165.facade.PriceFacade;
+import cz.muni.fi.pa165.facade.WineFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,13 +35,21 @@ public class PriceController {
 
     @Inject
     private PackingFacade packingFacade;
+
+    @Inject
+    private WineFacade wineFacade;
     
     @Inject
     private MarketingEventFacade marketingEventFacade;
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newPrice(Model model) {
-        model.addAttribute("pricePacking", new PricePackingCreateDto());
+    @RequestMapping(value = "/new/{id}", method = RequestMethod.GET)
+    public String newPrice(@PathVariable long id, Model model) {
+        PackingCreateDto packingDto = new PackingCreateDto();
+        packingDto.setWineId(id);
+        PricePackingCreateDto pricePackingCreateDto = new PricePackingCreateDto();
+        pricePackingCreateDto.setPackingDto(packingDto);
+
+        model.addAttribute("pricePacking", pricePackingCreateDto);
         model.addAttribute("currencies");
         model.addAttribute("marketingevents");
         return "prices/new";
@@ -56,9 +65,14 @@ public class PriceController {
             }
             return "prices/new";
         }
-//        Long id = priceFacade.createPrice(formBean);
-//        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPrice() + " for packing with ID " + formBean.getPackingId() + " was created");
-        return "redirect:" + uriBuilder.path("/wines/index").buildAndExpand().encode().toUriString();
+        WineDto wine = wineFacade.findWineById(formBean.getPackingDto().getWineId());
+        Long id = packingFacade.createPacking(formBean.getPackingDto());
+        formBean.getPriceDto().setPackingId(id);
+        priceFacade.createPrice(formBean.getPriceDto());
+
+        redirectAttributes.addFlashAttribute("alert_success", "Price with given packing for wine " + wine.getName() + " was created");
+
+        return "redirect:" + uriBuilder.path("wines/detail/" + formBean.getPackingDto().getWineId()).toUriString();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -99,8 +113,6 @@ public class PriceController {
         return Arrays.asList("CZK", "EUR", "USD");
     }
 
-
-    
     @ModelAttribute("marketingevents")
     public List<MarketingEventDto> categories() {
         return marketingEventFacade.findAllMarketingEvents();

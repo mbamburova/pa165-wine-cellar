@@ -8,6 +8,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <my:template>
@@ -69,22 +70,22 @@
                </c:when>
                <c:otherwise>
                    <div>
-                       <table class="col-md-4">
+                       <table class="col-md-8">
                            <thead>
                            <tr>
-                               <th><fmt:message key="price.price"/></th>
-                               <th><fmt:message key="packing.volume"/></th>
-                               <th><fmt:message key="packing.validFrom"/></th>
-                               <th><fmt:message key="packing.validTo"/></th>
+                               <th class="text-left"><fmt:message key="price.price"/></th>
+                               <th class="text-left"><fmt:message key="packing.volume"/></th>
+                               <th class="text-left"><fmt:message key="packing.validFrom"/></th>
+                               <th class="text-left"><fmt:message key="packing.validTo"/></th>
                            </tr>
                            </thead>
                            <tbody>
                                 <c:forEach items="${pricePackings}" var="item">
                                     <tr>
                                         <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
-                                        <td><c:out value="${item.packingDto.volume}"/></td>
-                                        <td><c:out value="${item.packingDto.validFrom}"/></td>
-                                        <td><c:out value="${item.packingDto.validTo}"/></td>
+                                        <td><c:out value="${item.packingDto.volume}"/> l</td>
+                                        <td><javatime:format value="${item.packingDto.validFrom}" pattern="dd.MM.yyyy HH:mm"/></td>
+                                        <td><javatime:format value="${item.packingDto.validTo}" pattern="dd.MM.yyyy HH:mm"/></td>
                                     </tr>
                                 </c:forEach>
                            </tbody>

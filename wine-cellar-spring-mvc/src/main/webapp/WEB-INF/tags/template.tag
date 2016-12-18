@@ -113,10 +113,6 @@
     <!-- page body -->
     <jsp:invoke fragment="body"/>
 
-    <!-- footer -->
-    <footer class="footer">
-        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;</p>
-    </footer>
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->
 
@@ -129,11 +125,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
 <script src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-
 
 <jsp:invoke fragment="scripts"/>
 </body>
+
 </html>

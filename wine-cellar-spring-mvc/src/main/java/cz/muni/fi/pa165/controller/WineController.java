@@ -53,30 +53,30 @@ public class WineController {
         return "wines/new";
     }
 
-    @RequestMapping(value = "/newPricePacking", method = RequestMethod.GET)
-    public String newPackingPrice(Model model){
-        model.addAttribute("pricePacking", new PricePackingDto());
-        return "wines/newPricePacking";
-    }
-
-    @RequestMapping(value = "/newPricePacking", method = RequestMethod.POST)
-    public String newPackingPrice(@Valid @ModelAttribute("packingPrice") PricePackingCreateDto formBean, BindingResult bindingResult,
-                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
-
-        if (bindingResult.hasErrors()) {
-            for (FieldError fe : bindingResult.getFieldErrors()) {
-                model.addAttribute(fe.getField() + "_error", true);
-            }
-            return "wines/newPricePacking";
-        }
-        WineDto wine = wineFacade.findWineById(formBean.getPackingDto().getWineId());
-        packingFacade.createPacking(formBean.getPackingDto());
-        priceFacade.createPrice(formBean.getPriceDto());
-
-        redirectAttributes.addFlashAttribute("alert_success", "Price with given packing for wine " + wine.getName() + " was created");
-
-        return "redirect:" + uriBuilder.path("wines/detail").buildAndExpand(wine.getId()).encode().toUriString();
-    }
+//    @RequestMapping(value = "/newPricePacking", method = RequestMethod.GET)
+//    public String newPackingPrice(Model model){
+//        model.addAttribute("pricePacking", new PricePackingDto());
+//        return "wines/newPricePacking";
+//    }
+//
+//    @RequestMapping(value = "/newPricePacking", method = RequestMethod.POST)
+//    public String newPackingPrice(@Valid @ModelAttribute("packingPrice") PricePackingCreateDto formBean, BindingResult bindingResult,
+//                                  Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+//
+//        if (bindingResult.hasErrors()) {
+//            for (FieldError fe : bindingResult.getFieldErrors()) {
+//                model.addAttribute(fe.getField() + "_error", true);
+//            }
+//            return "wines/newPricePacking";
+//        }
+//        WineDto wine = wineFacade.findWineById(formBean.getPackingDto().getWineId());
+//        packingFacade.createPacking(formBean.getPackingDto());
+//        priceFacade.createPrice(formBean.getPriceDto());
+//
+//        redirectAttributes.addFlashAttribute("alert_success", "Price with given packing for wine " + wine.getName() + " was created");
+//
+//        return "redirect:" + uriBuilder.path("wines/detail").buildAndExpand(wine.getId()).encode().toUriString();
+//    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
@@ -88,6 +88,16 @@ public class WineController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("alert_danger", "Wine \"" + wineDto.getName() + "\" wasn't deleted.");
         }
+        return "redirect:" + uriBuilder.path("/wines/index").toUriString();
+    }
+
+    @RequestMapping(value="add", method = RequestMethod.POST)
+    public String addToWineList(@RequestParam("id") Long id,
+                                @RequestParam("listId") Long listId, WineListDto wineListDto, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        WineDto wine = wineFacade.findWineById(id);
+        wineListDto.addWine(wine);
+
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 
@@ -130,16 +140,7 @@ public class WineController {
         }
         wineFacade.updateWine(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getDescription() + " was updated");
-        return "redirect:" + uriBuilder.path("/wines/index").toUriString();
-    }
-
-    @RequestMapping(value="add/{id}", method = RequestMethod.GET)
-    public String addToWineList(@PathVariable long id, WineListDto wineListDto, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-        WineDto wine = wineFacade.findWineById(id);
-        wineListDto.addWine(wine);
-
-        redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getName() + " was updated");
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 

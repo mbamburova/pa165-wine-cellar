@@ -13,145 +13,153 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <my:template title="Update wine">
-<jsp:attribute name="body">
+    <jsp:attribute name="body">
+        <div class="row">
+            <div class="col-sm-6">
+                <form:form method="post" action="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"
+                           modelAttribute="wineUpdate" cssClass="form-horizontal">
 
-    <form:form method="post" action="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"
-               modelAttribute="wineUpdate" cssClass="form-horizontal">
+                     <div class="col-md-12 com-md-offset-2 form-group ${name_error?'has-error':''}">
+                         <form:label path="name" cssClass="col-sm-4 control-label">Name</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="name" cssClass="form-control" required="true" />
+                             <form:errors path="name" cssClass="help-block"/>
+                         </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${vintage_error?'has-error':''}">
+                         <form:label path="vintage" cssClass="col-sm-4 control-label">Vintage</form:label>
+                         <div class="col-sm-8">
+                             <form:select class="form-control" path="vintage" >
+                                 <c:forEach items="${vintageValues}" var="year" >
+                                    <option><c:out value="${year}" /></option>
+                                 </c:forEach>
+                             </form:select>
+                        <form:errors path="vintage" cssClass="help-block"/>
+                         </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${batch_error?'has-error':''}">
+                        <form:label path="batch" cssClass="col-sm-4 control-label">Batch</form:label>
+                        <div class="col-sm-8">
+                            <form:input path="batch" cssClass="form-control" required="true" />
+                            <form:errors path="batch" cssClass="help-block"/>
+                        </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${predicate_error?'has-error':''}">
+                        <form:label path="predicate" cssClass="col-sm-4 control-label">Predicate</form:label>
+                        <div class="col-sm-8">
+                            <form:input path="predicate" cssClass="form-control"/>
+                            <form:errors path="predicate" cssClass="help-block"/>
+                        </div>
+                     </div>
+                        <div class="col-md-12 com-md-offset-2 form-group ${predicateEquivalent_error?'has-error':''}">
+                            <form:label path="predicateEquivalent" cssClass="col-sm-4 control-label">PredicateEquivalent</form:label>
+                            <div class="col-sm-8">
+                                <form:input path="predicateEquivalent" cssClass="form-control"/>
+                                <form:errors path="predicateEquivalent" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${description_error?'has-error':''}">
+                            <form:label path="description" cssClass="col-sm-4 control-label">Description</form:label>
+                            <div class="col-sm-8">
+                                <form:textarea cols="80" rows="4" path="description" cssClass="form-control"/>
+                                <form:errors path="description" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${notes_error?'has-error':''}">
+                            <form:label path="notes" cssClass="col-sm-4 control-label">Notes</form:label>
+                            <div class="col-sm-8">
+                                <form:input cols="80" path="notes" cssClass="form-control"/>
+                                <form:errors path="notes" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${alcoholVolume_error?'has-error':''}">
+                            <form:label path="alcoholVolume" cssClass="col-sm-4 control-label">AlcoholVolume</form:label>
+                            <div class="col-sm-8">
+                                <form:input path="alcoholVolume" cssClass="form-control"/>
+                                <form:errors path="alcoholVolume" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${residualSugar_error?'has-error':''}">
+                            <form:label path="residualSugar" cssClass="col-sm-4 control-label">ResidualSugar</form:label>
+                            <div class="col-sm-8">
+                                <form:input path="residualSugar" cssClass="form-control"/>
+                                <form:errors path="residualSugar" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${acidity_error?'has-error':''}">
+                            <form:label path="acidity" cssClass="col-sm-4 control-label">Acidity</form:label>
+                            <div class="col-sm-8">
+                                <form:input path="acidity" cssClass="form-control"/>
+                                <form:errors path="acidity" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <div class="col-md-12 com-md-offset-2 form-group ${grapeSugarContent_error?'has-error':''}">
+                            <form:label path="grapeSugarContent" cssClass="col-sm-4 control-label">GrapeSugarContent</form:label>
+                            <div class="col-sm-8">
+                                <form:input path="grapeSugarContent" cssClass="form-control"/>
+                                <form:errors path="grapeSugarContent" cssClass="help-block"/>
+                            </div>
+                     </div>
+                     <form:hidden path="id"/>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Update wine</button>
+                    </div>
+                     <br/>
+                     <br/>
+                </form:form>
+            </div>
 
-         <div class="col-md-12 com-md-offset-2 form-group ${name_error?'has-error':''}">
-             <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
-             <div class="col-sm-4">
-                 <form:input path="name" cssClass="form-control" required="true" />
-                 <form:errors path="name" cssClass="help-block"/>
-             </div>
-         </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${vintage_error?'has-error':''}">
-                <form:label path="vintage" cssClass="col-sm-2 control-label">Vintage</form:label>
-                <div class="col-sm-4">
-                        <form:select class="form-control" path="vintage" >
-                            <c:forEach items="${vintageValues}" var="year" >
-                                <option><c:out value="${year}" /></option>
-                            </c:forEach>
-                        </form:select>
-                    <form:errors path="vintage" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${batch_error?'has-error':''}">
-                <form:label path="batch" cssClass="col-sm-2 control-label">Batch</form:label>
-                <div class="col-sm-4">
-                    <form:input path="batch" cssClass="form-control" required="true" />
-                    <form:errors path="batch" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${predicate_error?'has-error':''}">
-                <form:label path="predicate" cssClass="col-sm-2 control-label">Predicate</form:label>
-                <div class="col-sm-4">
-                    <form:input path="predicate" cssClass="form-control"/>
-                    <form:errors path="predicate" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${predicateEquivalent_error?'has-error':''}">
-                <form:label path="predicateEquivalent" cssClass="col-sm-2 control-label">PredicateEquivalent</form:label>
-                <div class="col-sm-4">
-                    <form:input path="predicateEquivalent" cssClass="form-control"/>
-                    <form:errors path="predicateEquivalent" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${description_error?'has-error':''}">
-                <form:label path="description" cssClass="col-sm-2 control-label">Description</form:label>
-                <div class="col-sm-4">
-                    <form:input cols="80" rows="10" path="description" cssClass="form-control"/>
-                    <form:errors path="description" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${notes_error?'has-error':''}">
-                <form:label path="notes" cssClass="col-sm-2 control-label">Notes</form:label>
-                <div class="col-sm-4">
-                    <form:textarea cols="80" rows="10" path="notes" cssClass="form-control"/>
-                    <form:errors path="notes" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${alcoholVolume_error?'has-error':''}">
-                <form:label path="alcoholVolume" cssClass="col-sm-2 control-label">AlcoholVolume</form:label>
-                <div class="col-sm-4">
-                    <form:input path="alcoholVolume" cssClass="form-control"/>
-                    <form:errors path="alcoholVolume" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${residualSugar_error?'has-error':''}">
-                <form:label path="residualSugar" cssClass="col-sm-2 control-label">ResidualSugar</form:label>
-                <div class="col-sm-4">
-                    <form:input path="residualSugar" cssClass="form-control"/>
-                    <form:errors path="residualSugar" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${acidity_error?'has-error':''}">
-                <form:label path="acidity" cssClass="col-sm-2 control-label">Acidity</form:label>
-                <div class="col-sm-4">
-                    <form:input path="acidity" cssClass="form-control"/>
-                    <form:errors path="acidity" cssClass="help-block"/>
-                </div>
-            </div>
-            <div class="col-md-12 com-md-offset-2 form-group ${grapeSugarContent_error?'has-error':''}">
-                <form:label path="grapeSugarContent" cssClass="col-sm-2 control-label">GrapeSugarContent</form:label>
-                <div class="col-sm-4">
-                    <form:input path="grapeSugarContent" cssClass="form-control"/>
-                    <form:errors path="grapeSugarContent" cssClass="help-block"/>
-                </div>
-            </div>
-            <form:hidden path="id"/>
-            <button class="btn btn-primary" type="submit">Update wine</button>
-            <br/>
-            <br/>
-    </form:form>
+            <div class="col-sm-6">
+                <h3><fmt:message key="priceList"/>
 
-    <h3><fmt:message key="priceList"/></h3>
-    <br/>
-      <p align="left">
-          <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new" role="button">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              <fmt:message key="createPricePacking"/>
-          </a>
-      </p>
-    <br/>
+                    <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new/${wineUpdate.id}" role="button">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <fmt:message key="createPricePacking"/>
+                    </a>
 
-     <table class="table col-md-3">
-         <thead>
-         <tr>
-             <th><fmt:message key="price.price"/></th>
-             <th><fmt:message key="packing.volume"/></th>
-             <th><fmt:message key="packing.validFrom"/></th>
-             <th><fmt:message key="packing.validTo"/></th>
-         </tr>
-         </thead>
-         <tbody>
-         <c:forEach items="${pricePackings}" var="item">
-                    <tr>
-                        <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
-                        <td><c:out value="${item.packingDto.volume}"/></td>
-                        <td><c:out value="${item.packingDto.validFrom}"/></td>
-                        <td><c:out value="${item.packingDto.validTo}"/></td>
-                        <form:form method="get" action="${pageContext.request.contextPath}/wines/update/PricePacking${item.id}" cssClass="form-horizontal">
-                            <td class="col-xs-1 text-center">
-                                <button class="btn btn-default" type="submit">
-                                    <span class="sr-only"><fmt:message key="edit"/></span>
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                        </form:form>
+                </h3>
+                <br/>
 
-                        <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${item.id}" cssClass="form-horizontal">
-                            <td class="col-xs-1 text-center">
-                                <button class="btn btn-default" type="submit">
-                                    <span class="sr-only"><fmt:message key="remove"/></span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </td>
-                        </form:form>
-                    </tr>
-                </c:forEach>
-         </tbody>
-     </table>
+                <br/>
 
-</jsp:attribute>
+                 <table class="table col-md-3">
+                     <thead>
+                     <tr>
+                         <th><fmt:message key="price.price"/></th>
+                         <th><fmt:message key="packing.volume"/></th>
+                         <th><fmt:message key="packing.validFrom"/></th>
+                         <th><fmt:message key="packing.validTo"/></th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <c:forEach items="${pricePackings}" var="item">
+                        <tr>
+                            <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
+                            <td><c:out value="${item.packingDto.volume}"/></td>
+                            <td><c:out value="${item.packingDto.validFrom}"/></td>
+                            <td><c:out value="${item.packingDto.validTo}"/></td>
+                            <form:form method="get" action="${pageContext.request.contextPath}/wines/update/PricePacking${item.id}" cssClass="form-horizontal">
+                                <td class="col-xs-1 text-center">
+                                    <button class="btn btn-default" type="submit">
+                                        <span class="sr-only"><fmt:message key="edit"/></span>
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </form:form>
+
+                            <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${item.id}" cssClass="form-horizontal">
+                                <td class="col-xs-1 text-center">
+                                    <button class="btn btn-default" type="submit">
+                                        <span class="sr-only"><fmt:message key="remove"/></span>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                            </form:form>
+                        </tr>
+                     </c:forEach>
+                     </tbody>
+                 </table>
+            </div>
+        </div>
+    </jsp:attribute>
 </my:template>
