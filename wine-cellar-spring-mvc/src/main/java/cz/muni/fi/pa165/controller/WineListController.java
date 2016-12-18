@@ -55,8 +55,13 @@ public class WineListController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
-        wineListFacade.deleteWineList(id);
-        redirectAttributes.addFlashAttribute("alert_success", "WineList \"" + wineListDto.getName() + "\" was deleted.");
+
+        try {
+            wineListFacade.deleteWineList(id);
+            redirectAttributes.addFlashAttribute("alert_success", "WineList \"" + wineListDto.getName() + "\" was deleted.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("alert_danger", "WineList \"" + wineListDto.getName() + "\" wasn't deleted.");
+        }
         return "redirect:" + uriBuilder.path("/winelists/index").toUriString();
     }
 
@@ -85,7 +90,6 @@ public class WineListController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
-
         model.addAttribute("wineListUpdate", wineListDto);
         return "winelists/update";
     }

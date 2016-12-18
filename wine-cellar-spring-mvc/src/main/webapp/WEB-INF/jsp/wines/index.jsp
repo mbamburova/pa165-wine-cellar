@@ -16,31 +16,15 @@
 
     <div class="jumbotron">
         <h1><fmt:message key="Wines"/></h1>
-
-        <%--<form:form method="GET"--%>
-                   <%--action="${pageContext.request.contextPath}/wines/index"--%>
-                   <%--acceptCharset=""--%>
-                   <%--cssClass="form-inline">--%>
-
-                <fmt:message key="nameHolder" var="wineHolder"/>
-                <%--<input name="name" value="${wine.name}" class="form-control" autocomplete="off" placeholder="${wineHolder}"/>--%>
-
-                <%--<select name="vintage" class="form-control">--%>
-                    <%--<option value="" display ${empty wine.vintage ? ' selected' : ''}><fmt:message key="vintageHolder"/></option>--%>
-                    <%--<c:forEach items="${wines}" var="wine">--%>
-                        <%--<option value="${wine.vintage}">${wine.vintage}</option>--%>
-                    <%--</c:forEach>--%>
-                <%--</select>--%>
-
-            <%--<button class="btn btn-primary search-btn" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;<fmt:message key="search"/></button>--%>
-            <%--</form:form>--%>
-
+        <fmt:message key="nameHolder" var="wineHolder"/>
+        <c:if test="${user.isAdmin()}">
             <p align="right">
                 <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/new" role="button">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <fmt:message key="create_new"/>
                 </a>
             </p>
+        </c:if>
     </div>
 
     <table class="table table-hover">
@@ -51,9 +35,11 @@
                 <th class="text-center"><fmt:message key="wine.vintage"/></th>
                 <th class="text-center"><fmt:message key="wine.predicate"/></th>
                 <th class="text-center"><fmt:message key="detail"/></th>
-                <th class="text-center"><fmt:message key="edit"/></th>
-                <th class="text-center"><fmt:message key="delete"/></th>
-                <th class="text-center"><fmt:message key="addToWineList"/></th>
+                <%--<c:if test="${user.isAdmin()}">--%>
+                    <th class="text-center"><fmt:message key="edit"/></th>
+                    <th class="text-center"><fmt:message key="delete"/></th>
+                    <th class="text-center"><fmt:message key="addToWineList"/></th>
+                <%--</c:if>--%>
             </tr>
         </thead>
         <tbody>
@@ -74,38 +60,41 @@
                     </td>
                 </form:form>
 
-                <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
-                    <td class="col-xs-1 text-center">
-                        <button class="btn btn-default" type="submit">
-                            <span class="sr-only"><fmt:message key="edit"/></span>
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                </form:form>
+                <%--<c:if test="${user.isAdmin()}">--%>
+                    <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
+                        <td class="col-xs-1 text-center">
+                            <button class="btn btn-default" type="submit">
+                                <span class="sr-only"><fmt:message key="edit"/></span>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </form:form>
 
-                <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${wine.id}" cssClass="form-horizontal">
-                    <td class="col-xs-1 text-center">
-                        <button class="btn btn-default" type="submit">
-                            <span class="sr-only"><fmt:message key="remove"/></span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                </form:form>
+                    <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${wine.id}" cssClass="form-horizontal">
+                        <td class="col-xs-1 text-center">
+                            <button class="btn btn-default" type="submit">
+                                <span class="sr-only"><fmt:message key="remove"/></span>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </form:form>
 
-                <form:form method="get" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
-                <td class="col-xs-1 text-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
-                        </button>
-                        <%--<ul class="dropdown-menu" role="menu">--%>
-                            <%--<c:forEach items="${wineLists}" var="winelist" >--%>
-                                <%--<li> <form:option value="${winelist.id}">${winelist.description}</form:option></li>--%>
-                            <%--</c:forEach>--%>
-                        <%--</ul>--%>
-                    </div>
-                </td>
-                </form:form>
+                    <form:form method="get" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
+                        <td class="col-xs-1 text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
+                                </button>
+                                    <%--<ul class="dropdown-menu" role="menu">--%>
+                                    <%--<c:forEach items="${wineLists}" var="winelist" >--%>
+                                    <%--<li> <form:option value="${winelist.id}">${winelist.description}</form:option></li>--%>
+                                    <%--</c:forEach>--%>
+                                    <%--</ul>--%>
+                            </div>
+                        </td>
+                    </form:form>
+                <%--</c:if>--%>
+
             </tr>
             </c:forEach>
         </tbody>
