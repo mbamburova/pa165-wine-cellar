@@ -35,11 +35,11 @@
                     <th class="text-left"><fmt:message key="wine.vintage"/></th>
                     <th class="text-left"><fmt:message key="wine.predicate"/></th>
                     <th class="text-left"><fmt:message key="detail"/></th>
-                    <%--<c:if test="${user.isAdmin()}">--%>
+                    <c:if test="${loggedUser.isAdmin()}">
                         <th class="text-left"><fmt:message key="edit"/></th>
                         <th class="text-left"><fmt:message key="delete"/></th>
                         <th class="text-left"><fmt:message key="addToWineList"/></th>
-                    <%--</c:if>--%>
+                    </c:if>
                 </tr>
             </thead>
             <tbody>
@@ -60,7 +60,7 @@
                         </td>
                     </form:form>
 
-                    <%--<c:if test="${user.isAdmin()}">--%>
+                    <c:if test="${loggedUser.isAdmin()}">
                         <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
                             <td class="col-xs-1 text-center">
                                 <button class="btn btn-default" type="submit">
@@ -96,7 +96,7 @@
                                 </div>
                             </td>
                         </form:form>
-                    <%--</c:if>--%>
+                    </c:if>
                 </tr>
                 </c:forEach>
             </tbody>

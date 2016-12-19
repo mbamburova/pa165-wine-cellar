@@ -17,20 +17,20 @@
               <c:when test="${empty winelists}">
                    <h4>There are no marketing events.</h4>
                    <br />
-              <%--<c:if test="${user.isAdmin()}">--%>
+              <c:if test="${loggedUser.isAdmin()}">
                     <my:a href="/marketingevents/new" class="btn btn-primary">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     New event
                     </my:a>
-              <%--</c:if>--%>
+              </c:if>
                </c:when>
                <c:otherwise>
-                <%--<c:if test="${user.isAdmin()}">--%>
+                <c:if test="${loggedUser.isAdmin()}">
                         <my:a href="/marketingevents/new" class="btn btn-primary">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             New event
                        </my:a>
-                <%--</c:if>--%>
+                </c:if>
 
                    <table class="table">
                        <thead>

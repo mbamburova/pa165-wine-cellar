@@ -80,4 +80,9 @@ public class UserDto {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
+
+    public boolean isAdmin() {
+        return getUserRole() == UserRole.ADMIN;
+    }
+
 }

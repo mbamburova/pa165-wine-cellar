@@ -22,7 +22,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/marketingevents")
-public class MarketingEventController {
+public class MarketingEventController extends LoggedUser{
 
     @Inject
     MarketingEventFacade marketingEventFacade;
