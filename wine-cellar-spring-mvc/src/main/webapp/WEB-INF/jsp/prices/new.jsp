@@ -16,16 +16,16 @@
 <my:template title="Create packing with price">
 
       <jsp:attribute name="scripts">
-        <script>
-            $(function () {
-                $("#datepickerFrom").datepicker({ dateFormat: 'MM/dd/yyyy' }).val();
-            });
-        </script>
-        <script>
-            $(function () {
-                $("#datepickerTo").datepicker({ dateFormat: 'MM/dd/yyyy' }).val();
-            });
-        </script>
+    <script>
+        $(function () {
+            $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
+        });
+    </script>
     </jsp:attribute>
 
     <jsp:attribute name="body">
@@ -54,6 +54,7 @@
                         <form:errors path="packingDto.validFrom" cssClass="help-block"/>
                     </div>
                 </div>
+
                 <div class="col-md-12 com-md-offset-2 form-group ${validTo_error?'has-error':''}">
                     <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
                     <div class="col-sm-4">

@@ -14,7 +14,7 @@
 <my:template title="Marketing Events">
     <jsp:attribute name="body">
         <c:choose>
-              <c:when test="${empty winelists}">
+              <c:when test="${empty marketingevents}">
                    <h4>There are no marketing events.</h4>
                    <br />
               <c:if test="${loggedUser.isAdmin()}">
@@ -35,21 +35,21 @@
                    <table class="table">
                        <thead>
                        <tr>
-                           <th class="text-center"><fmt:message key="number"/></th>
-                           <th class="text-center"><fmt:message key="marketingevent.description"/></th>
-                           <th class="text-center"><fmt:message key="edit"/></th>
-                           <th class="text-center"><fmt:message key="delete"/></th>
+                           <th class="text-left"><fmt:message key="number"/></th>
+                           <th class="text-left"><fmt:message key="marketingevent.description"/></th>
+                           <th class="text-left"><fmt:message key="edit"/></th>
+                           <th class="text-left"><fmt:message key="delete"/></th>
                        </tr>
                        </thead>
                        <tbody>
                        <c:forEach items="${marketingevents}" var="marketingevent">
                             <c:set var="count" value="${count + 1}" scope="page"/>
                             <tr>
-                                <td>${count}.</td>
-                                <td class="col-xs-3 text-center"><c:out value="${marketingevent.description}"/></td>
+                                <td class="col-xs-3 text-left">${count}.</td>
+                                <td class="col-xs-3 text-left"><c:out value="${marketingevent.description}"/></td>
 
                                 <form:form method="get" action="${pageContext.request.contextPath}/marketingevents/update/${marketingevent.id}" cssClass="form-horizontal">
-                                    <td class="col-xs-1 text-center">
+                                    <td class="col-xs-1 text-left">
                                         <button class="btn btn-default" type="submit">
                                             <span class="sr-only"><fmt:message key="edit"/></span>
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -58,7 +58,7 @@
                                 </form:form>
 
                                 <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/delete/${marketingevent.id}" cssClass="form-horizontal">
-                                    <td class="col-xs-1 text-center">
+                                    <td class="col-xs-1 text-left">
                                         <button class="btn btn-default" type="submit">
                                             <span class="sr-only"><fmt:message key="delete"/></span>
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

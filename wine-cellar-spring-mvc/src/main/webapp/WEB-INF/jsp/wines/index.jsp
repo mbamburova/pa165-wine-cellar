@@ -87,10 +87,8 @@
                                     </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <c:forEach items="${wineLists}" var="winelist" >
-                                                <form:form method="post" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
-                                                     <li><input type="button" onclick="location.href='${pageContext.request.contextPath}/wines/'"> value="${winelist.id}">${winelist.description}</li>
-                                                    <c:set var="listId" value="${winelist.id}"/>
-                                                </form:form>
+                                                <li><a href="${pageContext.request.contextPath}/wines/add/${wine.id}" class="button btn-default"><c:out value="${winelist.name}" /></a></li>
+                                                <%--<c:set var="listId" value="${winelist.id}"/>--%>
                                             </c:forEach>
                                         </ul>
                                 </div>

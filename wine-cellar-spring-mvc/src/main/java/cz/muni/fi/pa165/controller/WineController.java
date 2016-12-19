@@ -69,9 +69,8 @@ public class WineController extends LoggedUser{
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 
-    @RequestMapping(value="add", method = RequestMethod.POST)
-    public String addToWineList(@RequestParam("id") Long id,
-                                @RequestParam("listId") Long listId, WineListDto wineListDto, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value="add/{id}", method = RequestMethod.POST)
+    public String addToWineList(@PathVariable long id, @RequestParam("listId") Long listId, WineListDto wineListDto, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wine = wineFacade.findWineById(id);
         wineListDto.addWine(wine);
 

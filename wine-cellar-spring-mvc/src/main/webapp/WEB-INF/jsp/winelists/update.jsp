@@ -46,11 +46,7 @@
                 <form:label path="marketingEvent" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
                 <div class="col-sm-4">
                     <form:select path="marketingEvent.id" cssClass="form-control">
-                         <c:choose>
-                            <c:when test="${marketingEvent==null}">
-                                     <option><fmt:message key="selectEvent"/></option>
-                            </c:when>
-                        </c:choose>
+
 
                         <c:forEach items="${marketingEvents}" var="marketingEvent">
                             <form:option value="${marketingEvent.id}">${marketingEvent.description}</form:option>

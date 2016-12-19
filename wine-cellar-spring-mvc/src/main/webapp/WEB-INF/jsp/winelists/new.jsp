@@ -46,15 +46,11 @@
         <div class="col-md-12 com-md-offset-2 form-group ">
             <form:label path="marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
             <div class="col-sm-4">
-                    <form:select path="marketingEventId" cssClass="form-control">
-                        <c:forEach items="${marketingevents}" var="marketingevent">
-                            <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
-                        </c:forEach>
-                    </form:select>
+                <form:select path="marketingEventId" cssClass="form-control" items="${marketingEvents}"
+                             itemLabel="description" itemValue="id" />
                 <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
             </div>
         </div>
-
         <button class="btn btn-primary" type="submit">Create WineList</button>
     </form:form>
 
