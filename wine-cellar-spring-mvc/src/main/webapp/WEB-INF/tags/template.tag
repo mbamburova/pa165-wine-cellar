@@ -47,7 +47,7 @@
             <ul class="nav navbar-nav">
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
                 <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
-                <c:if test="${user.isAdmin()}">
+                <c:if test="${loggedUser.isAdmin()}">
                     <li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>
                 </c:if>
             </ul>

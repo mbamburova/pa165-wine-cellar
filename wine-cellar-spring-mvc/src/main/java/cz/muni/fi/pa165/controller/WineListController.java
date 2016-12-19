@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.dto.WineListCreateDto;
-import cz.muni.fi.pa165.dto.WineListDto;
+import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
+import cz.muni.fi.pa165.facade.UserFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/winelists")
-public class WineListController {
+public class WineListController extends LoggedUser{
 
     @Inject
     private WineListFacade wineListFacade;
@@ -38,6 +38,9 @@ public class WineListController {
 
     @Inject
     private MarketingEventFacade marketingEventFacade;
+
+    @Inject
+    private UserFacade userFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
