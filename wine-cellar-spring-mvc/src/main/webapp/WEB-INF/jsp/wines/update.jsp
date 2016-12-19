@@ -116,12 +116,9 @@
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         <fmt:message key="createPricePacking"/>
                     </a>
-
                 </h3>
                 <br/>
-
                 <br/>
-
                  <table class="table col-md-3">
                      <thead>
                      <tr>
