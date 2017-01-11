@@ -15,9 +15,6 @@
 <my:template title="Wines">
 <jsp:attribute name="body">
 
-    <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${wineListView.id}"
-               modelAttribute="wineListView" cssClass="form-horizontal">
-
     <table class="table table-hover">
         <thead>
             <tr>
@@ -29,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${wineListView.wines}" var="wine">
+            <c:forEach items="${wineListView}" var="wine">
             <c:set var="count" value="${count + 1}" scope="page"/>
                 <tr>
                     <td class="col-xs-3 text-center">${count}.</td>
@@ -41,7 +38,7 @@
             </c:forEach>
         </tbody>
     </table>
-    </form:form>
+    <%--</form:form>--%>
 
 </jsp:attribute>
 </my:template>

@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.WineDao;
 import cz.muni.fi.pa165.entity.Wine;
+import cz.muni.fi.pa165.entity.WineList;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -151,6 +152,25 @@ public class WineServiceImpl implements WineService {
             return wineDao.findWinesBetweenYears(from, to);
         } catch(Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines", e);
+        }
+    }
+
+    @Override
+    public List<Wine> findWinesByWineList(List<Long> wineListsId) {
+        try {
+            return wineDao.findWinesByWineList(wineListsId);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find wines from given winelist", e);
+        }
+    }
+
+    @Override
+    public void addWineList(WineList wineList, Wine wine) {
+        try {
+            wine.addWineList(wineList);
+            wineDao.updateWine(wine);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot add winelist to wine");
         }
     }
 }

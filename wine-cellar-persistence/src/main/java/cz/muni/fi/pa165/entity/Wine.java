@@ -166,6 +166,9 @@ public class Wine {
         this.grapeSugarContent = grapeSugarContent;
     }
 
+    public void addWineList(WineList wineList) {
+        this.wineLists.add(wineList);
+    }
 
     @Override
     public boolean equals(Object o) {

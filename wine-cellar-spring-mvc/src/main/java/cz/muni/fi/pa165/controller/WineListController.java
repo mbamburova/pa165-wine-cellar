@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.WineDto;
+import cz.muni.fi.pa165.dto.WineListCreateDto;
+import cz.muni.fi.pa165.dto.WineListDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.UserFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
@@ -84,7 +87,14 @@ public class WineListController {
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewWines(@PathVariable long id, Model model) {
-        model.addAttribute("wineListView", wineListFacade.findWineListById(id));
+//
+//        List<Long> wineListId = new ArrayList<>();
+//        wineListId.add(id);
+//        List<WineDto> wines = wineFacade.findWinesByWineList(wineListId);
+        WineListDto wineListDto = wineListFacade.findWineListById(id);
+        List<WineDto> wines = wineListDto.getWines();
+
+        model.addAttribute("wineListView", wines);
         return "winelists/view";
     }
 

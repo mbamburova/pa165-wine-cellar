@@ -119,4 +119,11 @@ public interface WineDao {
      */
     Wine findWineByBatch(String batch);
 
+    /**
+     * get wines by given winelists
+     * @param wineListsId winelist
+     * @return list of wines
+     */
+    List<Wine> findWinesByWineList(List<Long> wineListsId);
+
 }

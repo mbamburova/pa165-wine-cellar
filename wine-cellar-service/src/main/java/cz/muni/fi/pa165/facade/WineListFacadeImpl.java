@@ -119,4 +119,16 @@ public class WineListFacadeImpl implements WineListFacade {
         return beanMappingService.mapToCollection(
             wineListService.findWineListByMarketingEvent(marketingEvent), WineListDto.class);
     }
+//
+//    @Override
+//    public void addWine(WineListDto wineListDto, WineDto wineDto) {
+//        if (wineListDto == null) {
+//            throw new IllegalArgumentException("Winelist cannot be null");
+//        }
+//        if (wineDto == null) {
+//            throw new IllegalArgumentException("Wine cannot be null");
+//        }
+//
+//    }
+
 }

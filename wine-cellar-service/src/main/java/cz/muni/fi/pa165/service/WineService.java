@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.Wine;
+import cz.muni.fi.pa165.entity.WineList;
 
 import java.math.BigDecimal;
 import java.time.Year;
@@ -27,4 +28,7 @@ public interface WineService {
     List<Wine> findWinesByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity);
     List<Wine> findWinesByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent);
     List<Wine> findWinesBetweenYears(Year from, Year to);
+
+    List<Wine> findWinesByWineList(List<Long> wineListsIds);
+    void addWineList(WineList wineList, Wine wine);
 }

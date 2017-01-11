@@ -2,11 +2,11 @@ package cz.muni.fi.pa165.controller;
 
 import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.facade.*;
-import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -54,7 +54,7 @@ public class WineController {
     }
 
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wineDto = wineFacade.findWineById(id);
 
@@ -67,10 +67,12 @@ public class WineController {
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 
-    @RequestMapping(value="add/{id}", method = RequestMethod.POST)
-    public String addToWineList(@PathVariable long id, @RequestParam("listId") Long listId, WineListDto wineListDto, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value="add/{id}/{listId}", method = RequestMethod.GET)
+    public String addToWineList(@PathVariable long id, @PathVariable long listId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wine = wineFacade.findWineById(id);
+        WineListDto wineListDto = wineListFacade.findWineListById(listId);
         wineListDto.addWine(wine);
+        wineListFacade.updateWineList(wineListDto);
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();

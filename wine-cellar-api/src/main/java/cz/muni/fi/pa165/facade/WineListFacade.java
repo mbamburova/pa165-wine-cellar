@@ -22,4 +22,6 @@ public interface WineListFacade {
     List<WineListDto> findWineListsByName(String name);
     List<WineListDto> findWineListsByDate(LocalDateTime date);
     List<WineListDto> findWineListsByMarketingEvent(MarketingEventDto marketingEventDto);
+
+//    void addWine(WineListDto wineListDto, WineDto wineDto);
 }
