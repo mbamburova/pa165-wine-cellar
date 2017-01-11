@@ -27,7 +27,7 @@ public class MarketingEventController extends LoggedUser{
     @Inject
     MarketingEventFacade marketingEventFacade;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("marketingevents", marketingEventFacade.findAllMarketingEvents());
         return "marketingevents/index";
