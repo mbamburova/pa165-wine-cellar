@@ -11,6 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
 <my:template title="Update wine">
     <jsp:attribute name="body">
@@ -111,51 +112,65 @@
 
             <div class="col-sm-6">
                 <h3><fmt:message key="priceList"/>
-
-                    <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new/${wineUpdate.id}" role="button">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        <fmt:message key="createPricePacking"/>
-                    </a>
+                    <div>
+                        <br/>
+                        <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new/${wineUpdate.id}" role="button">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <fmt:message key="createPricePacking"/>
+                        </a>
+                    </div>
                 </h3>
                 <br/>
                 <br/>
-                 <table class="table col-md-3">
-                     <thead>
-                     <tr>
-                         <th><fmt:message key="price.price"/></th>
-                         <th><fmt:message key="packing.volume"/></th>
-                         <th><fmt:message key="packing.validFrom"/></th>
-                         <th><fmt:message key="packing.validTo"/></th>
-                     </tr>
-                     </thead>
-                     <tbody>
-                     <c:forEach items="${pricePackings}" var="item">
-                        <tr>
-                            <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
-                            <td><c:out value="${item.packingDto.volume}"/></td>
-                            <td><c:out value="${item.packingDto.validFrom}"/></td>
-                            <td><c:out value="${item.packingDto.validTo}"/></td>
-                            <form:form method="get" action="${pageContext.request.contextPath}/wines/update/PricePacking${item.id}" cssClass="form-horizontal">
-                                <td class="col-xs-1 text-center">
-                                    <button class="btn btn-default" type="submit">
-                                        <span class="sr-only"><fmt:message key="edit"/></span>
-                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    </button>
-                                </td>
-                            </form:form>
-
-                            <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${item.id}" cssClass="form-horizontal">
-                                <td class="col-xs-1 text-center">
-                                    <button class="btn btn-default" type="submit">
-                                        <span class="sr-only"><fmt:message key="remove"/></span>
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <c:choose>
+                    <c:when test="${empty pricePackings}">
+                        <h5><em>The price for this wine hasn't been assinged yet</em></h5>
+                        <br />
+                    </c:when>
+                    <c:otherwise>
+                        <table class="table table-hover col-md-3">
+                            <thead>
+                            <tr>
+                                <th><fmt:message key="price.price"/></th>
+                                <th><fmt:message key="packing.volume"/></th>
+                                <th><fmt:message key="packing.validFrom"/></th>
+                                <th><fmt:message key="packing.validTo"/></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${pricePackings}" var="item">
+                            <tr>
+                                <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
+                                <td><c:out value="${item.packingDto.volume}"/></td>
+                                <td><javatime:format value="${item.packingDto.validFrom}" pattern="dd.MM.yyyy"/></td>
+                                <td><javatime:format value="${item.packingDto.validTo}" pattern="dd.MM.yyyy"/></td>
+                                <form:form method="get" action="${pageContext.request.contextPath}/prices/update" cssClass="form-horizontal">
+                                    <input type="hidden" name="priceId" value="${item.priceDto.id}">
+                                    <input type="hidden" name="packingId" value="${item.packingDto.id}">
+                                    <td class="col-xs-1 text-center">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="sr-only"><fmt:message key="edit"/></span>
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
-                            </form:form>
-                        </tr>
-                     </c:forEach>
-                     </tbody>
-                 </table>
+                                </form:form>
+
+                                <form:form method="post" action="${pageContext.request.contextPath}/prices/delete" cssClass="form-horizontal">
+                                    <input type="hidden" name="priceId" value="${item.priceDto.id}">
+                                    <input type="hidden" name="packingId" value="${item.packingDto.id}">
+                                    <td class="col-xs-1 text-center">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="sr-only"><fmt:message key="remove"/></span>
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </form:form>
+                            </tr>
+                         </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </jsp:attribute>

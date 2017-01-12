@@ -14,22 +14,20 @@
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
 <my:template title="Create packing with price">
-
-      <jsp:attribute name="scripts">
-    <script>
-        $(function () {
-            $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
-        });
-    </script>
-    <script>
-        $(function () {
-            $(".datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
-        });
-    </script>
+    <jsp:attribute name="scripts">
+        <script>
+            $(function () {
+                $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
+            });
+        </script>
+        <script>
+            $(function () {
+                $("#datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
+            });
+        </script>
     </jsp:attribute>
 
     <jsp:attribute name="body">
-
         <form:form method="post" action="${pageContext.request.contextPath}/prices/new"
                    modelAttribute="pricePacking" cssClass="form-horizontal">
             <div class="container">
@@ -47,22 +45,6 @@
                         <form:errors path="priceDto.price" cssClass="help-block"/>
                     </div>
                 </div>
-                <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
-                    <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
-                    <div class="col-sm-4">
-                        <form:input path="packingDto.validFrom" id="datepickerFrom" cssClass="form-control"/>
-                        <form:errors path="packingDto.validFrom" cssClass="help-block"/>
-                    </div>
-                </div>
-
-                <div class="col-md-12 com-md-offset-2 form-group ${validTo_error?'has-error':''}">
-                    <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
-                    <div class="col-sm-4">
-                        <form:input path="packingDto.validTo" id="datepickerTo" cssClass="form-control"/>
-                        <form:errors path="packingDto.validTo" cssClass="help-block"/>
-                    </div>
-                </div>
-
                 <div class="col-md-12 com-md-offset-2 form-group">
                     <form:label path="priceDto.currency" cssClass="col-sm-2 control-label"><fmt:message key="price.currency"/></form:label>
                     <div class="col-sm-4">
@@ -74,7 +56,20 @@
                         <form:errors path="priceDto.currency" cssClass="error"/>
                     </div>
                 </div>
-
+                <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
+                    <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
+                    <div class="col-sm-4">
+                        <form:input path="packingDto.validFrom" id="datepickerFrom" class="form-control" required="true"/>
+                        <form:errors path="packingDto.validFrom" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="col-md-12 com-md-offset-2 form-group ${validTo_error?'has-error':''}">
+                    <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
+                    <div class="col-sm-4">
+                        <form:input path="packingDto.validTo" id="datepickerTo" cssClass="form-control"/>
+                        <form:errors path="packingDto.validTo" cssClass="help-block"/>
+                    </div>
+                </div>
                 <div class="col-md-12 com-md-offset-2 form-group ">
                     <form:label path="priceDto.marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
                     <div class="col-sm-4">
