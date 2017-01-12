@@ -48,8 +48,6 @@ public class PriceController {
         pricePackingCreateDto.setPackingDto(packingDto);
 
         model.addAttribute("pricePacking", pricePackingCreateDto);
-        model.addAttribute("currencies");
-        model.addAttribute("marketingevents");
         return "prices/new";
     }
 
