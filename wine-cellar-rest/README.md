@@ -105,7 +105,7 @@ curl -i -X GET http://localhost:8080/pa165/rest/winelists/1
 **Example**
 
 ```
-curl -i -X PUT -H "Content-Type: application/json" --data '{"Nový Rok":"","date":"1.1.2017"}' http://localhost:8080/pa165/rest/winelists/4
+curl -i -X PUT -H "Content-Type: application/json" --data '{"Nový Rok":"","date":"1.1.2017"}' http://localhost:8080/pa165/rest/winelists/1
 ```
 
 ###Delete wine list
