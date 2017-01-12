@@ -1,4 +1,4 @@
-# PA165 Music Library - REST module guide
+# PA165 Wine Cellar - REST module guide
 
 ## Install
 
