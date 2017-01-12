@@ -12,6 +12,8 @@ public class DateConverter implements Converter<String, LocalDateTime> {
 
     @Override
     public LocalDateTime convert(String input) {
+        if (input.isEmpty())
+            return null;
         try {
             String[] dateParsed = input.split("/");
 
@@ -21,7 +23,7 @@ public class DateConverter implements Converter<String, LocalDateTime> {
                 Integer.valueOf(String.valueOf(LocalTime.now().getHour())),
                 Integer.valueOf(String.valueOf(LocalTime.now().getMinute())));
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            return null;
+            throw new IllegalArgumentException("Format is not dd/mm/yyyy");
         }
     }
 }

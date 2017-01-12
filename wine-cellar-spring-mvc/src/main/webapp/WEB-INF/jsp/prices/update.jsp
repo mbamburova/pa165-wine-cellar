@@ -59,7 +59,7 @@
                 <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
                     <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
                     <div class="col-sm-4">
-                        <form:input path="packingDto.validFrom" id="datepickerFrom" class="form-control" required="true"/>
+                        <form:input path="packingDto.validFrom" id="datepickerFrom" cssClass="form-control" required="true"/>
                         <form:errors path="packingDto.validFrom" cssClass="help-block"/>
                     </div>
                 </div>
