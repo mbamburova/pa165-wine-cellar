@@ -26,7 +26,7 @@ import javax.validation.Validator;
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class, WineCellarSampleDataConfig.class, AuthenticationConfig.class})
-@ComponentScan(basePackages = "cz.muni.fi.pa165.controller")
+@ComponentScan(basePackages = "cz.muni.fi.pa165")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean

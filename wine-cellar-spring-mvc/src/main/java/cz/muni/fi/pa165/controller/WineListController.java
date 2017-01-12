@@ -5,8 +5,6 @@ import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.UserFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/winelists")
-public class WineListController extends LoggedUser{
+public class WineListController {
 
     @Inject
     private WineListFacade wineListFacade;

@@ -21,7 +21,7 @@
         <div class="col-md-12 com-md-offset-2 form-group ${description_error?'has-error':''}">
             <form:label path="description" cssClass="col-sm-2 control-label">Description</form:label>
             <div class="col-sm-4">
-                <form:input path="description" cssClass="form-control"/>
+                <form:input path="description" class="form-control" required="true"/>
                 <form:errors path="description" cssClass="help-block"/>
             </div>
         </div>

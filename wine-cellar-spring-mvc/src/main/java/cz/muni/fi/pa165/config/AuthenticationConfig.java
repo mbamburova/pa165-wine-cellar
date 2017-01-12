@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import cz.muni.fi.pa165.dto.UserAuthDto;
 import cz.muni.fi.pa165.dto.UserDto;
+import cz.muni.fi.pa165.exceptions.NotFoundException;
 import cz.muni.fi.pa165.facade.UserFacade;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,7 +35,7 @@ public class AuthenticationConfig implements AuthenticationProvider {
 
         try {
             user = userFacade.findUserByEmail(email);
-        } catch (Exception e) {
+        } catch (NotFoundException | IllegalArgumentException e) {
             return null;
         }
 
