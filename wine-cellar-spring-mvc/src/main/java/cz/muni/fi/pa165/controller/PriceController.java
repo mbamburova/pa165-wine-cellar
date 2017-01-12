@@ -28,7 +28,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/prices")
-public class PriceController extends LoggedUser{
+public class PriceController {
 
     @Inject
     private PriceFacade priceFacade;

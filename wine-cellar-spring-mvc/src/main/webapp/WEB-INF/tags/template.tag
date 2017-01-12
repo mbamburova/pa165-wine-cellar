@@ -6,6 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="${pageContext.request.locale}">
@@ -38,19 +39,17 @@
             <ul class="nav navbar-nav">
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
                 <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
-                <c:if test="${loggedUser.isAdmin()}">
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><my:a href="/marketingevents/index"><f:message key="navigation.admin.marketingevents"/></my:a></li>
-                </c:if>
+                </sec:authorize>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <c:choose>
-                    <c:when test="${not empty pageContext.request.remoteUser}">
-                        <li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-in"></span><f:message key="logout"/></a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/login"><span class="glyphicon glyphicon-log-in"></span><f:message key="login"/></a></li>
-                    </c:otherwise>
-                </c:choose>
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-in"></span><f:message key="logout"/></a></li>
+                </sec:authorize>
+                <sec:authorize access="!isAuthenticated()">
+                    <li><a href="${pageContext.request.contextPath}/"><span class="glyphicon glyphicon-log-in"></span><f:message key="login"/></a></li>
+                </sec:authorize>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
