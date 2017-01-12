@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class WineListCreateDto {
     private String name;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDateTime date;
 
     private Long marketingEventId;
