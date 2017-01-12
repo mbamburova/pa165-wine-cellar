@@ -51,7 +51,7 @@ public class MarketingEventController {
         }
         marketingEventFacade.createMarketingEvent(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Marketing Event " + formBean.getDescription() + " was created");
+        redirectAttributes.addFlashAttribute("alert_success", "Marketing event " + formBean.getDescription() + " was created");
         return "redirect:" + uriBuilder.path("/marketingevents/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
@@ -59,7 +59,7 @@ public class MarketingEventController {
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         MarketingEventDto marketingEventDto = marketingEventFacade.findMarketingEventById(id);
         marketingEventFacade.deleteMarketingEvent(id);
-        redirectAttributes.addFlashAttribute("alert_success", "Marketing Event \"" + marketingEventDto.getDescription() + "\" was deleted.");
+        redirectAttributes.addFlashAttribute("alert_success", "Marketing event \"" + marketingEventDto.getDescription() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/marketingevents/index").toUriString();
     }
 
@@ -82,7 +82,7 @@ public class MarketingEventController {
 
         marketingEventFacade.updateMarketingEvent(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Marketing Event " + formBean.getDescription() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "Marketing event " + formBean.getDescription() + " was updated");
         return "redirect:" + uriBuilder.path("/marketingevents/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 

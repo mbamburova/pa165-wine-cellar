@@ -12,7 +12,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<own:template title="Update Marketing Event">
+<own:template title="Update Marketing event">
     <jsp:attribute name="body">
 
         <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/update/${marketingEventUpdate.id}"

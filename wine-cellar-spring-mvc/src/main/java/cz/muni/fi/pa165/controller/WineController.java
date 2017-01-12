@@ -68,7 +68,12 @@ public class WineController {
     public String addToWineList(@PathVariable long id, @PathVariable long listId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wine = wineFacade.findWineById(id);
         WineListDto wineListDto = wineListFacade.findWineListById(listId);
-        wineListFacade.addWine(wineListDto, wine);
+        try {
+            wineListFacade.addWine(wineListDto, wine);
+        } catch (UnsupportedOperationException e) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Tasting ticket \"" + wineListDto.getName() + "\" already contains wine " + wine.getName());
+            return "redirect:" + uriBuilder.path("/wines/index").toUriString();
+        }
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
@@ -81,7 +86,7 @@ public class WineController {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
         wineListFacade.removeWine(wineListDto, wine);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was removed from winelist " + wineListDto.getName());
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was removed from tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/winelists/view/" + wineListDto.getId()).toUriString();
     }
 

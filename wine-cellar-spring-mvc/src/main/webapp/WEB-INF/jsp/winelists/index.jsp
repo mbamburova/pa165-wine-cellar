@@ -13,17 +13,17 @@
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:template title="Winelists">
+<my:template title="Tasting tickets">
     <jsp:attribute name="body">
        <sec:authorize access="hasRole('ROLE_ADMIN')">
            <my:a href="/winelists/new" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    New wineList
+                    New tasting ticket
             </my:a>
        </sec:authorize>
        <c:choose>
            <c:when test="${empty winelists}">
-               <h5><em>There are no winelists</em></h5>
+               <h5><em>There are no tasting tickets.</em></h5>
                <br />
            </c:when>
            <c:otherwise>
