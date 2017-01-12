@@ -30,29 +30,29 @@
                <table class="table table-hover">
                    <thead>
                    <tr>
-                       <th class="text-center"><fmt:message key="number"/></th>
-                       <th class="text-center"><fmt:message key="winelist.name"/></th>
-                       <th class="text-center"><fmt:message key="winelist.date"/></th>
-                       <th class="text-center"><fmt:message key="winelist.marketingevent"/></th>
+                       <th class="text-left"><fmt:message key="number"/></th>
+                       <th class="text-left"><fmt:message key="winelist.name"/></th>
+                       <th class="text-left"><fmt:message key="winelist.date"/></th>
+                       <th class="text-left"><fmt:message key="winelist.marketingevent"/></th>
                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                       <th class="text-center"><fmt:message key="edit"/></th>
-                       <th class="text-center"><fmt:message key="remove"/></th>
+                       <th class="text-left"><fmt:message key="edit"/></th>
+                       <th class="text-left"><fmt:message key="remove"/></th>
                        </sec:authorize>
-                       <th class="text-center"><fmt:message key="wineList.viewWines"/></th>
+                       <th class="text-left"><fmt:message key="wineList.viewWines"/></th>
                    </tr>
                    </thead>
                    <tbody>
                    <c:forEach items="${winelists}" var="winelist">
                     <c:set var="count" value="${count + 1}" scope="page"/>
                     <tr>
-                        <td class="col-xs-3 text-center">${count}.</td>
-                        <td class="col-xs-3 text-center"><c:out value="${winelist.name}"/></td>
-                        <td><javatime:format value="${winelist.date}" pattern="dd.MM.yyyy"/></td>
-                        <td class="col-xs-3 text-center"><c:out value="${winelist.marketingEvent.description}"/></td>
+                        <td class="col-xs-3 text-left">${count}.</td>
+                        <td class="col-xs-3 text-left"><c:out value="${winelist.name}"/></td>
+                        <td class="col-xs-3 text-left"><javatime:format value="${winelist.date}" pattern="dd.MM.yyyy"/></td>
+                        <td class="col-xs-3 text-left"><c:out value="${winelist.marketingEvent.description}"/></td>
 
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <form:form method="get" action="${pageContext.request.contextPath}/winelists/update/${winelist.id}" cssClass="form-horizontal">
-                                <td class="col-xs-1 text-center">
+                                <td class="col-xs-1 text-left">
                                     <button class="btn btn-default" type="submit">
                                         <span class="sr-only"><fmt:message key="edit"/></span>
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -70,7 +70,7 @@
                         </form:form>
                         </sec:authorize>
                         <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${winelist.id}" cssClass="form-horizontal">
-                            <td class="col-xs-1 text-center">
+                            <td class="col-xs-1 text-left">
                                 <button class="btn btn-default" type="submit">
                                     <span class="sr-only"><fmt:message key="wineList.viewWines"/></span>
                                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

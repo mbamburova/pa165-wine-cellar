@@ -17,6 +17,7 @@
     <jsp:attribute name="body">
         <div class="row">
             <div class="col-sm-6">
+                <br />
                 <form:form method="post" action="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"
                            modelAttribute="wineUpdate" cssClass="form-horizontal">
 
@@ -99,11 +100,17 @@
                             <div class="col-sm-8">
                                 <form:input path="grapeSugarContent" cssClass="form-control"/>
                                 <form:errors path="grapeSugarContent" cssClass="help-block"/>
+                                <br />
                             </div>
+                         <br />
+                         <p align="right">
+                             <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
+                             <a class="btn btn-default" href="${pageContext.request.contextPath}/wines/index"><fmt:message key="cancel"/></a>
+                         </p>
                      </div>
+
                      <form:hidden path="id"/>
                     <div>
-                        <button class="btn btn-primary" type="submit">Update wine</button>
                     </div>
                      <br/>
                      <br/>

@@ -46,19 +46,19 @@
                 <form:label path="marketingEvent" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
                 <div class="col-sm-4">
                     <form:select path="marketingEvent.id" cssClass="form-control">
-
-
                         <c:forEach items="${marketingEvents}" var="marketingEvent">
                             <form:option value="${marketingEvent.id}">${marketingEvent.description}</form:option>
                         </c:forEach>
                     </form:select>
                     <p class="help-block"><form:errors path="marketingEvent" cssClass="error"/></p>
+                    <br />
+                    <p align="right">
+                        <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
+                        <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index"><fmt:message key="cancel"/></a>
+                    </p>
                 </div>
             </div>
             <form:hidden path="id"/>
-            <button class="btn btn-primary" type="submit">Update WineList</button>
-
         </form:form>
-
     </jsp:attribute>
 </my:template>

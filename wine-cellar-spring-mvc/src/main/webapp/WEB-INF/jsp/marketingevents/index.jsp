@@ -23,6 +23,7 @@
                   <br />
                </c:when>
                <c:otherwise>
+
                    <table class="table table-hover">
                        <thead>
                        <tr>

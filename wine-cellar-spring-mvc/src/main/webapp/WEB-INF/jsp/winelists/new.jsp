@@ -13,7 +13,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time"  %>
 
-<my:template title="Create new tasting tickes">
+<my:template title="Create new tasting ticket">
 <jsp:attribute name="scripts">
     <script>
         $(function () {
@@ -49,9 +49,13 @@
                 <form:select path="marketingEventId" cssClass="form-control" items="${marketingEvents}"
                              itemLabel="description" itemValue="id" />
                 <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
+                <br />
+                <p align="right">
+                    <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
+                    <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index"><fmt:message key="cancel"/></a>
+                </p>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Create WineList</button>
     </form:form>
 
 </jsp:attribute>
