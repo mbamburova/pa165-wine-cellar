@@ -15,33 +15,32 @@
 
 <my:template title="Winelists">
     <jsp:attribute name="body">
-       <c:if test="${empty winelists}">
-           <h4>There are no winelists.</h4>
-           <br />
-       </c:if>
        <sec:authorize access="hasRole('ROLE_ADMIN')">
            <my:a href="/winelists/new" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     New wineList
             </my:a>
        </sec:authorize>
-           <br />
-            <table class="table">
-                <thead>
-                <tr>
-                    <th class="text-center"><fmt:message key="number"/></th>
-                    <th class="text-center"><fmt:message key="winelist.name"/></th>
-                    <th class="text-center"><fmt:message key="winelist.date"/></th>
-                    <th class="text-center"><fmt:message key="winelist.marketingevent"/></th>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <th class="text-center"><fmt:message key="edit"/></th>
-                            <th class="text-center"><fmt:message key="remove"/></th>
-                        </sec:authorize>
-                    <th class="text-center"><fmt:message key="wineList.viewWines"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${winelists}" var="winelist">
+       <c:choose>
+           <c:when test="${empty winelists}">
+               <h5><em>There are no winelists</em></h5>
+               <br />
+           </c:when>
+           <c:otherwise>
+               <table class="table table-hover">
+                   <thead>
+                   <tr>
+                       <th class="text-center"><fmt:message key="number"/></th>
+                       <th class="text-center"><fmt:message key="winelist.name"/></th>
+                       <th class="text-center"><fmt:message key="winelist.date"/></th>
+                       <th class="text-center"><fmt:message key="winelist.marketingevent"/></th>
+                       <th class="text-center"><fmt:message key="edit"/></th>
+                       <th class="text-center"><fmt:message key="remove"/></th>
+                       <th class="text-center"><fmt:message key="wineList.viewWines"/></th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <c:forEach items="${winelists}" var="winelist">
                     <c:set var="count" value="${count + 1}" scope="page"/>
                     <tr>
                         <td class="col-xs-3 text-center">${count}.</td>
@@ -78,8 +77,9 @@
                         </form:form>
                     </tr>
                     </c:forEach>
-                </tbody>
-            </table>
-     <br/>
+                   </tbody>
+               </table>
+           </c:otherwise>
+       </c:choose>
     </jsp:attribute>
 </my:template>

@@ -19,7 +19,7 @@
         New Price
     </my:a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th><fmt:message key="number"/></th>

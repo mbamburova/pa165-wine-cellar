@@ -13,26 +13,17 @@
 
 <my:template title="Marketing Events">
     <jsp:attribute name="body">
+         <my:a href="/marketingevents/new" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+             New event
+        </my:a>
         <c:choose>
               <c:when test="${empty marketingevents}">
-                   <h4>There are no marketing events.</h4>
-                   <br />
-              <c:if test="${loggedUser.isAdmin()}">
-                    <my:a href="/marketingevents/new" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    New event
-                    </my:a>
-              </c:if>
+                  <h5><em>There are no marketing events</em></h5>
+                  <br />
                </c:when>
                <c:otherwise>
-                <c:if test="${loggedUser.isAdmin()}">
-                        <my:a href="/marketingevents/new" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            New event
-                       </my:a>
-                </c:if>
-
-                   <table class="table">
+                   <table class="table table-hover">
                        <thead>
                        <tr>
                            <th class="text-left"><fmt:message key="number"/></th>
@@ -71,6 +62,5 @@
                    </table>
                </c:otherwise>
         </c:choose>
-        <br/>
     </jsp:attribute>
 </my:template>
