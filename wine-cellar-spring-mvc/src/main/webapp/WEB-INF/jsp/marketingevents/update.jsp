@@ -12,7 +12,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<own:template title="Update Marketing Event">
+<own:template title="Update Marketing event">
     <jsp:attribute name="body">
 
         <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/update/${marketingEventUpdate.id}"
@@ -23,6 +23,11 @@
                 <div class="col-sm-4">
                     <form:input path="description" class="form-control" required="true"/>
                     <form:errors path="description" cssClass="help-block"/>
+                    <br />
+                    <p align="right">
+                        <button class="btn btn-primary" type="submit"><fmt:message key="update"/></button>
+                        <a class="btn btn-default" href="${pageContext.request.contextPath}/marketingevents/index"><fmt:message key="cancel"/></a>
+                    </p>
                 </div>
             </div>
 

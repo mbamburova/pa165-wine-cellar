@@ -126,6 +126,9 @@ public class WineListFacadeImpl implements WineListFacade {
         if (wineDto == null) {
             throw new IllegalArgumentException("Wine cannot be null");
         }
+        if (wineListDto.getWines().contains(wineDto)) {
+            throw new UnsupportedOperationException("Winelist already contains wine with id " + wineDto.getId());
+        }
         WineList wineList = beanMappingService.mapTo(wineListDto, WineList.class);
         if (wineListDto.getMarketingEvent().getId() != null) {
             wineList.setMarketingEvent(

@@ -53,7 +53,7 @@
                     <td class="col-xs-3 text-left"><c:out value="${wine.predicate}"/></td>
 
                     <form:form method="get" action="${pageContext.request.contextPath}/wines/detail/${wine.id}" cssClass="form-horizontal">
-                        <td class="col-xs-1 text-center">
+                        <td class="col-xs-1 text-left">
                             <button class="btn btn-default" type="submit">
                                 <span class="sr-only"><fmt:message key="detail"/></span>
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -72,28 +72,45 @@
                         </form:form>
 
                         <form:form method="post" action="${pageContext.request.contextPath}/wines/delete/${wine.id}" cssClass="form-horizontal">
-                            <td class="col-xs-1 text-center">
+                            <td class="col-xs-1 text-left">
                                 <button class="btn btn-default" type="submit">
                                     <span class="sr-only"><fmt:message key="remove"/></span>
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
                             </td>
                         </form:form>
-
-                        <form:form method="post" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
+                        <c:choose>
+                        <c:when test="${empty wineLists}">
+                             <td class="col-xs-1 text-left">
+                                 <div class="dropdown">
+                                     <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown" disabled="true">
+                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
+                                     </button>
+                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <c:forEach items="${wineLists}" var="winelist" >
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}"><c:out value="${winelist.name}" /></a></li>
+                                        </c:forEach>
+                                     </div>
+                                 </div>
+                             </td>
+                        </c:when>
+                        <c:otherwise>
+                             <form:form method="post" action="${pageContext.request.contextPath}/wines/add/${wine.id}" cssClass="form-horizontal">
                             <td class="col-xs-1 text-center">
-                                <div class="btn-group">
+                                <div class="dropdown">
                                     <button type="button" class="btn btn-default .dropdown-toggle" data-toggle="dropdown">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
                                     </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <c:forEach items="${wineLists}" var="winelist" >
-                                                <li><a href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}" class="button btn-default"><c:out value="${winelist.name}" /></a></li>
-                                            </c:forEach>
-                                        </ul>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <c:forEach items="${wineLists}" var="winelist" >
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}"><c:out value="${winelist.name}" /></a></li>
+                                       </c:forEach>
+                                    </div>
                                 </div>
                             </td>
                         </form:form>
+                        </c:otherwise>
+                        </c:choose>
                     </sec:authorize>
                 </tr>
                 </c:forEach>

@@ -33,22 +33,24 @@
                     </div>
                 </c:if>
 
-                <div class="col-md-12 com-md-offset-2 form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label sr-only"><fmt:message key="mail"/></label>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-sm-1 control-label"><fmt:message key="mail"/></label>
                     <div class="col-sm-4">
                         <input type="email" name="user" id="inputEmail" class="form-control" placeholder="Email address" required="true" autofocus="true">
                     </div>
                 </div>
 
-                <div class="col-md-12 com-md-offset-2 form-group">
-                    <label for="inputPassword" class="col-sm-2 control-label sr-only"><fmt:message key="password"/></label>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-1 control-label"><fmt:message key="password"/></label>
                     <div class="col-sm-4">
                         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="true">
-                    </div>
-                </div>
 
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button class="btn btn-primary" type="submit"><fmt:message key="login"/></button>
+                        <p align="right">
+                        <div class="col-sm-offset-10">
+                            <button class="btn btn-primary" type="submit"><fmt:message key="login"/></button>
+                        </div>
+                        </p>
+                    </div>
                 </div>
             </form:form>
         </c:otherwise>
@@ -56,6 +58,7 @@
     </div>
 
     <hr/>
+    <br />
     <div class="col-md-12 com-md-offset-2">
         <h3>Admin</h3>
         <p>Login: admin@wines.com</p>
@@ -66,6 +69,6 @@
         <p>Password: user123</p>
     </div>
 
- </jsp:attribute>
+</jsp:attribute>
 </my:template>
 

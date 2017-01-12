@@ -77,11 +77,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         marketingEventService.createMarketingEvent(narodeniny);
         marketingEventService.createMarketingEvent(betatest);
 
-        WineList wineList1 = wineList("winelist1", LocalDateTime.of(2016,12,31,22,0),
+        WineList wineList1 = wineList("Svätomartinská ochutnávka", LocalDateTime.of(2016,12,31,22,0),
                 Arrays.asList(veltlinskeZelene, muskatMoravsky, svatovavrinecke), silvester);
-        WineList wineList2 = wineList("winelist2", LocalDateTime.of(2017,1,25,0,0),
+        WineList wineList2 = wineList("Degustace 09/2016", LocalDateTime.of(2017,1,25,0,0),
                 Arrays.asList(veltlinskeZelene, svatovavrinecke), narodeniny);
-        WineList wineList3 = wineList("winelist3", LocalDateTime.of(2017,2,10,20,0),
+        WineList wineList3 = wineList("Degustace 11/2016", LocalDateTime.of(2017,2,10,20,0),
                 Arrays.asList(veltlinskeZelene, muskatMoravsky), betatest);
 
         wineListService.createWineList(wineList1);

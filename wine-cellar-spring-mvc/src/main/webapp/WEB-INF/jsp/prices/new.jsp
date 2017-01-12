@@ -79,11 +79,15 @@
                         </c:forEach>
                     </form:select>
                     <p class="help-block"><form:errors path="priceDto.marketingEventId" cssClass="error"/></p>
+                        <br />
+                        <p align="right">
+                            <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
+                            <%--<a class="btn btn-default" href="${pageContext.request.contextPath}/wines/update"><fmt:message key="cancel"/></a>--%>
+                        </p>
                     </div>
                 </div>
             </div>
             <form:hidden path="packingDto.wineId"/>
-            <button class="btn btn-primary" type="submit"><fmt:message key="save"/></button>
         </form:form>
     </jsp:attribute>
 </my:template>

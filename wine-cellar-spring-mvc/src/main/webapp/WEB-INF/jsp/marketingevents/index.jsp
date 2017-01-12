@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:template title="Marketing Events">
+<my:template title="Marketing events">
     <jsp:attribute name="body">
          <my:a href="/marketingevents/new" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -23,6 +23,7 @@
                   <br />
                </c:when>
                <c:otherwise>
+
                    <table class="table table-hover">
                        <thead>
                        <tr>
