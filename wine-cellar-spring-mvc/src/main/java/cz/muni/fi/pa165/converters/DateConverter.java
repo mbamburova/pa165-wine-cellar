@@ -20,7 +20,7 @@ public class DateConverter implements Converter<String, LocalDateTime> {
                 Integer.valueOf(dateParsed[1]),
                 Integer.valueOf(String.valueOf(LocalTime.now().getHour())),
                 Integer.valueOf(String.valueOf(LocalTime.now().getMinute())));
-        } catch (NumberFormatException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             return null;
         }
     }

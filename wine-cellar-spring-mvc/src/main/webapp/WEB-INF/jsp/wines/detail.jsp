@@ -70,7 +70,7 @@
                </c:when>
                <c:otherwise>
                    <div>
-                       <table class="col-md-8">
+                       <table class="table table-hover">
                            <thead>
                            <tr>
                                <th class="text-left"><fmt:message key="price.price"/></th>
@@ -84,8 +84,8 @@
                                     <tr>
                                         <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
                                         <td><c:out value="${item.packingDto.volume}"/> l</td>
-                                        <td><javatime:format value="${item.packingDto.validFrom}" pattern="dd.MM.yyyy HH:mm"/></td>
-                                        <td><javatime:format value="${item.packingDto.validTo}" pattern="dd.MM.yyyy HH:mm"/></td>
+                                        <td><javatime:format value="${item.packingDto.validFrom}" pattern="dd.MM.yyyy"/></td>
+                                        <td><javatime:format value="${item.packingDto.validTo}" pattern="dd.MM.yyyy"/></td>
                                     </tr>
                                 </c:forEach>
                            </tbody>

@@ -13,36 +13,53 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
-<own:template title="Update Price">
+<own:template title="Update packing with price">
      <jsp:attribute name="scripts">
         <script>
             $(function () {
-                $("#datepickerFrom").datepicker({ dateFormat: 'MM/dd/yyyy' }).val();
+                $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
             });
         </script>
         <script>
             $(function () {
-                $("#datepickerTo").datepicker({ dateFormat: 'MM/dd/yyyy' }).val();
+                $("#datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
             });
         </script>
     </jsp:attribute>
 
     <jsp:attribute name="body">
-        <form:form method="post" action="${pageContext.request.contextPath}/prices/update/${priceUpdate.id}"
-                       modelAttribute="priceUpdate" cssClass="form-horizontal">
+        <form:form method="post" action="${pageContext.request.contextPath}/prices/update"
+                       modelAttribute="pricePacking" cssClass="form-horizontal">
             <div class="container">
-                <div class="form-group ${price_error?'has-error':''}">
-                    <form:label path="price" cssClass="col-sm-2 control-label">Price</form:label>
-                    <div class="col-sm-10">
-                        <form:input path="price" cssClass="form-control"/>
-                        <form:errors path="price" cssClass="help-block"/>
+                <div class="col-md-12 com-md-offset-2 form-group ${volume_error?'has-error':''}">
+                    <form:label path="packingDto.volume" cssClass="col-sm-2 control-label"><fmt:message key="packing.volume"/> in liters</form:label>
+                    <div class="col-sm-4">
+                        <form:input path="packingDto.volume" cssClass="form-control" required="true"/>
+                        <form:errors path="packingDto.volume" cssClass="help-block"/>
                     </div>
                 </div>
-
+                <div class="col-md-12 com-md-offset-2 form-group ${price_error?'has-error':''}">
+                    <form:label path="priceDto.price" cssClass="col-sm-2 control-label"><fmt:message key="price.price"/></form:label>
+                    <div class="col-sm-4">
+                        <form:input path="priceDto.price" cssClass="form-control" required="true"/>
+                        <form:errors path="priceDto.price" cssClass="help-block"/>
+                    </div>
+                </div>
+                <div class="col-md-12 com-md-offset-2 form-group">
+                    <form:label path="priceDto.currency" cssClass="col-sm-2 control-label"><fmt:message key="price.currency"/></form:label>
+                    <div class="col-sm-4">
+                    <form:select path="priceDto.currency" cssClass="form-control">
+                        <c:forEach items="${currencies}" var="c">
+                            <form:option value="${c}">${c}</form:option>
+                        </c:forEach>
+                    </form:select>
+                        <form:errors path="priceDto.currency" cssClass="error"/>
+                    </div>
+                </div>
                 <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
                     <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
                     <div class="col-sm-4">
-                        <form:input path="packingDto.validFrom" id="datepickerFrom" cssClass="form-control"/>
+                        <form:input path="packingDto.validFrom" id="datepickerFrom" class="form-control" required="true"/>
                         <form:errors path="packingDto.validFrom" cssClass="help-block"/>
                     </div>
                 </div>
@@ -52,42 +69,23 @@
                         <form:input path="packingDto.validTo" id="datepickerTo" cssClass="form-control"/>
                         <form:errors path="packingDto.validTo" cssClass="help-block"/>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <form:label path="currency" cssClass="col-sm-2 control-label">currency</form:label>
-                    <div class="col-sm-10">
-                        <form:select path="currency" cssClass="form-control">
-                            <c:forEach items="${currencies}" var="c">
-                                <form:option value="${c}">${c}</form:option>
-                            </c:forEach>
-                        </form:select>
-                        <form:errors path="currency" cssClass="error"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <form:label path="packingId" cssClass="col-sm-2 control-label">Packing</form:label>
-                    <div class="col-sm-10">
-                        <form:select path="packingId" cssClass="form-control">
-                            <c:forEach items="${packings}" var="packing">
-                                <form:option value="${packing.id}">${packing.volume}&nbspfrom&nbsp${packing.validFrom}&nbspto&nbsp${packing.validTo}</form:option>
-                            </c:forEach>
-                        </form:select>
-                        <p class="help-block"><form:errors path="packingId" cssClass="error"/></p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <form:label path="marketingEventId" cssClass="col-sm-2 control-label">Marketing Event</form:label>
-                    <div class="col-sm-10">
-                        <form:select path="marketingEventId" cssClass="form-control">
-                            <c:forEach items="${marketingevents}" var="marketingevent">
-                                <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
-                            </c:forEach>
-                        </form:select>
-                        <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
+                </div
+                <div class="col-md-12 com-md-offset-2 form-group ">
+                    <form:label path="priceDto.marketingEvent.id" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
+                    <div class="col-sm-4">
+                    <form:select path="priceDto.marketingEvent.id" cssClass="form-control">
+                        <c:forEach items="${marketingevents}" var="marketingevent">
+                            <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
+                        </c:forEach>
+                    </form:select>
+                        <p class="help-block"><form:errors path="priceDto.marketingEvent.id" cssClass="error"/></p>
                     </div>
                 </div>
             </div>
+            <form:hidden path="packingDto.wine.id"/>
+            <form:hidden path="packingDto.id"/>
+            <form:hidden path="priceDto.id"/>
+            <form:hidden path="priceDto.packing.id"/>
             <button class="btn btn-primary updateBtn center-block allow-vertical-space" type="submit"><fmt:message key="update"/></button>
         </form:form>
     </jsp:attribute>
