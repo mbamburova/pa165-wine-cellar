@@ -34,4 +34,5 @@ public interface WineFacade {
 
     List<WineDto> findWinesBetweenYears(Year from, Year to);
     WineUpdateDto toWineUpdateDto(WineDto wineDto);
+
 }

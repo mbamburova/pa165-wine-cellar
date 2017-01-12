@@ -27,4 +27,5 @@ public interface WineService {
     List<Wine> findWinesByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity);
     List<Wine> findWinesByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent);
     List<Wine> findWinesBetweenYears(Year from, Year to);
+
 }

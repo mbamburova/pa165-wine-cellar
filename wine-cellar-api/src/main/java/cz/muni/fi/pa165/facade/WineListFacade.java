@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListCreateDto;
 import cz.muni.fi.pa165.dto.WineListDto;
 
@@ -22,4 +23,7 @@ public interface WineListFacade {
     List<WineListDto> findWineListsByName(String name);
     List<WineListDto> findWineListsByDate(LocalDateTime date);
     List<WineListDto> findWineListsByMarketingEvent(MarketingEventDto marketingEventDto);
+
+    void addWine(WineListDto wineListDto, WineDto wineDto);
+    void removeWine(WineListDto wineListDto, WineDto wineDto);
 }

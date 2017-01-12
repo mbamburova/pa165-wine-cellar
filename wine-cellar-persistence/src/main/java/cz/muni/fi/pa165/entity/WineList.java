@@ -28,13 +28,13 @@ public class WineList {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime date;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "WINELIST_WINE",
             joinColumns = { @JoinColumn(name = "WINELIST_ID") },
             inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
     private List<Wine> wines = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private MarketingEvent marketingEvent;
 
     public WineList(Long id) {

@@ -2,11 +2,11 @@ package cz.muni.fi.pa165.controller;
 
 import cz.muni.fi.pa165.dto.*;
 import cz.muni.fi.pa165.facade.*;
-import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -33,9 +33,6 @@ public class WineController {
 
     @Inject
     private WineListFacade wineListFacade;
-
-    @Inject
-    private UserFacade userFacade;
 
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
@@ -67,13 +64,25 @@ public class WineController {
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 
-    @RequestMapping(value="add/{id}", method = RequestMethod.POST)
-    public String addToWineList(@PathVariable long id, @RequestParam("listId") Long listId, WineListDto wineListDto, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value="add/{id}/{listId}", method = RequestMethod.GET)
+    public String addToWineList(@PathVariable long id, @PathVariable long listId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wine = wineFacade.findWineById(id);
-        wineListDto.addWine(wine);
+        WineListDto wineListDto = wineListFacade.findWineListById(listId);
+        wineListFacade.addWine(wineListDto, wine);
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
+    }
+
+    @RequestMapping(value = "remove/{id}/{wineId}", method = RequestMethod.GET)
+    public String removeFromWineList(@PathVariable long id, @PathVariable long wineId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+
+        WineDto wine = wineFacade.findWineById(wineId);
+        WineListDto wineListDto = wineListFacade.findWineListById(id);
+        wineListFacade.removeWine(wineListDto, wine);
+
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was removed from winelist " + wineListDto.getName());
+        return "redirect:" + uriBuilder.path("/winelists/view/" + wineListDto.getId()).toUriString();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -87,7 +96,7 @@ public class WineController {
             model.addAttribute("vintageValues", vintageValues());
             return "wines/new";
         }
-        Long id = wineFacade.createWine(formBean);
+        wineFacade.createWine(formBean);
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getName() + " was created");
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();

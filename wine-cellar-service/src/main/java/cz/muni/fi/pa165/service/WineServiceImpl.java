@@ -153,4 +153,5 @@ public class WineServiceImpl implements WineService {
             throw new WineCellarDataAccessException("Cannot find wines", e);
         }
     }
+
 }
