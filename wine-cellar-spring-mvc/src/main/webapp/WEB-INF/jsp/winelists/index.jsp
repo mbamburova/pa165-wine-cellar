@@ -34,8 +34,10 @@
                        <th class="text-center"><fmt:message key="winelist.name"/></th>
                        <th class="text-center"><fmt:message key="winelist.date"/></th>
                        <th class="text-center"><fmt:message key="winelist.marketingevent"/></th>
+                       <sec:authorize access="hasRole('ROLE_ADMIN')">
                        <th class="text-center"><fmt:message key="edit"/></th>
                        <th class="text-center"><fmt:message key="remove"/></th>
+                       </sec:authorize>
                        <th class="text-center"><fmt:message key="wineList.viewWines"/></th>
                    </tr>
                    </thead>
@@ -58,7 +60,7 @@
                                 </td>
                         </form:form>
 
-                        <form:form method="post" action="${pageContext.request.contextPath}/winelists/delete/${winelist.id}" cssClass="form-horizontal">
+                        <form:form method="get" action="${pageContext.request.contextPath}/winelists/delete/${winelist.id}" cssClass="form-horizontal">
                                 <td class="col-xs-1 text-center">
                                     <button class="btn btn-default" type="submit">
                                         <span class="sr-only"><fmt:message key="remove"/></span>

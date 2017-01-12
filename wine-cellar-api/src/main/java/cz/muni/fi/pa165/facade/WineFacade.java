@@ -35,6 +35,4 @@ public interface WineFacade {
     List<WineDto> findWinesBetweenYears(Year from, Year to);
     WineUpdateDto toWineUpdateDto(WineDto wineDto);
 
-    List<WineDto> findWinesByWineList(List<Long> wineListDtoId);
-//    void addWineList(WineListDto wineListDto, WineDto wineDto);
 }

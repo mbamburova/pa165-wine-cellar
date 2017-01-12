@@ -89,7 +89,6 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <c:forEach items="${wineLists}" var="winelist" >
                                                 <li><a href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}" class="button btn-default"><c:out value="${winelist.name}" /></a></li>
-                                                <%--<c:set var="listId" value="${winelist.id}"/>--%>
                                             </c:forEach>
                                         </ul>
                                 </div>

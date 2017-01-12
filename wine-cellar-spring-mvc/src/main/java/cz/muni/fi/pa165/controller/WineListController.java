@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.dto.WineDto;
 import cz.muni.fi.pa165.dto.WineListCreateDto;
 import cz.muni.fi.pa165.dto.WineListDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
-import cz.muni.fi.pa165.facade.UserFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
 import org.springframework.stereotype.Controller;
@@ -40,9 +39,6 @@ public class WineListController {
     @Inject
     private MarketingEventFacade marketingEventFacade;
 
-    @Inject
-    private UserFacade userFacade;
-
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
 
@@ -56,15 +52,15 @@ public class WineListController {
         return "winelists/new";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
 
         try {
             wineListFacade.deleteWineList(id);
             redirectAttributes.addFlashAttribute("alert_success", "WineList \"" + wineListDto.getName() + "\" was deleted.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("alert_danger", "WineList \"" + wineListDto.getName() + "\" wasn't deleted.");
+            redirectAttributes.addFlashAttribute("alert_danger", "WineList \"" + wineListDto.getName() + "\" wasn't deleted. " + e);
         }
         return "redirect:" + uriBuilder.path("/winelists/index").toUriString();
     }
@@ -87,14 +83,11 @@ public class WineListController {
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String viewWines(@PathVariable long id, Model model) {
-//
-//        List<Long> wineListId = new ArrayList<>();
-//        wineListId.add(id);
-//        List<WineDto> wines = wineFacade.findWinesByWineList(wineListId);
         WineListDto wineListDto = wineListFacade.findWineListById(id);
         List<WineDto> wines = wineListDto.getWines();
 
         model.addAttribute("wineListView", wines);
+        model.addAttribute("wineListDto", wineListDto);
         return "winelists/view";
     }
 
@@ -115,6 +108,8 @@ public class WineListController {
             }
             return "winelists/update";
         }
+        WineListDto wineListDto = wineListFacade.findWineListById(formBean.getId());
+        formBean.setWines(wineListDto.getWines());
         wineListFacade.updateWineList(formBean);
 
         redirectAttributes.addFlashAttribute("alert_success", "WineList " + formBean.getName() + " was updated");

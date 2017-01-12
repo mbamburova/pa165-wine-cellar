@@ -34,9 +34,6 @@ public class WineController {
     @Inject
     private WineListFacade wineListFacade;
 
-    @Inject
-    private UserFacade userFacade;
-
     @RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
@@ -54,7 +51,7 @@ public class WineController {
     }
 
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wineDto = wineFacade.findWineById(id);
 
@@ -71,11 +68,21 @@ public class WineController {
     public String addToWineList(@PathVariable long id, @PathVariable long listId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wine = wineFacade.findWineById(id);
         WineListDto wineListDto = wineListFacade.findWineListById(listId);
-        wineListDto.addWine(wine);
-        wineListFacade.updateWineList(wineListDto);
+        wineListFacade.addWine(wineListDto, wine);
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was added to tasting ticket " + wineListDto.getName());
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
+    }
+
+    @RequestMapping(value = "remove/{id}/{wineId}", method = RequestMethod.GET)
+    public String removeFromWineList(@PathVariable long id, @PathVariable long wineId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+
+        WineDto wine = wineFacade.findWineById(wineId);
+        WineListDto wineListDto = wineListFacade.findWineListById(id);
+        wineListFacade.removeWine(wineListDto, wine);
+
+        redirectAttributes.addFlashAttribute("alert_success", "Wine " + wine.getName() + " was removed from winelist " + wineListDto.getName());
+        return "redirect:" + uriBuilder.path("/winelists/view/" + wineListDto.getId()).toUriString();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -89,7 +96,7 @@ public class WineController {
             model.addAttribute("vintageValues", vintageValues());
             return "wines/new";
         }
-        Long id = wineFacade.createWine(formBean);
+        wineFacade.createWine(formBean);
 
         redirectAttributes.addFlashAttribute("alert_success", "Wine " + formBean.getName() + " was created");
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();

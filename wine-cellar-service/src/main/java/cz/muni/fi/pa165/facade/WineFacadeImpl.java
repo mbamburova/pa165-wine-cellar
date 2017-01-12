@@ -180,27 +180,6 @@ public class WineFacadeImpl implements WineFacade {
         return wineUpdateDto;
     }
 
-    @Override
-    public List<WineDto> findWinesByWineList(List<Long> wineListDtoId) {
-        if (wineListDtoId == null) {
-            throw new IllegalArgumentException("WineListDto cannot be null");
-        }
-        return beanMappingService.mapToCollection(wineService.findWinesByWineList(wineListDtoId),
-            WineDto.class);
-    }
-
-//    @Override
-//    public void addWineList(WineListDto wineListDto, WineDto wineDto) {
-//        if (wineListDto == null) {
-//            throw new IllegalArgumentException("WinelistDto cannot be null");
-//        }
-//        if (wineDto == null) {
-//            throw new IllegalArgumentException("WineDto cannot be null");
-//        }
-//        wineService.addWineList();
-//
-//    }
-
     private Wine mappedWine(WineCreateDto wineDto) {
         Wine wine = new Wine();
         wine.setVintage(Year.of(wineDto.getVintage()));

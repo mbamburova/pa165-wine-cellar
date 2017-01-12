@@ -18,11 +18,6 @@ public class LoginController {
         return "index";
     }
 
-//    @RequestMapping(value = "/error", method = RequestMethod.GET)
-//    public String error(Model model) {
-//        return "error";
-//    }
-
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model){
         return "http403";

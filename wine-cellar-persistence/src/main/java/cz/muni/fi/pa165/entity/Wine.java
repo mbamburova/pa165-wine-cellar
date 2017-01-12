@@ -58,16 +58,7 @@ public class Wine {
         this.id = id;
     }
 
-    public List<WineList> getWineLists() {
-        return wineLists;
-    }
-
-    public void setWineLists(List<WineList> wineLists) {
-        this.wineLists = wineLists;
-    }
-
     public Wine() {
-
     }
 
     public Long getId() {
@@ -166,9 +157,6 @@ public class Wine {
         this.grapeSugarContent = grapeSugarContent;
     }
 
-    public void addWineList(WineList wineList) {
-        this.wineLists.add(wineList);
-    }
 
     @Override
     public boolean equals(Object o) {
