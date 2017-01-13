@@ -15,12 +15,12 @@
 <my:template>
     <jsp:attribute name="body">
 
-        <div class="jumbotron">
+        <div class="jumbotron" style="background-color: #D74E67;">
             <h1><fmt:message key="Wines"/></h1>
             <fmt:message key="nameHolder" var="wineHolder"/>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <p align="right">
-                    <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/new" role="button">
+                    <a class="btn btn-lg btn-primary" href="${pageContext.request.contextPath}/wines/new" role="button">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         <fmt:message key="create_new"/>
                     </a>

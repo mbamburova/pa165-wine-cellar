@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -59,8 +60,7 @@ public class PackingFacadeImpl implements PackingFacade {
         if (id == null) {
             throw new IllegalArgumentException("Packing ID cannot be null");
         }
-
-        packingService.deletePacking(packingService.findPackingById(id));
+            packingService.deletePacking(packingService.findPackingById(id));
     }
 
     @Override

@@ -75,30 +75,36 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         wineListService.createWineList(wineList3);
 
         Packing veltlinskeZelene35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017, 1, 1, 0, 0), null, veltlinskeZelene);
-        Packing veltlinskeZelene70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), veltlinskeZelene);
+        Packing veltlinskeZelene701 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), veltlinskeZelene);
+        Packing veltlinskeZelene702 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), veltlinskeZelene);
         Packing muskatMoravsky35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017, 1, 1, 0, 0), null, muskatMoravsky);
-        Packing muskatMoravsky70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), muskatMoravsky);
+        Packing muskatMoravsky701 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), muskatMoravsky);
+        Packing muskatMoravsky702 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), muskatMoravsky);
         Packing svatovavrinecke35 = packing(new BigDecimal("0.35"), LocalDateTime.of(2017, 1, 1, 0, 0), null, svatovavrinecke);
-        Packing svatovavrinecke70 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), svatovavrinecke);
+        Packing svatovavrinecke701 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), svatovavrinecke);
+        Packing svatovavrinecke702 = packing(new BigDecimal("0.7"), LocalDateTime.of(2017, 1, 1, 0, 0), LocalDateTime.of(2017, 1, 31, 0, 0), svatovavrinecke);
 
         packingService.createPacking(veltlinskeZelene35);
-        packingService.createPacking(veltlinskeZelene70);
+        packingService.createPacking(veltlinskeZelene701);
+        packingService.createPacking(veltlinskeZelene702);
         packingService.createPacking(muskatMoravsky35);
-        packingService.createPacking(muskatMoravsky70);
+        packingService.createPacking(muskatMoravsky701);
+        packingService.createPacking(muskatMoravsky702);
         packingService.createPacking(svatovavrinecke35);
-        packingService.createPacking(svatovavrinecke70);
+        packingService.createPacking(svatovavrinecke701);
+        packingService.createPacking(svatovavrinecke702);
 
         Price veltlinskeZelene35CZK = price(new BigDecimal("50"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene35);
-        Price veltlinskeZelene70CZK = price(new BigDecimal("100"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene70);
-        Price veltlinskeZelene70EUR = price(new BigDecimal("2"), Currency.getInstance("EUR"), narodeniny, veltlinskeZelene70);
+        Price veltlinskeZelene70CZK = price(new BigDecimal("100"), Currency.getInstance("CZK"), narodeniny, veltlinskeZelene701);
+        Price veltlinskeZelene70EUR = price(new BigDecimal("2"), Currency.getInstance("EUR"), narodeniny, veltlinskeZelene702);
 
         Price muskatMoravsky35CZK = price(new BigDecimal("55"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky35);
-        Price muskatMoravsky70CZK = price(new BigDecimal("110"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky70);
-        Price muskatMoravsky70EUR = price(new BigDecimal("3"), Currency.getInstance("EUR"), narodeniny, muskatMoravsky70);
+        Price muskatMoravsky70CZK = price(new BigDecimal("110"), Currency.getInstance("CZK"), narodeniny, muskatMoravsky701);
+        Price muskatMoravsky70EUR = price(new BigDecimal("3"), Currency.getInstance("EUR"), narodeniny, muskatMoravsky702);
 
         Price svatovavrinecke35CZK = price(new BigDecimal("45"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke35);
-        Price svatovavrinecke70CZK = price(new BigDecimal("90"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke70);
-        Price svatovavrinecke70EUR = price(new BigDecimal("2.5"), Currency.getInstance("EUR"), narodeniny, svatovavrinecke70);
+        Price svatovavrinecke70CZK = price(new BigDecimal("90"), Currency.getInstance("CZK"), narodeniny, svatovavrinecke701);
+        Price svatovavrinecke70EUR = price(new BigDecimal("2.5"), Currency.getInstance("EUR"), narodeniny, svatovavrinecke702);
 
         priceService.createPrice(veltlinskeZelene35CZK);
         priceService.createPrice(veltlinskeZelene70CZK);
