@@ -28,7 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/marketingevents/**").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/wines/update/**").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/wines/delete/**").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/wines/new").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/winelists/new").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/winelists/update/**").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/winelists/delete/**").access("hasAnyRole('ROLE_ADMIN')").anyRequest().permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/j_spring_security_check").failureUrl("/login?error=invalidLoginAttempt").usernameParameter("user").passwordParameter("password").permitAll().and().logout().logoutSuccessUrl("/").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().
+        http.authorizeRequests().antMatchers("/marketingevents/**").access("hasAnyRole('ROLE_ADMIN')").
+            antMatchers("/wines/update/**").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/wines/delete/**")
+            .access("hasAnyRole('ROLE_ADMIN')").antMatchers("/wines/new").access("hasAnyRole('ROLE_ADMIN')")
+            .antMatchers("/winelists/new").access("hasAnyRole('ROLE_ADMIN')").antMatchers("/winelists/update/**")
+            .access("hasAnyRole('ROLE_ADMIN')").antMatchers("/winelists/delete/**").access("hasAnyRole('ROLE_ADMIN')")
+            .anyRequest().permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/j_spring_security_check")
+            .failureUrl("/login?error=invalidLoginAttempt").usernameParameter("user").passwordParameter("password").permitAll()
+            .and().logout().logoutSuccessUrl("/").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().
             and().exceptionHandling().accessDeniedPage("/403");
 
     }

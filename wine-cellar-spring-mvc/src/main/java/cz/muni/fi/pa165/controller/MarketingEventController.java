@@ -34,13 +34,14 @@ public class MarketingEventController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newCategory(Model model) {
+    public String newEvent(Model model) {
         model.addAttribute("marketingEventCreate", new MarketingEventDto());
         return "marketingevents/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -50,15 +51,21 @@ public class MarketingEventController {
         }
         marketingEventFacade.createMarketingEvent(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Marketing event " + formBean.getDescription() + " was created");
+        redirectAttributes.addFlashAttribute("alert_success", "Marketing event \"" + formBean.getDescription() + "\" was created.");
         return "redirect:" + uriBuilder.path("/marketingevents/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         MarketingEventDto marketingEventDto = marketingEventFacade.findMarketingEventById(id);
-        marketingEventFacade.deleteMarketingEvent(id);
-        redirectAttributes.addFlashAttribute("alert_success", "Marketing event \"" + marketingEventDto.getDescription() + "\" was deleted.");
+
+        try {
+            marketingEventFacade.deleteMarketingEvent(id);
+            redirectAttributes.addFlashAttribute("alert_info", "Marketing event \"" + marketingEventDto.getDescription() + "\" was deleted.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("alert_danger", "Marketing event \"" + marketingEventDto.getDescription() +
+                "\" is included in some tasting ticket!");
+        }
         return "redirect:" + uriBuilder.path("/marketingevents/index").toUriString();
     }
 
@@ -70,17 +77,17 @@ public class MarketingEventController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String update(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
             return "marketingevents/update";
         }
-
         marketingEventFacade.updateMarketingEvent(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Marketing event " + formBean.getDescription() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_info", "Marketing event \"" + formBean.getDescription() + "\" was updated.");
         return "redirect:" + uriBuilder.path("/marketingevents/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 

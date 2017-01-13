@@ -13,7 +13,7 @@
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<my:template title="Tasting tickets">
+<my:template title="Actual tasting tickets">
     <jsp:attribute name="body">
        <sec:authorize access="hasRole('ROLE_ADMIN')">
            <my:a href="/winelists/new" class="btn btn-primary">

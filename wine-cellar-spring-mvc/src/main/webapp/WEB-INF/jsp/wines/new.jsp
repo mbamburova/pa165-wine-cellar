@@ -11,6 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
 <my:template title="Create new wine">
     <jsp:attribute name="body">
@@ -31,11 +32,7 @@
                         <fmt:message key="wine.vintage"/>*
                     </form:label>
                     <div class="col-sm-4">
-                    <form:select class="form-control" path="vintage">
-                        <c:forEach items="${vintageValues}" var="year">
-                            <option><c:out value="${year}"/></option>
-                        </c:forEach>
-                    </form:select>
+                        <form:input path="vintage" cssClass="form-control" required="true"/>
                         <form:errors path="vintage" cssClass="help-block"/>
                     </div>
                 </div>

@@ -13,7 +13,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
-<own:template title="Update packing with price">
+<own:template title="Update packing with price for ${wineName}">
      <jsp:attribute name="scripts">
         <script>
             $(function () {
@@ -79,7 +79,7 @@
                         <form:input path="packingDto.validTo" id="datepickerTo" cssClass="form-control"/>
                         <form:errors path="packingDto.validTo" cssClass="help-block"/>
                     </div>
-                </div
+                </div>
                 <div class="col-md-12 com-md-offset-2 form-group ">
                     <form:label path="priceDto.marketingEvent.id" cssClass="col-sm-2 control-label">
                         <fmt:message key="marketingevent"/>
@@ -95,7 +95,6 @@
                         <br/>
                         <p align="right">
                             <button class="btn btn-primary" type="submit"><fmt:message key="update"/></button>
-                                <%--<a class="btn btn-default" href="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"><fmt:message key="cancel"/></a>--%>
                         </p>
                     </div>
                 </div>

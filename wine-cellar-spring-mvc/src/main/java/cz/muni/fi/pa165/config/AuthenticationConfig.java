@@ -32,7 +32,7 @@ public class AuthenticationConfig implements AuthenticationProvider {
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        UserDto user = null;
+        UserDto user;
 
         try {
             user = userFacade.findUserByEmail(email);
