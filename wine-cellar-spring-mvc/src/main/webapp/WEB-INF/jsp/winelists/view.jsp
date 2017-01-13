@@ -17,8 +17,8 @@
 <jsp:attribute name="body">
      <c:choose>
            <c:when test="${empty wineListView}">
-               <h5><em>There are no wines</em></h5>
-               <br/>
+               <h5><em><fmt:message key="noWines"/></em></h5>
+               <br />
            </c:when>
            <c:otherwise>
                <table class="table table-hover">

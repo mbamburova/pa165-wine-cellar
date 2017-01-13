@@ -18,13 +18,13 @@
        <sec:authorize access="hasRole('ROLE_ADMIN')">
            <my:a href="/winelists/new" class="btn btn-primary">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    New tasting ticket
+                    <fmt:message key="createWineList"/>
             </my:a>
        </sec:authorize>
        <c:choose>
            <c:when test="${empty winelists}">
-               <h5><em>There are no tasting tickets.</em></h5>
-               <br/>
+               <h5><em><fmt:message key="noTastingtickets"/></em></h5>
+               <br />
            </c:when>
            <c:otherwise>
                <table class="table table-hover">

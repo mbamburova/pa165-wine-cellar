@@ -32,21 +32,27 @@
                    modelAttribute="pricePacking" cssClass="form-horizontal">
             <div class="container">
                 <div class="col-md-12 com-md-offset-2 form-group ${volume_error?'has-error':''}">
-                    <form:label path="packingDto.volume" cssClass="col-sm-2 control-label"><fmt:message key="packing.volume"/> in liters</form:label>
+                    <form:label path="packingDto.volume" cssClass="col-sm-2 control-label">
+                        <fmt:message key="packing.volumeInLiters"/>*
+                    </form:label>
                     <div class="col-sm-4">
                         <form:input path="packingDto.volume" cssClass="form-control" required="true"/>
                         <form:errors path="packingDto.volume" cssClass="help-block"/>
                     </div>
                 </div>
                 <div class="col-md-12 com-md-offset-2 form-group ${price_error?'has-error':''}">
-                    <form:label path="priceDto.price" cssClass="col-sm-2 control-label"><fmt:message key="price.price"/></form:label>
+                    <form:label path="priceDto.price" cssClass="col-sm-2 control-label">
+                        <fmt:message key="price.price"/>*
+                    </form:label>
                     <div class="col-sm-4">
                         <form:input path="priceDto.price" cssClass="form-control" required="true"/>
                         <form:errors path="priceDto.price" cssClass="help-block"/>
                     </div>
                 </div>
                 <div class="col-md-12 com-md-offset-2 form-group">
-                    <form:label path="priceDto.currency" cssClass="col-sm-2 control-label"><fmt:message key="price.currency"/></form:label>
+                    <form:label path="priceDto.currency" cssClass="col-sm-2 control-label">
+                        <fmt:message key="price.currency"/>*
+                    </form:label>
                     <div class="col-sm-4">
                     <form:select path="priceDto.currency" cssClass="form-control">
                         <c:forEach items="${currencies}" var="c">
@@ -57,21 +63,27 @@
                     </div>
                 </div>
                 <div class="col-md-12 com-md-offset-2 form-group ${validFrom_error?'has-error':''}">
-                    <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">Valid From</form:label>
+                    <form:label path="packingDto.validFrom" cssClass="col-sm-2 control-label">
+                        <fmt:message key="packing.validFrom"/>*
+                    </form:label>
                     <div class="col-sm-4">
                         <form:input path="packingDto.validFrom" id="datepickerFrom" class="form-control" required="true"/>
                         <form:errors path="packingDto.validFrom" cssClass="help-block"/>
                     </div>
                 </div>
                 <div class="col-md-12 com-md-offset-2 form-group ${validTo_error?'has-error':''}">
-                    <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label">Valid To</form:label>
+                    <form:label path="packingDto.validTo" cssClass="col-sm-2 control-label">
+                        <fmt:message key="packing.validTo"/>
+                    </form:label>
                     <div class="col-sm-4">
                         <form:input path="packingDto.validTo" id="datepickerTo" cssClass="form-control"/>
                         <form:errors path="packingDto.validTo" cssClass="help-block"/>
                     </div>
                 </div>
                 <div class="col-md-12 com-md-offset-2 form-group ">
-                    <form:label path="priceDto.marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
+                    <form:label path="priceDto.marketingEventId" cssClass="col-sm-2 control-label">
+                        <fmt:message key="marketingevent"/>
+                    </form:label>
                     <div class="col-sm-4">
                     <form:select path="priceDto.marketingEventId" cssClass="form-control">
                         <form:option value=""><fmt:message key="nothingSelected"/></form:option>
