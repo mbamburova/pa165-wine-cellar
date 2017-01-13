@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dto.WineCreateDto;
 import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.dto.WineUpdateDto;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.service.WineService;
@@ -109,7 +108,7 @@ public class WineFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void update() {
         Long id = wineFacade.createWine(veltlinskeZeleneDto);
-        WineUpdateDto wineUpdateDto = beanMappingService.mapTo(veltlinskeZelene, WineUpdateDto.class);
+        WineDto wineUpdateDto = beanMappingService.mapTo(veltlinskeZelene, WineDto.class);
         wineUpdateDto.setId(id);
         wineFacade.updateWine(wineUpdateDto);
         verify(wineService).updateWine(wineArgumentCaptor.capture());

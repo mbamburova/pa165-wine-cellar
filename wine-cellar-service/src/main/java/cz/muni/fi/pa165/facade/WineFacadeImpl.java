@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.dto.WineCreateDto;
 import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.dto.WineUpdateDto;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;
@@ -33,7 +32,7 @@ public class WineFacadeImpl implements WineFacade {
         if (wineDto == null) {
             throw new IllegalArgumentException("WineDTO cannot be null");
         }
-        Wine wine = mappedWine(wineDto);
+        Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
 
         wineService.createWine(wine);
         return wine.getId();
@@ -45,11 +44,12 @@ public class WineFacadeImpl implements WineFacade {
     }
 
     @Override
-    public void updateWine(WineUpdateDto wineDto) {
+    public void updateWine(WineDto wineDto) {
         if (wineDto == null) {
             throw new IllegalArgumentException("WineDTO cannot be null");
         }
-        wineService.updateWine(mappedWine(wineDto));
+        Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
+        wineService.updateWine(wine);
     }
 
     @Override
@@ -161,57 +161,4 @@ public class WineFacadeImpl implements WineFacade {
         return beanMappingService.mapToCollection(wineService.findWinesBetweenYears(from, to), WineDto.class);
     }
 
-    @Override
-    public WineUpdateDto toWineUpdateDto(WineDto wineDto) {
-        WineUpdateDto wineUpdateDto = new WineUpdateDto();
-        wineUpdateDto.setId(wineDto.getId());
-        wineUpdateDto.setVintage(wineDto.getVintage().getValue());
-        wineUpdateDto.setAcidity(wineDto.getAcidity());
-        wineUpdateDto.setAlcoholVolume(wineDto.getAlcoholVolume());
-        wineUpdateDto.setBatch(wineDto.getBatch());
-        wineUpdateDto.setDescription(wineDto.getDescription());
-        wineUpdateDto.setGrapeSugarContent(wineDto.getGrapeSugarContent());
-        wineUpdateDto.setName(wineDto.getName());
-        wineUpdateDto.setNotes(wineDto.getNotes());
-        wineUpdateDto.setPredicate(wineDto.getPredicate());
-        wineUpdateDto.setPredicateEquivalent(wineDto.getPredicateEquivalent());
-        wineUpdateDto.setResidualSugar(wineDto.getResidualSugar());
-
-        return wineUpdateDto;
-    }
-
-    private Wine mappedWine(WineCreateDto wineDto) {
-        Wine wine = new Wine();
-        wine.setVintage(Year.of(wineDto.getVintage()));
-        wine.setAcidity(wineDto.getAcidity());
-        wine.setAlcoholVolume(wineDto.getAlcoholVolume());
-        wine.setBatch(wineDto.getBatch());
-        wine.setDescription(wineDto.getDescription());
-        wine.setGrapeSugarContent(wineDto.getGrapeSugarContent());
-        wine.setName(wineDto.getName());
-        wine.setNotes(wineDto.getNotes());
-        wine.setPredicate(wineDto.getPredicate());
-        wine.setPredicateEquivalent(wineDto.getPredicateEquivalent());
-        wine.setResidualSugar(wineDto.getResidualSugar());
-
-        return wine;
-    }
-
-    private Wine mappedWine(WineUpdateDto wineDto) {
-        Wine wine = new Wine();
-        wine.setId(wineDto.getId());
-        wine.setVintage(Year.of(wineDto.getVintage()));
-        wine.setAcidity(wineDto.getAcidity());
-        wine.setAlcoholVolume(wineDto.getAlcoholVolume());
-        wine.setBatch(wineDto.getBatch());
-        wine.setDescription(wineDto.getDescription());
-        wine.setGrapeSugarContent(wineDto.getGrapeSugarContent());
-        wine.setName(wineDto.getName());
-        wine.setNotes(wineDto.getNotes());
-        wine.setPredicate(wineDto.getPredicate());
-        wine.setPredicateEquivalent(wineDto.getPredicateEquivalent());
-        wine.setResidualSugar(wineDto.getResidualSugar());
-
-        return wine;
-    }
 }

@@ -4,6 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.Year;
 
 /**
  * @author Michaela Bamburová on 16.12.2016.
@@ -14,7 +15,7 @@ public class WineCreateDto {
     private String name;
 
     @NotNull
-    private int vintage;
+    private Year vintage;
 
     @NotNull
     private String batch;
@@ -51,11 +52,11 @@ public class WineCreateDto {
         this.name = name;
     }
 
-    public int getVintage() {
+    public Year getVintage() {
         return vintage;
     }
 
-    public void setVintage(int vintage) {
+    public void setVintage(Year vintage) {
         this.vintage = vintage;
     }
 

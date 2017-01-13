@@ -110,16 +110,16 @@ public class WineController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         WineDto wineDto = wineFacade.findWineById(id);
-        WineUpdateDto toUpdate = wineFacade.toWineUpdateDto(wineDto);
+       // WineUpdateDto toUpdate = wineFacade.toWineUpdateDto(wineDto);
 
         model.addAttribute("pricePackings", pricesOfWine(id));
         model.addAttribute("vintageValues", vintageValues());
-        model.addAttribute("wineUpdate", toUpdate);
+        model.addAttribute("wineUpdate", wineDto);
         return "wines/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("wineUpdate") WineUpdateDto formBean, BindingResult bindingResult,
+    public String update(@Valid @ModelAttribute("wineUpdate") WineDto formBean, BindingResult bindingResult,
                          Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
