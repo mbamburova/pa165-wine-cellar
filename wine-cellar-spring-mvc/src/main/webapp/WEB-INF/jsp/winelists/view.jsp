@@ -24,11 +24,11 @@
                <table class="table table-hover">
                    <thead>
                    <tr>
-                       <th class="text-center"><fmt:message key="number"/></th>
-                       <th class="text-center"><fmt:message key="wine.name"/></th>
-                       <th class="text-center"><fmt:message key="wine.vintage"/></th>
-                       <th class="text-center"><fmt:message key="wine.predicate"/></th>
-                       <th class="text-center"><fmt:message key="wine.alcoholVolume"/></th>
+                       <th class="text-left"><fmt:message key="number"/></th>
+                       <th class="text-left"><fmt:message key="wine.name"/></th>
+                       <th class="text-left"><fmt:message key="wine.vintage"/></th>
+                       <th class="text-left"><fmt:message key="wine.predicate"/></th>
+                       <th class="text-left"><fmt:message key="wine.alcoholVolume"/></th>
                        <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <th class="text-left"><fmt:message key="removeFromWineList"/></th>
                        </sec:authorize>
@@ -38,15 +38,15 @@
                    <c:forEach items="${wineListView}" var="wine">
                         <c:set var="count" value="${count + 1}" scope="page"/>
                             <tr>
-                                <td class="col-xs-3 text-center">${count}.</td>
-                                <td class="col-xs-3 text-center"><c:out value="${wine.name}"/></td>
-                                <td class="col-xs-3 text-center"><c:out value="${wine.vintage}"/></td>
-                                <td class="col-xs-3 text-center"><c:out value="${wine.predicate}"/></td>
-                                <td class="col-xs-3 text-center"><c:out value="${wine.alcoholVolume}"/></td>
+                                <td class="col-xs-2 text-left">${count}.</td>
+                                <td class="col-xs-3 text-left"><c:out value="${wine.name}"/></td>
+                                <td class="col-xs-2 text-left"><c:out value="${wine.vintage}"/></td>
+                                <td class="col-xs-2 text-left"><c:out value="${wine.predicate}"/></td>
+                                <td class="col-xs-2 text-left"><c:out value="${wine.alcoholVolume}"/></td>
 
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <form:form method="get" action="${pageContext.request.contextPath}/wines/remove/${wineListDto.id}/${wine.id}" cssClass="form-horizontal">
-                                    <td class="col-xs-1 text-center">
+                                    <td class="col-xs-3 text-left">
                                         <button class="btn btn-default" type="submit">
                                             <span class="sr-only"><fmt:message key="remove"/></span>
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

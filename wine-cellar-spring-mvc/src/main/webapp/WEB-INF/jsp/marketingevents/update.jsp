@@ -30,8 +30,6 @@
                     </p>
                 </div>
             </div>
-
-            <button class="btn btn-primary updateBtn center-block allow-vertical-space" type="submit"><fmt:message key="update"/></button>
         </form:form>
     </jsp:attribute>
 </own:template>

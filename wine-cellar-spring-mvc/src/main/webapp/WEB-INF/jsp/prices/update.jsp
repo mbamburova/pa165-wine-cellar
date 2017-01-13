@@ -74,6 +74,7 @@
                     <form:label path="priceDto.marketingEvent.id" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
                     <div class="col-sm-4">
                     <form:select path="priceDto.marketingEvent.id" cssClass="form-control">
+                        <form:option value=""><fmt:message key="nothingSelected"/></form:option>
                         <c:forEach items="${marketingevents}" var="marketingevent">
                             <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
                         </c:forEach>
@@ -87,7 +88,6 @@
                     </div>
                 </div>
             </div>
-            <%--<form:hidden path="packingDto.wine.id"/>--%>
             <form:hidden path="packingDto.id"/>
             <form:hidden path="priceDto.id"/>
             <form:hidden path="priceDto.packing.id"/>
