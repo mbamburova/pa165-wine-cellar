@@ -26,13 +26,12 @@
 <!-- navigation bar -->
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
-        <div class="navbar-header">
-            <div>
-                <img src="<c:url value="/favicon.ico" />" style="height:10%; width:10%"/>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/"><f:message key="navigation.project"/></a>
-            </div>
+        <div class="nav navbar-header" style="max-width: 15%">
+            <a class="navbar-brand" style="display: inline-block" href="${pageContext.request.contextPath}/">
+                <f:message key="navigation.project"/>
+            </a>
+                <img style="height:auto; width: 20%; margin-top: 6px;" src="<c:url value="/favicon.ico"/>">
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
                 <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
@@ -48,32 +47,10 @@
                     <li><a href="${pageContext.request.contextPath}/"><span class="glyphicon glyphicon-log-in"></span><f:message key="login"/></a></li>
                 </sec:authorize>
             </ul>
-        </div><!--/.nav-collapse -->
     </div>
 </nav>
 
 <div class="container">
-
-    <!-- page title -->
-    <c:if test="${not empty title}">
-        <div class="page-header">
-            <h1><c:out value="${title}"/></h1>
-        </div>
-    </c:if>
-
-    <!-- authenticated user info -->
-    <c:if test="${not empty authenticatedUser}">
-        <div class="row">
-            <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </c:if>
 
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">
