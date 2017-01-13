@@ -62,15 +62,14 @@ public class WineListCreateDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof WineListCreateDto)) return false;
 
         WineListCreateDto that = (WineListCreateDto) o;
 
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (marketingEventId != null ? !marketingEventId.equals(that.marketingEventId) : that.marketingEventId != null) return false;
-        return winesIds != null ? winesIds.equals(that.winesIds) : that.winesIds == null;
-
+        if (!getName().equals(that.getName())) return false;
+        if (!getDate().equals(that.getDate())) return false;
+        if (getMarketingEventId() != null ? !getMarketingEventId().equals(that.getMarketingEventId()) : that.getMarketingEventId() != null) return false;
+        return getWinesIds() != null ? getWinesIds().equals(that.getWinesIds()) : that.getWinesIds() == null;
     }
 
     @Override

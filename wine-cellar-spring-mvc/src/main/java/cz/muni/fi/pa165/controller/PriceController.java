@@ -53,11 +53,13 @@ public class PriceController {
         pricePackingCreateDto.setPackingDto(packingDto);
 
         model.addAttribute("pricePacking", pricePackingCreateDto);
+        model.addAttribute("wine", wineFacade.findWineById(id));
         return "prices/new";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("pricePacking") PricePackingCreateDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("pricePacking") PricePackingCreateDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -70,19 +72,23 @@ public class PriceController {
         formBean.getPriceDto().setPackingId(id);
         priceFacade.createPrice(formBean.getPriceDto());
 
-        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPriceDto().getPrice() + " " + formBean.getPriceDto().getCurrency() + " / " + formBean.getPackingDto().getVolume() + " l" + " for wine " + wine.getName() + " was created");
+        redirectAttributes.addFlashAttribute("alert_success", "Price \"" + formBean.getPriceDto().getPrice() + " " +
+            formBean.getPriceDto().getCurrency() + " / " + formBean.getPackingDto().getVolume() +
+            " l" + "\" for wine \"" + wine.getName() + "\" was created.");
 
         return "redirect:" + uriBuilder.path("/wines/detail/" + formBean.getPackingDto().getWineId()).toUriString();
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam("priceId") Long priceId, @RequestParam("packingId") Long packingId, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String delete(@RequestParam("priceId") Long priceId, @RequestParam("packingId") Long packingId,
+                         RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         PackingDto packingDto = packingFacade.findPackingById(packingId);
         PriceDto priceDto = priceFacade.findPriceById(priceId);
         priceFacade.deletePrice(priceId);
         packingFacade.deletePacking(packingId);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Price " + priceDto.getPrice() + " " + priceDto.getCurrency() + " / " + packingDto.getVolume() + " l" + " was deleted.");
+        redirectAttributes.addFlashAttribute("alert_info", "Price \"" + priceDto.getPrice() + " " + priceDto.getCurrency() +
+            " / " + packingDto.getVolume() + " l" + "\" was deleted.");
 
         return "redirect:" + uriBuilder.path("/wines/update/" + packingDto.getWine().getId()).toUriString();
     }
@@ -95,12 +101,15 @@ public class PriceController {
         pricePackingDto.setPackingDto(packingDto);
         pricePackingDto.setPriceDto(priceDto);
 
+        String wineName = pricePackingDto.getPackingDto().getWine().getName();
         model.addAttribute("pricePacking", pricePackingDto);
+        model.addAttribute("wineName", wineName);
         return "prices/update";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("pricePacking") PricePackingDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String update(@Valid @ModelAttribute("pricePacking") PricePackingDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
@@ -110,7 +119,8 @@ public class PriceController {
         packingFacade.updatePacking(formBean.getPackingDto());
         priceFacade.updatePrice(formBean.getPriceDto());
 
-        redirectAttributes.addFlashAttribute("alert_success", "Price " + formBean.getPriceDto().getPrice() + " " + formBean.getPriceDto().getCurrency() + " / " + formBean.getPackingDto().getVolume() + " l" + " was updated.");
+        redirectAttributes.addFlashAttribute("alert_info", "Price \"" + formBean.getPriceDto().getPrice() + " " +
+            formBean.getPriceDto().getCurrency() + " / " + formBean.getPackingDto().getVolume() + " l" + "\" was updated.");
 
         return "redirect:" + uriBuilder.path("/wines/update/" + formBean.getPackingDto().getWine().getId()).toUriString();
     }

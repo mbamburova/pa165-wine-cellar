@@ -60,10 +60,11 @@ public class PriceFacadeImpl implements PriceFacade {
             throw new IllegalArgumentException("PriceDto cannot be null");
         }
         Price price = beanMappingService.mapTo(priceDto, Price.class);
-        Long marketingeventId = priceDto.getMarketingEvent().getId();
-        if (marketingeventId != null){
-            price.setMarketingEvent(marketingEventService.findMarketingEventById(marketingeventId));
-        }
+        Long marketingEventId = priceDto.getMarketingEvent().getId();
+        if (marketingEventId != null){
+            price.setMarketingEvent(marketingEventService.findMarketingEventById(marketingEventId));
+        } else price.setMarketingEvent(null);
+
         price.setPacking(packingService.findPackingById(priceDto.getPacking().getId()));
         priceService.updatePrice(price);
     }

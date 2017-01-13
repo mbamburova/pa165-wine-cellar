@@ -30,7 +30,8 @@
                        <th class="text-left"><fmt:message key="wine.predicate"/></th>
                        <th class="text-left"><fmt:message key="wine.alcoholVolume"/></th>
                        <sec:authorize access="hasRole('ROLE_ADMIN')">
-                            <th class="text-left"><fmt:message key="removeFromWineList"/></th>
+                           <th class="text-left"><fmt:message key="edit"/></th>
+                           <th class="text-left"><fmt:message key="removeFromWineList"/></th>
                        </sec:authorize>
                    </tr>
                    </thead>
@@ -42,17 +43,25 @@
                                 <td class="col-xs-3 text-left"><c:out value="${wine.name}"/></td>
                                 <td class="col-xs-2 text-left"><c:out value="${wine.vintage}"/></td>
                                 <td class="col-xs-2 text-left"><c:out value="${wine.predicate}"/></td>
-                                <td class="col-xs-2 text-left"><c:out value="${wine.alcoholVolume}"/></td>
+                                <td class="col-xs-3 text-left"><c:out value="${wine.alcoholVolume}"/></td>
 
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <form:form method="get" action="${pageContext.request.contextPath}/wines/remove/${wineListDto.id}/${wine.id}" cssClass="form-horizontal">
-                                    <td class="col-xs-3 text-left">
-                                        <button class="btn btn-default" type="submit">
-                                            <span class="sr-only"><fmt:message key="remove"/></span>
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
-                                </form:form>
+                                    <form:form method="get" action="${pageContext.request.contextPath}/wines/update/${wine.id}" cssClass="form-horizontal">
+                                        <td class="col-xs-1 text-center">
+                                            <button class="btn btn-default" type="submit">
+                                                <span class="sr-only"><fmt:message key="edit"/></span>
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </form:form>
+                                    <form:form method="get" action="${pageContext.request.contextPath}/wines/remove/${wineListDto.id}/${wine.id}" cssClass="form-horizontal">
+                                        <td class="col-xs-3 text-left">
+                                            <button class="btn btn-default" type="submit">
+                                                <span class="sr-only"><fmt:message key="remove"/></span>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </form:form>
                                 </sec:authorize>
                             </tr>
                         </c:forEach>

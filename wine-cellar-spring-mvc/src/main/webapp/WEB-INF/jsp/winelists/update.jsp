@@ -13,7 +13,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
-<my:template title="Update tasting ticket">
+<my:template title="Update - ${wineListUpdate.name}">
     <jsp:attribute name="scripts">
         <script>
             $(function () {

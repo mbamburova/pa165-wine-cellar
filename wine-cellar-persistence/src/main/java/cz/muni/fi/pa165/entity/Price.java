@@ -24,7 +24,7 @@ public class Price {
     @NotNull
     private Currency currency;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private MarketingEvent marketingEvent;
 
     @ManyToOne(optional = false)

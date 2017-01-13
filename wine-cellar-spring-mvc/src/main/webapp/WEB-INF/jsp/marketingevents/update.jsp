@@ -12,7 +12,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<own:template title="Update Marketing event">
+<own:template title="Update event">
     <jsp:attribute name="body">
 
         <form:form method="post" action="${pageContext.request.contextPath}/marketingevents/update/${marketingEventUpdate.id}"
@@ -34,10 +34,6 @@
                     </p>
                 </div>
             </div>
-
-            <button class="btn btn-primary updateBtn center-block allow-vertical-space" type="submit">
-                <fmt:message key="update"/>
-            </button>
         </form:form>
     </jsp:attribute>
 </own:template>

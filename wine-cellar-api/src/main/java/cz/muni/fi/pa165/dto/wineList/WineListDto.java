@@ -76,9 +76,12 @@ public class WineListDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof WineListDto)) return false;
+
         WineListDto that = (WineListDto) o;
-        return !(this.getId() == null || that.getId() == null) && id.equals(that.id);
+
+        return getId() != null && getId().equals(that.getId());
+
     }
 
     @Override

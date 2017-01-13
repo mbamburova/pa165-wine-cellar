@@ -58,15 +58,16 @@ public class WineListController {
 
         try {
             wineListFacade.deleteWineList(id);
-            redirectAttributes.addFlashAttribute("alert_success", "Tasting ticket \"" + wineListDto.getName() + "\" was deleted.");
+            redirectAttributes.addFlashAttribute("alert_info", "Tasting ticket \"" + wineListDto.getName() + "\" was deleted.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("alert_danger", "Tasting ticket \"" + wineListDto.getName() + "\" wasn't deleted. " + e);
+            redirectAttributes.addFlashAttribute("alert_danger", "Tasting ticket \"" + wineListDto.getName() + "\" wasn't deleted! Some error occurred!");
         }
         return "redirect:" + uriBuilder.path("/winelists/index").toUriString();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("wineListCreate") WineListCreateDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("wineListCreate") WineListCreateDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -76,7 +77,7 @@ public class WineListController {
         }
         Long id = wineListFacade.createWineList(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Tasting ticket " + formBean.getName() + " was created");
+        redirectAttributes.addFlashAttribute("alert_success", "Tasting ticket \"" + formBean.getName() + "\" was created.");
         return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(id).encode().toUriString();
     }
 
@@ -98,7 +99,8 @@ public class WineListController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("wineListUpdate") WineListDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String update(@Valid @ModelAttribute("wineListUpdate") WineListDto formBean, BindingResult bindingResult,
+                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -110,7 +112,7 @@ public class WineListController {
         formBean.setWines(wineListDto.getWines());
         wineListFacade.updateWineList(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Tasting ticket " + formBean.getName() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "Tasting ticket \"" + formBean.getName() + "\" was updated.");
         return "redirect:" + uriBuilder.path("/winelists/index").buildAndExpand(formBean.getId()).encode().toUriString();
     }
 
