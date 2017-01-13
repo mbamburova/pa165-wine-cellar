@@ -42,20 +42,20 @@ public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void createMarketingEvent(){
+    public void createMarketingEvent() {
         MarketingEvent marketingEvent = marketingEventDao.findMarketingEventById(marketingEvent1.getId());
         Assert.assertEquals(marketingEvent, marketingEvent1);
     }
 
     @Test(expectedExceptions = javax.validation.ConstraintViolationException.class)
-    public void createMarketingEventWithNullDescription(){
+    public void createMarketingEventWithNullDescription() {
         MarketingEvent marketingEvent = new MarketingEvent();
         marketingEvent.setDescription(null);
         marketingEventDao.createMarketingEvent(marketingEvent);
     }
 
     @Test
-    public void updateMarketingEvent(){
+    public void updateMarketingEvent() {
         MarketingEvent marketingEvent = marketingEventDao.findMarketingEventById(marketingEvent1.getId());
         marketingEvent.setDescription("Update description");
         marketingEventDao.updateMarketingEvent(marketingEvent);
@@ -63,7 +63,7 @@ public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void deleteMarketingEvent(){
+    public void deleteMarketingEvent() {
         marketingEventDao.deleteMarketingEvent(marketingEvent1);
         marketingEventDao.deleteMarketingEvent(marketingEvent2);
         Assert.assertNull(marketingEventDao.findMarketingEventById(marketingEvent1.getId()));
@@ -71,7 +71,7 @@ public class MarketingEventDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void getAllMarketingEvent(){
+    public void getAllMarketingEvent() {
         Assert.assertEquals(marketingEventDao.findAllMarketingEvents().size(), 2);
     }
 

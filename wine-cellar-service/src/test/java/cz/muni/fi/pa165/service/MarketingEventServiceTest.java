@@ -66,10 +66,8 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
 
     @Test
     public void findMarketingEventById() {
-        when(marketingEventDao.findMarketingEventById(marketingEvent1.getId()))
-                .thenReturn(marketingEvent1);
-        assertThat(marketingEventService.findMarketingEventById(marketingEvent1.getId()))
-                .isEqualToComparingFieldByField(marketingEvent1);
+        when(marketingEventDao.findMarketingEventById(marketingEvent1.getId())).thenReturn(marketingEvent1);
+        assertThat(marketingEventService.findMarketingEventById(marketingEvent1.getId())).isEqualToComparingFieldByField(marketingEvent1);
         verify(marketingEventDao).findMarketingEventById(marketingEvent1.getId());
     }
 
@@ -87,7 +85,7 @@ public class MarketingEventServiceTest extends AbstractTestNGSpringContextTests 
         expectedMarketingEvents.add(marketingEvent2);
         when(marketingEventDao.findAllMarketingEvents()).thenReturn(expectedMarketingEvents);
         List<MarketingEvent> currentMarketingEvents = marketingEventService.findAllMarketingEvents();
-        for(int i = 0; i < expectedMarketingEvents.size(); i++) {
+        for (int i = 0; i < expectedMarketingEvents.size(); i++) {
             assertThat(currentMarketingEvents.get(i)).isEqualToComparingFieldByField(expectedMarketingEvents.get(i));
         }
         verify(marketingEventDao).findAllMarketingEvents();

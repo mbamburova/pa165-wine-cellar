@@ -1,11 +1,8 @@
 package cz.muni.fi.pa165.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 /**
  * @author Tomas Gordian on 10/30/2016.
  */
@@ -13,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class MarketingEvent {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MARKETING_EVENT_ID")
     private Long id;
 

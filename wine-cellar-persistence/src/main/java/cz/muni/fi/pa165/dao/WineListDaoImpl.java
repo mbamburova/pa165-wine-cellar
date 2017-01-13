@@ -5,11 +5,8 @@ import cz.muni.fi.pa165.entity.WineList;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,16 +51,11 @@ public class WineListDaoImpl implements WineListDao {
 
     @Override
     public List<WineList> findWineListsByName(String name) {
-            return entityManager
-                    .createQuery("SELECT wl FROM WineList wl WHERE wl.name = :name",
-                            WineList.class).setParameter("name", name)
-                    .getResultList();
+        return entityManager.createQuery("SELECT wl FROM WineList wl WHERE wl.name = :name", WineList.class).setParameter("name", name).getResultList();
     }
 
     @Override
     public List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent) {
-            return entityManager
-                    .createQuery("SELECT wl FROM WineList wl WHERE MARKETING_EVENT_ID = :marketingEventId", WineList.class).setParameter("marketingEventId", marketingEvent.getId())
-                    .getResultList();
+        return entityManager.createQuery("SELECT wl FROM WineList wl WHERE MARKETING_EVENT_ID = :marketingEventId", WineList.class).setParameter("marketingEventId", marketingEvent.getId()).getResultList();
     }
 }

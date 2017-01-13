@@ -14,12 +14,14 @@ public interface WineListDao {
 
     /**
      * create wine list in database
+     *
      * @param wineList
      */
     void createWineList(WineList wineList);
 
     /**
      * get wine list by id from database
+     *
      * @param id
      * @return wineList
      */
@@ -27,6 +29,7 @@ public interface WineListDao {
 
     /**
      * Update wine list in database
+     *
      * @param wineList
      * @return wine list
      */
@@ -34,18 +37,21 @@ public interface WineListDao {
 
     /**
      * delete wineList from database
+     *
      * @param wineList
      */
     void deleteWineList(WineList wineList);
 
     /**
      * get all wine lists from database
+     *
      * @return list of wineLists
      */
     List<WineList> findAllWineLists();
 
     /**
      * find wine lists by date
+     *
      * @param date
      * @return list of wineLists
      */
@@ -53,6 +59,7 @@ public interface WineListDao {
 
     /**
      * Finds all wine lists by name in database
+     *
      * @param name of the wine list
      * @return list of all wine lists by given name
      */
@@ -60,6 +67,7 @@ public interface WineListDao {
 
     /**
      * Finds wine list by marketing event in database
+     *
      * @param marketingEvent in wine list
      * @return wine list with given marketing event
      */

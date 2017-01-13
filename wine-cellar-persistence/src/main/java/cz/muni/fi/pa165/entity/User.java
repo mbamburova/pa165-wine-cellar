@@ -1,10 +1,11 @@
 package cz.muni.fi.pa165.entity;
 
-import java.util.Objects;
+import cz.muni.fi.pa165.enums.UserRole;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import cz.muni.fi.pa165.enums.UserRole;
+import java.util.Objects;
 
 /**
  * @author Silvia Borzová

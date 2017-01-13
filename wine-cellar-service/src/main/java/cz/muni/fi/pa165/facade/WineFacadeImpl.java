@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.WineCreateDto;
-import cz.muni.fi.pa165.dto.WineDto;
+import cz.muni.fi.pa165.dto.wine.WineCreateDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.WineService;

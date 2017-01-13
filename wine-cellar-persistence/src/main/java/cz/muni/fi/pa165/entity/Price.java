@@ -30,19 +30,19 @@ public class Price {
     @ManyToOne(optional = false)
     private Packing packing;
 
+    public Price() {
+    }
+
+    public Price(Long id) {
+        this.id = id;
+    }
+
     public Packing getPacking() {
         return packing;
     }
 
     public void setPacking(Packing packing) {
         this.packing = packing;
-    }
-
-    public Price() {
-    }
-
-    public Price(Long id) {
-        this.id = id;
     }
 
     public Long getId() {

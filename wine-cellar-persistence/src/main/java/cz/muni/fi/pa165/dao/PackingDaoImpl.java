@@ -5,11 +5,8 @@ import cz.muni.fi.pa165.entity.Wine;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,13 +40,9 @@ public class PackingDaoImpl implements PackingDao {
 
     @Override
     public List<Packing> findPackingsByVolume(BigDecimal volume) {
-        if (volume == null)
-            throw new IllegalArgumentException("Cannot search for null volume");
+        if (volume == null) throw new IllegalArgumentException("Cannot search for null volume");
 
-        return em
-                .createQuery("SELECT p FROM Packing p WHERE p.volume = :volume",
-                    Packing.class).setParameter("volume", volume)
-                .getResultList();
+        return em.createQuery("SELECT p FROM Packing p WHERE p.volume = :volume", Packing.class).setParameter("volume", volume).getResultList();
     }
 
     @Override
@@ -59,10 +52,8 @@ public class PackingDaoImpl implements PackingDao {
 
     @Override
     public List<Packing> findPackingsByWine(Wine wine) {
-        if (wine == null)
-            throw new IllegalArgumentException("Cannot search for null wine");
+        if (wine == null) throw new IllegalArgumentException("Cannot search for null wine");
 
-        return em.createQuery("select p from Packing p where p.wine = :wine",
-                Packing.class).setParameter("wine", wine).getResultList();
+        return em.createQuery("select p from Packing p where p.wine = :wine", Packing.class).setParameter("wine", wine).getResultList();
     }
 }

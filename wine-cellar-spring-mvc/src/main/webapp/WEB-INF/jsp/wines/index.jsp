@@ -30,21 +30,21 @@
 
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th class="text-left"><fmt:message key="number"/></th>
-                    <th class="text-left"><fmt:message key="wine.name"/></th>
-                    <th class="text-left"><fmt:message key="wine.vintage"/></th>
-                    <th class="text-left"><fmt:message key="wine.predicate"/></th>
-                    <th class="text-left"><fmt:message key="detail"/></th>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <tr>
+                <th class="text-left"><fmt:message key="number"/></th>
+                <th class="text-left"><fmt:message key="wine.name"/></th>
+                <th class="text-left"><fmt:message key="wine.vintage"/></th>
+                <th class="text-left"><fmt:message key="wine.predicate"/></th>
+                <th class="text-left"><fmt:message key="detail"/></th>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <th class="text-left"><fmt:message key="edit"/></th>
                         <th class="text-left"><fmt:message key="delete"/></th>
                         <th class="text-left"><fmt:message key="addToWineList"/></th>
                     </sec:authorize>
-                </tr>
+            </tr>
             </thead>
             <tbody>
-                <c:forEach items="${wines}" var="wine">
+            <c:forEach items="${wines}" var="wine">
                 <c:set var="count" value="${count + 1}" scope="page"/>
                 <tr>
                     <td class="col-xs-3 text-left">${count}.</td>
@@ -87,8 +87,8 @@
                                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
                                      </button>
                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <c:forEach items="${wineLists}" var="winelist" >
-                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}"><c:out value="${winelist.name}" /></a></li>
+                                        <c:forEach items="${wineLists}" var="winelist">
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}"><c:out value="${winelist.name}"/></a></li>
                                         </c:forEach>
                                      </div>
                                  </div>
@@ -102,8 +102,8 @@
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <span class="caret"></span>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <c:forEach items="${wineLists}" var="winelist" >
-                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}"><c:out value="${winelist.name}" /></a></li>
+                                        <c:forEach items="${wineLists}" var="winelist">
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/wines/add/${wine.id}/${winelist.id}"><c:out value="${winelist.name}"/></a></li>
                                        </c:forEach>
                                     </div>
                                 </div>

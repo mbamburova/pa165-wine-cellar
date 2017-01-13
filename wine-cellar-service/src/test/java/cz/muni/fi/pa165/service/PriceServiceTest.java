@@ -3,8 +3,8 @@ package cz.muni.fi.pa165.service;
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
 import cz.muni.fi.pa165.dao.PriceDao;
-import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.WineDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
@@ -29,6 +29,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 /**
  * @author Tomas Gordian on 11/25/2016.
  */
@@ -68,40 +69,15 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     private MarketingEvent marketingEvent2;
 
     private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-                .name("Veltl?nske zelen?")
-                .vintage(Year.of(2014))
-                .batch("10/14")
-                .predicate("kabinetn? v?no")
-                .predicateEquivalent("such?")
-                .description("Elegantn?, sv??? v?no s lehkou aromatikou angre?tu a zelen?ho pep?e. " +
-                        "Chu?ov? vjem je tvo?en pikantn? kyselinkou a ko?enito-ovocn?mi t?ny.")
-                .notes("20,0??NM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Veltl?nske zelen?").vintage(Year.of(2014)).batch("10/14").predicate("kabinetn? v?no").predicateEquivalent("such?").description("Elegantn?, sv??? v?no s lehkou aromatikou angre?tu a zelen?ho pep?e. " + "Chu?ov? vjem je tvo?en pikantn? kyselinkou a ko?enito-ovocn?mi t?ny.").notes("20,0??NM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-                .name("Mu?k?t moravsk?")
-                .vintage(Year.of(2015))
-                .batch("1/14")
-                .predicate("kabinetn? v?no")
-                .predicateEquivalent("such?")
-                .description("V?no zlatav? barvy s ovocnou v?n? citrusov?ch plod? a mu?k?tov?ho o???ku." +
-                        " V chuti nab?z? ovocn? t?ny grapefruitu a zral?ho citr?nu. Ovocnou chu? prov?z? p??jemn? kyselinka," +
-                        " d?ky n?? je v?no pikantn? se such?m z?v?rem.")
-                .notes("20,2??NM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Mu?k?t moravsk?").vintage(Year.of(2015)).batch("1/14").predicate("kabinetn? v?no").predicateEquivalent("such?").description("V?no zlatav? barvy s ovocnou v?n? citrusov?ch plod? a mu?k?tov?ho o???ku." + " V chuti nab?z? ovocn? t?ny grapefruitu a zral?ho citr?nu. Ovocnou chu? prov?z? p??jemn? kyselinka," + " d?ky n?? je v?no pikantn? se such?m z?v?rem.").notes("20,2??NM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("0.7")).acidity(new BigDecimal("6.1")).grapeSugarContent(new BigDecimal("0"));
     }
 
     @BeforeClass
-    public void setUpMock(){
+    public void setUpMock() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -121,15 +97,15 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
         packing1 = new Packing();
         packing1.setVolume(new BigDecimal("0.75"));
         packing1.setWine(veltlinskeZelene);
-        packing1.setValidFrom(LocalDateTime.of(2016,10,10,0,0));
+        packing1.setValidFrom(LocalDateTime.of(2016, 10, 10, 0, 0));
         packing1.setValidTo(null);
         packingService.createPacking(packing1);
 
         packing2 = new Packing();
         packing2.setVolume(new BigDecimal("0.75"));
         packing2.setWine(muskatMoravsky);
-        packing2.setValidFrom(LocalDateTime.of(2014,8,5,0,0));
-        packing2.setValidTo(LocalDateTime.of(2015,12,11,0,0));
+        packing2.setValidFrom(LocalDateTime.of(2014, 8, 5, 0, 0));
+        packing2.setValidTo(LocalDateTime.of(2015, 12, 11, 0, 0));
         packingService.createPacking(packing2);
 
         price1 = new Price();
@@ -173,22 +149,20 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void deletePrice(){
+    public void deletePrice() {
         priceService.deletePrice(price2);
         verify(priceDao).deletePrice(price2);
     }
 
     @Test
-    public void findPriceById(){
-        when(priceDao.findPriceById(price1.getId()))
-                .thenReturn(price1);
-        assertThat(priceService.findPriceById(price1.getId()))
-                .isEqualToComparingFieldByField(price1);
+    public void findPriceById() {
+        when(priceDao.findPriceById(price1.getId())).thenReturn(price1);
+        assertThat(priceService.findPriceById(price1.getId())).isEqualToComparingFieldByField(price1);
         verify(priceDao).findPriceById(price1.getId());
     }
 
     @Test
-    public void findAllPrices(){
+    public void findAllPrices() {
         List<Price> expected = new ArrayList<>();
 
         expected.add(price1);
@@ -203,7 +177,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPricesByCurrency(){
+    public void findPricesByCurrency() {
         Currency currency = Currency.getInstance("CZK");
 
         List<Price> expected = new ArrayList<>();
@@ -217,7 +191,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPriceByPriceAttribute(){
+    public void findPriceByPriceAttribute() {
         BigDecimal price = new BigDecimal("120");
 
         List<Price> expected = new ArrayList<>();
@@ -231,7 +205,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPricesByMarketingEvent(){
+    public void findPricesByMarketingEvent() {
 
         List<Price> expected = new ArrayList<>();
         expected.add(price1);
@@ -244,7 +218,7 @@ public class PriceServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPricesByPacking(){
+    public void findPricesByPacking() {
 
         List<Price> expected = new ArrayList<>();
         expected.add(price2);

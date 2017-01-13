@@ -1,4 +1,7 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.price;
+
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -46,16 +49,16 @@ public class PriceDto {
         return marketingEvent;
     }
 
+    public void setMarketingEvent(MarketingEventDto marketingEvent) {
+        this.marketingEvent = marketingEvent;
+    }
+
     public PackingDto getPacking() {
         return packing;
     }
 
     public void setPacking(PackingDto packing) {
         this.packing = packing;
-    }
-
-    public void setMarketingEvent(MarketingEventDto marketingEvent) {
-        this.marketingEvent = marketingEvent;
     }
 
     @Override

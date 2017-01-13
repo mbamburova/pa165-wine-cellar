@@ -1,7 +1,8 @@
 package cz.muni.fi.pa165.dao;
 
-import java.util.List;
 import cz.muni.fi.pa165.entity.User;
+
+import java.util.List;
 
 /**
  * @author Silvia Borzová
@@ -11,12 +12,14 @@ public interface UserDao {
 
     /**
      * Creates new user in the database
+     *
      * @param user
      */
     void createUser(User user);
 
     /**
      * Updates the given user in the database
+     *
      * @param user
      * @return merged User entity
      */
@@ -24,12 +27,14 @@ public interface UserDao {
 
     /**
      * Deletes the given user from the database
+     *
      * @param user to be deleted
      */
     void deleteUser(User user);
 
     /**
      * Finds a user with the given id in the database.
+     *
      * @param id of  user
      * @return user
      */
@@ -37,6 +42,7 @@ public interface UserDao {
 
     /**
      * Finds a user with the given email in the database.
+     *
      * @param email of the user
      * @return user
      */
@@ -44,6 +50,7 @@ public interface UserDao {
 
     /**
      * Finds all users in the database.
+     *
      * @return users
      */
     List<User> findAllUsers();

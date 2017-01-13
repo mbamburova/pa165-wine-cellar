@@ -37,11 +37,11 @@ public class MarketingEventServiceImpl implements MarketingEventService {
 
     @Override
     public MarketingEvent findMarketingEventById(Long marketingEventId) {
-         try {
-             return marketingEventDao.findMarketingEventById(marketingEventId);
-         } catch (Exception e) {
-             throw new WineCellarDataAccessException("Cannot find marketing event by id", e);
-         }
+        try {
+            return marketingEventDao.findMarketingEventById(marketingEventId);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find marketing event by id", e);
+        }
     }
 
     @Override

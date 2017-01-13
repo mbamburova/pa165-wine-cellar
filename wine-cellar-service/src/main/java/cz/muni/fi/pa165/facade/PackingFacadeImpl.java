@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.PackingCreateDto;
-import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.WineDto;
+import cz.muni.fi.pa165.dto.packing.PackingCreateDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
@@ -26,7 +26,7 @@ public class PackingFacadeImpl implements PackingFacade {
 
     @Inject
     private PackingService packingService;
-    
+
     @Inject
     private WineService wineService;
 
@@ -35,7 +35,7 @@ public class PackingFacadeImpl implements PackingFacade {
 
     @Override
     public Long createPacking(PackingCreateDto packingDto) {
-        if (packingDto == null){
+        if (packingDto == null) {
             throw new IllegalArgumentException("PackingDTO cannot be null");
         }
         Packing packing = beanMappingService.mapTo(packingDto, Packing.class);
@@ -46,7 +46,7 @@ public class PackingFacadeImpl implements PackingFacade {
 
     @Override
     public void updatePacking(PackingDto packingDto) {
-        if (packingDto == null){
+        if (packingDto == null) {
             throw new IllegalArgumentException("PackingDTO cannot be null");
         }
         Packing packing = beanMappingService.mapTo(packingDto, Packing.class);
@@ -56,7 +56,7 @@ public class PackingFacadeImpl implements PackingFacade {
 
     @Override
     public void deletePacking(Long id) {
-        if (id == null){
+        if (id == null) {
             throw new IllegalArgumentException("Packing ID cannot be null");
         }
 
@@ -65,35 +65,32 @@ public class PackingFacadeImpl implements PackingFacade {
 
     @Override
     public PackingDto findPackingById(Long id) {
-        if (id == null){
+        if (id == null) {
             throw new IllegalArgumentException("Packing ID cannot be null");
         }
         Packing packing = packingService.findPackingById(id);
-        return beanMappingService.mapTo(packing,PackingDto.class);
+        return beanMappingService.mapTo(packing, PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findAllPackings() {
-        return beanMappingService.mapToCollection(packingService.findAllPackings(),
-                PackingDto.class);
+        return beanMappingService.mapToCollection(packingService.findAllPackings(), PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingsByVolume(BigDecimal volume) {
-        if (volume == null){
+        if (volume == null) {
             throw new IllegalArgumentException("Volume cannot be null");
         }
-        return beanMappingService.mapToCollection(packingService.findPackingsByVolume(volume),
-                PackingDto.class);
+        return beanMappingService.mapToCollection(packingService.findPackingsByVolume(volume), PackingDto.class);
     }
 
     @Override
     public List<PackingDto> findPackingsByWine(WineDto wineDto) {
-        if (wineDto == null){
+        if (wineDto == null) {
             throw new IllegalArgumentException("WineDTO cannot be null");
         }
         Wine wine = beanMappingService.mapTo(wineDto, Wine.class);
-        return beanMappingService.mapToCollection(packingService.findPackingsByWine(wine),
-                PackingDto.class);
+        return beanMappingService.mapToCollection(packingService.findPackingsByWine(wine), PackingDto.class);
     }
 }

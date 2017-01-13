@@ -17,19 +17,19 @@
      <jsp:attribute name="scripts">
         <script>
             $(function () {
-                $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepickerFrom").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
         <script>
             $(function () {
-                $("#datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepickerTo").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
     </jsp:attribute>
 
     <jsp:attribute name="body">
         <form:form method="post" action="${pageContext.request.contextPath}/prices/update"
-                       modelAttribute="pricePacking" cssClass="form-horizontal">
+                   modelAttribute="pricePacking" cssClass="form-horizontal">
             <div class="container">
                 <div class="col-md-12 com-md-offset-2 form-group ${volume_error?'has-error':''}">
                     <form:label path="packingDto.volume" cssClass="col-sm-2 control-label"><fmt:message key="packing.volume"/> in liters</form:label>
@@ -80,10 +80,10 @@
                         </c:forEach>
                     </form:select>
                         <p class="help-block"><form:errors path="priceDto.marketingEvent.id" cssClass="error"/></p>
-                        <br />
+                        <br/>
                         <p align="right">
                             <button class="btn btn-primary" type="submit"><fmt:message key="update"/></button>
-                            <%--<a class="btn btn-default" href="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"><fmt:message key="cancel"/></a>--%>
+                                <%--<a class="btn btn-default" href="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"><fmt:message key="cancel"/></a>--%>
                         </p>
                     </div>
                 </div>

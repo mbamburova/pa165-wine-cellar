@@ -16,7 +16,7 @@ import java.util.List;
 public class WineList {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "WINELIST_ID")
     private Long id;
 
@@ -29,9 +29,7 @@ public class WineList {
     private LocalDateTime date;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
-    @JoinTable(name = "WINELIST_WINE",
-            joinColumns = { @JoinColumn(name = "WINELIST_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "WINE_ID") })
+    @JoinTable(name = "WINELIST_WINE", joinColumns = {@JoinColumn(name = "WINELIST_ID")}, inverseJoinColumns = {@JoinColumn(name = "WINE_ID")})
     private List<Wine> wines = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.REFRESH)
@@ -44,12 +42,12 @@ public class WineList {
     public WineList() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

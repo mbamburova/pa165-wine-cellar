@@ -28,42 +28,42 @@
        </div>
       <table class="table">
           <tbody>
-              <tr>
-                  <td><b><fmt:message key="wine.predicate"/>: </b></td>
-                  <td><c:out value="${wine.predicate}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.predicateEquivalent"/>: </b></td>
-                  <td><c:out value="${wine.predicateEquivalent}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.batch"/>: </b></td>
-                  <td><c:out value="${wine.batch}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.alcoholVolume"/>: </b></td>
-                  <td><c:out value="${wine.alcoholVolume}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.acidity"/>: </b></td>
-                  <td><c:out value="${wine.acidity}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.residualSugar"/>: </b></td>
-                  <td><c:out value="${wine.residualSugar}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.grapeSugarContent"/>: </b></td>
-                  <td><c:out value="${wine.grapeSugarContent}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.description"/>: </b></td>
-                  <td><c:out value="${wine.description}" /></td>
-              </tr>
-              <tr>
-                  <td><b><fmt:message key="wine.notes"/>: </b></td>
-                  <td><c:out value="${wine.notes}" /></td>
-              </tr>
+          <tr>
+              <td><b><fmt:message key="wine.predicate"/>: </b></td>
+              <td><c:out value="${wine.predicate}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.predicateEquivalent"/>: </b></td>
+              <td><c:out value="${wine.predicateEquivalent}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.batch"/>: </b></td>
+              <td><c:out value="${wine.batch}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.alcoholVolume"/>: </b></td>
+              <td><c:out value="${wine.alcoholVolume}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.acidity"/>: </b></td>
+              <td><c:out value="${wine.acidity}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.residualSugar"/>: </b></td>
+              <td><c:out value="${wine.residualSugar}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.grapeSugarContent"/>: </b></td>
+              <td><c:out value="${wine.grapeSugarContent}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.description"/>: </b></td>
+              <td><c:out value="${wine.description}"/></td>
+          </tr>
+          <tr>
+              <td><b><fmt:message key="wine.notes"/>: </b></td>
+              <td><c:out value="${wine.notes}"/></td>
+          </tr>
           </tbody>
       </table>
       <br/>
@@ -77,7 +77,7 @@
                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                        <fmt:message key="createPricePacking"/>
                    </a>
-                   <br />
+                   <br/>
                </div>
 
            </c:when>
@@ -93,7 +93,7 @@
                        </tr>
                        </thead>
                        <tbody>
-                            <c:forEach items="${pricePackings}" var="item">
+                       <c:forEach items="${pricePackings}" var="item">
                                 <tr>
                                     <td><c:out value="${item.priceDto.price}"/> ${item.priceDto.currency}</td>
                                     <td><c:out value="${item.packingDto.volume}"/> l</td>
@@ -104,7 +104,7 @@
                        </tbody>
                    </table>
                </div>
-               <br />
+               <br/>
            </c:otherwise>
        </c:choose>
 

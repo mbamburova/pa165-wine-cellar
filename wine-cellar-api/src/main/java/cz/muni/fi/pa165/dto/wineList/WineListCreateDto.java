@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.wineList;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -68,8 +68,7 @@ public class WineListCreateDto {
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (marketingEventId != null ? !marketingEventId.equals(that.marketingEventId) : that.marketingEventId != null)
-            return false;
+        if (marketingEventId != null ? !marketingEventId.equals(that.marketingEventId) : that.marketingEventId != null) return false;
         return winesIds != null ? winesIds.equals(that.winesIds) : that.winesIds == null;
 
     }

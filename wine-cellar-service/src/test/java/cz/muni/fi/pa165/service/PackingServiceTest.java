@@ -48,40 +48,15 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     private Wine muskatMoravsky;
 
     private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-                .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
-                .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. " +
-                        "Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-                .notes("20,0°ČNM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Veltlínske zelené").vintage(Year.of(2014)).batch("10/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. " + "Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.").notes("20,0°ČNM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-                .name("Muškát moravský")
-                .vintage(Year.of(2015))
-                .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." +
-                        " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
-                        " díky níž je víno pikantní se suchým závěrem.")
-                .notes("20,2°ČNM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Muškát moravský").vintage(Year.of(2015)).batch("1/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." + " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," + " díky níž je víno pikantní se suchým závěrem.").notes("20,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("0.7")).acidity(new BigDecimal("6.1")).grapeSugarContent(new BigDecimal("0"));
     }
 
     @BeforeClass
-    public void setUpMock(){
+    public void setUpMock() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -95,57 +70,55 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
         packing1 = new Packing();
         packing1.setVolume(new BigDecimal("0.75"));
         packing1.setWine(veltlinskeZelene);
-        packing1.setValidFrom(LocalDateTime.of(2016,10,10,0,0));
+        packing1.setValidFrom(LocalDateTime.of(2016, 10, 10, 0, 0));
         packing1.setValidTo(null);
         packingService.createPacking(packing1);
 
         packing2 = new Packing();
         packing2.setVolume(new BigDecimal("0.75"));
         packing2.setWine(muskatMoravsky);
-        packing2.setValidFrom(LocalDateTime.of(2014,8,5,0,0));
-        packing2.setValidTo(LocalDateTime.of(2015,12,11,0,0));
+        packing2.setValidFrom(LocalDateTime.of(2014, 8, 5, 0, 0));
+        packing2.setValidTo(LocalDateTime.of(2015, 12, 11, 0, 0));
         packingService.createPacking(packing2);
 
         packing3 = new Packing();
         packing3.setVolume(new BigDecimal("0.5"));
         packing3.setWine(muskatMoravsky);
-        packing3.setValidFrom(LocalDateTime.of(2016,10,10,0,0));
-        packing3.setValidTo(LocalDateTime.of(2017,1,1,0,0));
+        packing3.setValidFrom(LocalDateTime.of(2016, 10, 10, 0, 0));
+        packing3.setValidTo(LocalDateTime.of(2017, 1, 1, 0, 0));
         packingService.createPacking(packing3);
     }
 
     @Test
-    public void createPacking(){
+    public void createPacking() {
         Packing packing = new Packing();
         packing.setWine(veltlinskeZelene);
         packing.setVolume(new BigDecimal("0.5"));
-        packing.setValidFrom(LocalDateTime.of(2010,11,2,0,0));
-        packing.setValidTo(LocalDateTime.of(2017,5,2,0,0));
+        packing.setValidFrom(LocalDateTime.of(2010, 11, 2, 0, 0));
+        packing.setValidTo(LocalDateTime.of(2017, 5, 2, 0, 0));
 
         packingService.createPacking(packing);
         verify(packingDao, times(1)).createPacking(packing);
     }
 
     @Test
-    public void findPackingById(){
-        when(packingDao.findPackingById(packing1.getId()))
-                .thenReturn(packing1);
+    public void findPackingById() {
+        when(packingDao.findPackingById(packing1.getId())).thenReturn(packing1);
 
-        assertThat(packingService.findPackingById(packing1.getId()))
-                .isEqualToComparingFieldByField(packing1);
+        assertThat(packingService.findPackingById(packing1.getId())).isEqualToComparingFieldByField(packing1);
 
         verify(packingDao, times(1)).findPackingById(packing1.getId());
     }
 
 
     @Test
-    public void updatePacking(){
+    public void updatePacking() {
         packingService.updatePacking(packing1);
         verify(packingDao, times(1)).updatePacking(packing1);
     }
 
     @Test
-    public void deletePacking(){
+    public void deletePacking() {
         packingService.deletePacking(packing1);
         verify(packingDao, times(1)).deletePacking(packing1);
     }
@@ -164,7 +137,7 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
 //    }
 
     @Test
-    public void findAllPackings(){
+    public void findAllPackings() {
         List<Packing> expect = new ArrayList<>();
         expect.add(packing1);
         expect.add(packing2);
@@ -178,13 +151,12 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPackingsByVolume(){
+    public void findPackingsByVolume() {
         List<Packing> expect = new ArrayList<>();
         expect.add(packing1);
         expect.add(packing2);
 
-        when(packingDao.findPackingsByVolume(new BigDecimal("0.75")))
-                .thenReturn(expect);
+        when(packingDao.findPackingsByVolume(new BigDecimal("0.75"))).thenReturn(expect);
         List<Packing> found = packingService.findPackingsByVolume(new BigDecimal("0.75"));
 
         assertThat(found.size()).isEqualTo(expect.size());
@@ -192,13 +164,13 @@ public class PackingServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findPackingsByWine(){
+    public void findPackingsByWine() {
         List<Packing> expect = new ArrayList<>();
         expect.add(packing2);
         expect.add(packing3);
 
         when(packingDao.findPackingsByWine(muskatMoravsky)).
-                thenReturn(expect);
+            thenReturn(expect);
         List<Packing> found = packingService.findPackingsByWine(muskatMoravsky);
 
         assertThat(found.size()).isEqualTo(expect.size());

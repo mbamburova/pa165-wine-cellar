@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.dto.WineListCreateDto;
-import cz.muni.fi.pa165.dto.WineListDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
+import cz.muni.fi.pa165.dto.wineList.WineListCreateDto;
+import cz.muni.fi.pa165.dto.wineList.WineListDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import cz.muni.fi.pa165.facade.WineFacade;
 import cz.muni.fi.pa165.facade.WineListFacade;
@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * @author Silvia Borzova
- *          16/12/2016.
+ *         16/12/2016.
  */
 @Controller
 @RequestMapping("/winelists")
@@ -66,8 +66,7 @@ public class WineListController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("wineListCreate") WineListCreateDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("wineListCreate") WineListCreateDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -99,12 +98,11 @@ public class WineListController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("wineListUpdate") WineListDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String update(@Valid @ModelAttribute("wineListUpdate") WineListDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
-                    model.addAttribute(fe.getField() + "_error", true);
+                model.addAttribute(fe.getField() + "_error", true);
             }
             return "winelists/update";
         }

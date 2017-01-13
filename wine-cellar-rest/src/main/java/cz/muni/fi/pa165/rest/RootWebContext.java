@@ -6,20 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import cz.muni.fi.pa165.WineCellarSampleDataConfig;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author MarekScholtz
@@ -33,14 +30,14 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AllowOriginInterceptor()); 
+        registry.addInterceptor(new AllowOriginInterceptor());
     }
-    
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-    
+
     @Bean
     @Primary
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
@@ -52,7 +49,7 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH));
 
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-        
+
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
@@ -61,5 +58,5 @@ public class RootWebContext extends WebMvcConfigurerAdapter {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(customJackson2HttpMessageConverter());
     }
-    
+
 }

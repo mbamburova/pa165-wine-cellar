@@ -27,36 +27,35 @@ public class PriceServiceImpl implements PriceService {
     public void createPrice(Price p) {
         try {
             priceDao.createPrice(p);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot create price", e);
         }
     }
 
     @Override
     public void updatePrice(Price p) {
-        try{
+        try {
             priceDao.updatePrice(p);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot update price", e);
         }
     }
 
     @Override
     public void deletePrice(Price p) {
-        try{
+        try {
             priceDao.deletePrice(p);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot delete price", e);
         }
     }
 
     @Override
     public Price findPriceById(Long id) {
-        try{
+        try {
             return priceDao.findPriceById(id);
-        }catch(Exception e){
-            throw new WineCellarDataAccessException("Cannot find price by id "
-                    + id, e);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find price by id " + id, e);
         }
     }
 
@@ -71,41 +70,37 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public List<Price> findPricesByCurrency(Currency currency) {
-        try{
+        try {
             return priceDao.findPricesByCurrency(currency);
-        }catch(Exception e){
-            throw new WineCellarDataAccessException("Cannot find price by currency"
-                    + currency, e);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find price by currency" + currency, e);
         }
     }
 
     @Override
     public List<Price> findPricesByPriceAttribute(BigDecimal price) {
-        try{
+        try {
             return priceDao.findPricesByPriceAttribute(price);
-        }catch(Exception e){
-            throw new WineCellarDataAccessException("Cannot find price by price attribute"
-                    + price, e);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find price by price attribute" + price, e);
         }
     }
 
     @Override
     public List<Price> findPricesByMarketingEvent(MarketingEvent event) {
-        try{
+        try {
             return priceDao.findPricesByMarketingEvent(event);
-        }catch(Exception e){
-            throw new WineCellarDataAccessException("Cannot find price by marketing event"
-                    + event, e);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find price by marketing event" + event, e);
         }
     }
 
     @Override
     public List<Price> findPricesByPacking(Packing packing) {
-        try{
+        try {
             return priceDao.findPricesByPacking(packing);
-        }catch(Exception e){
-            throw new WineCellarDataAccessException("Cannot find price by packing"
-                    + packing, e);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find price by packing" + packing, e);
         }
     }
 }

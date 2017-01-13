@@ -10,8 +10,12 @@ import java.util.List;
 public interface MarketingEventService {
 
     void createMarketingEvent(MarketingEvent marketingEvent);
+
     void updateMarketingEvent(MarketingEvent marketingEvent);
+
     MarketingEvent findMarketingEventById(Long marketingEventId);
+
     void deleteMarketingEvent(MarketingEvent marketingEvent);
+
     List<MarketingEvent> findAllMarketingEvents();
 }

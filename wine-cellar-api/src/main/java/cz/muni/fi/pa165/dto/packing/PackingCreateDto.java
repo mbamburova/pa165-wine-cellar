@@ -1,10 +1,9 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.packing;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -64,8 +63,7 @@ public class PackingCreateDto {
 
     @Override
     public String toString() {
-        return "PackingCreateDto{" + "volume=" + volume + "," +
-            " validFrom=" + validFrom + ", validTo=" + validTo + ", wineId=" + wineId + '}';
+        return "PackingCreateDto{" + "volume=" + volume + "," + " validFrom=" + validFrom + ", validTo=" + validTo + ", wineId=" + wineId + '}';
     }
 
     @Override

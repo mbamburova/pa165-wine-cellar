@@ -27,9 +27,9 @@
                 <div class="col-md-12 com-md-offset-2 form-group ${vintage_error?'has-error':''}">
                     <form:label path="vintage" cssClass="col-sm-2 control-label">Vintage</form:label>
                     <div class="col-sm-4">
-                    <form:select class="form-control" path="vintage" >
-                        <c:forEach items="${vintageValues}" var="year" >
-                            <option><c:out value="${year}" /></option>
+                    <form:select class="form-control" path="vintage">
+                        <c:forEach items="${vintageValues}" var="year">
+                            <option><c:out value="${year}"/></option>
                         </c:forEach>
                     </form:select>
                         <form:errors path="vintage" cssClass="help-block"/>
@@ -96,7 +96,7 @@
                     <div class="col-sm-4">
                         <form:input path="grapeSugarContent" cssClass="form-control"/>
                         <form:errors path="grapeSugarContent" cssClass="help-block"/>
-                        <br />
+                        <br/>
                         <p align="right">
                             <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
                             <a class="btn btn-default" href="${pageContext.request.contextPath}/wines/index"><fmt:message key="cancel"/></a>

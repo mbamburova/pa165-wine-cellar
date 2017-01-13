@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
 import cz.muni.fi.pa165.facade.MarketingEventFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +40,7 @@ public class MarketingEventController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -71,10 +70,9 @@ public class MarketingEventController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String update(@Valid @ModelAttribute("marketingEventCreate") MarketingEventDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
-             for (FieldError fe : bindingResult.getFieldErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
             return "marketingevents/update";

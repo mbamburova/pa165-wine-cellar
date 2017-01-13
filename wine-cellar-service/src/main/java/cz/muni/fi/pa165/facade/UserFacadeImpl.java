@@ -1,16 +1,16 @@
 package cz.muni.fi.pa165.facade;
 
-import java.util.List;
-import javax.inject.Inject;
-import cz.muni.fi.pa165.dto.UserAuthDto;
-import cz.muni.fi.pa165.dto.UserCreateDto;
-import cz.muni.fi.pa165.dto.UserDto;
+import cz.muni.fi.pa165.dto.user.UserAuthDto;
+import cz.muni.fi.pa165.dto.user.UserCreateDto;
+import cz.muni.fi.pa165.dto.user.UserDto;
 import cz.muni.fi.pa165.entity.User;
 import cz.muni.fi.pa165.enums.UserRole;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
 
 /**
  * @author Silvia Borzová
@@ -74,8 +74,7 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public UserRole userRole(UserDto user)
-    {
+    public UserRole userRole(UserDto user) {
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null.");
         }

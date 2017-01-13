@@ -1,4 +1,6 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.price;
+
+import cz.muni.fi.pa165.dto.packing.PackingDto;
 
 /**
  * @author Michaela Bamburová on 15.12.2016.

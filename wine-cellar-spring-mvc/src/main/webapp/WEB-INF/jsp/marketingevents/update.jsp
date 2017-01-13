@@ -23,7 +23,7 @@
                 <div class="col-sm-4">
                     <form:input path="description" class="form-control" required="true"/>
                     <form:errors path="description" cssClass="help-block"/>
-                    <br />
+                    <br/>
                     <p align="right">
                         <button class="btn btn-primary" type="submit"><fmt:message key="update"/></button>
                         <a class="btn btn-default" href="${pageContext.request.contextPath}/marketingevents/index"><fmt:message key="cancel"/></a>

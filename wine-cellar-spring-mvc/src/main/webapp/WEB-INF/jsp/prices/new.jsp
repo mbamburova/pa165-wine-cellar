@@ -17,12 +17,12 @@
     <jsp:attribute name="scripts">
         <script>
             $(function () {
-                $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepickerFrom").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
         <script>
             $(function () {
-                $("#datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepickerTo").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
     </jsp:attribute>
@@ -79,8 +79,8 @@
                             <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
                         </c:forEach>
                     </form:select>
-                    <p class="help-block"><form:errors path="priceDto.marketingEventId" cssClass="error"/></p>
-                        <br />
+                        <p class="help-block"><form:errors path="priceDto.marketingEventId" cssClass="error"/></p>
+                        <br/>
                         <p align="right">
                             <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
                         </p>

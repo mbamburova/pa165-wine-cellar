@@ -1,11 +1,12 @@
 package cz.muni.fi.pa165.dao;
 
-import java.util.List;
+import cz.muni.fi.pa165.entity.User;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import cz.muni.fi.pa165.entity.User;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 /**
  * @author Silvia Borzová
@@ -44,8 +45,7 @@ public class UserDaoImpl implements UserDao {
             throw new IllegalArgumentException("Email is not valid");
         }
         try {
-            return em.createQuery("SELECT u FROM User u where u.email = :email", User.class)
-                    .setParameter("email", email).getSingleResult();
+            return em.createQuery("SELECT u FROM User u where u.email = :email", User.class).setParameter("email", email).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }

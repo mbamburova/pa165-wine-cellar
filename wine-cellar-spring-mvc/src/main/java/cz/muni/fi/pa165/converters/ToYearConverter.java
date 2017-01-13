@@ -11,7 +11,7 @@ public class ToYearConverter implements Converter<String, Year> {
 
     @Override
     public Year convert(String input) {
-        if(input.isEmpty()) {
+        if (input.isEmpty()) {
             return null;
         }
         int year = Integer.parseInt(input);

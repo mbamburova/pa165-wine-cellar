@@ -17,7 +17,7 @@
     <jsp:attribute name="scripts">
         <script>
             $(function () {
-                $("#datepicker").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepicker").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
     </jsp:attribute>
@@ -52,7 +52,7 @@
                             </c:forEach>
                     </form:select>
                     <p class="help-block"><form:errors path="marketingEvent" cssClass="error"/></p>
-                    <br />
+                    <br/>
                     <p align="right">
                         <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
                         <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index"><fmt:message key="cancel"/></a>

@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventService;

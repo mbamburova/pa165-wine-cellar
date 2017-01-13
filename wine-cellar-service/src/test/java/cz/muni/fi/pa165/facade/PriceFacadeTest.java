@@ -2,7 +2,11 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.price.PriceCreateDto;
+import cz.muni.fi.pa165.dto.price.PriceDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
@@ -60,33 +64,21 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private WineServiceImpl wineService;
-    
+
     @InjectMocks
     private PriceFacadeImpl priceFacade;
 
     @Captor
     private ArgumentCaptor<Price> priceArgumentCaptor;
-    
+
     @Spy
     @Inject
     private BeanMappingService beanMappingService;
 
     private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-            .name("Veltlínske zelené")
-            .vintage(Year.of(2014))
-            .batch("10/14")
-            .predicate("kabinetní víno")
-            .predicateEquivalent("suché")
-            .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře." +
-                " Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-            .notes("20,0°ČNM")
-            .alcoholVolume(new BigDecimal("10.94"))
-            .residualSugar(new BigDecimal("2.8"))
-            .acidity(new BigDecimal("7.5"))
-            .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Veltlínske zelené").vintage(Year.of(2014)).batch("10/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře." + " Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.").notes("20,0°ČNM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
     }
-    
+
     @BeforeClass
     public void setUpMock() {
         MockitoAnnotations.initMocks(this);
@@ -101,8 +93,8 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         packing1 = new Packing();
         packing1.setId(1L);
         packing1.setVolume(new BigDecimal("0.7"));
-        packing1.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
-        packing1.setValidTo(LocalDateTime.of(2015,2,1,0,0));
+        packing1.setValidFrom(LocalDateTime.of(2014, 2, 1, 0, 0));
+        packing1.setValidTo(LocalDateTime.of(2015, 2, 1, 0, 0));
         packing1.setWine(veltlinskeZelene);
         packingDto1 = beanMappingService.mapTo(packing1, PackingDto.class);
         packingDto1.setWine(veltlinskeZeleneDto);
@@ -131,12 +123,12 @@ public class PriceFacadeTest extends AbstractTestNGSpringContextTests {
         priceCreateDto1.setCurrency(price1.getCurrency());
         priceCreateDto1.setPackingId(packing1.getId());
         priceCreateDto1.setMarketingEventId(marketingEvent1.getId());
-        
+
         packing2 = new Packing();
         packing2.setId(2L);
         packing2.setVolume(new BigDecimal("0.35"));
-        packing2.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
-        packing2.setValidTo(LocalDateTime.of(2017,2,1,0,0));
+        packing2.setValidFrom(LocalDateTime.of(2014, 2, 1, 0, 0));
+        packing2.setValidTo(LocalDateTime.of(2017, 2, 1, 0, 0));
         packing2.setWine(veltlinskeZelene);
         packingDto2 = beanMappingService.mapTo(packing2, PackingDto.class);
         packingDto2.setWine(veltlinskeZeleneDto);

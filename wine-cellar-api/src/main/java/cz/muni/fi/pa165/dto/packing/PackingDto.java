@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.packing;
 
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -67,8 +68,7 @@ public class PackingDto {
 
     @Override
     public String toString() {
-        return "PackingDto{" + "id=" + id + ", volume=" + volume + ", validFrom=" +
-            validFrom + ", validTo=" + validTo + ", wine=" + wine + '}';
+        return "PackingDto{" + "id=" + id + ", volume=" + volume + ", validFrom=" + validFrom + ", validTo=" + validTo + ", wine=" + wine + '}';
     }
 
     @Override

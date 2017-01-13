@@ -23,7 +23,7 @@ public class WineServiceImpl implements WineService {
     public void createWine(Wine wine) {
         try {
             wineDao.createWine(wine);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot create wine", e);
         }
     }
@@ -31,8 +31,8 @@ public class WineServiceImpl implements WineService {
     @Override
     public void deleteWine(Wine wine) {
         try {
-        wineDao.deleteWine(wine);
-        } catch(Exception e) {
+            wineDao.deleteWine(wine);
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot delete wine", e);
         }
     }
@@ -41,7 +41,7 @@ public class WineServiceImpl implements WineService {
     public void updateWine(Wine wine) {
         try {
             wineDao.updateWine(wine);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot update wine", e);
         }
     }
@@ -50,7 +50,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findAllWines() {
         try {
             return wineDao.findAllWines();
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find all wines", e);
         }
     }
@@ -59,7 +59,7 @@ public class WineServiceImpl implements WineService {
     public Wine findWineById(Long id) {
         try {
             return wineDao.findWineById(id);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wine by id", e);
         }
     }
@@ -68,7 +68,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByName(String name) {
         try {
             return wineDao.findWinesByName(name);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by name", e);
         }
     }
@@ -77,7 +77,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByVintage(Year vintage) {
         try {
             return wineDao.findWinesByVintage(vintage);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by vintage", e);
         }
     }
@@ -86,7 +86,7 @@ public class WineServiceImpl implements WineService {
     public Wine findWineByBatch(String batch) {
         try {
             return wineDao.findWineByBatch(batch);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wine by batch", e);
         }
     }
@@ -95,7 +95,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByPredicate(String predicate) {
         try {
             return wineDao.findWinesByPredicate(predicate);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by predicate", e);
         }
     }
@@ -104,7 +104,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByPredicateEquivalent(String predicateEquivalent) {
         try {
             return wineDao.findWinesByPredicateEquivalent(predicateEquivalent);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by predicate equivalent", e);
         }
     }
@@ -113,7 +113,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByAlcoholVolume(BigDecimal minAlcoholVolume, BigDecimal maxAlcoholVolume) {
         try {
             return wineDao.findWinesByAlcoholVolume(minAlcoholVolume, maxAlcoholVolume);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by alcohol volume", e);
         }
     }
@@ -122,7 +122,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByResidualSugar(BigDecimal minResidualSugar, BigDecimal maxResidualSugar) {
         try {
             return wineDao.findWinesByResidualSugar(minResidualSugar, maxResidualSugar);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by residual sugar", e);
         }
     }
@@ -131,7 +131,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByAcidity(BigDecimal minAcidity, BigDecimal maxAcidity) {
         try {
             return wineDao.findWinesByAcidity(minAcidity, maxAcidity);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by acidity", e);
         }
     }
@@ -140,7 +140,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesByGrapeSugarContent(BigDecimal minGrapeSugarContent, BigDecimal maxGrapeSugarContent) {
         try {
             return wineDao.findWinesByGrapeSugarContent(minGrapeSugarContent, maxGrapeSugarContent);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines by grape sugar content", e);
         }
     }
@@ -149,7 +149,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> findWinesBetweenYears(Year from, Year to) {
         try {
             return wineDao.findWinesBetweenYears(from, to);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new WineCellarDataAccessException("Cannot find wines", e);
         }
     }

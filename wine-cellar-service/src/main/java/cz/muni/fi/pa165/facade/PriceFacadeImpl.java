@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.PriceCreateDto;
-import cz.muni.fi.pa165.dto.PriceDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.price.PriceCreateDto;
+import cz.muni.fi.pa165.dto.price.PriceDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Price;
@@ -108,7 +108,7 @@ public class PriceFacadeImpl implements PriceFacade {
         mappedPacking.setWine(wineService.findWineById(packingDto.getWine().getId()));
         List<PriceDto> priceDtos = new ArrayList<>();
 
-        for(Price price : priceService.findPricesByPacking(mappedPacking)){
+        for (Price price : priceService.findPricesByPacking(mappedPacking)) {
             priceDtos.add(beanMappingService.mapTo(price, PriceDto.class));
         }
         return priceDtos;
@@ -120,7 +120,7 @@ public class PriceFacadeImpl implements PriceFacade {
             throw new IllegalArgumentException("Price currency cannot be null");
         }
         List<PriceDto> priceDtos = new ArrayList<>();
-        for(Price price : priceService.findPricesByCurrency(currency)){
+        for (Price price : priceService.findPricesByCurrency(currency)) {
             priceDtos.add(beanMappingService.mapTo(price, PriceDto.class));
         }
         return priceDtos;
@@ -132,7 +132,7 @@ public class PriceFacadeImpl implements PriceFacade {
             throw new IllegalArgumentException("Price value cannot be null");
         }
         List<PriceDto> priceDtos = new ArrayList<>();
-        for(Price price : priceService.findPricesByPriceAttribute(value)){
+        for (Price price : priceService.findPricesByPriceAttribute(value)) {
             priceDtos.add(beanMappingService.mapTo(price, PriceDto.class));
         }
         return priceDtos;

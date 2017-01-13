@@ -13,15 +13,22 @@ import java.util.List;
 public interface WineListService {
 
     void createWineList(WineList wineList);
+
     void updateWineList(WineList wineList);
+
     void deleteWineList(WineList wineList);
 
     void addWine(WineList wineList, Wine wine);
+
     void removeWine(WineList wineList, Wine wine);
 
     List<WineList> findAllWineLists();
+
     WineList findWineListById(Long wineListId);
+
     List<WineList> findWineListByMarketingEvent(MarketingEvent marketingEvent);
+
     List<WineList> findWineListByName(String name);
+
     List<WineList> findWineListByDate(LocalDateTime date);
 }

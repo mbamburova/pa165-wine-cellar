@@ -1,10 +1,7 @@
 package cz.muni.fi.pa165.config;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import cz.muni.fi.pa165.dto.UserAuthDto;
-import cz.muni.fi.pa165.dto.UserDto;
+import cz.muni.fi.pa165.dto.user.UserAuthDto;
+import cz.muni.fi.pa165.dto.user.UserDto;
 import cz.muni.fi.pa165.exceptions.NotFoundException;
 import cz.muni.fi.pa165.facade.UserFacade;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,6 +11,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Silvia Borzová
