@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.wine;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -7,12 +7,9 @@ import java.math.BigDecimal;
 import java.time.Year;
 
 /**
- * @author Silvia Borzová
- *         13/11/2016
+ * @author Michaela Bamburová on 16.12.2016.
  */
-
-public class WineDto {
-    private Long id;
+public class WineCreateDto {
 
     @NotNull
     private String name;
@@ -46,14 +43,6 @@ public class WineDto {
     @Min(0)
     @Max(100)
     private BigDecimal grapeSugarContent;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -146,17 +135,16 @@ public class WineDto {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof WineDto)) return false;
+        if (!(o instanceof WineCreateDto)) return false;
 
-        WineDto wineDto = (WineDto) o;
+        WineCreateDto that = (WineCreateDto) o;
 
-        return getId() != null && getId().equals(wineDto.getId());
-
+        return getBatch().equals(that.getBatch());
     }
 
     @Override
     public int hashCode() {
-        return getId() != null ? getId().hashCode() : 0;
+        return getBatch().hashCode();
     }
 
     @Override

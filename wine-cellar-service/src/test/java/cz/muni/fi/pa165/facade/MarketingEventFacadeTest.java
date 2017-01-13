@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dto.MarketingEventDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.MarketingEventServiceImpl;
@@ -45,12 +45,12 @@ public class MarketingEventFacadeTest extends AbstractTestNGSpringContextTests {
     private ArgumentCaptor<MarketingEvent> marketingEventArgumentCaptor;
 
     @BeforeClass
-    public void setUpMock(){
+    public void setUpMock() {
         MockitoAnnotations.initMocks(this);
     }
 
     @BeforeMethod
-    public void init(){
+    public void init() {
         event1 = new MarketingEvent();
         event1.setDescription("event 1");
         event2 = new MarketingEvent();

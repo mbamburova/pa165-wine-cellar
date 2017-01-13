@@ -16,13 +16,20 @@ import java.util.List;
 public interface PriceService {
 
     void createPrice(Price p);
+
     void updatePrice(Price p);
+
     void deletePrice(Price p);
 
     Price findPriceById(Long id);
+
     List<Price> findAllPrices();
+
     List<Price> findPricesByCurrency(Currency currency);
+
     List<Price> findPricesByPriceAttribute(BigDecimal price);
+
     List<Price> findPricesByMarketingEvent(MarketingEvent event);
+
     List<Price> findPricesByPacking(Packing packing);
 }

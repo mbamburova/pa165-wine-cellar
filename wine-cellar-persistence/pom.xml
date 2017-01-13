@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wine-cellar-parent</artifactId>
@@ -83,14 +83,14 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>javax.el</groupId>-->
-            <!--<artifactId>javax.el-api</artifactId>-->
-            <!--<version>2.2.4</version>-->
+        <!--<groupId>javax.el</groupId>-->
+        <!--<artifactId>javax.el-api</artifactId>-->
+        <!--<version>2.2.4</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-           <scope>test</scope> <!--&lt;!&ndash; conflicts with tomcat libraries, needed only for tests anyway &ndash;&gt;-->
+            <scope>test</scope> <!--&lt;!&ndash; conflicts with tomcat libraries, needed only for tests anyway &ndash;&gt;-->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

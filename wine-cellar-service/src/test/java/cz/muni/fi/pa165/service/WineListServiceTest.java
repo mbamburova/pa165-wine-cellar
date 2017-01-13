@@ -65,54 +65,19 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
     private MarketingEventService marketingEventService;
 
     private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-                .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
-                .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-                .notes("20,0°ČNM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Veltlínske zelené").vintage(Year.of(2014)).batch("10/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.").notes("20,0°ČNM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-                .name("Muškát moravský")
-                .vintage(Year.of(2015))
-                .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
-                .notes("20,2°ČNM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Muškát moravský").vintage(Year.of(2015)).batch("1/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.").notes("20,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("0.7")).acidity(new BigDecimal("6.1")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder svatovavrinecke() {
-        return new WineBuilder()
-                .name("Svatovavřinecké")
-                .vintage(Year.of(2015))
-                .batch("6/15")
-                .predicate("pozdní sběr")
-                .predicateEquivalent("suché")
-                .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. " +
-                        "Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní," +
-                        " svěží kyselinky a příjemného třísla.")
-                .notes("30,2°ČNM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("6.2"))
-                .acidity(new BigDecimal("4.6"))
-                .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Svatovavřinecké").vintage(Year.of(2015)).batch("6/15").predicate("pozdní sběr").predicateEquivalent("suché").description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. " + "Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní," + " svěží kyselinky a příjemného třísla.").notes("30,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("6.2")).acidity(new BigDecimal("4.6")).grapeSugarContent(new BigDecimal("0"));
     }
 
     @BeforeClass
-    public void setUpMock(){
+    public void setUpMock() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -135,7 +100,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
         wines1.add(veltlinskeZelene);
         wines1.add(muskatMoravsky);
 
-        wineList1.setDate(LocalDateTime.of(2016,11,25,0,0));
+        wineList1.setDate(LocalDateTime.of(2016, 11, 25, 0, 0));
         wineList1.setName("anniversary");
         wineList1.setWines(wines1);
         wineList1.setMarketingEvent(marketingEvent);
@@ -145,7 +110,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
         wines2.add(muskatMoravsky);
         wines2.add(svatovavrinecke);
 
-        wineList2.setDate(LocalDateTime.of(2016,11,6,0,0));
+        wineList2.setDate(LocalDateTime.of(2016, 11, 6, 0, 0));
         wineList2.setName("birthday");
         wineList2.setWines(wines2);
     }
@@ -187,7 +152,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
         expectedWineLists.add(wineList2);
         when(wineListDao.findAllWineLists()).thenReturn(expectedWineLists);
         List<WineList> currentWineLists = wineListService.findAllWineLists();
-        for(int i = 0; i < expectedWineLists.size(); i++) {
+        for (int i = 0; i < expectedWineLists.size(); i++) {
             assertThat(currentWineLists.get(i)).isEqualToComparingFieldByField(expectedWineLists.get(i));
         }
         verify(wineListDao).findAllWineLists();
@@ -223,7 +188,7 @@ public class WineListServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findWineListByDate() {
-        wineListService.findWineListByDate(LocalDateTime.of(2016,11,6,0,0));
-        verify(wineListDao).findWineListsByDate(LocalDateTime.of(2016,11,6,0,0));
+        wineListService.findWineListByDate(LocalDateTime.of(2016, 11, 6, 0, 0));
+        verify(wineListDao).findWineListsByDate(LocalDateTime.of(2016, 11, 6, 0, 0));
     }
 }

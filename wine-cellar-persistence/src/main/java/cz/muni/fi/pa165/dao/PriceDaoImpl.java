@@ -6,10 +6,8 @@ import cz.muni.fi.pa165.entity.Price;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 
@@ -49,37 +47,29 @@ public class PriceDaoImpl implements PriceDao {
 
     @Override
     public List<Price> findPricesByPriceAttribute(BigDecimal price) {
-        if (price == null)
-            throw new IllegalArgumentException("Cannot search for null price");
+        if (price == null) throw new IllegalArgumentException("Cannot search for null price");
 
-        return entityManager.createQuery("select p from Price p where p.price = :price",
-                            Price.class).setParameter("price", price).getResultList();
+        return entityManager.createQuery("select p from Price p where p.price = :price", Price.class).setParameter("price", price).getResultList();
     }
 
     @Override
     public List<Price> findPricesByCurrency(Currency currency) {
-        if (currency == null)
-            throw new IllegalArgumentException("Cannot search for null currency");
+        if (currency == null) throw new IllegalArgumentException("Cannot search for null currency");
 
-        return entityManager.createQuery("select p from Price p where p.currency = :currency",
-                    Price.class).setParameter("currency", currency).getResultList();
+        return entityManager.createQuery("select p from Price p where p.currency = :currency", Price.class).setParameter("currency", currency).getResultList();
     }
 
     @Override
     public List<Price> findPricesByMarketingEvent(MarketingEvent marketingEvent) {
-        if (marketingEvent == null)
-            throw new IllegalArgumentException("Cannot search for null marketingEvent");
+        if (marketingEvent == null) throw new IllegalArgumentException("Cannot search for null marketingEvent");
 
-        return entityManager.createQuery("select p from Price p where p.marketingEvent = :marketingEvent",
-                    Price.class).setParameter("marketingEvent", marketingEvent).getResultList();
+        return entityManager.createQuery("select p from Price p where p.marketingEvent = :marketingEvent", Price.class).setParameter("marketingEvent", marketingEvent).getResultList();
     }
 
     @Override
     public List<Price> findPricesByPacking(Packing packing) {
-        if (packing == null)
-            throw new IllegalArgumentException("Cannot search for null marketingEvent");
+        if (packing == null) throw new IllegalArgumentException("Cannot search for null marketingEvent");
 
-        return entityManager.createQuery("select p from Price p where p.packing = :packing",
-                    Price.class).setParameter("packing", packing).getResultList();
+        return entityManager.createQuery("select p from Price p where p.packing = :packing", Price.class).setParameter("packing", packing).getResultList();
     }
 }

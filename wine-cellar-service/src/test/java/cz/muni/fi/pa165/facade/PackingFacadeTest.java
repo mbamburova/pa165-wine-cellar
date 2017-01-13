@@ -2,9 +2,9 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dto.PackingCreateDto;
-import cz.muni.fi.pa165.dto.PackingDto;
-import cz.muni.fi.pa165.dto.WineDto;
+import cz.muni.fi.pa165.dto.packing.PackingCreateDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import cz.muni.fi.pa165.entity.Packing;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.service.BeanMappingService;
@@ -63,40 +63,18 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
     private BeanMappingService beanMappingService;
 
     @BeforeClass
-    public void initMocks(){
+    public void initMocks() {
         MockitoAnnotations.initMocks(this);
     }
 
     private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-            .name("Veltlínske zelené")
-            .vintage(Year.of(2014))
-            .batch("10/14")
-            .predicate("kabinetní víno")
-            .predicateEquivalent("suché")
-            .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-            .notes("20,0°ČNM")
-            .alcoholVolume(new BigDecimal("10.94"))
-            .residualSugar(new BigDecimal("2.8"))
-            .acidity(new BigDecimal("7.5"))
-            .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Veltlínske zelené").vintage(Year.of(2014)).batch("10/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.").notes("20,0°ČNM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-            .name("Muškát moravský")
-            .vintage(Year.of(2015))
-            .batch("1/14")
-            .predicate("kabinetní víno")
-            .predicateEquivalent("suché")
-            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.")
-            .notes("20,2°ČNM")
-            .alcoholVolume(new BigDecimal("12"))
-            .residualSugar(new BigDecimal("0.7"))
-            .acidity(new BigDecimal("6.1"))
-            .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Muškát moravský").vintage(Year.of(2015)).batch("1/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka, díky níž je víno pikantní se suchým závěrem.").notes("20,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("0.7")).acidity(new BigDecimal("6.1")).grapeSugarContent(new BigDecimal("0"));
     }
-    
+
     @BeforeMethod
     public void setUp() {
 
@@ -106,8 +84,8 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         packing1 = new Packing();
         packing1.setId(10L);
         packing1.setVolume(new BigDecimal("0.7"));
-        packing1.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
-        packing1.setValidTo(LocalDateTime.of(2015,2,1,0,0));
+        packing1.setValidFrom(LocalDateTime.of(2014, 2, 1, 0, 0));
+        packing1.setValidTo(LocalDateTime.of(2015, 2, 1, 0, 0));
         packing1.setWine(veltlinskeZelene);
         packingDto1 = beanMappingService.mapTo(packing1, PackingDto.class);
         packingCreateDto1 = beanMappingService.mapTo(packing1, PackingCreateDto.class);
@@ -118,8 +96,8 @@ public class PackingFacadeTest extends AbstractTransactionalTestNGSpringContextT
         muskatMoravskyDto = beanMappingService.mapTo(muskatMoravsky, WineDto.class);
         packing2 = new Packing();
         packing2.setVolume(new BigDecimal("0.35"));
-        packing2.setValidFrom(LocalDateTime.of(2014,2,1,0,0));
-        packing2.setValidTo(LocalDateTime.of(2017,2,1,0,0));
+        packing2.setValidFrom(LocalDateTime.of(2014, 2, 1, 0, 0));
+        packing2.setValidTo(LocalDateTime.of(2017, 2, 1, 0, 0));
         packing2.setWine(muskatMoravsky);
         packingDto2 = beanMappingService.mapTo(packing2, PackingDto.class);
         packingCreateDto2 = beanMappingService.mapTo(packing2, PackingCreateDto.class);

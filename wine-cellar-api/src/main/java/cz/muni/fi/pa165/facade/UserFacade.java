@@ -1,9 +1,8 @@
 package cz.muni.fi.pa165.facade;
 
-import java.util.List;
-import cz.muni.fi.pa165.dto.UserAuthDto;
-import cz.muni.fi.pa165.dto.UserCreateDto;
-import cz.muni.fi.pa165.dto.UserDto;
+import cz.muni.fi.pa165.dto.user.UserAuthDto;
+import cz.muni.fi.pa165.dto.user.UserCreateDto;
+import cz.muni.fi.pa165.dto.user.UserDto;
 import cz.muni.fi.pa165.enums.UserRole;
 
 /**
@@ -13,9 +12,14 @@ import cz.muni.fi.pa165.enums.UserRole;
 public interface UserFacade {
 
     Long registerUser(UserCreateDto user, String unencryptedPassword);
+
     UserDto findUserById(Long id);
+
     UserDto findUserByEmail(String email);
+
     UserRole userRole(UserDto user);
+
     boolean authenticateUser(UserAuthDto user);
+
     boolean isAdmin(UserDto u);
 }

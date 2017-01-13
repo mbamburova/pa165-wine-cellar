@@ -1,12 +1,23 @@
 package cz.muni.fi.pa165.controller;
 
-import cz.muni.fi.pa165.dto.*;
-import cz.muni.fi.pa165.facade.*;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.price.PriceDto;
+import cz.muni.fi.pa165.dto.price.PricePackingDto;
+import cz.muni.fi.pa165.dto.wine.WineCreateDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
+import cz.muni.fi.pa165.dto.wineList.WineListDto;
+import cz.muni.fi.pa165.facade.PackingFacade;
+import cz.muni.fi.pa165.facade.PriceFacade;
+import cz.muni.fi.pa165.facade.WineFacade;
+import cz.muni.fi.pa165.facade.WineListFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -64,7 +75,7 @@ public class WineController {
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();
     }
 
-    @RequestMapping(value="add/{id}/{listId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add/{id}/{listId}", method = RequestMethod.GET)
     public String addToWineList(@PathVariable long id, @PathVariable long listId, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         WineDto wine = wineFacade.findWineById(id);
         WineListDto wineListDto = wineListFacade.findWineListById(listId);
@@ -91,11 +102,10 @@ public class WineController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("wineCreate") WineCreateDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String create(@Valid @ModelAttribute("wineCreate") WineCreateDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
 
         if (bindingResult.hasErrors()) {
-           for (FieldError fe : bindingResult.getFieldErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
             }
             model.addAttribute("vintageValues", vintageValues());
@@ -110,17 +120,16 @@ public class WineController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         WineDto wineDto = wineFacade.findWineById(id);
-        WineUpdateDto toUpdate = wineFacade.toWineUpdateDto(wineDto);
+        // WineUpdateDto toUpdate = wineFacade.toWineUpdateDto(wineDto);
 
         model.addAttribute("pricePackings", pricesOfWine(id));
         model.addAttribute("vintageValues", vintageValues());
-        model.addAttribute("wineUpdate", toUpdate);
+        model.addAttribute("wineUpdate", wineDto);
         return "wines/update";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("wineUpdate") WineUpdateDto formBean, BindingResult bindingResult,
-                         Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String update(@Valid @ModelAttribute("wineUpdate") WineDto formBean, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
@@ -154,8 +163,8 @@ public class WineController {
 
     private List<PricePackingDto> pricesOfWine(Long wineId) {
         List<PricePackingDto> pricePackingDtos = new ArrayList<>();
-        for (PackingDto packingDto : packingFacade.findPackingsByWine(wineFacade.findWineById(wineId))){
-            for (PriceDto priceDto : priceFacade.findPricesByPacking(packingDto)){
+        for (PackingDto packingDto : packingFacade.findPackingsByWine(wineFacade.findWineById(wineId))) {
+            for (PriceDto priceDto : priceFacade.findPricesByPacking(packingDto)) {
                 PricePackingDto pricePackingDto = new PricePackingDto();
                 pricePackingDto.setPackingDto(packingDto);
                 pricePackingDto.setPriceDto(priceDto);

@@ -105,10 +105,10 @@ public class WineListServiceImpl implements WineListService {
 
     @Override
     public List<WineList> findWineListByDate(LocalDateTime date) {
-         try {
-             return wineListDao.findWineListsByDate(date);
-         } catch (Exception e) {
-             throw new WineCellarDataAccessException("Cannot find wine list by date", e);
-         }
+        try {
+            return wineListDao.findWineListsByDate(date);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find wine list by date", e);
+        }
     }
 }

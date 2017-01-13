@@ -1,5 +1,7 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.wineList;
 
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;

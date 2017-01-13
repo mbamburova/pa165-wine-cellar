@@ -17,7 +17,7 @@
     <jsp:attribute name="scripts">
         <script>
             $(function () {
-                $("#datepicker").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepicker").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
     </jsp:attribute>
@@ -46,12 +46,13 @@
                 <form:label path="marketingEvent" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
                 <div class="col-sm-4">
                     <form:select path="marketingEvent.id" cssClass="form-control">
-                        <c:forEach items="${marketingEvents}" var="marketingEvent">
-                            <form:option value="${marketingEvent.id}">${marketingEvent.description}</form:option>
-                        </c:forEach>
+                        <form:option value=""><fmt:message key="nothingSelected"/></form:option>
+                            <c:forEach items="${marketingEvents}" var="marketingevent">
+                                <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
+                            </c:forEach>
                     </form:select>
                     <p class="help-block"><form:errors path="marketingEvent" cssClass="error"/></p>
-                    <br />
+                    <br/>
                     <p align="right">
                         <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
                         <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index"><fmt:message key="cancel"/></a>

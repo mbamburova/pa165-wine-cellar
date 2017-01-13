@@ -1,4 +1,6 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.price;
+
+import cz.muni.fi.pa165.dto.packing.PackingCreateDto;
 
 /**
  * @author Silvia Borzová

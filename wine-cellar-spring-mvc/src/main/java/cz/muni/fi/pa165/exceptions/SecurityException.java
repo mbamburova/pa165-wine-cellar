@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Silvia Borzová
  *         1/12/2017
  */
-@ResponseStatus(value= HttpStatus.FORBIDDEN)
+@ResponseStatus(value = HttpStatus.FORBIDDEN)
 public class SecurityException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public SecurityException() {}
+    public SecurityException() {
+    }
 
     public SecurityException(String message) {
         super(message);

@@ -18,7 +18,7 @@
     <!-- bootstrap loaded from content delivery network -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <jsp:invoke fragment="head"/>
 </head>
@@ -80,7 +80,7 @@
 
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">
-         <div class="alert alert-danger" role="alert"><c:out value="${alert_danger}"/></div>
+        <div class="alert alert-danger" role="alert"><c:out value="${alert_danger}"/></div>
     </c:if>
     <c:if test="${not empty alert_info}">
         <div class="alert alert-info" role="alert"><c:out value="${alert_info}"/></div>

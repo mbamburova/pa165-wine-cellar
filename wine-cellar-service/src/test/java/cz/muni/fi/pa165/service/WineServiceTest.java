@@ -41,57 +41,19 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     private Wine svatovavrinecke;
 
     private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-            .name("Veltlínske zelené")
-            .vintage(Year.of(2014))
-            .batch("10/14")
-            .predicate("kabinetní víno")
-            .predicateEquivalent("suché")
-            .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. " +
-                "Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-            .notes("20,0°ČNM")
-            .alcoholVolume(new BigDecimal("10.94"))
-            .residualSugar(new BigDecimal("2.8"))
-            .acidity(new BigDecimal("7.5"))
-            .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Veltlínske zelené").vintage(Year.of(2014)).batch("10/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře. " + "Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.").notes("20,0°ČNM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-            .name("Muškát moravský")
-            .vintage(Year.of(2015))
-            .batch("1/14")
-            .predicate("kabinetní víno")
-            .predicateEquivalent("suché")
-            .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." +
-                " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
-                " díky níž je víno pikantní se suchým závěrem.")
-            .notes("20,2°ČNM")
-            .alcoholVolume(new BigDecimal("12"))
-            .residualSugar(new BigDecimal("0.7"))
-            .acidity(new BigDecimal("6.1"))
-            .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Muškát moravský").vintage(Year.of(2015)).batch("1/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku." + " V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," + " díky níž je víno pikantní se suchým závěrem.").notes("20,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("0.7")).acidity(new BigDecimal("6.1")).grapeSugarContent(new BigDecimal("0"));
     }
 
     private WineBuilder svatovavrinecke() {
-        return new WineBuilder()
-            .name("Svatovavřinecké")
-            .vintage(Year.of(2015))
-            .batch("6/15")
-            .predicate("pozdní sběr")
-            .predicateEquivalent("suché")
-            .description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. " +
-                "Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní," +
-                " svěží kyselinky a příjemného třísla.")
-            .notes("30,2°ČNM")
-            .alcoholVolume(new BigDecimal("12"))
-            .residualSugar(new BigDecimal("6.2"))
-            .acidity(new BigDecimal("4.6"))
-            .grapeSugarContent(new BigDecimal("0"));
+        return new WineBuilder().name("Svatovavřinecké").vintage(Year.of(2015)).batch("6/15").predicate("pozdní sběr").predicateEquivalent("suché").description("Jiskrné víno rubínových odstínů barvy. Kořenitá vůně višní a třešňové kůry. " + "Zabalená v nádechu kouře z dubového dřeva. Chuť charakterní pevná, v níž se snoubí tóny višní," + " svěží kyselinky a příjemného třísla.").notes("30,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("6.2")).acidity(new BigDecimal("4.6")).grapeSugarContent(new BigDecimal("0"));
     }
 
     @BeforeClass
-    public void setUpMock(){
+    public void setUpMock() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -111,9 +73,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNullName() {
         veltlinskeZelene.setName(null);
-        doThrow(new WineCellarDataAccessException("Cannot create wine with null name."))
-            .when(wineDao)
-            .createWine(veltlinskeZelene);
+        doThrow(new WineCellarDataAccessException("Cannot create wine with null name.")).when(wineDao).createWine(veltlinskeZelene);
 
         wineService.createWine(veltlinskeZelene);
     }
@@ -121,9 +81,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNullBatch() {
         svatovavrinecke.setBatch(null);
-        doThrow(new WineCellarDataAccessException("Cannot create wine with null batch"))
-            .when(wineDao)
-            .createWine(svatovavrinecke);
+        doThrow(new WineCellarDataAccessException("Cannot create wine with null batch")).when(wineDao).createWine(svatovavrinecke);
 
         wineService.createWine(svatovavrinecke);
     }
@@ -131,9 +89,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNegativeAlcoholVolume() {
         veltlinskeZelene.setAlcoholVolume(new BigDecimal("-0.6"));
-        doThrow(new WineCellarDataAccessException("Cannot create wine with negative alcohol volume"))
-            .when(wineDao)
-            .createWine(veltlinskeZelene);
+        doThrow(new WineCellarDataAccessException("Cannot create wine with negative alcohol volume")).when(wineDao).createWine(veltlinskeZelene);
 
         wineService.createWine(veltlinskeZelene);
     }
@@ -141,9 +97,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNegativeResidualSugar() {
         muskatMoravsky.setResidualSugar(new BigDecimal("-0.1"));
-        doThrow(new WineCellarDataAccessException("Cannot create wine with negative residual sugar"))
-            .when(wineDao)
-            .createWine(muskatMoravsky);
+        doThrow(new WineCellarDataAccessException("Cannot create wine with negative residual sugar")).when(wineDao).createWine(muskatMoravsky);
 
         wineService.createWine(muskatMoravsky);
     }
@@ -151,9 +105,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNegativeAcidity() {
         svatovavrinecke.setAcidity(new BigDecimal("-0.1"));
-        doThrow(new WineCellarDataAccessException("Cannot create wine with negative acidity."))
-            .when(wineDao)
-            .createWine(svatovavrinecke);
+        doThrow(new WineCellarDataAccessException("Cannot create wine with negative acidity.")).when(wineDao).createWine(svatovavrinecke);
 
         wineService.createWine(svatovavrinecke);
     }
@@ -161,9 +113,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testCreateWineWithNegativeGrapeSugarContent() {
         veltlinskeZelene.setGrapeSugarContent(new BigDecimal("-0.7"));
-        doThrow(new WineCellarDataAccessException("Cannot create wine with negative grape sugar content."))
-            .when(wineDao)
-            .createWine(veltlinskeZelene);
+        doThrow(new WineCellarDataAccessException("Cannot create wine with negative grape sugar content.")).when(wineDao).createWine(veltlinskeZelene);
 
         wineService.createWine(veltlinskeZelene);
     }
@@ -177,9 +127,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testUpdateWineWithNullName() {
         veltlinskeZelene.setName(null);
-        doThrow(new WineCellarDataAccessException("Cannot update wine with null name."))
-            .when(wineDao)
-            .updateWine(veltlinskeZelene);
+        doThrow(new WineCellarDataAccessException("Cannot update wine with null name.")).when(wineDao).updateWine(veltlinskeZelene);
 
         wineService.updateWine(veltlinskeZelene);
     }
@@ -187,9 +135,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testUpdateWineWithNullBatch() {
         svatovavrinecke.setBatch(null);
-        doThrow(new WineCellarDataAccessException("Cannot update wine with null batch"))
-            .when(wineDao)
-            .updateWine(svatovavrinecke);
+        doThrow(new WineCellarDataAccessException("Cannot update wine with null batch")).when(wineDao).updateWine(svatovavrinecke);
 
         wineService.updateWine(svatovavrinecke);
     }
@@ -197,9 +143,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testUpdateWineWithNegativeAlcoholVolume() {
         veltlinskeZelene.setAlcoholVolume(new BigDecimal("-0.6"));
-        doThrow(new WineCellarDataAccessException("Cannot update wine with negative alcohol volume"))
-            .when(wineDao)
-            .updateWine(veltlinskeZelene);
+        doThrow(new WineCellarDataAccessException("Cannot update wine with negative alcohol volume")).when(wineDao).updateWine(veltlinskeZelene);
 
         wineService.updateWine(veltlinskeZelene);
     }
@@ -207,9 +151,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testUpdateWineWithNegativeResidualSugar() {
         muskatMoravsky.setResidualSugar(new BigDecimal("-0.1"));
-        doThrow(new WineCellarDataAccessException("Cannot update wine with negative residual sugar"))
-            .when(wineDao)
-            .updateWine(muskatMoravsky);
+        doThrow(new WineCellarDataAccessException("Cannot update wine with negative residual sugar")).when(wineDao).updateWine(muskatMoravsky);
 
         wineService.updateWine(muskatMoravsky);
     }
@@ -217,9 +159,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testUpdateWineWithNegativeAcidity() {
         svatovavrinecke.setAcidity(new BigDecimal("-0.1"));
-        doThrow(new WineCellarDataAccessException("Cannot update wine with negative acidity."))
-            .when(wineDao)
-            .updateWine(svatovavrinecke);
+        doThrow(new WineCellarDataAccessException("Cannot update wine with negative acidity.")).when(wineDao).updateWine(svatovavrinecke);
 
         wineService.updateWine(svatovavrinecke);
     }
@@ -227,20 +167,16 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = WineCellarDataAccessException.class)
     public void testUpdateWineWithNegativeGrapeSugarContent() {
         veltlinskeZelene.setGrapeSugarContent(new BigDecimal("-0.7"));
-        doThrow(new WineCellarDataAccessException("Cannot update wine with negative grape sugar content."))
-            .when(wineDao)
-            .updateWine(veltlinskeZelene);
+        doThrow(new WineCellarDataAccessException("Cannot update wine with negative grape sugar content.")).when(wineDao).updateWine(veltlinskeZelene);
 
         wineService.updateWine(veltlinskeZelene);
     }
 
     @Test
     public void testFindWineById() {
-        when(wineDao.findWineById(veltlinskeZelene.getId()))
-            .thenReturn(veltlinskeZelene);
+        when(wineDao.findWineById(veltlinskeZelene.getId())).thenReturn(veltlinskeZelene);
 
-        assertThat(wineService.findWineById(veltlinskeZelene.getId()))
-            .isEqualToComparingFieldByField(veltlinskeZelene);
+        assertThat(wineService.findWineById(veltlinskeZelene.getId())).isEqualToComparingFieldByField(veltlinskeZelene);
 
         verify(wineDao).findWineById(veltlinskeZelene.getId());
     }
@@ -248,8 +184,7 @@ public class WineServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindWineByNonExistingId() {
-        when(wineDao.findWineById(-1L))
-            .thenReturn(null);
+        when(wineDao.findWineById(-1L)).thenReturn(null);
 
         assertThat(wineService.findWineById(-1L)).isNull();
 

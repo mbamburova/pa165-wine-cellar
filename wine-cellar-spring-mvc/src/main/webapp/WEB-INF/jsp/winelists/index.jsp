@@ -24,7 +24,7 @@
        <c:choose>
            <c:when test="${empty winelists}">
                <h5><em>There are no tasting tickets.</em></h5>
-               <br />
+               <br/>
            </c:when>
            <c:otherwise>
                <table class="table table-hover">
@@ -33,12 +33,12 @@
                        <th class="text-left"><fmt:message key="number"/></th>
                        <th class="text-left"><fmt:message key="winelist.name"/></th>
                        <th class="text-left"><fmt:message key="winelist.date"/></th>
-                       <th class="text-left"><fmt:message key="winelist.marketingevent"/></th>
                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                       <th class="text-left"><fmt:message key="winelist.marketingevent"/></th>
                        <th class="text-left"><fmt:message key="edit"/></th>
                        <th class="text-left"><fmt:message key="remove"/></th>
                        </sec:authorize>
-                       <th class="text-left"><fmt:message key="wineList.viewWines"/></th>
+                       <th class="text-center"><fmt:message key="wineList.viewWines"/></th>
                    </tr>
                    </thead>
                    <tbody>
@@ -48,9 +48,8 @@
                         <td class="col-xs-3 text-left">${count}.</td>
                         <td class="col-xs-3 text-left"><c:out value="${winelist.name}"/></td>
                         <td class="col-xs-3 text-left"><javatime:format value="${winelist.date}" pattern="dd.MM.yyyy"/></td>
-                        <td class="col-xs-3 text-left"><c:out value="${winelist.marketingEvent.description}"/></td>
-
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <td class="col-xs-3 text-left"><c:out value="${winelist.marketingEvent.description}"/></td>
                         <form:form method="get" action="${pageContext.request.contextPath}/winelists/update/${winelist.id}" cssClass="form-horizontal">
                                 <td class="col-xs-1 text-left">
                                     <button class="btn btn-default" type="submit">
@@ -70,7 +69,7 @@
                         </form:form>
                         </sec:authorize>
                         <form:form method="get" action="${pageContext.request.contextPath}/winelists/view/${winelist.id}" cssClass="form-horizontal">
-                            <td class="col-xs-1 text-left">
+                            <td class="col-xs-1 text-center">
                                 <button class="btn btn-default" type="submit">
                                     <span class="sr-only"><fmt:message key="wineList.viewWines"/></span>
                                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

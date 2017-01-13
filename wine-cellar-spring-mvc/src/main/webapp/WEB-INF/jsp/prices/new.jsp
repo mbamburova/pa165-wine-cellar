@@ -17,12 +17,12 @@
     <jsp:attribute name="scripts">
         <script>
             $(function () {
-                $("#datepickerFrom").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepickerFrom").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
         <script>
             $(function () {
-                $("#datepickerTo").datepicker({ format: 'MM/dd/yyyy' }).val();
+                $("#datepickerTo").datepicker({format: 'MM/dd/yyyy'}).val();
             });
         </script>
     </jsp:attribute>
@@ -74,15 +74,15 @@
                     <form:label path="priceDto.marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
                     <div class="col-sm-4">
                     <form:select path="priceDto.marketingEventId" cssClass="form-control">
+                        <form:option value=""><fmt:message key="nothingSelected"/></form:option>
                         <c:forEach items="${marketingevents}" var="marketingevent">
                             <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
                         </c:forEach>
                     </form:select>
-                    <p class="help-block"><form:errors path="priceDto.marketingEventId" cssClass="error"/></p>
-                        <br />
+                        <p class="help-block"><form:errors path="priceDto.marketingEventId" cssClass="error"/></p>
+                        <br/>
                         <p align="right">
                             <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
-                            <%--<a class="btn btn-default" href="${pageContext.request.contextPath}/wines/update"><fmt:message key="cancel"/></a>--%>
                         </p>
                     </div>
                 </div>

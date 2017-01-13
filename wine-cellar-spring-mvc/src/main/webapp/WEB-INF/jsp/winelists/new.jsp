@@ -11,18 +11,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time"  %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
 <my:template title="Create new tasting ticket">
 <jsp:attribute name="scripts">
     <script>
         $(function () {
-            $("#datepicker").datepicker({ format: 'MM/dd/yyyy' }).val();
+            $("#datepicker").datepicker({format: 'MM/dd/yyyy'}).val();
         });
     </script>
 </jsp:attribute>
 
-<jsp:attribute name="body">
+    <jsp:attribute name="body">
 
     <form:form method="post" action="${pageContext.request.contextPath}/winelists/create"
                modelAttribute="wineListCreate" cssClass="form-horizontal">
@@ -46,10 +46,14 @@
         <div class="col-md-12 com-md-offset-2 form-group ">
             <form:label path="marketingEventId" cssClass="col-sm-2 control-label"><fmt:message key="marketingevent"/></form:label>
             <div class="col-sm-4">
-                <form:select path="marketingEventId" cssClass="form-control" items="${marketingEvents}"
-                             itemLabel="description" itemValue="id" />
+                <form:select path="marketingEventId" cssClass="form-control">
+                        <form:option value=""><fmt:message key="nothingSelected"/></form:option>
+                        <c:forEach items="${marketingEvents}" var="marketingevent">
+                            <form:option value="${marketingevent.id}">${marketingevent.description}</form:option>
+                        </c:forEach>
+                </form:select>
                 <p class="help-block"><form:errors path="marketingEventId" cssClass="error"/></p>
-                <br />
+                <br/>
                 <p align="right">
                     <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
                     <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index"><fmt:message key="cancel"/></a>

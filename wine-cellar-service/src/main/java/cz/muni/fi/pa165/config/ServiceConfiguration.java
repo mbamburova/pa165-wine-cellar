@@ -1,6 +1,12 @@
 package cz.muni.fi.pa165.config;
 
-import cz.muni.fi.pa165.dto.*;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.packing.PackingCreateDto;
+import cz.muni.fi.pa165.dto.packing.PackingDto;
+import cz.muni.fi.pa165.dto.price.PriceCreateDto;
+import cz.muni.fi.pa165.dto.price.PriceDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
+import cz.muni.fi.pa165.dto.wineList.WineListDto;
 import cz.muni.fi.pa165.entity.*;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -20,7 +26,7 @@ import org.springframework.context.annotation.Import;
 public class ServiceConfiguration {
 
     @Bean
-    public Mapper dozer(){
+    public Mapper dozer() {
         DozerBeanMapper dozer = new DozerBeanMapper();
         dozer.addMapping(new DozerCustomConfig());
         return dozer;

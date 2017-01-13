@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.facade;
 
-import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.dto.WineListCreateDto;
-import cz.muni.fi.pa165.dto.WineListDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
+import cz.muni.fi.pa165.dto.wineList.WineListCreateDto;
+import cz.muni.fi.pa165.dto.wineList.WineListDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,16 +14,22 @@ import java.util.List;
 public interface WineListFacade {
 
     Long createWineList(WineListCreateDto wineList);
+
     void deleteWineList(Long wineListId);
+
     void updateWineList(WineListDto wineList);
 
     List<WineListDto> findAllWineLists();
+
     WineListDto findWineListById(Long id);
 
     List<WineListDto> findWineListsByName(String name);
+
     List<WineListDto> findWineListsByDate(LocalDateTime date);
+
     List<WineListDto> findWineListsByMarketingEvent(MarketingEventDto marketingEventDto);
 
     void addWine(WineListDto wineListDto, WineDto wineDto);
+
     void removeWine(WineListDto wineListDto, WineDto wineDto);
 }

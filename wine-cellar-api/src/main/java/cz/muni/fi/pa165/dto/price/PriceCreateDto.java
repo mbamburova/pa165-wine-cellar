@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.dto;
+package cz.muni.fi.pa165.dto.price;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;

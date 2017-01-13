@@ -16,13 +16,16 @@ public interface PackingService {
     void createPacking(Packing packing);
 
     Packing findPackingById(Long id);
+
     List<Packing> findAllPackings();
+
     List<Packing> findPackingsByVolume(BigDecimal volume);
+
     List<Packing> findPackingsByWine(Wine wine);
 
     void updatePacking(Packing packing);
 
     void deletePacking(Packing packing);
 
-   // boolean isPackingValid(Packing packing);
+    // boolean isPackingValid(Packing packing);
 }

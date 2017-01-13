@@ -49,7 +49,6 @@
                         <div class="col-sm-offset-10">
                             <button class="btn btn-primary" type="submit"><fmt:message key="login"/></button>
                         </div>
-                        </p>
                     </div>
                 </div>
             </form:form>
@@ -58,12 +57,12 @@
     </div>
 
     <hr/>
-    <br />
+    <br/>
     <div class="col-md-12 com-md-offset-2">
         <h3>Admin</h3>
         <p>Login: admin@wines.com</p>
         <p>Password: admin123</p>
-    <br/>
+        <br/>
         <h3>User</h3>
         <p>Login: user@wines.com</p>
         <p>Password: user123</p>

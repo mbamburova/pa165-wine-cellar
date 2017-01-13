@@ -27,7 +27,7 @@ public class WineBuilder {
         this.name = name;
         return this;
     }
-    
+
     public WineBuilder vintage(Year vintage) {
         this.vintage = vintage;
         return this;

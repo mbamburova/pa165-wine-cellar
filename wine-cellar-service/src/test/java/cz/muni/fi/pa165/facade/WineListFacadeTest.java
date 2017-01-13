@@ -2,10 +2,10 @@ package cz.muni.fi.pa165.facade;
 
 import cz.muni.fi.pa165.WineBuilder;
 import cz.muni.fi.pa165.config.ServiceConfiguration;
-import cz.muni.fi.pa165.dto.MarketingEventDto;
-import cz.muni.fi.pa165.dto.WineDto;
-import cz.muni.fi.pa165.dto.WineListCreateDto;
-import cz.muni.fi.pa165.dto.WineListDto;
+import cz.muni.fi.pa165.dto.marketingEvent.MarketingEventDto;
+import cz.muni.fi.pa165.dto.wine.WineDto;
+import cz.muni.fi.pa165.dto.wineList.WineListCreateDto;
+import cz.muni.fi.pa165.dto.wineList.WineListDto;
 import cz.muni.fi.pa165.entity.MarketingEvent;
 import cz.muni.fi.pa165.entity.Wine;
 import cz.muni.fi.pa165.entity.WineList;
@@ -51,67 +51,35 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
     private WineDto muskatMoravskyDto;
     private MarketingEvent marketingEvent1;
     private MarketingEventDto marketingEventDto1;
-
-    private WineBuilder veltlinskeZelene() {
-        return new WineBuilder()
-                .name("Veltlínske zelené")
-                .vintage(Year.of(2014))
-                .batch("10/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře." +
-                    " Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.")
-                .notes("20,0°ČNM")
-                .alcoholVolume(new BigDecimal("10.94"))
-                .residualSugar(new BigDecimal("2.8"))
-                .acidity(new BigDecimal("7.5"))
-                .grapeSugarContent(new BigDecimal("0"));
-    }
-
-    private WineBuilder muskatMoravsky() {
-        return new WineBuilder()
-                .name("Muškát moravský")
-                .vintage(Year.of(2015))
-                .batch("1/14")
-                .predicate("kabinetní víno")
-                .predicateEquivalent("suché")
-                .description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. " +
-                    "V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," +
-                    " díky níž je víno pikantní se suchým závěrem.")
-                .notes("20,2°ČNM")
-                .alcoholVolume(new BigDecimal("12"))
-                .residualSugar(new BigDecimal("0.7"))
-                .acidity(new BigDecimal("6.1"))
-                .grapeSugarContent(new BigDecimal("0"));
-    }
-
-
     @Mock
     private WineListServiceImpl wineListService;
-
     @Mock
     private WineServiceImpl wineService;
-
     @Mock
     private MarketingEventServiceImpl marketingEventService;
-
     @InjectMocks
     private WineListFacadeImpl wineListFacade;
-
     @Captor
     private ArgumentCaptor<WineList> wineListArgumentCaptor;
-
     @Spy
     @Inject
     private BeanMappingService beanMappingService;
 
+    private WineBuilder veltlinskeZelene() {
+        return new WineBuilder().name("Veltlínske zelené").vintage(Year.of(2014)).batch("10/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Elegantní, svěží víno s lehkou aromatikou angreštu a zeleného pepře." + " Chuťový vjem je tvořen pikantní kyselinkou a kořenito-ovocnými tóny.").notes("20,0°ČNM").alcoholVolume(new BigDecimal("10.94")).residualSugar(new BigDecimal("2.8")).acidity(new BigDecimal("7.5")).grapeSugarContent(new BigDecimal("0"));
+    }
+
+    private WineBuilder muskatMoravsky() {
+        return new WineBuilder().name("Muškát moravský").vintage(Year.of(2015)).batch("1/14").predicate("kabinetní víno").predicateEquivalent("suché").description("Víno zlatavé barvy s ovocnou vůní citrusových plodů a muškátového oříšku. " + "V chuti nabízí ovocné tóny grapefruitu a zralého citrónu. Ovocnou chuť provází příjemná kyselinka," + " díky níž je víno pikantní se suchým závěrem.").notes("20,2°ČNM").alcoholVolume(new BigDecimal("12")).residualSugar(new BigDecimal("0.7")).acidity(new BigDecimal("6.1")).grapeSugarContent(new BigDecimal("0"));
+    }
+
     @BeforeClass
-    public void initMocks(){
+    public void initMocks() {
         MockitoAnnotations.initMocks(this);
     }
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp() {
 
         veltlinskeZelene = veltlinskeZelene().build();
         veltlinskeZelene.setId(1L);
@@ -130,7 +98,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
         wineList1.setId(1L);
         wineList1.setName("wine list 1");
         wineList1.setWines(Arrays.asList(veltlinskeZelene, muskatMoravsky));
-        wineList1.setDate(LocalDateTime.of(2016,11,25,0,0));
+        wineList1.setDate(LocalDateTime.of(2016, 11, 25, 0, 0));
         wineList1.setMarketingEvent(marketingEvent1);
 
         wineListCreateDto1 = new WineListCreateDto();
@@ -147,7 +115,7 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
         wineList2.setId(2L);
         wineList2.setName("wine list 2");
         wineList2.setWines(Arrays.asList(muskatMoravsky));
-        wineList2.setDate(LocalDateTime.of(2016,10,25,0,0));
+        wineList2.setDate(LocalDateTime.of(2016, 10, 25, 0, 0));
         wineList2.setMarketingEvent(marketingEvent1);
 
         wineListCreateDto2 = new WineListCreateDto();
@@ -192,19 +160,19 @@ public class WineListFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findByName(){
+    public void findByName() {
         when(wineListService.findWineListByName("wine list 1")).thenReturn(Collections.singletonList(wineList1));
         assertEquals(wineListFacade.findWineListsByName("wine list 1").size(), 1);
     }
 
     @Test
-    public void findByDate(){
-        when(wineListService.findWineListByDate(LocalDateTime.of(2016,11,25,0,0))).thenReturn(Collections.singletonList(wineList1));
-        assertEquals(wineListFacade.findWineListsByDate(LocalDateTime.of(2016,11,25,0,0)).size(), 1);
+    public void findByDate() {
+        when(wineListService.findWineListByDate(LocalDateTime.of(2016, 11, 25, 0, 0))).thenReturn(Collections.singletonList(wineList1));
+        assertEquals(wineListFacade.findWineListsByDate(LocalDateTime.of(2016, 11, 25, 0, 0)).size(), 1);
     }
 
     @Test
-    public void findByMarketingEvent(){
+    public void findByMarketingEvent() {
         when(wineListService.findWineListByMarketingEvent(marketingEvent1)).thenReturn(Collections.singletonList(wineList1));
         assertEquals(wineListFacade.findWineListsByMarketingEvent(marketingEventDto1).size(), 1);
     }

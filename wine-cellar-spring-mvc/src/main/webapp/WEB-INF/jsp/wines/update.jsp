@@ -17,41 +17,38 @@
     <jsp:attribute name="body">
         <div class="row">
             <div class="col-sm-6">
-                <br />
+                <br/>
                 <form:form method="post" action="${pageContext.request.contextPath}/wines/update/${wineUpdate.id}"
                            modelAttribute="wineUpdate" cssClass="form-horizontal">
 
                      <div class="col-md-12 com-md-offset-2 form-group ${name_error?'has-error':''}">
                          <form:label path="name" cssClass="col-sm-4 control-label">Name</form:label>
                          <div class="col-sm-8">
-                             <form:input path="name" cssClass="form-control" required="true" />
+                             <form:input path="name" cssClass="form-control" required="true"/>
                              <form:errors path="name" cssClass="help-block"/>
                          </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${vintage_error?'has-error':''}">
                          <form:label path="vintage" cssClass="col-sm-4 control-label">Vintage</form:label>
                          <div class="col-sm-8">
-                             <form:select class="form-control" path="vintage" >
-                                 <c:forEach items="${vintageValues}" var="year" >
-                                    <option><c:out value="${year}" /></option>
-                                 </c:forEach>
-                             </form:select>
-                        <form:errors path="vintage" cssClass="help-block"/>
+                             <form:input path="vintage" cssClass="form-control" required="true"/>
+                             <form:errors path="vintage" cssClass="help-block"/>
+                             <form:errors path="vintage" cssClass="help-block"/>
                          </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${batch_error?'has-error':''}">
-                        <form:label path="batch" cssClass="col-sm-4 control-label">Batch</form:label>
-                        <div class="col-sm-8">
-                            <form:input path="batch" cssClass="form-control" required="true" />
-                            <form:errors path="batch" cssClass="help-block"/>
-                        </div>
+                         <form:label path="batch" cssClass="col-sm-4 control-label">Batch</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="batch" cssClass="form-control" required="true"/>
+                             <form:errors path="batch" cssClass="help-block"/>
+                         </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${predicate_error?'has-error':''}">
-                        <form:label path="predicate" cssClass="col-sm-4 control-label">Predicate</form:label>
-                        <div class="col-sm-8">
-                            <form:input path="predicate" cssClass="form-control"/>
-                            <form:errors path="predicate" cssClass="help-block"/>
-                        </div>
+                         <form:label path="predicate" cssClass="col-sm-4 control-label">Predicate</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="predicate" cssClass="form-control"/>
+                             <form:errors path="predicate" cssClass="help-block"/>
+                         </div>
                      </div>
                         <div class="col-md-12 com-md-offset-2 form-group ${predicateEquivalent_error?'has-error':''}">
                             <form:label path="predicateEquivalent" cssClass="col-sm-4 control-label">PredicateEquivalent</form:label>
@@ -59,50 +56,50 @@
                                 <form:input path="predicateEquivalent" cssClass="form-control"/>
                                 <form:errors path="predicateEquivalent" cssClass="help-block"/>
                             </div>
-                     </div>
+                        </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${description_error?'has-error':''}">
-                            <form:label path="description" cssClass="col-sm-4 control-label">Description</form:label>
-                            <div class="col-sm-8">
-                                <form:textarea cols="80" rows="4" path="description" cssClass="form-control"/>
-                                <form:errors path="description" cssClass="help-block"/>
-                            </div>
+                         <form:label path="description" cssClass="col-sm-4 control-label">Description</form:label>
+                         <div class="col-sm-8">
+                             <form:textarea cols="80" rows="4" path="description" cssClass="form-control"/>
+                             <form:errors path="description" cssClass="help-block"/>
+                         </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${notes_error?'has-error':''}">
-                            <form:label path="notes" cssClass="col-sm-4 control-label">Notes</form:label>
-                            <div class="col-sm-8">
-                                <form:input cols="80" path="notes" cssClass="form-control"/>
-                                <form:errors path="notes" cssClass="help-block"/>
-                            </div>
+                         <form:label path="notes" cssClass="col-sm-4 control-label">Notes</form:label>
+                         <div class="col-sm-8">
+                             <form:input cols="80" path="notes" cssClass="form-control"/>
+                             <form:errors path="notes" cssClass="help-block"/>
+                         </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${alcoholVolume_error?'has-error':''}">
-                            <form:label path="alcoholVolume" cssClass="col-sm-4 control-label">AlcoholVolume</form:label>
-                            <div class="col-sm-8">
-                                <form:input path="alcoholVolume" cssClass="form-control"/>
-                                <form:errors path="alcoholVolume" cssClass="help-block"/>
-                            </div>
+                         <form:label path="alcoholVolume" cssClass="col-sm-4 control-label">AlcoholVolume</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="alcoholVolume" cssClass="form-control"/>
+                             <form:errors path="alcoholVolume" cssClass="help-block"/>
+                         </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${residualSugar_error?'has-error':''}">
-                            <form:label path="residualSugar" cssClass="col-sm-4 control-label">ResidualSugar</form:label>
-                            <div class="col-sm-8">
-                                <form:input path="residualSugar" cssClass="form-control"/>
-                                <form:errors path="residualSugar" cssClass="help-block"/>
-                            </div>
+                         <form:label path="residualSugar" cssClass="col-sm-4 control-label">ResidualSugar</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="residualSugar" cssClass="form-control"/>
+                             <form:errors path="residualSugar" cssClass="help-block"/>
+                         </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${acidity_error?'has-error':''}">
-                            <form:label path="acidity" cssClass="col-sm-4 control-label">Acidity</form:label>
-                            <div class="col-sm-8">
-                                <form:input path="acidity" cssClass="form-control"/>
-                                <form:errors path="acidity" cssClass="help-block"/>
-                            </div>
+                         <form:label path="acidity" cssClass="col-sm-4 control-label">Acidity</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="acidity" cssClass="form-control"/>
+                             <form:errors path="acidity" cssClass="help-block"/>
+                         </div>
                      </div>
                      <div class="col-md-12 com-md-offset-2 form-group ${grapeSugarContent_error?'has-error':''}">
-                            <form:label path="grapeSugarContent" cssClass="col-sm-4 control-label">GrapeSugarContent</form:label>
-                            <div class="col-sm-8">
-                                <form:input path="grapeSugarContent" cssClass="form-control"/>
-                                <form:errors path="grapeSugarContent" cssClass="help-block"/>
-                                <br />
-                            </div>
-                         <br />
+                         <form:label path="grapeSugarContent" cssClass="col-sm-4 control-label">GrapeSugarContent</form:label>
+                         <div class="col-sm-8">
+                             <form:input path="grapeSugarContent" cssClass="form-control"/>
+                             <form:errors path="grapeSugarContent" cssClass="help-block"/>
+                             <br/>
+                         </div>
+                         <br/>
                          <p align="right">
                              <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
                              <a class="btn btn-default" href="${pageContext.request.contextPath}/wines/index"><fmt:message key="cancel"/></a>
@@ -132,7 +129,7 @@
                 <c:choose>
                     <c:when test="${empty pricePackings}">
                         <h5><em>The price for this wine hasn't been assinged yet</em></h5>
-                        <br />
+                        <br/>
                     </c:when>
                     <c:otherwise>
                         <table class="table table-hover col-md-3">

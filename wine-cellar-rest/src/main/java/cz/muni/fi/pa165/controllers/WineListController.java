@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.controllers;
 
-import cz.muni.fi.pa165.dto.WineListCreateDto;
-import cz.muni.fi.pa165.dto.WineListDto;
+import cz.muni.fi.pa165.dto.wineList.WineListCreateDto;
+import cz.muni.fi.pa165.dto.wineList.WineListDto;
 import cz.muni.fi.pa165.exceptions.ResourceAlreadyExistingException;
 import cz.muni.fi.pa165.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.exceptions.ResourceNotModifiedException;
@@ -42,8 +42,7 @@ public class WineListController {
         }
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final WineListDto createWineList(@RequestBody WineListCreateDto wineList) throws Exception {
         try {
             Long id = wineListFacade.createWineList(wineList);
@@ -53,14 +52,13 @@ public class WineListController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final WineListDto updateWineList(@PathVariable("id") long id, @RequestBody WineListDto editedWineList) throws Exception {
 
         try {
             editedWineList.setId(id);
             wineListFacade.updateWineList(editedWineList);
-        } catch(Exception ex){
+        } catch (Exception ex) {
             throw new ResourceNotModifiedException();
         }
 

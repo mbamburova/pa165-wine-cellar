@@ -6,7 +6,7 @@ import java.time.Year;
 
 /**
  * @author Michaela Bamburová on 14.12.2016.
-**/
+ **/
 @Converter(autoApply = true)
 public class YearConverter implements AttributeConverter<Year, Integer> {
 

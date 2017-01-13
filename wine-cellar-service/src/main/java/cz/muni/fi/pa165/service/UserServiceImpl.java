@@ -1,16 +1,16 @@
 package cz.muni.fi.pa165.service;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.List;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.inject.Inject;
 import cz.muni.fi.pa165.dao.UserDao;
 import cz.muni.fi.pa165.entity.User;
 import cz.muni.fi.pa165.enums.UserRole;
 import cz.muni.fi.pa165.exception.WineCellarDataAccessException;
 import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.inject.Inject;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 /**
  * @author Silvia Borzová
@@ -21,79 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Inject
     private UserDao userDao;
-
-    @Override
-    public void registerUser(User user, String unencryptedPassword) {
-        if (user == null) {
-            throw new IllegalArgumentException("User can not be null");
-        }
-        if (unencryptedPassword == null || unencryptedPassword.isEmpty()){
-            throw new IllegalArgumentException("Password can not be null or empty");
-        }
-        user.setPasswordHash(createHash(unencryptedPassword));
-        try {
-            userDao.createUser(user);
-        } catch (Exception e) {
-            throw new WineCellarDataAccessException("Cannot create user", e);
-        }
-    }
-
-
-    @Override
-    public User findUserById(Long id) {
-        if (id == null){
-            throw new IllegalArgumentException("UserID can not be null");
-        }
-        try {
-            return userDao.findUserById(id);
-        }catch (Exception e){
-            throw new WineCellarDataAccessException("Cannot find user by id", e);
-        }
-    }
-
-    @Override
-    public User findUserByEmail(String email) {
-        if (email == null){
-            throw new IllegalArgumentException("User email can not be null");
-        }
-        try {
-            return userDao.findUserByEmail(email);
-        }catch (Exception e){
-            throw new WineCellarDataAccessException("Cannot find user by email", e);
-        }
-    }
-
-    @Override
-    public UserRole userRole(User user) {
-        if (user == null){
-            throw new IllegalArgumentException("User can not be null");
-        }
-        try {
-            return user.getUserRole();
-        }catch (Exception e){
-            throw new WineCellarDataAccessException("Cannot get user role", e);
-        }
-    }
-
-    @Override
-    public boolean authenticateUser(User user, String unencryptedPassword) {
-        if (user == null) {
-            throw new IllegalArgumentException("User can not be null");
-        }
-        if (unencryptedPassword == null || unencryptedPassword.isEmpty()){
-            throw new IllegalArgumentException("Password can not be null or empty");
-        }
-        return validatePassword(unencryptedPassword, user.getPasswordHash());
-    }
-
-    @Override
-    public boolean isAdmin(User user) {
-        if (user == null){
-            throw new IllegalArgumentException("User can not be null");
-        }
-        return findUserById(user.getId()).isAdmin();
-
-    }
 
     //see  https://crackstation.net/hashing-security.htm#javasourcecode
     private static String createHash(String password) {
@@ -120,8 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public static boolean validatePassword(String password, String correctHash) {
-        if(password==null) return false;
-        if(correctHash==null) throw new IllegalArgumentException("password hash is null");
+        if (password == null) return false;
+        if (correctHash == null) throw new IllegalArgumentException("password hash is null");
         String[] params = correctHash.split(":");
         int iterations = Integer.parseInt(params[0]);
         byte[] salt = fromHex(params[1]);
@@ -159,6 +86,78 @@ public class UserServiceImpl implements UserService {
         String hex = bi.toString(16);
         int paddingLength = (array.length * 2) - hex.length();
         return paddingLength > 0 ? String.format("%0" + paddingLength + "d", 0) + hex : hex;
+    }
+
+    @Override
+    public void registerUser(User user, String unencryptedPassword) {
+        if (user == null) {
+            throw new IllegalArgumentException("User can not be null");
+        }
+        if (unencryptedPassword == null || unencryptedPassword.isEmpty()) {
+            throw new IllegalArgumentException("Password can not be null or empty");
+        }
+        user.setPasswordHash(createHash(unencryptedPassword));
+        try {
+            userDao.createUser(user);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot create user", e);
+        }
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("UserID can not be null");
+        }
+        try {
+            return userDao.findUserById(id);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find user by id", e);
+        }
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("User email can not be null");
+        }
+        try {
+            return userDao.findUserByEmail(email);
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot find user by email", e);
+        }
+    }
+
+    @Override
+    public UserRole userRole(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User can not be null");
+        }
+        try {
+            return user.getUserRole();
+        } catch (Exception e) {
+            throw new WineCellarDataAccessException("Cannot get user role", e);
+        }
+    }
+
+    @Override
+    public boolean authenticateUser(User user, String unencryptedPassword) {
+        if (user == null) {
+            throw new IllegalArgumentException("User can not be null");
+        }
+        if (unencryptedPassword == null || unencryptedPassword.isEmpty()) {
+            throw new IllegalArgumentException("Password can not be null or empty");
+        }
+        return validatePassword(unencryptedPassword, user.getPasswordHash());
+    }
+
+    @Override
+    public boolean isAdmin(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User can not be null");
+        }
+        return findUserById(user.getId()).isAdmin();
+
     }
 
 }
