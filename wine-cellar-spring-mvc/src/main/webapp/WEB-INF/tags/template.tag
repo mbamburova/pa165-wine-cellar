@@ -33,6 +33,7 @@
             </a>
                 <img style="height:auto; width: 20%; margin-top: 6px;" src="<c:url value="/favicon.ico"/>">
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
                 <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
@@ -48,10 +49,18 @@
                     <li><a href="${pageContext.request.contextPath}/"><span class="glyphicon glyphicon-log-in"></span><f:message key="login"/></a></li>
                 </sec:authorize>
             </ul>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+
+    <!-- page title -->
+    <c:if test="${not empty title}">
+        <div class="page-header">
+            <h1><c:out value="${title}"/></h1>
+        </div>
+    </c:if>
 
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">

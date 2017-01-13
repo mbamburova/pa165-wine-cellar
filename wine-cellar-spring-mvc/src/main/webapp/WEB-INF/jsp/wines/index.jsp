@@ -18,7 +18,15 @@
     <jsp:attribute name="body">
 
         <div class="jumbotron" style="background-color: #822B2B; color: #EEDBE9">
-            <h1><fmt:message key="Wines"/></h1>
+            <div class="row">
+                <div class="col-sm-2" style="margin-right: 2%">
+                    <h1><fmt:message key="Wines"/></h1>
+                </div>
+                <div class="col-sm-6">
+                    <br/>
+                    <img src="<c:url value="/images/wine.png" />"/>
+                </div>
+            </div>
             <fmt:message key="nameHolder" var="wineHolder"/>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <p align="right">
