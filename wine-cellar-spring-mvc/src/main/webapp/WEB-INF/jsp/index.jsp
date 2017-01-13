@@ -9,9 +9,18 @@
 <my:template>
 <jsp:attribute name="body">
 
-    <div class="jumbotron">
-        <h1>Welcome to Wine Cellar!</h1>
-        <p class="lead">It's high time to get drunk from wine!</p>
+    <div class="jumbotron" style="background-color: #D74E67;">
+        <div class="row">
+            <div class="col-sm-9">
+                <br/>
+                <br/>
+                <h1>Welcome to Wine Cellar!</h1>
+                <p class="lead">It's high time to get drunk from wine!</p>
+            </div>
+            <div class="col-sm-3">
+                <img src="<c:url value="/images/grape.png" />"/>
+            </div>
+        </div>
     </div>
 
     <div>

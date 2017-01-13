@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <jsp:invoke fragment="head"/>
 </head>
-<body>
+<body style="background-color: #EEDBE9">
 <!-- navigation bar -->
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
@@ -33,7 +33,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <div>
+                <img src="<c:url value="/favicon.ico" />" style="height:10%; width:10%"/>
             <a class="navbar-brand" href="${pageContext.request.contextPath}/"><f:message key="navigation.project"/></a>
+            </div>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
