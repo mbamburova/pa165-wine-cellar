@@ -27,7 +27,9 @@
                    modelAttribute="wineListUpdate" cssClass="form-horizontal">
 
             <div class="col-md-12 com-md-offset-2 form-group ${name_error?'has-error':''}">
-                <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
+                <form:label path="name" cssClass="col-sm-2 control-label">
+                    <fmt:message key="winelist.name"/>*
+                </form:label>
                 <div class="col-sm-4">
                     <form:input path="name" cssClass="form-control" required="true"/>
                     <form:errors path="name" cssClass="help-block"/>
@@ -35,7 +37,9 @@
             </div>
 
             <div class="col-md-12 com-md-offset-2 form-group ${date_error?'has-error':''}">
-                <form:label path="date" cssClass="col-sm-2 control-label">Date</form:label>
+                <form:label path="date" cssClass="col-sm-2 control-label">
+                    <fmt:message key="winelist.date"/>*
+                </form:label>
                 <div class="col-sm-4">
                     <form:input path="date" id="datepicker" cssClass="form-control" required="true"/>
                     <form:errors path="date" cssClass="help-block"/>
@@ -43,7 +47,9 @@
             </div>
 
             <div class="col-md-12 com-md-offset-2 form-group">
-                <form:label path="marketingEvent" cssClass="col-sm-2 control-label">MarketingEvent</form:label>
+                <form:label path="marketingEvent" cssClass="col-sm-2 control-label">
+                    <fmt:message key="marketingevent"/>
+                </form:label>
                 <div class="col-sm-4">
                     <form:select path="marketingEvent.id" cssClass="form-control">
                         <form:option value=""><fmt:message key="nothingSelected"/></form:option>
@@ -54,8 +60,10 @@
                     <p class="help-block"><form:errors path="marketingEvent" cssClass="error"/></p>
                     <br/>
                     <p align="right">
-                        <button class="btn btn-primary" type="submit"><fmt:message key="create"/></button>
-                        <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index"><fmt:message key="cancel"/></a>
+                        <button class="btn btn-primary" type="submit"><fmt:message key="update"/></button>
+                        <a class="btn btn-default" href="${pageContext.request.contextPath}/winelists/index">
+                            <fmt:message key="cancel"/>
+                        </a>
                     </p>
                 </div>
             </div>

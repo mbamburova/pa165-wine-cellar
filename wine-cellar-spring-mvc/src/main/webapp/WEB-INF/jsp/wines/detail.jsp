@@ -71,7 +71,7 @@
        <c:choose>
            <c:when test="${empty pricePackings}">
                <div>
-                   <h4>The price for this wine hasn't been assinged yet.</h4>
+                   <h4><fmt:message key="noPrices"/></h4>
                    <>
                    <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new/${wineUpdate.id}" role="button">
                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
