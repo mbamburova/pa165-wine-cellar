@@ -9,7 +9,7 @@
 <my:template>
 <jsp:attribute name="body">
 
-    <div class="jumbotron" style="background-color: #D74E67;">
+    <div class="jumbotron" style="background-color: #822B2B ; color: #EEDBE9">
         <div class="row">
             <div class="col-sm-9">
                 <br/>

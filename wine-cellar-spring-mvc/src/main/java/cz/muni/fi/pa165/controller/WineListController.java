@@ -94,6 +94,7 @@ public class WineListController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable long id, Model model) {
         WineListDto wineListDto = wineListFacade.findWineListById(id);
+
         model.addAttribute("wineListUpdate", wineListDto);
         return "winelists/update";
     }

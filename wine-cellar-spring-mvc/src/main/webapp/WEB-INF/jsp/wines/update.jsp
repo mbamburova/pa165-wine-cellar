@@ -139,7 +139,7 @@
                 <h3><fmt:message key="priceList"/>
                     <div>
                         <br/>
-                        <a class="btn btn-primary btn-success btn-jumbotron" href="${pageContext.request.contextPath}/prices/new/${wineUpdate.id}" role="button">
+                        <a class="btn btn-primary btn-primary btn-jumbotron" href="${pageContext.request.contextPath}/prices/new/${wineUpdate.id}" role="button">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <fmt:message key="createPricePacking"/>
                         </a>

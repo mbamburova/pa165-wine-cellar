@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 
 <!DOCTYPE html>
 <html lang="${pageContext.request.locale}">
@@ -22,7 +23,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <jsp:invoke fragment="head"/>
 </head>
-<body style="background-color: #EEDBE9">
+<body style="background-color: #EEE4CD">
 <!-- navigation bar -->
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
@@ -32,6 +33,7 @@
             </a>
                 <img style="height:auto; width: 20%; margin-top: 6px;" src="<c:url value="/favicon.ico"/>">
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/wines/index"><f:message key="navigation.completeoffer"/></my:a></li>
                 <li><my:a href="/winelists/index"><f:message key="navigation.tastingticket"/></my:a></li>
@@ -47,10 +49,18 @@
                     <li><a href="${pageContext.request.contextPath}/"><span class="glyphicon glyphicon-log-in"></span><f:message key="login"/></a></li>
                 </sec:authorize>
             </ul>
+        </div>
     </div>
 </nav>
 
 <div class="container">
+
+    <!-- page title -->
+    <c:if test="${not empty title}">
+        <div class="page-header">
+            <h1><c:out value="${title}"/></h1>
+        </div>
+    </c:if>
 
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">
