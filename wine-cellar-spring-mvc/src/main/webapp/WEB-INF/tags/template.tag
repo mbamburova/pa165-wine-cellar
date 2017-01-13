@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 
 <!DOCTYPE html>
 <html lang="${pageContext.request.locale}">
@@ -22,7 +23,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <jsp:invoke fragment="head"/>
 </head>
-<body style="background-color: #EEDBE9">
+<body style="background-color: #EEE4CD">
 <!-- navigation bar -->
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">

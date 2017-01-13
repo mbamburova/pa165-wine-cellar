@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.config;
 
 import cz.muni.fi.pa165.WineCellarSampleDataConfig;
 import cz.muni.fi.pa165.converters.DateConverter;
+import cz.muni.fi.pa165.converters.FromDateConverter;
 import cz.muni.fi.pa165.converters.ToYearConverter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -64,5 +65,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new DateConverter());
         registry.addConverter(new ToYearConverter());
+        registry.addConverter(new FromDateConverter());
     }
 }

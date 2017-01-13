@@ -17,7 +17,7 @@
 <my:template>
     <jsp:attribute name="body">
 
-        <div class="jumbotron" style="background-color: #D74E67;">
+        <div class="jumbotron" style="background-color: #822B2B; color: #EEDBE9">
             <h1><fmt:message key="Wines"/></h1>
             <fmt:message key="nameHolder" var="wineHolder"/>
             <sec:authorize access="hasRole('ROLE_ADMIN')">

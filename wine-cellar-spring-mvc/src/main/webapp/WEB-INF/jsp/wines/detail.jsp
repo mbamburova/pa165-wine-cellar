@@ -16,12 +16,12 @@
 
 <my:template>
    <jsp:attribute name="body">
-       <div class="jumbotron">
+       <div class="jumbotron" style="background-color: #822B2B; color: #EEDBE9">
            <h2><c:out value="${wine.name}"/></h2>
            <h4><c:out value="${wine.vintage}"/></h4>
            <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <p align="right">
-                    <a class="btn btn-lg btn-success btn-jumbotron" href="${pageContext.request.contextPath}/wines/update/${wine.id}" role="button">
+                    <a class="btn btn-lg btn-primary btn-jumbotron" href="${pageContext.request.contextPath}/wines/update/${wine.id}" role="button">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         <fmt:message key="edit_wine"/>
                     </a>
