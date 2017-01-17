@@ -33,7 +33,7 @@ public class Packing {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime validTo;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private Wine wine;
 
     public Packing() {

@@ -64,7 +64,7 @@ public class MarketingEventController {
             redirectAttributes.addFlashAttribute("alert_info", "Marketing event \"" + marketingEventDto.getDescription() + "\" was deleted.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("alert_danger", "Marketing event \"" + marketingEventDto.getDescription() +
-                "\" is included in some tasting ticket!");
+                "\" is included in some tasting ticket or some error occured!");
         }
         return "redirect:" + uriBuilder.path("/marketingevents/index").toUriString();
     }

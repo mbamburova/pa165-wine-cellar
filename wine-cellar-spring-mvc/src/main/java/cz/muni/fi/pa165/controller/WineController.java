@@ -68,7 +68,7 @@ public class WineController {
             wineFacade.deleteWine(id);
             redirectAttributes.addFlashAttribute("alert_success", "Wine \"" + wineDto.getName() + "\" was deleted.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("alert_danger", "Wine \"" + wineDto.getName() + "\" is in tasting " +
+            redirectAttributes.addFlashAttribute("alert_danger", "Wine \"" + wineDto.getName() + "\" is in tasting or some error occured" +
                 "tickets!");
         }
         return "redirect:" + uriBuilder.path("/wines/index").toUriString();

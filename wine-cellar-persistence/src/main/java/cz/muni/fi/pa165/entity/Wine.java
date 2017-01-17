@@ -51,7 +51,7 @@ public class Wine {
     @DecimalMin("0.0")
     private BigDecimal grapeSugarContent;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "wines")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "wines")
     private List<WineList> wineLists = new ArrayList<>();
 
     public Wine(Long id) {
